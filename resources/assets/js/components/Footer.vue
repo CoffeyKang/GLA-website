@@ -1,0 +1,98 @@
+<template>
+	<div class="gla-footer">
+		<div class="gla-footer-details">
+			<div>
+				<ul>
+					<router-link to='/' tag='li' class='footer-title' exact><a>Customer Service</a></router-link>
+					<router-link to='/allProducts' tag='li' ><a>All Products</a></router-link>
+					<router-link to='/catalog' tag='li' ><a>Catalog</a></router-link>
+					<router-link to='/classicBody' tag='li' ><a>Classic Body</a></router-link>
+					<router-link to='/dealers' tag='li' ><a>Dealers Area</a></router-link>
+					<router-link to='/contact' tag='li' ><a>Contact</a></router-link>
+					<router-link to='/special' tag='li' ><a>Special</a></router-link>
+
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li class='footer-title'>My Account</li>
+					<li>Login / Register</li>
+					<li>My Account</li>
+					<li>Dealers Login</li>
+					<li>Parts Inquiries</li>
+
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li class='footer-title'>Shopping Policies</li>
+					<li>Pricing Policy</li>
+					<li>Return Policy</li>
+					<li>Shipping and Delivery</li>
+					<li>Warranty and Damage</li>
+
+				</ul>
+			</div>
+			<div class='payment'>
+				<div>
+				<img src="images/horizontal_solution_PPeCheck.gif" alt="payment_logo">
+				</div>
+				<div class='copyright'>
+					&copy; 2017 Golden Leaf Automotive. All rights reserved.
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	
+</script>
+
+<style scoped>
+	@media screen and (min-width: 768px) {
+		.gla-footer{
+			background-color: black;
+			color: white;
+		}
+		li{
+			list-style: none;
+			padding: 8px 0;
+			font-size: 18px;
+		}	
+		.footer-title{
+			font-size: 22px;
+			font-weight: bold;
+		}
+		.gla-footer-details{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			flex-wrap:wrap;
+			padding: 50px 150px;
+		}
+		.payment{
+			padding-top: 100px;
+			padding-left: 50px;
+			display: flex;
+			flex-direction: column;
+		}
+		.copyright{
+			padding-top: 50px;
+			font-size: 18px;
+		}
+		a{
+			color:white;
+			text-decoration: none;
+		}
+		a:hover{
+			color:white;
+		}	
+	}
+
+	@media screen and (max-width: 768px) {
+		/*mobile footer empty now*/
+	}
+
+	
+</style>
