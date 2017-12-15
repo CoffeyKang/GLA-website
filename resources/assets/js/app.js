@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+// elements-ui
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 /**
  * import vue-router
  */
 Vue.use(VueRouter);
+Vue.use(ElementUI);
 
 import { routes } from './router.js';
 

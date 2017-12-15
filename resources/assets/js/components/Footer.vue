@@ -50,6 +50,15 @@
 </script>
 
 <style scoped>
+	@media screen and (min-width: 1200px){
+		.gla-footer{
+			display: flex;
+			justify-content: center;
+		}
+		.gla-footer-details{
+			width:1200px;
+		}
+	}
 	@media screen and (min-width: 768px) {
 		.gla-footer{
 			background-color: black;
@@ -57,8 +66,8 @@
 		}
 		li{
 			list-style: none;
-			padding: 8px 0;
-			font-size: 18px;
+			padding: 5px 0;
+			font-size: 14px;
 		}	
 		.footer-title{
 			font-size: 22px;
@@ -67,19 +76,18 @@
 		.gla-footer-details{
 			display: flex;
 			flex-direction: row;
-			justify-content: space-between;
-			flex-wrap:wrap;
-			padding: 50px 150px;
+			justify-content:space-between; 
+			flex-wrap:nowrap ;
+			padding: 30px 10px;
 		}
 		.payment{
 			padding-top: 100px;
-			padding-left: 50px;
 			display: flex;
 			flex-direction: column;
 		}
 		.copyright{
-			padding-top: 50px;
-			font-size: 18px;
+			padding-top: 20px;
+			font-size: 14px;
 		}
 		a{
 			color:white;

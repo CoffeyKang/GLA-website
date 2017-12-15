@@ -3,7 +3,7 @@
 		<div class='container-fuild'>
             <app-header></app-header>
         </div>
-        <div class='container'>
+        <div class='container-fuild' id='body'>
             <router-view></router-view>
         </div>
         <div class='container-fuild'>
@@ -35,6 +35,8 @@
 	}
 </script>
 
-<style>
-	
+<style scoped>
+	#body{
+		min-height: 700px;
+	}
 </style>
