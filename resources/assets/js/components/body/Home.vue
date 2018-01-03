@@ -116,9 +116,9 @@
     }
     
     
-    @media screen and (min-width: 1300px) {
+    @media screen and (min-width: 1140px) {
         .images_change, .searchBar, .advertisements, .feature , .popular{
-            width:1200px;
+            width:1140px;
             margin: auto;
         }
 

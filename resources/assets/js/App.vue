@@ -13,7 +13,6 @@
 </template>
 
 <script>
-	
 	/**
 	 * components header and footer
 	 */
