@@ -1,7 +1,7 @@
 <template>
 	<div class='item-panel'>
 		<div class="img">	
-			<img src="/images/img.jpg" alt="img">
+			<img src="/images/products/thumb/104.jpg" alt="img">
 		</div>
 		<div class="words">
 			
@@ -40,14 +40,17 @@
 		border-left: 1px solid gray;
 		border-top: none;
 		border-bottom: 1px dotted gray;
-		width:222px;
+		width:270px;
 		margin-bottom: 5px;
-		margin-left: 5px;
+		margin-left: 10px;
 
 	}
-	
+	.img{
+		padding:20px;
+	}
 	img{
 		width:100%;
+
 	}
 	.words{
 		display: flex;
