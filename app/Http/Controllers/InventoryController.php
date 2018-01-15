@@ -81,4 +81,38 @@ class InventoryController extends Controller
     {
         //
     }
+    /**
+     * display products_list
+     * @param  make $data [description]
+     * @return [type]       [description]
+     */
+    public function product_list($make){
+        
+        $product_list = Inventory::where('make',$make)->select(['item','onhand','descrip','price','price2','price3','price4'])->take(50)->get()->toArray() ;
+
+        $paths = [];
+        $i = 0;
+        foreach ($product_list as $item) {
+            
+            // $item['path'] = "/images/products/thumb/".$item['item'].".jpg";
+            $img_src ="/images/products/thumb/".$item['item'].".jpg";
+            
+            $paths[$i] = $img_src;
+            // $paths[$i] =  file_exists ( $img_src )? "/images/products/thumb/".$item['item'].".jpg" :"default";
+            
+            $i++;
+        }
+       
+
+        $lists = array_map(null, $product_list,$paths);
+
+        
+
+        
+
+
+
+
+        return $lists;
+    }
 }

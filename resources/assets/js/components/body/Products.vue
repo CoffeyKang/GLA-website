@@ -1,7 +1,10 @@
 <template>
 	<div class='container' id='car_makes'>
 		<div class='car_make' v-for='make in makes'>
-			<div >
+			<router-link :to="{
+				name:'Pruduct_list', 
+				query:{ make: make.make }
+				}">
 				<div class="car_img" v-if='make.path!="default"'>
 					<img :src="make.path" alt="123">
 				</div>
@@ -13,7 +16,8 @@
 				<div class="car_make_name text-center">
 					<h3>{{ make.make.toUpperCase() }}</h3>
 				</div>
-			</div>
+
+			</router-link>
 			
 		</div>
 
