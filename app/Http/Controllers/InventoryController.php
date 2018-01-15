@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inventory;
+use DB;
+
+use App\Inventory_img;
 class InventoryController extends Controller
 {
     /**
@@ -87,32 +90,22 @@ class InventoryController extends Controller
      * @return [type]       [description]
      */
     public function product_list($make){
-        
-        $product_list = Inventory::where('make',$make)->select(['item','onhand','descrip','price','price2','price3','price4'])->take(50)->get()->toArray() ;
+        $product_list = Inventory::select('item','onhand')->take(10)->get();
 
-        $paths = [];
-        $i = 0;
+        dd($product_list->toArray());
+        
+        $product_list = Inventory::
+        join('inventory_img','inventory.item','inventory_img.item')->
+        select(['inventory.item','inventory.onhand','inventory.descrip','inventory.price','inventory.price2','inventory.price3','inventory.price4','inventory_img.img_path'])->where('make',$make)->take(50)->get()->toArray() ;
+        
         foreach ($product_list as $item) {
+            /**
+             * will check if the img exsits or not
+             * if not exits
+             * a default img will display
+             */
             
-            // $item['path'] = "/images/products/thumb/".$item['item'].".jpg";
-            $img_src ="/images/products/thumb/".$item['item'].".jpg";
-            
-            $paths[$i] = $img_src;
-            // $paths[$i] =  file_exists ( $img_src )? "/images/products/thumb/".$item['item'].".jpg" :"default";
-            
-            $i++;
         }
-       
-
-        $lists = array_map(null, $product_list,$paths);
-
-        
-
-        
-
-
-
-
-        return $lists;
+        return $product_list;
     }
 }

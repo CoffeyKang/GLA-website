@@ -8,16 +8,17 @@
 		
 		<div class='car_make' v-for='item in lists'>
 			<div class='item'>
-				<div class="car_img" :style="{ backgroundImage: 'url(' + item[1] + ')' }">
+				<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
 				</div>
 
 				<div class="car_make_name text-center">
-					<h5>{{ item[0].item.toUpperCase() }}</h5>
+					<h5>{{ item.item.toUpperCase() }}</h5>
 				</div>
 
 			</div>
 			
 		</div>
+		
 
 		
 			
@@ -46,7 +47,7 @@
 			this.$http.get('/api/product_list/'+ this.make).then(response => {
 			    // get body data
 			    this.lists = response.body;
-			    
+			    console.log(this.lists);
 			    console.log(this.lists.length);
 			  }, response => {
 			  	// error 

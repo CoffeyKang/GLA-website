@@ -63817,6 +63817,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -63832,7 +63833,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.$http.get('/api/product_list/' + this.make).then(function (response) {
 			// get body data
 			_this.lists = response.body;
-
+			console.log(_this.lists);
 			console.log(_this.lists.length);
 		}, function (response) {
 			// error 
@@ -63864,11 +63865,11 @@ var render = function() {
           _c("div", { staticClass: "item" }, [
             _c("div", {
               staticClass: "car_img",
-              style: { backgroundImage: "url(" + item[1] + ")" }
+              style: { backgroundImage: "url(" + item.img_path + ")" }
             }),
             _vm._v(" "),
             _c("div", { staticClass: "car_make_name text-center" }, [
-              _c("h5", [_vm._v(_vm._s(item[0].item.toUpperCase()))])
+              _c("h5", [_vm._v(_vm._s(item.item.toUpperCase()))])
             ])
           ])
         ])

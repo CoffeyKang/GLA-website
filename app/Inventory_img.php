@@ -4,18 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class Inventory_img extends Model
 {
-    protected $table='inventory';
-    
+    protected $table = 'inventory_img';
     public $timestamps = false;
-
     /**
      * realationship with inventory 
      * one to one ralationship
      * @return [type] [description]
      */
-    public function itemImg(){
-    	return $this->hasOne('App\Inventory_img','item');
+    public function itemDtails(){
+    	return $this->hasOne('App\Inventory','item');
     }
 }
