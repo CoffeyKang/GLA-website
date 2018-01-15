@@ -17,13 +17,14 @@
 			
 		</div>
 		<div class='add_details'>
-			<a href='#'>
-				Add To Cart <span class='glyphicon glyphicon-shopping-cart'></span>
+			<button class="btn btn-primary">
+				Details
+			</button>
+			<a href='#' class='add_to_cart'>
+				Add To Cart 
 			</a>
 			
-			<a href='#'>
-				Details <span class='glyphicon glyphicon-play'></span>
-			</a>	
+				
 			
 			
 		</div>
@@ -36,17 +37,16 @@
 
 <style scoped>
 	.item-panel{
-		border-right: 1px solid gray;
-		border-left: 1px solid gray;
+		
 		border-top: none;
 		border-bottom: 1px dotted gray;
-		width:270px;
-		margin-bottom: 5px;
-		margin-left: 10px;
+		width:220px;
+		margin-bottom: 15px;
+		margin-right: 7px;
 
 	}
 	.img{
-		padding:20px;
+		padding:40px;
 	}
 	img{
 		width:100%;
@@ -75,6 +75,15 @@
 		display: flex;
 		justify-content: space-between;
 		padding: 10px;
+	}
+
+	button{
+		width:100px;
+	}
+
+	.add_to_cart{
+		display: flex;
+		align-items: flex-end;
 	}
 	
 

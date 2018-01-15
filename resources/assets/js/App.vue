@@ -9,6 +9,7 @@
         <div class='container-fuild'>
             <app-footer></app-footer>
         </div>
+        
 	</div>
 </template>
 
