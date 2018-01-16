@@ -21,3 +21,7 @@ Route::get('/inventory', 'InventoryController@index');
 Route::get('/makes','MakeController@index');
 
 Route::get('/product_list/{make}/{myCurrentPage}','InventoryController@product_list');
+
+Route::get('/item/{item}','InventoryController@singleItem');
+
+Route::get('/related/{item}','InventoryController@related');

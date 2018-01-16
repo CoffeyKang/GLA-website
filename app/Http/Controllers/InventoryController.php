@@ -107,4 +107,27 @@ class InventoryController extends Controller
         // }
         return $product_list;
     }
+
+    /**
+     * get a single item with img path
+     * @param  [type] $item [description]
+     * @return [type]       [description]
+     */
+    public function singleItem($item){
+        $singleItem = Inventory::where('item',$item)->first();
+        $singleItem->img_path = Inventory_img::where('item',$item)->first()->img_path;
+        $single = $singleItem->toArray();
+        return $singleItem;
+    }
+
+    public function related($item){
+        $make = Inventory::where('item',$item)->first()->make;
+        $related = Inventory::where('item','!=',$item)->where('make',$make)->inRandomOrder()->take(4)->get();
+        
+        foreach ($related as $r) {
+            $r->img_path = Inventory_img::where('item',$r->item)->first()->img_path;
+        }
+
+        return $related;
+    }
 }

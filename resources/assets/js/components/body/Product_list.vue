@@ -7,28 +7,36 @@
 	<div class='container' id='car_makes'>
 		
 		<div class='car_make' v-for='item in lists'>
-			<div class='item'>
-				<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
-				</div>
+			<router-link :to="{
+				name:'ItemDetails',
+				params:{id:item.item}
+			}">
+				<div class='item'>
+					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
+					</div>
 
-				<div class="car_make_name text-center">
-					<h5>{{ item.item.toUpperCase() }}</h5>
-				</div>
+					<div class="car_make_name text-center">
+						<h5>{{ item.item.toUpperCase() }}</h5>
+					</div>
 
-			</div>
+				</div>
+			</router-link>
 			
 		</div>
 		<div class="container">
 			
 		
 			<div class="container paginate_btn" >
-				<button class="btn btn-default" @click='prePage()' v-if="data.current_page!=1">
+				
+				<!-- pre page -->
+				<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
 					Previous Page
 				</button>
-			
+				<!-- next page -->
 				<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
 					Next Page
 				</button>
+				
 			</div>
 		</div>
 		
@@ -96,9 +104,7 @@
 			}
 		},
 		watch:{
-			page:function(){
-				console.log(this.page)
-			}
+			
 		}
 	}
 </script>
@@ -144,7 +150,7 @@
 	}
 	.paginate_btn{
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 	}
 	
 </style>
