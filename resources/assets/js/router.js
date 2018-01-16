@@ -6,7 +6,7 @@ import Products from './components/body/Products.vue'
 import Ccbd from './components/body/Ccbd.vue'
 import Product_list from './components/body/Product_list.vue'
 export const routes =[
-	{path:'/',component:Home},
+	{path:'/',component:Home,name:'home'},
 	{path:'/contact',component:Contact},
 	{path:'/special',component:Special},
 	{path:'/Catalog',component:Catalog},

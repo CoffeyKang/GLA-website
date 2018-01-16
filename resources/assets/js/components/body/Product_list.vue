@@ -18,6 +18,19 @@
 			</div>
 			
 		</div>
+		<div class="container">
+			
+		
+			<div class="container paginate_btn" >
+				<button class="btn btn-default" @click='prePage()' v-if="data.current_page!=1">
+					Previous Page
+				</button>
+			
+				<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+					Next Page
+				</button>
+			</div>
+		</div>
 		
 
 		
@@ -36,26 +49,56 @@
 			return {
 				make:this.$route.query.make,
 				lists:{},
-				
-				
-
-				
-				
+				data:{},
+				page:1,
 			}
 		},
 		mounted(){
-			this.$http.get('/api/product_list/'+ this.make).then(response => {
+			this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
-			    this.lists = response.body;
-			    console.log(this.lists);
-			    console.log(this.lists.length);
+			    // 
+			    this.data = response.body;
+			    console.log(this.data);
+			    this.lists = response.body.data;
+			    this.page = this.data.current_page;
+
 			  }, response => {
 			  	// error 
 			    console.log("error");
 			  });
 		},
 		methods:{
-			
+			nextPage(){
+				this.page +=1;
+				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
+			    // get body data
+			    this.data = response.body;
+			    this.lists = response.body.data;
+			    this.page = this.data.current_page;
+
+			  }, response => {
+			  	// error 
+			    console.log("error");
+			  });
+			},
+			prePage(){
+				this.page -=1;
+				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
+			    // get body data
+			    this.data = response.body;
+			    this.lists = response.body.data;
+			    this.page = this.data.current_page;
+
+			  }, response => {
+			  	// error 
+			    console.log("error");
+			  });
+			}
+		},
+		watch:{
+			page:function(){
+				console.log(this.page)
+			}
 		}
 	}
 </script>
@@ -98,6 +141,10 @@
 
 
 
+	}
+	.paginate_btn{
+		display: flex;
+		justify-content: center;
 	}
 	
 </style>

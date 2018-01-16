@@ -62445,7 +62445,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }];
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }];
 
 /***/ }),
 /* 197 */
@@ -63775,7 +63775,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.item[data-v-3ca4d07e]{\n\tmargin: 0px 50px;\n}\n.title[data-v-3ca4d07e]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-3ca4d07e]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n#car_makes[data-v-3ca4d07e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.car_make[data-v-3ca4d07e]{\n\tmargin-top: 30px;\n\twidth: 220px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.car_make_name[data-v-3ca4d07e]{\n}\n.car_img[data-v-3ca4d07e]{\n\tpadding: 30px;\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n}\n\n", ""]);
+exports.push([module.i, "\n.item[data-v-3ca4d07e]{\n\tmargin: 0px 50px;\n}\n.title[data-v-3ca4d07e]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-3ca4d07e]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n#car_makes[data-v-3ca4d07e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.car_make[data-v-3ca4d07e]{\n\tmargin-top: 30px;\n\twidth: 220px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.car_make_name[data-v-3ca4d07e]{\n}\n.car_img[data-v-3ca4d07e]{\n\tpadding: 30px;\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n}\n.paginate_btn[data-v-3ca4d07e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}\n\n", ""]);
 
 // exports
 
@@ -63818,30 +63818,80 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			make: this.$route.query.make,
-			lists: {}
-
+			lists: {},
+			data: {},
+			page: 1
 		};
 	},
 	mounted: function mounted() {
 		var _this = this;
 
-		this.$http.get('/api/product_list/' + this.make).then(function (response) {
+		this.$http.get('/api/product_list/' + this.make + '/' + this.page).then(function (response) {
 			// get body data
-			_this.lists = response.body;
-			console.log(_this.lists);
-			console.log(_this.lists.length);
+			// 
+			_this.data = response.body;
+			console.log(_this.data);
+			_this.lists = response.body.data;
+			_this.page = _this.data.current_page;
 		}, function (response) {
 			// error 
 			console.log("error");
 		});
 	},
 
-	methods: {}
+	methods: {
+		nextPage: function nextPage() {
+			var _this2 = this;
+
+			this.page += 1;
+			this.$http.get('/api/product_list/' + this.make + '/' + this.page).then(function (response) {
+				// get body data
+				_this2.data = response.body;
+				_this2.lists = response.body.data;
+				_this2.page = _this2.data.current_page;
+			}, function (response) {
+				// error 
+				console.log("error");
+			});
+		},
+		prePage: function prePage() {
+			var _this3 = this;
+
+			this.page -= 1;
+			this.$http.get('/api/product_list/' + this.make + '/' + this.page).then(function (response) {
+				// get body data
+				_this3.data = response.body;
+				_this3.lists = response.body.data;
+				_this3.page = _this3.data.current_page;
+			}, function (response) {
+				// error 
+				console.log("error");
+			});
+		}
+	},
+	watch: {
+		page: function page() {
+			console.log(this.page);
+		}
+	}
 });
 
 /***/ }),
@@ -63860,20 +63910,57 @@ var render = function() {
     _c(
       "div",
       { staticClass: "container", attrs: { id: "car_makes" } },
-      _vm._l(_vm.lists, function(item) {
-        return _c("div", { staticClass: "car_make" }, [
-          _c("div", { staticClass: "item" }, [
-            _c("div", {
-              staticClass: "car_img",
-              style: { backgroundImage: "url(" + item.img_path + ")" }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "car_make_name text-center" }, [
-              _c("h5", [_vm._v(_vm._s(item.item.toUpperCase()))])
+      [
+        _vm._l(_vm.lists, function(item) {
+          return _c("div", { staticClass: "car_make" }, [
+            _c("div", { staticClass: "item" }, [
+              _c("div", {
+                staticClass: "car_img",
+                style: { backgroundImage: "url(" + item.img_path + ")" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "car_make_name text-center" }, [
+                _c("h5", [_vm._v(_vm._s(item.item.toUpperCase()))])
+              ])
             ])
           ])
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "container paginate_btn" }, [
+            _vm.data.current_page != 1
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default",
+                    on: {
+                      click: function($event) {
+                        _vm.prePage()
+                      }
+                    }
+                  },
+                  [_vm._v("\n\t\t\t\tPrevious Page\n\t\t\t")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.data.current_page != _vm.data.last_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn default",
+                    on: {
+                      click: function($event) {
+                        _vm.nextPage()
+                      }
+                    }
+                  },
+                  [_vm._v("\n\t\t\t\tNext Page\n\t\t\t")]
+                )
+              : _vm._e()
+          ])
         ])
-      })
+      ],
+      2
     )
   ])
 }

@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inventory;
-use DB;
-
+use Illuminate\Pagination\Paginator;
 use App\Inventory_img;
 class InventoryController extends Controller
 {
@@ -89,23 +88,23 @@ class InventoryController extends Controller
      * @param  make $data [description]
      * @return [type]       [description]
      */
-    public function product_list($make){
-        $product_list = Inventory::select('item','onhand')->take(10)->get();
-
-        dd($product_list->toArray());
+    public function product_list($make,$mycurrentPage){
         
+        Paginator::currentPageResolver(function () use ($mycurrentPage) {
+            return $mycurrentPage;
+        });
         $product_list = Inventory::
         join('inventory_img','inventory.item','inventory_img.item')->
-        select(['inventory.item','inventory.onhand','inventory.descrip','inventory.price','inventory.price2','inventory.price3','inventory.price4','inventory_img.img_path'])->where('make',$make)->take(50)->get()->toArray() ;
+        select(['inventory.item','inventory.onhand','inventory.descrip','inventory.price','inventory.price2','inventory.price3','inventory.price4','inventory_img.img_path'])->where('make',$make)->paginate(20) ;
         
-        foreach ($product_list as $item) {
+        // foreach ($product_list as $item) {
             /**
              * will check if the img exsits or not
              * if not exits
              * a default img will display
              */
             
-        }
+        // }
         return $product_list;
     }
 }
