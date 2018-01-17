@@ -19,18 +19,14 @@
 	 */
 	import Header from './components/Header.vue';
 	import Footer from './components/Footer.vue';
-	/**
-	 * body conponents
-	 * @type {Vue}
-	 */
-	import Home from './components/body/Home.vue';
+	
+	
 
 
 	export default {
 		components:{
 			appHeader:Header,
 			appFooter:Footer,
-			appHome:Home,
 		}
 	}
 </script>

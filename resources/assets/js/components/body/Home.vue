@@ -1,9 +1,13 @@
 <template>
     <div class="container-fuild">
         <div class="images_change">
-            <el-carousel indicator-position="inside">
-                <el-carousel-item v-for="item in 5" :key="item">
-                  <h3>{{ item }}</h3>
+            <el-carousel indicator-position="inside" height='400px'>
+
+                <el-carousel-item v-for="banner in banners" :key='banner.id'  >
+                  <router-link :to="banner.link" tag='div' class="banner" :style="{ backgroundImage: 'url(' + banner.img_path + ')' }">
+                    
+                  </router-link>
+                  
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -26,39 +30,23 @@
                 </form>
         </div>
 
-        <div class="advertisements">
+        <div class="advertisements container" v-for="ad in ads">
         
-          <div class="ad">
-            ad1
+          <div class="ad" :style="{ backgroundImage: 'url(' + ad.img_path + ')' }">
+            
           </div>
-          <div class="ad">
-            ad2
-          </div>
-          <div class="ad">
-            ad3
-          </div>          
+           
 
         </div>
 
-        <div class="feature">
-          <div class="sub_title">
+          <div class="sub_title container">
             <span>FEATURE PRODUCTS</span>
           </div>
-          <div class='feature_item'>
-            <div class='first_item'>
-              <app-item></app-item>
+          <div class='feature_item container'>
+            <div v-for="a in featureProducts" >
+                <app-item :item="a"></app-item>
             </div>
-            <div>
-              <app-item></app-item>
-            </div>
-            <div>
-              <app-item></app-item>
-            </div>
-            <div class='right_item'>
-              <app-item></app-item>
-            </div>
-          </div>
-        </div>
+          </div>  
 
         <div class="popular">
           <div class="sub_title">
@@ -66,18 +54,10 @@
           </div>
 
           <div class='feature_item'>
-            <div class='first_item'>
-              <app-item></app-item>
+            <div v-for="a in featureProducts">
+                {{ a.item }}
             </div>
-            <div>
-              <app-item></app-item>
-            </div>
-            <div>
-              <app-item></app-item>
-            </div>
-            <div class='right_item'>
-              <app-item></app-item>
-            </div>
+            
           </div>
         </div>
 
@@ -92,27 +72,54 @@
   import Item from '../Item.vue';
 
     export default {
+      data(){
+        return {
+          banners : {},
+          featureProducts:{},
+          ads:{},
+
+        }
+      },
         components:{
           appItem:Item
+        },
+        mounted(){
+          // get banner
+          this.$http.get('/api/banner').then(response=>{
+            this.banners = response.body;
+          }, response=>{
+            // error log
+          });
+
+          // get ads
+          this.$http.get('/api/ads').then(response=>{
+            this.ads = response.body;
+            console.log(this.ads);
+          }, response=>{
+            // error log
+          });
+
+
+          // get featureProducts
+          this.$http.get('/api/featureProducts').then(response=>{
+            this.featureProducts = response.body;
+          }, response=>{
+            // error log
+          }); 
+        },
+        methods:{
+          
         }
     }
 </script>
 
 <style scoped>
-    .el-carousel__item h3 {
-      color: #475669;
-      font-size: 18px;
-      opacity: 0.75;
-      line-height: 300px;
-      margin: 0;
-    }
-      
-    .el-carousel__item:nth-child(2n) {
-      background-color: #99a9bf;
-    }
-      
-    .el-carousel__item:nth-child(2n+1) {
-      background-color: #d3dce6;
+   .banner{
+      height: 400px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      cursor:pointer;
     }
     
     
@@ -124,7 +131,6 @@
 
         
     }
-
     .searchBar{
             background-color: black;
             display: flex;
@@ -150,43 +156,32 @@
         .advertisements{
           margin-top: 20px;
           display: flex;
-          justify-content: space-between;
+          
         }
 
         .ad{
-          width:32%;
-          height: 350px;
-          background-color: gray;
-        }
 
-        .feature, .popular{
-          margin-top: 20px;
+          height: 400px;
+          background-position: center;
+          background-size: 100%;
+          background-repeat: no-repeat;
         }
-        .first_item{
-          padding-left: 0;
-        }
-        .last_item{
-          padding-right: 0;
-        }
-        .feature_item{
-          display: flex;
-          
-        }
-        .feature_item div{
-          width:100%;
-        }
-
         .sub_title{
+          margin-top: 20px;
+          margin-bottom: 20px;
           padding: 10px 30px;
           color: black;
           background-color: yellow;
           font-size: 1.5em;
           font-weight: bold;
         }
-
-        .popular{
-          margin-bottom: 30px;
+        
+        .feature_item{
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
         }
+        
     
       
 

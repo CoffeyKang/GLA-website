@@ -1,6 +1,6 @@
 <template>
 	<div class='container ItemDetails'>
-		<div class="nav">
+		<div class="nav" id='top'>
 			HOME/FIREBIRD/PARTS
 		</div>
 		<div class="item">
@@ -54,18 +54,14 @@
 							${{r.pricel.toFixed(2)}}
 						</div>
 						
-						<button class="btn btn-primary">
+						<button class="btn btn-primary" @click="goTo(r.item)">
 							Details
 						</button>
 					</div>
-
-
-					
-
 				</div>
-			
 			</div>
 		</div>
+		<button @click='test()'>123212</button>
 		</div>
 
 	</div>
@@ -112,15 +108,36 @@
 
 		},
 		methods:{
-			goTorelated(){
-				router.push({
-					name:'ItemDetails',
-					params:{id:this.item.item}
-				});
+			goTo($item){
+				this.$http.get('/api/item/'+ $item).then(response => {
+			    // get body data
+			    this.item = response.body;
+			  }, response => {
+			  	// error 
+			    console.log("error");
+			  });
+
+			// get related item
+			this.$http.get('/api/related/'+ $item).then(response => {
+			    // get body data
+			    this.related = response.body;
+			    console.log(this.related);
+
+			  }, response => {
+			  	// error 
+			    console.log("error");
+			  });
+
+			},
+			test(){
+				getItemInfo(this, $item);
+
 			}
 		}
 
 	}
+
+
 
 </script>
 <style scoped>

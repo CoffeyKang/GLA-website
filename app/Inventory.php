@@ -16,6 +16,10 @@ class Inventory extends Model
      * @return [type] [description]
      */
     public function itemImg(){
-    	return $this->hasOne('App\Inventory_img','item');
+    	return $this->belongsTo('App\Inventory_img','item','item');
+    }
+
+    public function featureItem(){
+        return $this->belongsTo('App\FeatureProduct','item','item');
     }
 }

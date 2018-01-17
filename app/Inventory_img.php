@@ -14,6 +14,6 @@ class Inventory_img extends Model
      * @return [type] [description]
      */
     public function itemDtails(){
-    	return $this->hasOne('App\Inventory','item');
+    	return $this->hasOne('App\Inventory','item','item');
     }
 }

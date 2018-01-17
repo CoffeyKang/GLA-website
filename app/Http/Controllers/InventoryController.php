@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Inventory;
 use Illuminate\Pagination\Paginator;
 use App\Inventory_img;
+use App\FeatureProduct;
 class InventoryController extends Controller
 {
     /**
@@ -129,5 +130,27 @@ class InventoryController extends Controller
         }
 
         return $related;
+    }
+
+    /**
+     * get feature products
+     * @param  [type] $item [description]
+     * @return [type]       [description]
+     */
+    public function featureProducts(){
+        $features = FeatureProduct::inRandomOrder()->take(4)->get();
+        $resualt = [];
+        foreach ($features as $f) {
+            array_push($resualt, $f->itemDetails()->first());
+        }
+
+        foreach ($resualt as $item) {
+            $item->img_path = $item->itemImg()->first()->img_path;
+
+        }
+
+        
+
+        return $resualt;
     }
 }
