@@ -6,6 +6,7 @@ import Products from './components/body/Products.vue'
 import Ccbd from './components/body/Ccbd.vue'
 import Product_list from './components/body/Product_list.vue'
 import ItemDetails from './components/body/ItemDetails.vue'
+import SearchResualt from './components/body/SearchResualt.vue'
 
 export const routes =[
 	{path:'/',component:Home,name:'home'},
@@ -15,6 +16,7 @@ export const routes =[
 	{path:'/allProducts',component:Products},
 	{path:'/classicBody',component:Ccbd},
 	{path:'/Product_list',component:Product_list, name:'Pruduct_list'},
+	{path:'/SearchResualt',component:SearchResualt, name:'SearchResualt'},
 	{path:'/Item/:id',component:ItemDetails, name:'ItemDetails'},
 
 ];

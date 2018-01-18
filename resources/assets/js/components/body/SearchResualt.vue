@@ -6,16 +6,17 @@
 	
 	<div class='container' id='car_makes'>
 		
-		<div class='car_make' v-for='item in lists'>
+		<div class='car_make' v-for='item in lists' >
 			<router-link :to="{
 				name:'ItemDetails',
 				params:{id:item.item}
-			}">
+			}" >
 				<div class='item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
 					</div>
 
 					<div class="car_make_name text-center">
+						<h6>{{item.year_from}} {{item.year_end}}</h6>
 						<h5>{{ item.item.toUpperCase() }}</h5>
 					</div>
 
@@ -52,27 +53,40 @@
 		
 </template>
 <script>
+
 	export default {
 		data (){
 			return {
 				make:this.$route.query.make,
+				year:this.$route.query.year,
 				lists:{},
 				data:{},
 				page:1,
+				inYear:true,
 			}
 		},
 		mounted(){
 			this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
-			    // 
+			    
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
-
+			    console.log(this.lists);
 			  }, response => {
 			  	// error 
 			    console.log("error");
 			  });
+		},
+		created(){
+			if (this.year) {
+				console.log(1);
+			}else{
+				
+			}
+		},
+		computed:{
+			
 		},
 		methods:{
 			nextPage(){

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fuild">
+    <div class="container-fuild container">
         <div class="images_change">
             <el-carousel indicator-position="inside" height='400px'>
 
@@ -12,29 +12,16 @@
             </el-carousel>
         </div>
 
-        <div class="searchBar">
-                <form class="form-inline">
-                  <div class="form-group">
-                    <label class='form-label'>I NEED TO FIND: </label>
-                    <input type="text" class="form-control" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputPassword2" class="sr-only">Make</label>
-                    <input type="password" class="form-control" placeholder="Make">
-                  </div>
-                  <div class="form-group ">
-                    <label for="inputPassword2" class="sr-only">Year</label>
-                    <input type="password" class="form-control" placeholder="Year">
-                  </div>
-                  <button type="submit" class="btn btn-primary"> FIND </button>
-                </form>
-        </div>
+        <app-search></app-search>
 
-        <div class="advertisements container" v-for="ad in ads">
         
-          <div class="ad" :style="{ backgroundImage: 'url(' + ad.img_path + ')' }">
+
+        <div class="ads row" >
+        <div v-for="ad in ads " class='col-xs-4'>
+          <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }">
             
           </div>
+        </div>
            
 
         </div>
@@ -53,11 +40,10 @@
             <span>MOST POPULAR ITEMS</span>
           </div>
 
-          <div class='feature_item'>
-            <div v-for="a in featureProducts">
-                {{ a.item }}
+          <div class='feature_item container popular'>
+            <div v-for="a in popular" >
+                <app-item :item="a"></app-item>
             </div>
-            
           </div>
         </div>
 
@@ -70,6 +56,7 @@
 
 <script>
   import Item from '../Item.vue';
+  import SearchBar from './parts/SearchBar.vue';
 
     export default {
       data(){
@@ -77,11 +64,13 @@
           banners : {},
           featureProducts:{},
           ads:{},
+          popular:{},
 
         }
       },
         components:{
-          appItem:Item
+          appItem:Item,
+          appSearch:SearchBar
         },
         mounted(){
           // get banner
@@ -94,7 +83,7 @@
           // get ads
           this.$http.get('/api/ads').then(response=>{
             this.ads = response.body;
-            console.log(this.ads);
+            
           }, response=>{
             // error log
           });
@@ -105,7 +94,14 @@
             this.featureProducts = response.body;
           }, response=>{
             // error log
-          }); 
+          });
+
+         //get most populars
+          this.$http.get('/api/popular').then(response=>{
+            this.popular = response.body;
+          }, response=>{
+            // error log
+          });
         },
         methods:{
           
@@ -123,48 +119,37 @@
     }
     
     
-    @media screen and (min-width: 1140px) {
-        .images_change, .searchBar, .advertisements, .feature , .popular{
-            width:1140px;
-            margin: auto;
-        }
-
-        
-    }
+    
     .searchBar{
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            padding:20px;
-            margin-top: 20px;
+          background-color: black;
+          padding-top: 20px;  
+          padding-bottom: 20px;
+
         }
+
+    
+    
         
-        form div{
-            margin-left: 30px;
-        }
+        
 
-        form label{
-            font-size: 1.5em;
-            color: white;
-        }
-        form button{
-          margin-left: 30px;
-          font-size: 1.5em;
-          padding: 0 20px;
-        }
-
-        .advertisements{
+        .ads{
           margin-top: 20px;
+          margin-bottom: 20px;
           display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+
+          
           
         }
 
         .ad{
-
-          height: 400px;
-          background-position: center;
-          background-size: 100%;
+          background-position: 50%;
           background-repeat: no-repeat;
+          background-size: cover;
+          height: 400px;
+          cursor:pointer;
         }
         .sub_title{
           margin-top: 20px;
@@ -180,6 +165,10 @@
           display: flex;
           justify-content: space-between;
           flex-wrap: wrap;
+        }
+
+        .popular{
+          margin-bottom: 50px;
         }
         
     

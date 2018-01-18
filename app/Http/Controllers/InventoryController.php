@@ -96,7 +96,7 @@ class InventoryController extends Controller
         });
         $product_list = Inventory::
         join('inventory_img','inventory.item','inventory_img.item')->
-        select(['inventory.item','inventory.onhand','inventory.descrip','inventory.price','inventory.price2','inventory.price3','inventory.price4','inventory_img.img_path'])->where('make',$make)->paginate(20) ;
+        select(['inventory.item','inventory.onhand','inventory.descrip','inventory.price','year_from','year_end','inventory.price2','inventory.price3','inventory.price4','inventory_img.img_path'])->where('make',$make)->paginate(20) ;
         
         // foreach ($product_list as $item) {
             /**
@@ -152,5 +152,46 @@ class InventoryController extends Controller
         
 
         return $resualt;
+    }
+
+
+    public function popularProducts(){
+        $popuar = Inventory_img::orderBy('viewed','aesc')->take(4)->get();
+
+        $resault = collect();
+        foreach ($popuar as $p) {
+            $item_details = $p->itemDtails()->get();
+            $resault = $resault->merge($item_details);
+        }
+        foreach ($resault as $r) {
+            $item = $r->itemImg()->first();
+
+            if ($item) {
+                $r->img_path = $item->img_path;
+            }else{
+                $r->img_path = "/images/default.jpg";
+            }
+
+        }
+        return $resault;
+    }
+
+    public function searchResualt(){
+        $item = isset($_GET['item'])?$_GET['item']:'item';
+        $make = isset($_GET['make'])?$_GET['make']:'make';
+
+        if ($item!='') {
+            $item = Inventory::where('item',$item)->first();
+            if ($item) {
+                $item = $item->itemFullInfo();
+                return 'itemFound';
+            }else if($make!=''){
+                $items = Inventory::where('make',$make)->get();
+                $sr = count($items)>=1?"makeFound":'notFound';
+                return $sr;
+            }else{
+                return "notFound";
+            }
+        }
     }
 }

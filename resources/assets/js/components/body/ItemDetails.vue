@@ -61,7 +61,7 @@
 				</div>
 			</div>
 		</div>
-		<button @click='test()'>123212</button>
+		
 		</div>
 
 	</div>
@@ -169,7 +169,7 @@
 	li{
 		list-style-type: none;
 		font-size: 1em;
-		padding:5px 0px;
+		padding:2px 0px;
 	}
 	.descrip, .details, .priceDiv{
 		padding-bottom: 20px;
@@ -203,7 +203,7 @@
 		font-size: 1.4em;
 	}
 	.addToCart{
-		font-size: 2em;
+		font-size: 1.6em;
 
 	}
 	.nav{
@@ -246,6 +246,11 @@
 		color: red;
 		font-size: 1.8em;
 		font-weight: bold;
+	}
+
+	.action_right{
+		display: flex;
+		align-items: flex-end;
 	}
 
 

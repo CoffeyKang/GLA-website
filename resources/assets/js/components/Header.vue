@@ -1,8 +1,10 @@
 <template>
-	<div>
+	<div class='container'>
 		<div class="logo_top">
 			<div class='logo'>
-				<div><img src="images/header_logo.png" alt="Logo"></div>
+				<div>
+					<img src="images/header_logo.png" alt="Logo">
+				</div>
 				
 				<div>
 					<ul>
@@ -52,7 +54,6 @@
 </template>
 
 <script>
-import Search from './Search.vue';
 	export default{
 		data(){
 			return {
@@ -61,7 +62,7 @@ import Search from './Search.vue';
 			}
 		},
 		components:{
-			appSearch:Search,
+			
 		},
 		methods:{
 			
@@ -108,22 +109,7 @@ li a{
 	cursor:pointer;
 
 }
-@media screen and ( min-width:1200px ){ 
-	.gla-nav{
-		display: flex;
-		justify-content: center;
-	}
-	.gla-nav-details{
-		width:1200px;
-	}
-	.logo_top{
-		display: flex;
-		justify-content: center;
-	}
-	.logo{
-		width:1200px;
-	}
-}
+
 
 
 	

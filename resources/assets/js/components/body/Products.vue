@@ -4,7 +4,7 @@
 			<router-link :to="{
 				name:'Pruduct_list', 
 				query:{ make: make.make }
-				}">
+				}" tag='a'>
 				<div class="car_img" v-if='make.path!="default"'>
 					<img :src="make.path" alt="123">
 				</div>
@@ -14,7 +14,7 @@
 				</div>
 
 				<div class="car_make_name text-center">
-					<h3>{{ make.make.toUpperCase() }}</h3>
+					{{ make.make.toUpperCase() }}
 				</div>
 
 			</router-link>
@@ -38,7 +38,7 @@
 			this.$http.get('/api/makes').then(response => {
 			    // get body data
 			    this.makes = response.body;
-			    console.log(this.makes);
+			    
 			  }, response => {
 			  	// error 
 			    console.log("error");
@@ -56,6 +56,12 @@
 img{
 	width: 100%;
 }
+a, a:hover{
+	text-decoration:none;
+}
+a:hover{
+	font-weight: bold;
+}
 	#car_makes{
 		display: flex;
 		justify-content: center;
@@ -69,7 +75,8 @@ img{
 
 	}
 	.car_make_name{
-
+		color: black;
+		font-size: 1.4em;
 	}
 	.car_img{
 		padding: 30px;

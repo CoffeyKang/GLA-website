@@ -33,3 +33,9 @@ Route::get('/banner','BannerController@index');
 Route::get('/ads','AdController@index');
 // get feature products
 Route::get('/featureProducts','InventoryController@featureProducts');
+
+// get most popular products
+Route::get('/popular','InventoryController@popularProducts');
+
+// search items
+Route::get('/searchResualt', 'InventoryController@searchResualt');
