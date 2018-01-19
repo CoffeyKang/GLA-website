@@ -22,6 +22,7 @@ import { routes } from './router.js';
 
 const router = new VueRouter({
 	routes,
+	
 
 });
 
@@ -44,6 +45,9 @@ require('./bootstrap');
 
 new Vue({
   el: '#app',
+  mode: 'history',
   router,
+  
   render: h => h(App)
 })
+

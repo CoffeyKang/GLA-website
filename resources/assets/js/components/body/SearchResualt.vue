@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<div class="title container">
-			<span>Products List {{ make }}</span>
+		<div class=" container">
+			<div class="title">
+			<span>Products List {{ make.toUpperCase() }}</span>
+			</div>
 		</div>
 	
 	<div class='container' id='car_makes'>
@@ -93,12 +95,15 @@
 		},
 		methods:{
 			nextPage(){
+				console.log('next page');
 				this.page +=1;
 				this.$http.get('/api/searchResualt/',
 				{params:
 						{ 
-							make:this.search.make,
-							year:this.search.year,
+							make:this.make,
+							year:this.year,
+							page:this.page,
+
 						}
 					}
 				).then(response => {
@@ -106,6 +111,7 @@
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
+			    console.log(this.data);
 
 			  }, response => {
 			  	// error 
@@ -117,8 +123,9 @@
 				this.$http.get('/api/searchResualt/',
 				{params:
 						{ 
-							make:this.search.make,
-							year:this.search.year,
+							make:this.make,
+							year:this.year,
+							page:this.page,
 						}
 					}
 				)	.then(response => {

@@ -1,6 +1,6 @@
 <template>
 	<div class='container'>
-		<div class="logo_top">
+		<div class="logo_top" id='page_top'>
 			<div class='logo'>
 				<div>
 					<img src="images/header_logo.png" alt="Logo">
@@ -20,7 +20,8 @@
 			  title="I WANT TO FIND: "
 			  :visible.sync="centerDialogVisible"
 			  width="30%"
-			  left
+			  center
+			  
 
 			  >
 			  	<app-search-layer @closeSearchLayer='centerDialogVisible = $event'></app-search-layer>
@@ -101,6 +102,8 @@ li a{
 	cursor:pointer;
 
 }
+
+
 
 
 

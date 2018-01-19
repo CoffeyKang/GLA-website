@@ -188,7 +188,7 @@ class InventoryController extends Controller
                 return "itemFound";
 
             }else if($make!=''){
-                $mycurrentPage = isset($_GET['mycurrentPage'])?$_GET['mycurrentPage']:1;
+                $mycurrentPage = isset($_GET['page'])?$_GET['page']:1;
                 Paginator::currentPageResolver(function () use ($mycurrentPage) {
                     return $mycurrentPage;
                 });

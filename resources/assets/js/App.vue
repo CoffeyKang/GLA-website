@@ -28,7 +28,13 @@
 		components:{
 			appHeader:Header,
 			appFooter:Footer,
-		}
+		},
+		watch: {
+	    '$route' (to, from) {
+	      console.log('url changed');
+	      window.scrollTo(0,0);
+	    }
+	  }
 	}
 </script>
 

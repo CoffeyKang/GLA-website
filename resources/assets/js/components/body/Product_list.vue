@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<div class="title container">
-			<span>Products List {{ make }}</span>
+		<div class=" container">
+			<div class="title">
+				<span>Products List {{ make }}</span>
+			</div>
 		</div>
 	
 	<div class='container' id='car_makes'>

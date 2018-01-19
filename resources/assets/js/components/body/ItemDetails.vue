@@ -93,6 +93,8 @@
 
 			    this.showItem = true;
 
+
+
 			  }, response => {
 			  	// error 
 			    console.log("error");
@@ -117,6 +119,7 @@
 				this.$http.get('/api/item/'+ $item).then(response => {
 			    // get body data
 			    this.item = response.body;
+			    window.scrollTo(0,0);
 			  }, response => {
 			  	// error 
 			    console.log("error");
@@ -134,10 +137,7 @@
 			  });
 
 			},
-			test(){
-				getItemInfo(this, $item);
-
-			}
+			
 		}
 
 	}

@@ -5,7 +5,6 @@
 
                 <el-carousel-item v-for="banner in banners" :key='banner.id'  >
                   <router-link :to="banner.link" tag='div' class="banner" :style="{ backgroundImage: 'url(' + banner.img_path + ')' }">
-                    
                   </router-link>
                   
                 </el-carousel-item>
