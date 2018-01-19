@@ -17,23 +17,14 @@
 			</div>
 
 			<el-dialog
-			  title="Search Bar"
+			  title="I WANT TO FIND: "
 			  :visible.sync="centerDialogVisible"
 			  width="30%"
 			  left
 
 			  >
-			  <el-form :label-position="labelPosition" label-width="80px">
-				  <el-form-item label="Item">
-				    <el-input ></el-input>
-				  </el-form-item>
-				  <el-form-item label="Make">
-				    <el-input ></el-input>
-				  </el-form-item>
-				  <el-form-item label="Year">
-				    <el-input ></el-input>
-				  </el-form-item>
-				</el-form>
+			  	<app-search-layer @closeSearchLayer='centerDialogVisible = $event'></app-search-layer>
+
 			</el-dialog>
 		</div>
 		<div class='gla-nav'>
@@ -54,6 +45,7 @@
 </template>
 
 <script>
+	import SearchLayer from './body/parts/SearchLayer.vue';
 	export default{
 		data(){
 			return {
@@ -62,7 +54,7 @@
 			}
 		},
 		components:{
-			
+			appSearchLayer:SearchLayer
 		},
 		methods:{
 			

@@ -179,16 +179,32 @@ class InventoryController extends Controller
     public function searchResualt(){
         $item = isset($_GET['item'])?$_GET['item']:'item';
         $make = isset($_GET['make'])?$_GET['make']:'make';
+        $year = isset($_GET['year'])?$_GET['year']:'year';
 
         if ($item!='') {
             $item = Inventory::where('item',$item)->first();
             if ($item) {
                 $item = $item->itemFullInfo();
-                return 'itemFound';
+                return "itemFound";
+
             }else if($make!=''){
-                $items = Inventory::where('make',$make)->get();
-                $sr = count($items)>=1?"makeFound":'notFound';
-                return $sr;
+                $mycurrentPage = isset($_GET['mycurrentPage'])?$_GET['mycurrentPage']:1;
+                Paginator::currentPageResolver(function () use ($mycurrentPage) {
+                    return $mycurrentPage;
+                });
+
+                if (is_numeric($year)) {
+                    $items = Inventory::where('make',$make)->where('year_from','<=',$year)->where('year_end','>=',$year)
+                    ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20); 
+                    return $items;   
+                }else{
+
+                    $items = Inventory::where('make',$make)
+                    ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20);
+                    return $items; 
+                }
+
+                
             }else{
                 return "notFound";
             }

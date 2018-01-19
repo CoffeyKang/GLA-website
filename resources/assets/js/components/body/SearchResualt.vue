@@ -62,11 +62,18 @@
 				lists:{},
 				data:{},
 				page:1,
-				inYear:true,
+				
 			}
 		},
 		mounted(){
-			this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
+			this.$http.get('/api/searchResualt/',
+				{params:
+						{ 
+							make:this.make,
+							year:this.year,
+						}
+					}
+				).then(response => {
 			    // get body data
 			    
 			    this.data = response.body;
@@ -79,11 +86,7 @@
 			  });
 		},
 		created(){
-			if (this.year) {
-				console.log(1);
-			}else{
-				
-			}
+			console.log(1);
 		},
 		computed:{
 			
@@ -91,7 +94,14 @@
 		methods:{
 			nextPage(){
 				this.page +=1;
-				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
+				this.$http.get('/api/searchResualt/',
+				{params:
+						{ 
+							make:this.search.make,
+							year:this.search.year,
+						}
+					}
+				).then(response => {
 			    // get body data
 			    this.data = response.body;
 			    this.lists = response.body.data;
@@ -104,7 +114,14 @@
 			},
 			prePage(){
 				this.page -=1;
-				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
+				this.$http.get('/api/searchResualt/',
+				{params:
+						{ 
+							make:this.search.make,
+							year:this.search.year,
+						}
+					}
+				)	.then(response => {
 			    // get body data
 			    this.data = response.body;
 			    this.lists = response.body.data;

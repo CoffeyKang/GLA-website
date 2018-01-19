@@ -26,8 +26,10 @@
 
         </div>
 
-          <div class="sub_title container">
-            <span>FEATURE PRODUCTS</span>
+          <div class=" container">
+            <div class="sub_title">
+              <span>FEATURE PRODUCTS</span>
+            </div>
           </div>
           <div class='feature_item container'>
             <div v-for="a in featureProducts" >
@@ -35,7 +37,7 @@
             </div>
           </div>  
 
-        <div class="popular">
+        <div class="popular container">
           <div class="sub_title">
             <span>MOST POPULAR ITEMS</span>
           </div>

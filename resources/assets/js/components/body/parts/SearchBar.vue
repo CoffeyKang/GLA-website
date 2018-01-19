@@ -8,7 +8,7 @@
                     <div class="inputSearch">
                     
 	                    <el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc."></el-input>
-						<div>
+						<div class='mySelect'>
 	                    <el-select v-model="search.make" placeholder="Make">
 	                    	<el-option
 						      v-for="item in makes"
@@ -19,7 +19,7 @@
 
 	                    </el-select >
 						</div>
-						<div>	
+						<div class='mySelect'>	
 	                    <el-select v-model="search.year" placeholder="Year">
 	                    	<el-option
 						      v-for="a in (currentYear)"
@@ -67,13 +67,18 @@
 						{
 							item:this.search.item, 
 							make:this.search.make,
+							year:this.search.year,
 						}
 						}).then(response => {
 			    // get body data
 			    this.sr = response.body;
+			    console.log(this.sr);
+			    
 			    if (this.sr=='itemFound') {
 			    	this.$router.push({name:'ItemDetails',params:{id:this.search.item}})
-			    }else if(this.sr=='makeFound'){
+
+			    }else if(this.sr.data.length>=2){
+			    	
 			    	this.$router.push({name:'SearchResualt',query:{make:this.search.make, year:this.search.year}})
 			    }else{
 			    	alert('not such item fond');
@@ -120,6 +125,9 @@
     }
     .inputSearch{
     	width: 80%;
+    }
+    .mySelect{
+    	margin-left: 20px;
     }
 
 </style>

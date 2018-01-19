@@ -3,13 +3,13 @@
 		<div class="nav" id='top'>
 			HOME/FIREBIRD/PARTS
 		</div>
-		<div class="item">
+		<div class="item" v-if='showItem'>
 			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }"> 
 
 			</div>
 			<div class="words col-xs-offset-1 col-xs-5">
 				<div class="descrip">
-					<span>{{ item.descrip.toUpperCase() }}</span>
+					<span style=' text-transform: uppercase'>{{ item.descrip }}</span>
 				</div>
 				
 				<div class="details text-left">
@@ -17,7 +17,7 @@
 					<li><span class='column_name'>Year Fit: </span><b>{{item.year_from}} -- {{item.year_end}}</b></li>
 					<li><span class='column_name'>Make: </span><b>{{item.make}}</b></li>
 				</div>
-
+				
 				<div class="priceDiv">
 					<div class="price">
 						$ {{ item.pricel.toFixed(2) }}
@@ -75,10 +75,12 @@
 				item:{},
 				related:{},
 				color:"red",
+				showItem :false,
 
 			}
 		},
 		created(){
+
 			console.log(this.$route.params.id);
 		},
 		mounted(){
@@ -86,7 +88,10 @@
 			    // get body data
 			    
 			    this.item = response.body;
-			    
+
+			    console.log(this.item.pricel);
+
+			    this.showItem = true;
 
 			  }, response => {
 			  	// error 
