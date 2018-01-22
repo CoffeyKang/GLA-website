@@ -9,7 +9,7 @@
                     
 	                    <el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc."></el-input>
 						<div class='mySelect'>
-	                    <el-select v-model="search.make" placeholder="Make">
+	                    <el-select v-model="search.make" placeholder="Make" style='width:120px;'>
 	                    	<el-option
 						      v-for="item in makes"
 						      :key="item.make"
@@ -20,7 +20,7 @@
 	                    </el-select >
 						</div>
 						<div class='mySelect'>	
-	                    <el-select v-model="search.year" placeholder="Year">
+	                    <el-select v-model="search.year" placeholder="Year" style='width:120px;'>
 	                    	<el-option
 						      v-for="a in (currentYear)"
 						      :key="a"

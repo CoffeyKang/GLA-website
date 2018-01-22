@@ -96,7 +96,7 @@ class InventoryController extends Controller
         });
         $product_list = Inventory::
         join('inventory_img','inventory.item','inventory_img.item')->
-        select(['inventory.item','inventory.onhand','inventory.descrip','inventory.price','year_from','year_end','inventory.price2','inventory.price3','inventory.price4','inventory_img.img_path'])->where('make',$make)->paginate(20) ;
+        where('make',$make)->paginate(20) ;
         
         // foreach ($product_list as $item) {
             /**

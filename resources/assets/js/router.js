@@ -7,6 +7,8 @@ import Ccbd from './components/body/Ccbd.vue'
 import Product_list from './components/body/Product_list.vue'
 import ItemDetails from './components/body/ItemDetails.vue'
 import SearchResualt from './components/body/SearchResualt.vue'
+import PageNotFound from './components/body/PageNotFound.vue'
+
 
 export const routes =[
 	{path:'/',component:Home,name:'home'},
@@ -18,5 +20,6 @@ export const routes =[
 	{path:'/Product_list',component:Product_list, name:'Pruduct_list'},
 	{path:'/SearchResualt',component:SearchResualt, name:'SearchResualt'},
 	{path:'/Item/:id',component:ItemDetails, name:'ItemDetails'},
+	{ path: "*", component: PageNotFound },
 
 ];
