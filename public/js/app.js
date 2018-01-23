@@ -64533,7 +64533,7 @@ var render = function() {
           ])
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "container paginate_btn" }, [
+        _c("div", { staticClass: "container paginate_btn alert" }, [
           _c("div", { staticClass: "text-left" }, [
             _vm._v(
               "\n\t\t\t\t" +

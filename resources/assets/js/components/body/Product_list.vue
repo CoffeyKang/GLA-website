@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="container paginate_btn">
+			<div class="container paginate_btn alert">
 				<div class="text-left">
 					{{data.total}}   Products found, Page {{page}} of {{data.last_page}}
 				</div>
