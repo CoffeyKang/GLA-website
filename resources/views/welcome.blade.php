@@ -12,6 +12,7 @@
         <META NAME="keywords" CONTENT="GLA,Golden Leaf Automotive,DII,Dynacorn International Inc.,classic car parts,muscle cars parts,parts developer and manufacturer,car parts and molding,canadian based" />
         <title>{{ config('app.name')}}</title>
         <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+       
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">

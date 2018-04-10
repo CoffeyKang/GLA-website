@@ -30,4 +30,12 @@ class Inventory extends Model
         $this->img_path = $this->itemImg()->first()->img_path;
         return $this;
     }
+
+    /**
+     * relationship to wishlist
+     * @return [type] [description]
+     */
+    public function wishlist(){
+        return $this->hasMany('app\Wishlist','item','item');
+    }
 }

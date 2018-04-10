@@ -1,6 +1,6 @@
 <template>
-	<div class='container' id='car_makes'>
-		<div class='car_make' v-for='make in makes'>
+	<div class='container' id='car_makes' v-loading='loading' element-loading-text='Loading ...'>
+		<div class='car_make' v-for='make in makes' >
 			<router-link :to="{
 				name:'Pruduct_list', 
 				query:{ make: make.make }
@@ -14,7 +14,7 @@
 				</div>
 
 				<div class="car_make_name text-center">
-					{{ make.make.toUpperCase() }}
+					{{ make.make.toUpperCase().replace("_"," " ) }}
 				</div>
 
 			</router-link>
@@ -30,7 +30,8 @@
 	export default {
 		data (){
 			return {
-				makes : this.makes
+				makes : this.makes,
+				loading:1,
 				
 			}
 		},
@@ -38,6 +39,8 @@
 			this.$http.get('/api/makes').then(response => {
 			    // get body data
 			    this.makes = response.body;
+
+			    this.loading = 0;
 			    
 			  }, response => {
 			  	// error 
@@ -66,6 +69,7 @@ a:hover{
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
+		margin-bottom: 60px;
 	}
 	.car_make{
 		margin-top: 30px;

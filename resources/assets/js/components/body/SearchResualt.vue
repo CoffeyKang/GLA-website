@@ -9,21 +9,35 @@
 	<div class='container' id='car_makes'>
 		
 		<div class='car_make' v-for='item in lists' >
-			<router-link :to="{
-				name:'ItemDetails',
-				params:{id:item.item}
-			}" >
 				<div class='item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
 					</div>
-
+					
 					<div class="car_make_name text-center">
-						<h6>{{item.year_from}} {{item.year_end}}</h6>
-						<h5>{{ item.item.toUpperCase() }}</h5>
+						<span>{{ item.item.toUpperCase() }}</span>
+					</div>
+					<div class="car_make_name text-center">
+						<span>Year Fit: {{ item.year_from }} - {{ item.year_end }}</span>
 					</div>
 
+					<div class="car_make_name text-center">
+						<span class='price_label'>Sale Price: <b class='price'>$ {{ item.pricel.toFixed(2) }}</b> </span>
+					</div>
+
+					<div class="car_make_name text-center description">
+						<span>{{showLimitedWords(item.descrip,35)  }}</span>
+					</div>
+
+					<div class='add_details' @click='goToItem(item.item)'>
+						<button class="btn btn-primary">
+							Details
+						</button>
+						<a href='#' class='add_to_cart'>
+							Add To Cart 
+						</a>
+					</div>
 				</div>
-			</router-link>
+			
 			
 		</div>
 		<div class="container">
@@ -31,14 +45,19 @@
 		
 			<div class="container paginate_btn" >
 				
-				<!-- pre page -->
-				<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
-					Previous Page
-				</button>
-				<!-- next page -->
-				<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
-					Next Page
-				</button>
+				<div class="text-left">
+					{{data.total}}   Products found, Page {{page}} of {{data.last_page}}
+				</div>
+				<div>
+					<!-- pre page -->
+					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
+						Previous Page
+					</button>
+					<!-- next page -->
+					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+						Next Page
+					</button>
+				</div>
 				
 			</div>
 		</div>
@@ -138,7 +157,18 @@
 			  	// error 
 			    console.log("error");
 			  });
-			}
+			},
+			showLimitedWords:function(str,num){
+				
+				console.log(num);
+				if (str.length <= num) {
+					return str;
+				}else{
+					str = str.slice(0,num)+'...';
+					return str;
+				}
+				
+			},
 		},
 		watch:{
 			
@@ -164,16 +194,17 @@
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
+
 	}
 	.car_make{
 		margin-top: 30px;
-		width: 220px;
+		width: 280px;
 		display: flex;
 		flex-direction: column;
 
 	}
 	.car_make_name{
-
+		margin-top: 10px;
 	}
 	.car_img{
 		padding: 30px;
@@ -186,8 +217,30 @@
 
 	}
 	.paginate_btn{
+		margin-top: 20px;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	.paginate_btn .btn{
+		min-width: 115px;
+	}
+	.price_label{color: red;}
+	.price{
+		color:#800000;
+	}
+	.add_details{
+		display: flex;
+		justify-content: space-between;
+		padding: 10px;
+	}
+	.add_to_cart{
+		display: flex;
+		align-items: flex-end;
+	}
+	.description{
+		min-height: 70px;
 	}
 	
 </style>

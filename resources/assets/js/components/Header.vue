@@ -9,8 +9,8 @@
 				<div>
 					<ul>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
-						<li>My Account</li>
-						<li>Wish List</li>
+						<router-link to='/login' tag='li'>Log In</router-link>
+						<router-link to='/wishList' tag='li'>Wish List</router-link>
 						<li><span class="glyphicon glyphicon-shopping-cart"></span></li>
 					</ul>
 				</div>
@@ -21,8 +21,6 @@
 			  :visible.sync="centerDialogVisible"
 			  width="30%"
 			  center
-			  
-
 			  >
 			  	<app-search-layer @closeSearchLayer='centerDialogVisible = $event'></app-search-layer>
 
@@ -36,9 +34,9 @@
 					<router-link to='/allProducts' tag='li' active-class='active' ><a>All Products</a></router-link>
 					<router-link to='/catalog' tag='li' active-class='active'><a>Catalog</a></router-link>
 					<router-link to='/classicBody' tag='li' active-class='active' ><a>Classic Body</a></router-link>
-					<router-link to='/dealers' tag='li' active-class='active' ><a>Dealers Area</a></router-link>
 					<router-link to='/contact' tag='li' active-class='active' ><a>Contact</a></router-link>
-					<router-link to='/special' tag='li' active-class='active' ><a>Special</a></router-link>
+					<router-link to='/special' tag='li' active-class='active' ><a><b>Special</b></a></router-link>
+					<router-link to='/dealers' tag='li' active-class='active' ><a>Dealers Area</a></router-link>
 				</ul>
 			</div>
 		</div>

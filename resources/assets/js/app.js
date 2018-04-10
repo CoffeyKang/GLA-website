@@ -6,24 +6,16 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // vue resourece
 import VueResource from 'vue-resource';
-
-
-
-
-
-
 /**
  * import vue-router
  */
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(VueResource);
-import { routes } from './router.js';
+import { routes } from './router.js';	
 
 const router = new VueRouter({
 	routes,
-	
-
 });
 
 Vue.component(

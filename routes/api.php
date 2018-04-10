@@ -11,12 +11,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 // get inventory
-Route::get('/inventory', 'InventoryController@index');
+Route::get('/inventory', 'InventoryController@index')->middleware('auth:api');
 // make list
 Route::get('/makes','MakeController@index');
 // products list
@@ -39,3 +35,13 @@ Route::get('/popular','InventoryController@popularProducts');
 
 // search items
 Route::get('/searchResualt', 'InventoryController@searchResualt');
+
+Route::get('/wishlist','ShoppingController@wishlist');
+
+/**
+ * test passport
+ */
+Route::get('/loginCustomer','AccessControl@userinfo');
+
+
+

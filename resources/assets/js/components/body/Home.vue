@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fuild container">
+    <div class="container-fuild container"  v-loading="loading">
         <div class="images_change">
             <el-carousel indicator-position="inside" height='400px'>
 
@@ -25,18 +25,16 @@
 
         </div>
 
-          <div class=" container">
-            <div class="sub_title">
-              <span>FEATURE PRODUCTS</span>
-            </div>
-          </div>
+        <div class="sub_title">
+          <span>FEATURE PRODUCTS</span>
+        </div>
           <div class='feature_item container'>
             <div v-for="a in featureProducts" >
                 <app-item :item="a"></app-item>
             </div>
           </div>  
 
-        <div class="popular container">
+        <div class="popular">
           <div class="sub_title">
             <span>MOST POPULAR ITEMS</span>
           </div>
@@ -47,11 +45,6 @@
             </div>
           </div>
         </div>
-
-
-
-
-        
     </div>
 </template>
 
@@ -66,6 +59,7 @@
           featureProducts:{},
           ads:{},
           popular:{},
+          loading:1,
 
         }
       },
@@ -100,6 +94,7 @@
          //get most populars
           this.$http.get('/api/popular').then(response=>{
             this.popular = response.body;
+            this.loading = 0;
           }, response=>{
             // error log
           });

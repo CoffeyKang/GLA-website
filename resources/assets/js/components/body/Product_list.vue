@@ -1,5 +1,8 @@
 <template>
-	<div>
+	<div v-loading='loading'  
+		 element-loading-text="Loading ..."
+		 
+		  >
 		<div class="container">
 			<div class="title">
 				<span>Products List {{ make }}</span>
@@ -66,6 +69,7 @@
 				lists:{},
 				data:{},
 				page:1,
+				loading:1,
 			}
 		},
 		mounted(){
@@ -75,6 +79,9 @@
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
+
+			    // finish ladding screen
+			    this.loading = 0;
 			  }, response => {
 			  	// error 
 			    console.log("error");
