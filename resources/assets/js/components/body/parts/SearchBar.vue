@@ -12,7 +12,7 @@
 	                    <el-select v-model="search.make" placeholder="Make" style='width:120px;'>
 	                    	<el-option
 						      v-for="item in makes"
-						      :key="item.make"
+						      :key="item.id"
 						      :label="item.make"
 						      :value="item.make">
 						    </el-option>

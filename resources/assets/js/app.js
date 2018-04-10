@@ -18,10 +18,7 @@ const router = new VueRouter({
 	routes,
 });
 
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue')
-);
+
 
 /**
  * First we will load all of this project's JavaScript dependencies which
