@@ -97,15 +97,16 @@ class InventoryController extends Controller
         $product_list = Inventory::
         join('inventory_img','inventory.item','inventory_img.item')->
         where('make',$make)->paginate(20) ;
-        
-        // foreach ($product_list as $item) {
-            /**
-             * will check if the img exsits or not
-             * if not exits
-             * a default img will display
-             */
+
+        foreach ($product_list as $item) {
+            if (file_exists(public_path().$item->img_path)) {
+                
+            }else{
+                $item->img_path = "/images/default_sm.jpg";
+            }
             
-        // }
+        }
+        
         return $product_list;
     }
 
@@ -117,6 +118,13 @@ class InventoryController extends Controller
     public function singleItem($item){
         $singleItem = Inventory::where('item',$item)->first();
         $singleItem->img_path = Inventory_img::where('item',$item)->first()->img_path;
+        
+        if (file_exists(public_path().$singleItem->img_path)) {
+                
+            }else{
+                $singleItem->img_path = "/images/default_bg.jpg";
+        }
+
         $single = $singleItem->toArray();
         return $singleItem;
     }
@@ -127,6 +135,10 @@ class InventoryController extends Controller
         
         foreach ($related as $r) {
             $r->img_path = Inventory_img::where('item',$r->item)->first()->img_path;
+        }
+
+        foreach ($related as $item) {
+            $item->checkImgExists();
         }
 
         return $related;
@@ -146,8 +158,10 @@ class InventoryController extends Controller
 
         foreach ($resualt as $item) {
             $item->img_path = $item->itemImg()->first()->img_path;
+            $item->checkImgExists();
+        }   
 
-        }
+        
 
         
 
@@ -166,10 +180,10 @@ class InventoryController extends Controller
         foreach ($resault as $r) {
             $item = $r->itemImg()->first();
 
-            if ($item) {
+            if ($item&&file_exists(public_path().$item->img_path)) {
                 $r->img_path = $item->img_path;
             }else{
-                $r->img_path = "/images/default.jpg";
+                $r->img_path = "/images/default_bg.jpg";
             }
 
         }

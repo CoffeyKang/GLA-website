@@ -38,4 +38,12 @@ class Inventory extends Model
     public function wishlist(){
         return $this->hasMany('app\Wishlist','item','item');
     }
+
+    public function checkImgExists(){
+        if (file_exists(public_path().$this->img_path)) {
+            
+        }else{
+            $this->img_path = '/images/default_bg.jpg';
+        }
+    }
 }

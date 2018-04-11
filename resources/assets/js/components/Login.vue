@@ -20,7 +20,6 @@
                     </div>
                     <div>
                         <span class='forgetPassword'>Forgot Password?</span>
-                        
                     </div>
                 </div>
             </div>
@@ -48,21 +47,16 @@
 
                 
             </div>
-
-            
         </div>
-
         <div class="panel panel-default col-xs-12">
             <div class="panel-heading">
                 <h3 class="panel-title">Log In Help</h3>
             </div>
             <div class="panel-body">
                 If you are having problems logging in, try the following: <br>
-                
                 1. Enable Cookies. <br>
                 2. Enable Javascript. <br>
                 3. Refresh the page. <br>
-
                 If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.
             </div>
             
@@ -82,12 +76,12 @@ export default {
     },
     methods:{
         loginTo(){
-            this.$http.get('/api/loginCustomer',{params:  {email: 1, password:2}}).then(
+            this.$http.get('/api/loginCustomer', this.userinfo).then(
                 function(response){
-                    console.log(response.data);
+                    this.userinfo;
+                    console.log(123);
                 }
             )
-            
         }
 
         // this.$http.get('/api/banner').then(response=>{

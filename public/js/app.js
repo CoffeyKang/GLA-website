@@ -62942,7 +62942,12 @@ var render = function() {
           "div",
           { staticClass: "feature_item container popular" },
           _vm._l(_vm.popular, function(a) {
-            return _c("div", [_c("app-item", { attrs: { item: a } })], 1)
+            return _c(
+              "div",
+              { key: _vm.popular.id },
+              [_c("app-item", { attrs: { item: a } })],
+              1
+            )
           })
         )
       ])
@@ -64513,7 +64518,7 @@ var render = function() {
         { staticClass: "container", attrs: { id: "car_makes" } },
         [
           _vm._l(_vm.lists, function(item) {
-            return _c("div", { staticClass: "car_make" }, [
+            return _c("div", { key: item.item, staticClass: "car_make" }, [
               _c("div", { staticClass: "item" }, [
                 _c("div", {
                   staticClass: "car_img",
@@ -66066,12 +66071,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -66082,8 +66081,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         loginTo: function loginTo() {
-            this.$http.get('/api/loginCustomer', { params: { email: 1, password: 2 } }).then(function (response) {
-                console.log(response.data);
+            this.$http.get('/api/loginCustomer', this.userinfo).then(function (response) {
+                this.userinfo;
+                console.log(123);
             });
         }
 
@@ -66272,14 +66272,14 @@ var staticRenderFns = [
           "\n            If you are having problems logging in, try the following: "
         ),
         _c("br"),
-        _vm._v("\n            \n            1. Enable Cookies. "),
+        _vm._v("\n            1. Enable Cookies. "),
         _c("br"),
         _vm._v("\n            2. Enable Javascript. "),
         _c("br"),
         _vm._v("\n            3. Refresh the page. "),
         _c("br"),
         _vm._v(
-          "\n\n            If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.\n        "
+          "\n            If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.\n        "
         )
       ])
     ])

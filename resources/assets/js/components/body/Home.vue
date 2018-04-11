@@ -40,7 +40,7 @@
           </div>
 
           <div class='feature_item container popular'>
-            <div v-for="a in popular" >
+            <div v-for="a in popular" :key='popular.id'>
                 <app-item :item="a"></app-item>
             </div>
           </div>
