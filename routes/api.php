@@ -39,9 +39,13 @@ Route::get('/searchResualt', 'InventoryController@searchResualt');
 Route::get('/wishlist','ShoppingController@wishlist');
 
 /**
- * test passport
+ * login
  */
-Route::get('/loginCustomer','AccessControl@userinfo');
+Route::post('/loginCustomer','AccessControl@userinfo');
+
+/** create new customer */
+Route::post('/newCustomer','AccessControl@newCustomer');
+
 
 
 

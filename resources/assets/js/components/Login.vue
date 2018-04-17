@@ -36,15 +36,10 @@
                         shipping progress and fast and easy check out.
                     </p>
                 </div>
-
-                
                 
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <button class="btn btn-danger col-xs-12" id='loginBtn'>Register New Account</button>
+                    <button class="btn btn-danger col-xs-12" id='loginBtn' @click="toRegister()">Register New Account</button>
                 </div>
-
-                
-
                 
             </div>
         </div>
@@ -76,19 +71,29 @@ export default {
     },
     methods:{
         loginTo(){
-            this.$http.get('/api/loginCustomer', this.userinfo).then(
+            this.$http.post('/api/loginCustomer', {loginInfo: this.userinfo}).then(
                 function(response){
-                    this.userinfo;
-                    console.log(123);
-                }
-            )
-        }
+                    console.log(response.data);
 
-        // this.$http.get('/api/banner').then(response=>{
-        //     this.banners = response.body;
-        //   }, response=>{
-        //     // error log
-        //   });
+                    var myStorage = localStorage;
+
+                    myStorage.setItem('user', JSON.stringify(response.data.user));
+
+                    myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
+
+                    myStorage.setItem('token', response.data.token);
+                    
+
+                    this.$router.push({name:'CustomerInfo',params:{'id':response.data.user.id}});
+                    
+                }), (function(response){
+                    
+                });
+            
+        },
+        toRegister(){
+            this.$router.push('/register');
+        }
     }
 }
 </script>

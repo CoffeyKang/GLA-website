@@ -10,6 +10,11 @@ import SearchResualt from './components/body/SearchResualt.vue';
 import Wishlist from './components/body/Wishlist.vue';
 import PageNotFound from './components/body/PageNotFound.vue';
 import Login from './components/Login.vue';
+import Register from './components/Register.vue';
+import CustomerInfo from './components/CustomerInfo.vue';
+import SetPromotion from './components/userAdmin/SetPromotion.vue';
+import EditUser from './components/userAdmin/SetPromotion.vue';
+import UserHome from './components/userAdmin/UserHome.vue';
 
 export const routes = [
   {path: '/',component: Home,name: 'home'},
@@ -23,6 +28,14 @@ export const routes = [
   {path: '/Item/:id',component: ItemDetails, name: 'ItemDetails'},
   {path: '/wishlist',component: Wishlist, name: 'Wishlist'},
   {path: '/login',component: Login, name: 'Login'},
-  { path: '*', component: PageNotFound }
+  {path: '/register', component: Register, name: 'Register'},
+  {path: '/customerinfo/:id', component: CustomerInfo, name: 'CustomerInfo',
+    children: [
+      { path: '', component: UserHome, name: 'userHome' },
+      {path: 'setPromotion',component: SetPromotion, name: 'setPromotion'},
+      {path: 'editUser',component: EditUser, name: 'editUser'}
+    ]
+  },
+  {path: '*', component: PageNotFound }
 
 ];
