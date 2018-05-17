@@ -74,8 +74,7 @@
 		
 </template>
 <script>
-
-	export default {
+	export default{
 		data (){
 			return {
 				make:this.$route.query.make,
@@ -96,7 +95,6 @@
 					}
 				).then(response => {
 			    // get body data
-			    
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
@@ -137,6 +135,9 @@
 			    console.log("error");
 			  });
 			},
+
+
+			
 			prePage(){
 				this.page -=1;
 				this.$http.get('/api/searchResualt/',
@@ -147,7 +148,7 @@
 							page:this.page,
 						}
 					}
-				)	.then(response => {
+				).then(response => {
 			    // get body data
 			    this.data = response.body;
 			    this.lists = response.body.data;

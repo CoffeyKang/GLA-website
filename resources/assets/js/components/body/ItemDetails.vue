@@ -11,13 +11,11 @@
 				<div class="descrip">
 					<span style=' text-transform: uppercase'>{{ item.descrip }}</span>
 				</div>
-				
 				<div class="details text-left">
 					<li><span class='column_name'>Item Number:</span> <b>{{item.item}}</b></li>
 					<li><span class='column_name'>Year Fit: </span><b>{{item.year_from}} -- {{item.year_end}}</b></li>
 					<li><span class='column_name'>Make: </span><b>{{item.make}}</b></li>
 				</div>
-				
 				<div class="priceDiv">
 					<div class="price">
 						$ {{ item.pricel.toFixed(2) }}
@@ -25,6 +23,25 @@
 					<div class="action">
 						<div class='action_left'>
 							<div class="inStock">In-Stock: {{item.onhand}}</div>
+							<div class="quantity row">
+								<div class="col-xs-3">
+									Quantity:
+								</div>
+								<div class="col-xs-6">
+									<el-select v-model="quantity" size='mini' popper-class='text-center'>
+										<el-option
+											v-for="a in item.onhand"
+											:key="a.item"
+											:label="a"
+											:value="a">
+										</el-option>
+									</el-select>
+								</div>
+								<div class="col-xs-3">
+									 
+								</div>
+								
+							</div>
 							<div class="wish">
 								Add To Wishlist &nbsp;<span class="glyphicon glyphicon-heart-empty"></span>
 							</div>
@@ -40,7 +57,7 @@
 			RELATED PRODUCTS
 		</div>
 		<div class="related_products container">
-			<div v-for='r in related'>
+			<div v-for='r in related' :key='r.item'>
 				<div class='related_item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + r.img_path + ')' }">
 					</div>
@@ -76,6 +93,7 @@
 				related:{},
 				color:"red",
 				showItem :false,
+				quantity:1,
 
 			}
 		},

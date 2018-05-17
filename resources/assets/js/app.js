@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import App from './App.vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import App from './App.vue';
+import VueRouter from 'vue-router';
 // elements-ui
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 // vue resourece
 import VueResource from 'vue-resource';
 /**
@@ -12,13 +12,10 @@ import VueResource from 'vue-resource';
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(VueResource);
-import { routes } from './router.js';	
+import { routes } from './router.js';
 
 const router = new VueRouter({
-	routes,
-});
-
-
+routes});
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -32,11 +29,25 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component(
+  'passport-clients',
+  require('./components/passport/Clients.vue')
+);
+
+Vue.component(
+  'passport-authorized-clients',
+  require('./components/passport/AuthorizedClients.vue')
+);
+
+Vue.component(
+  'passport-personal-access-tokens',
+  require('./components/passport/PersonalAccessTokens.vue')
+);
+
 new Vue({
   el: '#app',
   mode: 'history',
   router,
-  
-  render: h => h(App)
-})
 
+  render: h => h(App)
+});

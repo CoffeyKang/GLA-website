@@ -3,9 +3,16 @@
     	<el-form label-width="80px" size="medium">
 			
 			<el-form-item label="Item" >
-		    	<el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc." style='width:350px;'>
+		    	<el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A " style='width:350px;'>
 		    	</el-input>
 			</el-form-item>
+
+			<el-form-item label="Keywords" >
+		    	<el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc." style='width:350px;'>
+		    	</el-input>
+			</el-form-item>
+
+			
 
 		  	<el-form-item label="Make" >
 				
@@ -31,7 +38,6 @@
 					</el-option>
 	            </el-select >  
 		    </el-form-item>
-	  	
 		  	<el-form-item>
 		    	<el-button type="primary" @click="searchItem()">Search</el-button>
 		    	<el-button @click='resetSearch()'> Reset </el-button>
@@ -71,42 +77,24 @@
 		},
 		methods:{
 			searchItem(){
-				this.$http.get('/api/searchResualt', 
-					{params:
-						{
+				this.$router.push({name:'SearchList',query:{
 							item:this.search.item, 
 							make:this.search.make,
 							year:this.search.year,
-						}
-						}).then(response => {
-			    // get body data
-			    this.sr = response.body;
-			    console.log(this.sr);
-			    
-			    if (this.sr=='itemFound') {
-			    	this.$router.push({name:'ItemDetails',params:{id:this.search.item}})
-
-			    }else if(this.sr.data.length>=2){
-			    	
-			    	this.$router.push({name:'SearchResualt',query:{make:this.search.make, year:this.search.year}})
-			    }else{
-			    	alert('not such item fond');
-			    }
-			    
-			  }, response => {
-			  	// error 
-			    console.log("error");
-			  });
+							desc:this.search.desc,
+						}});
 
 				this.$emit('closeSearchLayer',false);
 			},
-
 			resetSearch(){
 				return this.search={};
 			}
+		},
+		watch: {
+			
+				
 		}
 
-		
 	}
 </script>
 

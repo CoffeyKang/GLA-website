@@ -130,6 +130,7 @@ class InventoryController extends Controller
     }
 
     public function related($item){
+        
         $make = Inventory::where('item',$item)->first()->make;
         $related = Inventory::where('item','!=',$item)->where('make',$make)->inRandomOrder()->take(4)->get();
         
@@ -190,38 +191,95 @@ class InventoryController extends Controller
         return $resault;
     }
 
-    public function searchResualt(){
-        $item = isset($_GET['item'])?$_GET['item']:'item';
-        $make = isset($_GET['make'])?$_GET['make']:'make';
-        $year = isset($_GET['year'])?$_GET['year']:'year';
-
-        if ($item!='') {
-            $item = Inventory::where('item',$item)->first();
-            if ($item) {
-                $item = $item->itemFullInfo();
+    public function searchResualt(Request $request){
+        $item = $request->item?$request->item:'item';
+        $make = $request->make?$request->make:'make';
+        $year = $request->year?$request->year:'year';
+        $desc = $request->desc?$request->desc:'desc';
+        $page = $request->page?$request->page:1;
+        
+        if ($item != 'item') {
+            $oneItem = Inventory::where('item',$item)->first();
+            if ($oneItem) {
+                $oneItem = $oneItem->itemFullInfo();
                 return "itemFound";
-
-            }else if($make!=''){
-                $mycurrentPage = isset($_GET['page'])?$_GET['page']:1;
+            }else{
+                
+                $mycurrentPage = $page;
                 Paginator::currentPageResolver(function () use ($mycurrentPage) {
                     return $mycurrentPage;
                 });
 
-                if (is_numeric($year)) {
-                    $items = Inventory::where('make',$make)->where('year_from','<=',$year)->where('year_end','>=',$year)
-                    ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20); 
-                    return $items;   
+                $items = Inventory::where('item','!=','fei');
+                /** make */
+                if ($make!='make') {
+                    $items = $items->where('make',$make);
                 }else{
 
-                    $items = Inventory::where('make',$make)
-                    ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20);
-                    return $items; 
                 }
 
+                /** year */
+                if ($year!='year' && is_numeric($year) ) {
+                    
+                    $items = $items->where('year_from','<=',$year)->where('year_end','>=',$year);
+                        // ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20); 
+                    
+                }else{
+                    
+                }
+
+                /** desc */
+                if ($desc!='desc') {
+                    $items = $items->where('descrip','LIKE',"%".$desc."%");
+                }else{
+                    
+                }
+
+                $items=$items->paginate(20);
+                
+                return $items;
+                 
+            }
+            
+        }else{
+            $mycurrentPage = $page;
+            Paginator::currentPageResolver(function () use ($mycurrentPage) {
+                return $mycurrentPage;
+            });
+
+            $items = Inventory::orderBy('item','asc');
+            /** make */
+            if ($make!='make') {
+                
+                $items = $items->where('make',$make);
+                    // ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20);
+
+            }else{
+
+            }
+
+            /** year */
+            if ($year!='year' && is_numeric($year) ) {
+                
+                $items = $items->where('year_from','<=',$year)->where('year_end','>=',$year);
+                    // ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20); 
                 
             }else{
-                return "notFound";
+                
             }
+
+            /** desc */
+            if ($desc!='disc') {
+                $items = $items->where('descrip','LIKE',"%".$desc."%");
+            }else{
+                
+            }
+
+            $items=$items->paginate(20);
+
+            
+            return $items;
+            
         }
     }
 }

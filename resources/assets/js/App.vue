@@ -4,7 +4,7 @@
             <app-header></app-header>
         </div>
         <div class='container-fuild' id='body'>
-            <router-view></router-view>
+            <router-view :key="$route.fullPath"></router-view>
         </div>
         <div class='container-fuild'>
             <app-footer></app-footer>

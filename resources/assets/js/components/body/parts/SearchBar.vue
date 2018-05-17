@@ -48,44 +48,40 @@
 				makes:{},
 				sr:{},
 				currentYear:new Date().getFullYear(),
+				page:1,
 			}
 		},
 		mounted(){
 			this.$http.get('/api/makes').then(response => {
-			    // get body data
 			    this.makes = response.body;
 			    console.log(this.makes);
 			  }, response => {
-			  	// error 
 			    console.log("error");
 			  });
 		},
 		methods:{
 			searchItem(){
+				console.log('--------------------------------------');
 				this.$http.get('/api/searchResualt', 
 					{params:
 						{
 							item:this.search.item, 
 							make:this.search.make,
 							year:this.search.year,
+							page:this.page,
 						}
-						}).then(response => {
+					}).then(response => {
 			    // get body data
 			    this.sr = response.body;
 			    console.log(this.sr);
-			    
 			    if (this.sr=='itemFound') {
-			    	this.$router.push({name:'ItemDetails',params:{id:this.search.item}})
-
+			    	this.$router.push({name:'ItemDetails',params:{id:this.search.item}});
 			    }else if(this.sr.data.length>=2){
-			    	
-			    	this.$router.push({name:'SearchResualt',query:{make:this.search.make, year:this.search.year}})
+			    	this.$router.push({name:'SearchResualt',query:{make:this.search.make, year:this.search.year}});
 			    }else{
 			    	alert('not such item fond');
 			    }
-			    
 			  }, response => {
-			  	// error 
 			    console.log("error");
 			  });
 			}

@@ -19,13 +19,17 @@ class AccessControl extends Controller
     public function userinfo(Request $request)
     {	
         $email = $request->loginInfo['email'];
-
+        
         $user = User::where('email',$email)->first();
+        
         if ($user) {
             
             $userInfo = UserInfo::where('m_id',$user->id)->first();
+
+            
             
             $token = $user->createToken('token')->accessToken;
+            
 
             return response()->json(['user'=>$user, 'token'=>$token, 'userInfo'=>$userInfo],200);
         }else{

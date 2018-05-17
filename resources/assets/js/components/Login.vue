@@ -56,8 +56,13 @@
             </div>
             
         </div>
+        <div class="col-xs-12">
 
-        
+
+            <passport-clients></passport-clients>
+            <passport-authorized-clients></passport-authorized-clients>
+            <passport-personal-access-tokens></passport-personal-access-tokens>
+        </div>
     </div>
 </template>
 
@@ -66,7 +71,9 @@
 export default {
     data(){
         return {
-            userinfo:{},
+            userinfo:{
+                
+            },
         }
     },
     methods:{
@@ -89,6 +96,7 @@ export default {
                 }), (function(response){
                     
                 });
+
             
         },
         toRegister(){

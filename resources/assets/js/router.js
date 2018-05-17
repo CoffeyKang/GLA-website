@@ -7,6 +7,7 @@ import Ccbd from './components/body/Ccbd.vue';
 import Product_list from './components/body/Product_list.vue';
 import ItemDetails from './components/body/ItemDetails.vue';
 import SearchResualt from './components/body/SearchResualt.vue';
+import SearchList from './components/body/SearchList.vue';
 import Wishlist from './components/body/Wishlist.vue';
 import PageNotFound from './components/body/PageNotFound.vue';
 import Login from './components/Login.vue';
@@ -36,6 +37,7 @@ export const routes = [
       {path: 'editUser',component: EditUser, name: 'editUser'}
     ]
   },
+  {path: '/SearchList',component: SearchList, name: 'SearchList'},
   {path: '*', component: PageNotFound }
 
 ];
