@@ -6,12 +6,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // vue resourece
 import VueResource from 'vue-resource';
+// vuex
+import Vuex from 'vuex';
 /**
  * import vue-router
  */
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(VueResource);
+Vue.use(Vuex);
+
 import { routes } from './router.js';
 
 const router = new VueRouter({
@@ -29,25 +33,9 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component(
-  'passport-clients',
-  require('./components/passport/Clients.vue')
-);
-
-Vue.component(
-  'passport-authorized-clients',
-  require('./components/passport/AuthorizedClients.vue')
-);
-
-Vue.component(
-  'passport-personal-access-tokens',
-  require('./components/passport/PersonalAccessTokens.vue')
-);
-
 new Vue({
   el: '#app',
   mode: 'history',
   router,
-
   render: h => h(App)
 });
