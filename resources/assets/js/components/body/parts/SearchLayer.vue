@@ -1,7 +1,8 @@
 <template>
 	<div class="searchBar">
+		<!-- search layer -->
+
     	<el-form label-width="80px" size="medium">
-			
 			<el-form-item label="Item" >
 		    	<el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A " style='width:350px;'>
 		    	</el-input>
@@ -11,7 +12,6 @@
 		    	<el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc." style='width:350px;'>
 		    	</el-input>
 			</el-form-item>
-
 			
 
 		  	<el-form-item label="Make" >
@@ -19,7 +19,7 @@
 				<el-select v-model="search.make" placeholder="Make" style='width:350px;'>
 	                <el-option
 				      v-for="item in makes"
-				      :key="item.make"
+				      :key="item.id"
 				      :label="item.make"
 				      :value="item.make">
 				    </el-option>
@@ -43,18 +43,10 @@
 		    	<el-button @click='resetSearch()'> Reset </el-button>
 		  	</el-form-item>
 		</el-form>
-            
-
-
-                    
-	                    
-	                
-                  
     </div>
 </template>
 
 <script>
-
 	export default{
 
 		data(){

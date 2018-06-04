@@ -1,5 +1,6 @@
 <template>
 	<div class="searchBar">
+		<!-- home page search bar -->
        <form class='searchForm'>
                     <div class='words'>
                     	I NEED TO FIND:
@@ -7,7 +8,9 @@
 
                     <div class="inputSearch">
                     
-	                    <el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc."></el-input>
+	                  <el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
+
+										</el-input>
 						<div class='mySelect'>
 	                    <el-select v-model="search.make" placeholder="Make" style='width:120px;'>
 	                    	<el-option
@@ -27,12 +30,10 @@
 						      :label="a"
 						      :value="a"			
 						      v-if="a>1949">
-						    </el-option>
-	                    </el-select >
+											</el-option>
+														</el-select >
 	                    </div>
-	                    
 	                <button class='btn btn-primary findBTN' @click='searchItem()'>FIND</button>
-
                 </div>
                   
             </form>
@@ -40,7 +41,6 @@
 </template>
 
 <script>
-
 	export default{
 		data(){
 			return {
@@ -59,9 +59,9 @@
 			    console.log("error");
 			  });
 		},
+
 		methods:{
 			searchItem(){
-				console.log('--------------------------------------');
 				this.$http.get('/api/searchResualt', 
 					{params:
 						{
@@ -74,9 +74,7 @@
 			    // get body data
 			    this.sr = response.body;
 			    console.log(this.sr);
-			    if (this.sr=='itemFound') {
-			    	this.$router.push({name:'ItemDetails',params:{id:this.search.item}});
-			    }else if(this.sr.data.length>=2){
+			    if(this.sr.data.length>=1){
 			    	this.$router.push({name:'SearchResualt',query:{make:this.search.make, year:this.search.year}});
 			    }else{
 			    	alert('not such item fond');

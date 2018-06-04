@@ -16,7 +16,7 @@
         
 
         <div class="ads row" >
-        <div v-for="ad in ads " class='col-xs-4'>
+        <div v-for="ad in ads " class='col-xs-4' :key="ad.id">
           <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }">
             
           </div>
@@ -29,7 +29,7 @@
           <span>FEATURE PRODUCTS</span>
         </div>
           <div class='feature_item container'>
-            <div v-for="a in featureProducts" >
+            <div v-for="a in featureProducts" :key="a.id">
                 <app-item :item="a"></app-item>
             </div>
           </div>  
@@ -40,7 +40,7 @@
           </div>
 
           <div class='feature_item container popular'>
-            <div v-for="a in popular" :key='popular.id'>
+            <div v-for="a in popular" :key='a.id' >
                 <app-item :item="a"></app-item>
             </div>
           </div>

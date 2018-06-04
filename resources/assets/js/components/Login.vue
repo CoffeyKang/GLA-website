@@ -12,7 +12,6 @@
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <button class="btn btn-primary col-xs-12" id='loginBtn' @click="loginTo()">Login</button>
                 </div>
-
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                     <div>
                         <input type="checkbox"  value='RemeberPassword' placeholder="remeber">
@@ -56,13 +55,7 @@
             </div>
             
         </div>
-        <div class="col-xs-12">
-
-
-            <passport-clients></passport-clients>
-            <passport-authorized-clients></passport-authorized-clients>
-            <passport-personal-access-tokens></passport-personal-access-tokens>
-        </div>
+        
     </div>
 </template>
 
@@ -81,9 +74,7 @@ export default {
             this.$http.post('/api/loginCustomer', {loginInfo: this.userinfo}).then(
                 function(response){
                     console.log(response.data);
-
                     var myStorage = localStorage;
-
                     myStorage.setItem('user', JSON.stringify(response.data.user));
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));

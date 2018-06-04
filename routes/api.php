@@ -47,5 +47,9 @@ Route::post('/loginCustomer','AccessControl@userinfo');
 Route::post('/newCustomer','AccessControl@newCustomer');
 
 
+// add to cart
+Route::get('/addToCart','InventoryController#addToCart');
+
+
 
 

@@ -1,7 +1,8 @@
 <template>
 	<div class='container ItemDetails'>
 		<div class="nav" id='top'>
-			HOME/FIREBIRD/PARTS
+			HOME/FIREBIRD/PARTS<br>
+			<span @click='backToSearch()' class='backToSearch'>RETRUN TO SEARCH RESUALT</span>
 		</div>
 		<div class="item" v-if='showItem'>
 			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }"> 
@@ -47,7 +48,7 @@
 							</div>
 						</div>
 						<div class="action_right">
-							<button class='btn btn-primary addToCart'>Add To Cart</button>
+							<button class='btn btn-primary addToCart' @click='addToCart(item.item)'>Add To Cart</button>
 						</div>
 					</div>
 				</div>
@@ -98,7 +99,6 @@
 			}
 		},
 		created(){
-
 			console.log(this.$route.params.id);
 		},
 		mounted(){
@@ -155,7 +155,37 @@
 			  });
 
 			},
+
+			// back to search result
+			backToSearch(){
+				this.$router.push({name:'SearchList',query:{
+					item:this.getItem,
+					make:this.getMake,
+					year:this.getYear,
+					desc:this.getDesc,
+				}});
+			},
+
+			// addToCart
+			addToCart(item){
+				window.localStorage.clear();
+				
+			}
 			
+		},
+		computed:{
+			getItem(){
+				return this.$store.state.search.item;
+			},
+			getMake(){
+				return this.$store.state.search.make;
+			},
+			getDesc(){
+				return this.$store.state.search.desc;
+			},
+			getYear(){
+				return this.$store.state.search.year;
+			},
 		}
 
 	}
@@ -164,6 +194,10 @@
 
 </script>
 <style scoped>
+	.backToSearch{
+		font-size: 12px;
+		cursor: pointer;
+	}
 	.ItemDetails{
 		display: flex;
 		flex-direction: column;
@@ -209,9 +243,7 @@
 		font-weight: bold;
 		color: red;
 	}
-	.column_name{
-
-	}
+	
 	.action{
 		display: flex;
 		justify-content: space-between;

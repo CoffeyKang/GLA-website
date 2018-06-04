@@ -11,7 +11,7 @@
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
 						<router-link to='/login' tag='li'>Log In</router-link>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>
-						<li><span class="glyphicon glyphicon-shopping-cart"></span></li>
+						<router-link to='/shoppingCart' tag='li'> <span class="glyphicon glyphicon-shopping-cart"></span></router-link>
 					</ul>
 				</div>
 			</div>
@@ -30,7 +30,7 @@
 			
 			<div class='gla-nav-details'>
 				<ul class='nav nav-pills black nav-justified'>
-					<router-link to='/' tag='li' active-class='active ' exact><a>Home</a></router-link>
+					<router-link to='/' tag='li' active-class='active ' exact><a>Home </a></router-link>
 					<router-link to='/allProducts' tag='li' active-class='active' ><a>All Products</a></router-link>
 					<router-link to='/catalog' tag='li' active-class='active'><a>Catalog</a></router-link>
 					<router-link to='/classicBody' tag='li' active-class='active' ><a>Classic Body</a></router-link>
@@ -59,6 +59,9 @@
 			
 		},
 		mounted(){
+			
+		},
+		computed:{
 			
 		}
 		

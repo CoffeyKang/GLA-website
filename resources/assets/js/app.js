@@ -1,5 +1,7 @@
 import Vue from 'vue';
+// whole page js code
 import App from './App.vue';
+// vue router
 import VueRouter from 'vue-router';
 // elements-ui
 import ElementUI from 'element-ui';
@@ -7,20 +9,24 @@ import 'element-ui/lib/theme-chalk/index.css';
 // vue resourece
 import VueResource from 'vue-resource';
 // vuex
-import Vuex from 'vuex';
+
 /**
  * import vue-router
  */
 Vue.use(VueRouter);
+// use element ui
 Vue.use(ElementUI);
+// use vue resource 
 Vue.use(VueResource);
-Vue.use(Vuex);
 
 import { routes } from './router.js';
 
+import { store } from './store.js';
+
 const router = new VueRouter({
 routes});
-
+console.log('this is storage ');
+console.log(store.state.count);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -37,5 +43,6 @@ new Vue({
   el: '#app',
   mode: 'history',
   router,
+  store,
   render: h => h(App)
 });

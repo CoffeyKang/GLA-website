@@ -198,88 +198,65 @@ class InventoryController extends Controller
         $desc = $request->desc?$request->desc:'desc';
         $page = $request->page?$request->page:1;
         
-        if ($item != 'item') {
-            $oneItem = Inventory::where('item',$item)->first();
-            if ($oneItem) {
-                $oneItem = $oneItem->itemFullInfo();
-                return "itemFound";
-            }else{
+        $data = [$item,$make,$year,$desc,$page];
+
+        
+                             
+        // set paginator
+        $mycurrentPage = $page;
+        Paginator::currentPageResolver(function () use ($mycurrentPage) {
+            return $mycurrentPage;
+        });
+
+        $items = Inventory::orderBy('item','asc');
+
+        /** make */
+        if ($item!='item') {
                 
-                $mycurrentPage = $page;
-                Paginator::currentPageResolver(function () use ($mycurrentPage) {
-                    return $mycurrentPage;
-                });
+            $items = $items->where('item',$item);
 
-                $items = Inventory::where('item','!=','fei');
-                /** make */
-                if ($make!='make') {
-                    $items = $items->where('make',$make);
-                }else{
-
-                }
-
-                /** year */
-                if ($year!='year' && is_numeric($year) ) {
-                    
-                    $items = $items->where('year_from','<=',$year)->where('year_end','>=',$year);
-                        // ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20); 
-                    
-                }else{
-                    
-                }
-
-                /** desc */
-                if ($desc!='desc') {
-                    $items = $items->where('descrip','LIKE',"%".$desc."%");
-                }else{
-                    
-                }
-
-                $items=$items->paginate(20);
-                
-                return $items;
-                 
-            }
-            
         }else{
-            $mycurrentPage = $page;
-            Paginator::currentPageResolver(function () use ($mycurrentPage) {
-                return $mycurrentPage;
-            });
 
-            $items = Inventory::orderBy('item','asc');
-            /** make */
-            if ($make!='make') {
+        }
+
+        
+        /** make */
+        if ($make!='make') {
                 
-                $items = $items->where('make',$make);
-                    // ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20);
+            $items = $items->where('make',$make);
 
-            }else{
-
-            }
-
-            /** year */
-            if ($year!='year' && is_numeric($year) ) {
+        }else{
+        }
+        
+        /** year */
+        if ($year!='year' && is_numeric($year) ) {
                 
-                $items = $items->where('year_from','<=',$year)->where('year_end','>=',$year);
+            $items = $items->where('year_from','<=',$year)->where('year_end','>=',$year);
                     // ->join('inventory_img','inventory.item','inventory_img.item')->paginate(20); 
                 
-            }else{
+        }else{
                 
-            }
-
-            /** desc */
-            if ($desc!='disc') {
-                $items = $items->where('descrip','LIKE',"%".$desc."%");
-            }else{
-                
-            }
-
-            $items=$items->paginate(20);
-
-            
-            return $items;
-            
         }
+        
+        /** desc */
+        if ($desc!='desc') {
+            $items = $items->where('descrip','LIKE',"%".$desc."%");
+        }else{
+                
+        }
+
+        $items=$items->paginate(20);
+
+            
+        return $items;
+            
     }
+
+    // add to cart
+    public function InventoryController(Request $request){
+        $item = $request->item;
+        $qty = $request->qty;
+
+    }
+    
 }

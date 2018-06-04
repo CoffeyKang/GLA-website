@@ -93,20 +93,24 @@
 					}).then(response => {
 			    // get body data
 				this.sr = response.body;
-				console.log(response);
-			    if (this.sr=='itemFound') {
-			    }else{
-					this.list = this.sr.data;
-                    this.data = response.body;
-					this.page = this.data.current_page;
-					if (this.data.total>=1) {
-						this.result=true;
-					}else{
-						this.empty=true;
-					}
+				this.list = this.sr.data;
+                this.data = response.body;
+				this.page = this.data.current_page;
+				if (this.data.total>=1) {
+					this.result=true;
+
+					// i need put the search details to vuex, in order to backbing to search result pages
+					this.$store.commit('setItem',this.item);
+					this.$store.commit('setMake',this.make);
+					this.$store.commit('setDesc',this.desc);
+					this.$store.commit('setYear',this.year);
+					
+					
+
+				}else{
+					this.empty=true;
 				}
 			  }, response => {
-			  
 			    console.log("error");
 			  });
         },
@@ -146,6 +150,21 @@
         },
 		watch: {
 			
+		},
+		computed:{
+			getItem(){
+				return this.$store.state.search.item;
+				
+			},
+			getMake(){
+				return this.$store.state.search.make;
+			},
+			getDesc(){
+				return this.$store.state.search.desc;
+			},
+			getYear(){
+				return this.$store.state.search.year;
+			},
 		}
 	}
 </script>
