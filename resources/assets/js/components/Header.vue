@@ -7,11 +7,15 @@
 				</div>
 				
 				<div>
-					<ul>
+					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
 						<router-link to='/login' tag='li'>Log In</router-link>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>
-						<router-link to='/shoppingCart' tag='li'> <span class="glyphicon glyphicon-shopping-cart"></span></router-link>
+						<router-link to='/shoppingCart' tag='li'> 
+							<el-badge :value="carts_total" class="item">
+								<span class="glyphicon glyphicon-shopping-cart"></span>
+							</el-badge>
+						</router-link>
 					</ul>
 				</div>
 			</div>
@@ -50,6 +54,7 @@
 			return {
 				centerDialogVisible:false,
 				labelPosition: 'left',
+				
 			}
 		},
 		components:{
@@ -62,7 +67,9 @@
 			
 		},
 		computed:{
-			
+			carts_total(){
+				return this.$store.state.carts_total;
+			}
 		}
 		
 
@@ -103,10 +110,11 @@ li a{
 .logo ul li{
 	display: inline;
 	padding-left: 10px;
-	font-size: 14px;
+	font-size: 20px;
 	cursor:pointer;
 
 }
+
 
 
 

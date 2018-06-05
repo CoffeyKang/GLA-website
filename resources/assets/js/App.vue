@@ -22,9 +22,33 @@
 	
 
 	export default {
+		data(){
+			return {
+				carts:[],
+				storage:window.localStorage,
+				items:[],
+			}
+		},
 		components:{
 			appHeader:Header,
 			appFooter:Footer,
+		},
+		mounted(){
+			// get items # from localstorage 
+                for (let i = 0; i < this.storage.length; i++) {
+                    this.items.push(this.storage.key(i));
+                };
+                // get item information 
+				let data = this.items;
+				
+                this.$http.post('/api/getItems_carts/',{data:data}).then(response => {
+                    this.carts = response.data.carts;
+                    this.$store.commit('carts_number',this.carts.length);
+                        
+                }, response => {
+                        // error 
+                    console.log("error");
+                });
 		},
 		watch: {
 	    '$route' (to, from) {

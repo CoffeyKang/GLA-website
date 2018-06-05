@@ -182,7 +182,14 @@
 						window.localStorage.setItem(item,qty);
 					}else{
 						window.localStorage.setItem(item,this.quantity);
+						var newNumber = this.carts_number+1;
+						console.log('-----------------');
+						console.log(newNumber);
+						this.$store.commit('carts_number',newNumber);
+
 					}
+
+					
 					const h = this.$createElement;
 					this.$notify({
 						title: 'Succsesfully.',
@@ -206,6 +213,10 @@
 			getYear(){
 				return this.$store.state.search.year;
 			},
+
+			carts_number(){
+				return this.$store.state.carts_total;
+			}
 		}
 
 	}

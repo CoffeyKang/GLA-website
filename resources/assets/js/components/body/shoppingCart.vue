@@ -124,6 +124,7 @@ export default {
                 let data = this.items;
                 this.$http.post('/api/getItems_carts/',{data:data}).then(response => {
                     this.carts = response.data.carts;
+                    this.$store.commit('carts_number',this.carts.length);
                     this.subtotal = 0;                
                     this.carts.forEach(element => {
                         this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
@@ -154,6 +155,7 @@ export default {
                         };
                         this.$http.post('/api/getItems_carts/',{data:this.items}).then(response => {
                             this.carts = response.data.carts;
+                            this.$store.commit('carts_number',this.carts.length);
                             // subtotal 
                             this.subtotal = 0;
                             this.carts.forEach(element => {

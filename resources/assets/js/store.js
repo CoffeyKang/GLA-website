@@ -26,6 +26,15 @@ const searchModule = {
 };
 
 export const store = new Vuex.Store({
+  state:{
+    carts_total:0,
+  },
+
+  mutations:{
+    carts_number(state,number){
+      state.carts_total = number;
+    }
+  },
   modules: {
     search: searchModule
   }

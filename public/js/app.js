@@ -16709,16 +16709,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    appHeader: __WEBPACK_IMPORTED_MODULE_0__components_Header_vue___default.a,
-    appFooter: __WEBPACK_IMPORTED_MODULE_1__components_Footer_vue___default.a
-  },
-  watch: {
-    '$route': function $route(to, from) {
-      console.log('url changed');
-      window.scrollTo(0, 0);
-    }
-  }
+	data: function data() {
+		return {
+			carts: [],
+			storage: window.localStorage,
+			items: []
+		};
+	},
+
+	components: {
+		appHeader: __WEBPACK_IMPORTED_MODULE_0__components_Header_vue___default.a,
+		appFooter: __WEBPACK_IMPORTED_MODULE_1__components_Footer_vue___default.a
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		// get items # from localstorage 
+		for (var i = 0; i < this.storage.length; i++) {
+			this.items.push(this.storage.key(i));
+		};
+		// get item information 
+		var data = this.items;
+
+		this.$http.post('/api/getItems_carts/', { data: data }).then(function (response) {
+			_this.carts = response.data.carts;
+			_this.$store.commit('carts_number', _this.carts.length);
+		}, function (response) {
+			// error 
+			console.log("error");
+		});
+	},
+
+	watch: {
+		'$route': function $route(to, from) {
+			console.log('url changed');
+			window.scrollTo(0, 0);
+		}
+	}
 });
 
 /***/ }),
@@ -16807,7 +16834,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.gla-nav[data-v-1bc06644]{\r\n\t\tbackground-color: yellow;\n}\n.black .active a[data-v-1bc06644],\r\n.black .active a[data-v-1bc06644]:visited,\r\n.black .active a[data-v-1bc06644]:hover{\r\n    background-color: black;\n}\n.nav-pills > .active > a[data-v-1bc06644], .nav-pills > .active > a[data-v-1bc06644]:hover,.black .active a[data-v-1bc06644]:visited {\r\n    background-color: black;\n}\nli a[data-v-1bc06644]{\r\n\tborder-radius: 0;\r\n\tfont-size: 18px;\r\n\tcolor: black;\r\n\tpadding:15px 0;\n}\n.logo[data-v-1bc06644]{\r\n\tpadding: 20px 0;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t    -ms-flex-pack: justify;\r\n\t        justify-content: space-between;\r\n\t-webkit-box-align: end;\r\n\t    -ms-flex-align: end;\r\n\t        align-items: flex-end;\n}\n.logo ul li[data-v-1bc06644]{\r\n\tdisplay: inline;\r\n\tpadding-left: 10px;\r\n\tfont-size: 14px;\r\n\tcursor:pointer;\n}\r\n\r\n\r\n\r\n\r\n\r\n\t\r\n\t\r\n\t\r\n\t\r\n\t\r\n", ""]);
+exports.push([module.i, "\n.gla-nav[data-v-1bc06644]{\r\n\t\tbackground-color: yellow;\n}\n.black .active a[data-v-1bc06644],\r\n.black .active a[data-v-1bc06644]:visited,\r\n.black .active a[data-v-1bc06644]:hover{\r\n    background-color: black;\n}\n.nav-pills > .active > a[data-v-1bc06644], .nav-pills > .active > a[data-v-1bc06644]:hover,.black .active a[data-v-1bc06644]:visited {\r\n    background-color: black;\n}\nli a[data-v-1bc06644]{\r\n\tborder-radius: 0;\r\n\tfont-size: 18px;\r\n\tcolor: black;\r\n\tpadding:15px 0;\n}\n.logo[data-v-1bc06644]{\r\n\tpadding: 20px 0;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t    -ms-flex-pack: justify;\r\n\t        justify-content: space-between;\r\n\t-webkit-box-align: end;\r\n\t    -ms-flex-align: end;\r\n\t        align-items: flex-end;\n}\n.logo ul li[data-v-1bc06644]{\r\n\tdisplay: inline;\r\n\tpadding-left: 10px;\r\n\tfont-size: 20px;\r\n\tcursor:pointer;\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\t\r\n\t\r\n\t\r\n\t\r\n\t\r\n", ""]);
 
 // exports
 
@@ -16865,6 +16892,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16872,6 +16903,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			centerDialogVisible: false,
 			labelPosition: 'left'
+
 		};
 	},
 
@@ -16881,7 +16913,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {},
 	mounted: function mounted() {},
 
-	computed: {}
+	computed: {
+		carts_total: function carts_total() {
+			return this.$store.state.carts_total;
+		}
+	}
 
 });
 
@@ -17252,6 +17288,7 @@ var render = function() {
           _c("div", [
             _c(
               "ul",
+              { staticClass: "right-header" },
               [
                 _c(
                   "li",
@@ -17277,10 +17314,20 @@ var render = function() {
                   "router-link",
                   { attrs: { to: "/shoppingCart", tag: "li" } },
                   [
-                    _c("span", {
-                      staticClass: "glyphicon glyphicon-shopping-cart"
-                    })
-                  ]
+                    _c(
+                      "el-badge",
+                      {
+                        staticClass: "item",
+                        attrs: { value: _vm.carts_total }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-shopping-cart"
+                        })
+                      ]
+                    )
+                  ],
+                  1
                 )
               ],
               1
@@ -68643,7 +68690,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					window.localStorage.setItem(item, qty);
 				} else {
 					window.localStorage.setItem(item, this.quantity);
+					var newNumber = this.carts_number + 1;
+					console.log('-----------------');
+					console.log(newNumber);
+					this.$store.commit('carts_number', newNumber);
 				}
+
 				var h = this.$createElement;
 				this.$notify({
 					title: 'Succsesfully.',
@@ -68665,6 +68717,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		getYear: function getYear() {
 			return this.$store.state.search.year;
+		},
+		carts_number: function carts_number() {
+			return this.$store.state.carts_total;
 		}
 	}
 
@@ -71655,6 +71710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = this.items;
             this.$http.post('/api/getItems_carts/', { data: data }).then(function (response) {
                 _this.carts = response.data.carts;
+                _this.$store.commit('carts_number', _this.carts.length);
                 _this.subtotal = 0;
                 _this.carts.forEach(function (element) {
                     _this.subtotal += element.pricel * parseInt(_this.storage.getItem(element.item));
@@ -71685,6 +71741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 };
                 _this2.$http.post('/api/getItems_carts/', { data: _this2.items }).then(function (response) {
                     _this2.carts = response.data.carts;
+                    _this2.$store.commit('carts_number', _this2.carts.length);
                     // subtotal 
                     _this2.subtotal = 0;
                     _this2.carts.forEach(function (element) {
@@ -71989,6 +72046,15 @@ var searchModule = {
 };
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+  state: {
+    carts_total: 0
+  },
+
+  mutations: {
+    carts_number: function carts_number(state, number) {
+      state.carts_total = number;
+    }
+  },
   modules: {
     search: searchModule
   }
