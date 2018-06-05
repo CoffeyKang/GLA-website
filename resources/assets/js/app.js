@@ -25,8 +25,7 @@ import { store } from './store.js';
 
 const router = new VueRouter({
 routes});
-console.log('this is storage ');
-console.log(store.state.count);
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when

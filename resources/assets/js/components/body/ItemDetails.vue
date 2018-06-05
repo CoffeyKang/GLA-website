@@ -48,7 +48,7 @@
 							</div>
 						</div>
 						<div class="action_right">
-							<button class='btn btn-primary addToCart' @click='addToCart(item.item)'>Add To Cart</button>
+							<button class='btn btn-primary addToCart' id='addToCart' @click='addToCart(item.item)'>Add To Cart</button>
 						</div>
 					</div>
 				</div>
@@ -100,6 +100,7 @@
 		},
 		created(){
 			console.log(this.$route.params.id);
+			
 		},
 		mounted(){
 			this.$http.get('/api/item/'+ this.id).then(response => {
@@ -129,6 +130,8 @@
 			  	// error 
 			    console.log("error");
 			  });
+
+			  
 			
 
 		},
@@ -167,9 +170,26 @@
 			},
 
 			// addToCart
-			addToCart(item){
-				window.localStorage.clear();
-				
+			addToCart(item){ 
+				if (this.item.onhand<1) {
+					this.$alert('Out of stock', 'Warning', {
+						confirmButtonText: 'OK',
+						
+					});
+				}else{
+					if (window.localStorage.getItem(item)) {
+						var qty = parseInt(window.localStorage.getItem(item)) + this.quantity;
+						window.localStorage.setItem(item,qty);
+					}else{
+						window.localStorage.setItem(item,this.quantity);
+					}
+					const h = this.$createElement;
+					this.$notify({
+						title: 'Succsesfully.',
+						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+					});
+				}
+				console.log(window.localStorage);
 			}
 			
 		},

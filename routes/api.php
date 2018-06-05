@@ -38,6 +38,8 @@ Route::get('/searchResualt', 'InventoryController@searchResualt');
 
 Route::get('/wishlist','ShoppingController@wishlist');
 
+Route::post('/getItems_carts','InventoryController@getItems_carts');
+
 /**
  * login
  */
@@ -47,8 +49,7 @@ Route::post('/loginCustomer','AccessControl@userinfo');
 Route::post('/newCustomer','AccessControl@newCustomer');
 
 
-// add to cart
-Route::get('/addToCart','InventoryController#addToCart');
+
 
 
 

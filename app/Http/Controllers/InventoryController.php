@@ -252,11 +252,24 @@ class InventoryController extends Controller
             
     }
 
-    // add to cart
-    public function InventoryController(Request $request){
-        $item = $request->item;
-        $qty = $request->qty;
+    // getItems_carts
+    public function getItems_carts(Request $request){
+        
+        $item_numbers = array_reverse($request->data);
+    
+        $carts = Inventory::whereIn('item',$item_numbers)->get();
 
+        foreach ($carts as $cart) {
+            
+            $cart->itemFullInfo();
+        
+        }
+
+        
+        
+
+        return response()->json(['carts'=>$carts]);
     }
+    
     
 }
