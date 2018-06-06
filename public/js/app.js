@@ -16237,8 +16237,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_element_ui_lib_theme_chalk_index_css__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_element_ui_lib_theme_chalk_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_element_ui_lib_theme_chalk_index_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_resource__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__router_js__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_js__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_js__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router_js__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_js__ = __webpack_require__(299);
 
 // whole page js code
 
@@ -16249,6 +16250,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // vue resourece
 
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.mixin(__WEBPACK_IMPORTED_MODULE_6__common_js__["a" /* myMixin */]);
 
 // vuex
 /**
@@ -16265,7 +16269,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_
 
 
 var router = new __WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]({
-  routes: __WEBPACK_IMPORTED_MODULE_6__router_js__["a" /* routes */] });
+  routes: __WEBPACK_IMPORTED_MODULE_7__router_js__["a" /* routes */] });
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -16283,7 +16287,7 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app',
   mode: 'history',
   router: router,
-  store: __WEBPACK_IMPORTED_MODULE_7__store_js__["a" /* store */],
+  store: __WEBPACK_IMPORTED_MODULE_8__store_js__["a" /* store */],
   render: function render(h) {
     return h(__WEBPACK_IMPORTED_MODULE_1__App_vue___default.a);
   }
@@ -68738,6 +68742,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				});
 			}
 			console.log(window.localStorage);
+		},
+		addToWishlist: function addToWishlist() {
+			this.addToWishlist();
 		}
 	},
 	computed: {
@@ -68882,7 +68889,23 @@ var render = function() {
                     _c("div", { staticClass: "col-xs-3" })
                   ]),
                   _vm._v(" "),
-                  _vm._m(0)
+                  _c(
+                    "div",
+                    {
+                      staticClass: "wish",
+                      on: {
+                        click: function($event) {
+                          _vm.addToWishlist()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("\n\t\t\t\t\t\t\tAdd To Wishlist  "),
+                      _c("span", {
+                        staticClass: "glyphicon glyphicon-heart-empty"
+                      })
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "action_right" }, [
@@ -68974,17 +68997,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "wish" }, [
-      _vm._v("\n\t\t\t\t\t\t\tAdd To Wishlist  "),
-      _c("span", { staticClass: "glyphicon glyphicon-heart-empty" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -104013,6 +104026,46 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return myMixin; });
+var myMixin = {
+  data: function data() {
+    return {
+      storage: window.localStorage
+    };
+  },
+
+  methods: {
+    addToCart: function addToCart() {},
+
+    addToWishlist: function addToWishlist() {
+      var user = this.storage.getItem('user');
+
+      if (user) {
+        alert(123);
+      } else {
+        var currentPath = this.$route.path;
+        this.$store.commit('changeLoginDirect', currentPath);
+        this.$router.push('login');
+      }
+    },
+    currentPath: function currentPath() {
+      console.log(this.$route.path);
+    }
+  },
+  computed: {}
+};
 
 /***/ })
 /******/ ]);

@@ -43,7 +43,7 @@
 								</div>
 								
 							</div>
-							<div class="wish">
+							<div class="wish" @click='addToWishlist();'>
 								Add To Wishlist &nbsp;<span class="glyphicon glyphicon-heart-empty"></span>
 							</div>
 						</div>
@@ -197,6 +197,9 @@
 					});
 				}
 				console.log(window.localStorage);
+			},
+			addToWishlist(){
+				this.addToWishlist();
 			}
 			
 		},
