@@ -16249,8 +16249,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // vue resourece
 
-// vuex
 
+// vuex
 /**
  * import vue-router
  */
@@ -16750,6 +16750,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			console.log('url changed');
 			window.scrollTo(0, 0);
 		}
+	},
+	methods: {
+		test: function test() {
+			console.log(1);
+		}
 	}
 });
 
@@ -16933,6 +16938,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		this.userID = JSON.parse(this.storage.getItem("user")).id;
 	},
+
 
 	computed: {
 		carts_total: function carts_total() {
@@ -69925,7 +69931,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.wishBody[data-v-1ffc8598]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n}\n.wishlist-item[data-v-1ffc8598]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\tborder: 1px gray solid;\n\tmargin-top: 10px;\n\tmargin-bottom: 10px;\n}\n.item-img[data-v-1ffc8598]{\n    background-position: 50%;\n    background-repeat: no-repeat;\n    background-size: 100%;\n    height: 180px;\n    width: 180px;\n    margin:10px;\n}\n.item-details[data-v-1ffc8598]{\n\theight: 180px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\twidth: 300px;\n\tpadding: 20px;\n}\n.descrip[data-v-1ffc8598]{\n\tfont-size: 1em;\n\tcolor: black;\n\tfont-weight: bold;\n}\n.item-info[data-v-1ffc8598]{\n\tcolor: gray;\n}\n.item-action[data-v-1ffc8598]{\n\theight: 180px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\twidth: 300px;\n\tpadding: 20px 0px;\n}\n.price[data-v-1ffc8598]{\n\tfont-size: 1.6em;\n\tfont-weight: bold;\n\tline-height: 80px;\n}\n.add[data-v-1ffc8598]{\n\tfont-size: 1.6em;\n\tpadding-left: 10px;\n\tpadding-right: 10px;\n}\n.wishlist-action[data-v-1ffc8598]{\n\tmargin-top: 10px;\n\tpadding-right: 0 !important;\n}\ntable tr[data-v-1ffc8598], table td[data-v-1ffc8598]{\n\tborder:1px gray solid;\n}\n.action-title[data-v-1ffc8598]{\n\tfont-size: 1.6em;\n\tpadding: 10px\n}\n.action-info[data-v-1ffc8598]{\n\tfont-size: 1.2em;\n\tpadding: 10px;\n\tcursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.oneItem[data-v-1ffc8598]{\n        border: 1px solid black;\n        margin: 15px 0;\n}\n.itemImg[data-v-1ffc8598]{\n        width: 30%;\n        height: 250px;\n}\n#itemImg[data-v-1ffc8598]{\n        margin-top: 30px;\n        background-size: contain;\n        background-repeat: no-repeat;\n        background-position: center;\n        height: 80px;\n}\n.itemDetails[data-v-1ffc8598]{\n        width: 40%;\n        padding: 30px;\n        height: 250px;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.item_action[data-v-1ffc8598]{\n        width: 30%;\n        padding: 30px;\n        height: 250px;\n}\n.singleItem[data-v-1ffc8598]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.desc[data-v-1ffc8598]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n}\n.info[data-v-1ffc8598]{\n        color: gray;\n        font-size: 12px;\n}\n.qty[data-v-1ffc8598]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.update_link[data-v-1ffc8598]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-align: end;\n            -ms-flex-align: end;\n                align-items: flex-end;\n        -webkit-box-pack: end;\n            -ms-flex-pack: end;\n                justify-content: flex-end;\n}\n.instock[data-v-1ffc8598]{\n        font-size: 18px;\n        font-weight: bold;\n        color: #009456;\n}\n.item_action[data-v-1ffc8598]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.toWish[data-v-1ffc8598]{\n        font-size: 16px;\n        color: red;\n}\n.price[data-v-1ffc8598]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        font-size: 18px;\n        font-weight: bold;\n}\n.glyphicon[data-v-1ffc8598]{\n        cursor: pointer;\n}\n.action-title[data-v-1ffc8598]{\n\t\tfont-size: 1.6em;\n\t\tpadding: 10px\n}\n.action-info[data-v-1ffc8598]{\n\t\tfont-size: 1.2em;\n\t\tpadding: 10px;\n\t\tcursor: pointer;\n}\n\t\n", ""]);
 
 // exports
 
@@ -69985,16 +69991,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			items: {},
 			storage: window.localStorage
+
 		};
 	},
 	mounted: function mounted() {
-		var _this = this;
 
 		// check if user is login
 		if (this.storage.getItem('userInfo')) {
@@ -70005,17 +70023,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.$router.push('Login');
 		}
 
-		this.$http.get('/api/wishlist').then(function (response) {
-			_this.items = response.data.items;
-			console.log(_this.items);
-		}, function (response) {
-			console.log('wishlist error');
-		});
+		this.getWishlist();
 	},
 
+	computed: {
+		carts_number: function carts_number() {
+			return this.$store.state.carts_total;
+		}
+	},
 	methods: {
 		open2: function open2() {
-			var _this2 = this;
+			var _this = this;
 
 			this.$confirm('Are you sure to clear the wishlist?', 'Warning', {
 				confirmButtonText: 'Empty',
@@ -70023,18 +70041,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				type: 'warning'
 			}).then(function () {
 				console.log('delete the wishlist table');
-				_this2.$message({
+				_this.$message({
 					type: 'success',
 					message: 'Clean Successfully!'
 				});
 			}).catch(function () {
-				_this2.$message({
+				_this.$message({
 					type: 'info',
 					message: 'Action Canceled.'
 				});
 			});
+		},
+		removeFromWhishlist: function removeFromWhishlist(item) {
+			var _this2 = this;
+
+			var user = JSON.parse(this.storage.getItem("user")).id;
+			this.$http.post('/api/removeFromWishlist', { user: user, item: item.item }).then(function (response) {
+				console.log(response.data);
+				if (response.data == 1) {
+					_this2.items = {}, _this2.getWishlist();
+					console.log(_this2.items);
+				} else {}
+			}, function (response) {
+				console.log('error');
+			});
+		},
+
+		// addToCart
+		addToCart: function addToCart(item) {
+			if (item.onhand < 1) {
+				this.$alert('Out of stock', 'Warning', {
+					confirmButtonText: 'OK'
+				});
+			} else {
+				if (window.localStorage.getItem(item.item)) {
+					var qty = parseInt(window.localStorage.getItem(item.item)) + 1;
+					window.localStorage.setItem(item.item, qty);
+				} else {
+					window.localStorage.setItem(item.item, 1);
+					var newNumber = this.carts_number + 1;
+					this.$store.commit('carts_number', newNumber);
+				}
+
+				var h = this.$createElement;
+				this.$notify({
+					title: 'Succsesfully.',
+					message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+				});
+
+				console.log(window.localStorage);
+			}
+
+			this.removeFromWhishlist(item);
+		},
+		getWishlist: function getWishlist() {
+			var _this3 = this;
+
+			this.$http.get('/api/wishlist').then(function (response) {
+				_this3.items = response.data.items;
+			}, function (response) {
+				console.log('wishlist error');
+			});
 		}
 	}
+
 });
 
 /***/ }),
@@ -70049,59 +70119,101 @@ var render = function() {
     _c("div", { staticClass: "wishBody" }, [
       _c(
         "div",
-        { staticClass: "wishilist-items container-fuild col-xs-9" },
+        { staticClass: "wishilist-items container-fuild col-sm-8" },
         _vm._l(_vm.items, function(item) {
-          return _c("div", { key: item.item }, [
-            _c("div", { staticClass: "wishlist-item container-fuild " }, [
-              _c("div", {
-                staticClass: "item-img",
-                style: { backgroundImage: "url(" + item.img_path + ")" }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "item-details" }, [
-                _c("span", { staticClass: "descrip" }, [
-                  _vm._v(_vm._s(item.descrip.toUpperCase()))
+          return _c(
+            "div",
+            { key: item.item, staticClass: "container-fulid oneItem" },
+            [
+              _c("div", { staticClass: "singleItem" }, [
+                _c("div", { staticClass: "itemImg" }, [
+                  _c("div", {
+                    style: { backgroundImage: "url(" + item.img_path + ")" },
+                    attrs: { id: "itemImg" }
+                  })
                 ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "item-info" }, [
-                  _vm._v("Product NO: " + _vm._s(item.item))
+                _c("div", { staticClass: "itemDetails" }, [
+                  _c("div", { staticClass: "desc" }, [
+                    _c("span", { staticClass: "title" }, [
+                      _vm._v(_vm._s(item.descrip))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "info" }, [
+                      _vm._v("Product No: " + _vm._s(item.item))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "info" }, [
+                      _vm._v(
+                        "Year Fit: " +
+                          _vm._s(item.year_from) +
+                          " -- " +
+                          _vm._s(item.year_end)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "info" }, [
+                      _vm._v("Make: " + _vm._s(item.make))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "instock" }, [
+                    _vm._v(
+                      "\n                            In-stock: " +
+                        _vm._s(item.onhand) +
+                        "\n                        "
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "item-info" }, [
-                  _vm._v(
-                    "Year Fit:" +
-                      _vm._s(item.year_from) +
-                      " - " +
-                      _vm._s(item.year_end)
-                  )
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "item-info" }, [
-                  _vm._v("Make: " + _vm._s(item.make))
+                _c("div", { staticClass: "item_action text-right" }, [
+                  _c("div", { staticClass: "closure " }, [
+                    _c("span", {
+                      staticClass: "glyphicon glyphicon-remove",
+                      on: {
+                        click: function($event) {
+                          _vm.removeFromWhishlist(item)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "price" }, [
+                    _c("span", [
+                      _vm._v(
+                        "\n                                PRICE: $ " +
+                          _vm._s(item.pricel) +
+                          "\n                            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              _vm.addToCart(item)
+                            }
+                          }
+                        },
+                        [_vm._v("Add To Cart")]
+                      )
+                    ])
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "item-action" }, [
-                _c("span", {
-                  staticClass: "glyphicon glyphicon-remove text-right"
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "price text-right" }, [
-                  _vm._v("PRICE: $ " + _vm._s(item.pricel.toFixed(2)))
-                ]),
-                _vm._v(" "),
-                _vm._m(0, true)
               ])
-            ])
-          ])
+            ]
+          )
         })
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "wishlist-action col-xs-3" }, [
+      _c("div", { staticClass: "wishlist-action col-sm-4" }, [
         _c("table", { staticClass: "col-xs-12" }, [
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("tr", [
             _c("td", { staticClass: "action-info", on: { click: _vm.open2 } }, [
@@ -70117,16 +70229,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "btn btn-info text-right add" }, [
-        _vm._v("Add to Cart")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

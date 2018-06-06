@@ -8,8 +8,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // vue resourece
 import VueResource from 'vue-resource';
-// vuex
 
+// vuex
 /**
  * import vue-router
  */

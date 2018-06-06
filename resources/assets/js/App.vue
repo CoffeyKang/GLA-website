@@ -20,7 +20,6 @@
 	import Header from './components/Header.vue';
 	import Footer from './components/Footer.vue';
 	
-
 	export default {
 		data(){
 			return {
@@ -34,6 +33,7 @@
 			appFooter:Footer,
 		},
 		mounted(){
+			
 			// get items # from localstorage 
                 for (let i = 0; i < this.storage.length; i++) {
                     this.items.push(this.storage.key(i));
@@ -57,10 +57,15 @@
 		},
 		watch: {
 	    '$route' (to, from) {
-	      console.log('url changed');
-	      window.scrollTo(0,0);
-	    }
-	  }
+			console.log('url changed');
+			window.scrollTo(0,0);
+			}
+		},
+		methods:{
+			test(){
+				console.log(1);
+			}
+		}
 	}
 </script>
 

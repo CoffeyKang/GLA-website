@@ -76,10 +76,10 @@
 		},
 		mounted(){
 			
-
 			this.userID = JSON.parse(this.storage.getItem("user")).id;
 
 		},
+		
 		computed:{
 			carts_total(){
 				return this.$store.state.carts_total;

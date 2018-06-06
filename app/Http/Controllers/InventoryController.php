@@ -7,6 +7,7 @@ use App\Inventory;
 use Illuminate\Pagination\Paginator;
 use App\Inventory_img;
 use App\FeatureProduct;
+use App\Wishlist;
 class InventoryController extends Controller
 {
     /**
@@ -269,6 +270,25 @@ class InventoryController extends Controller
         
 
         return response()->json(['carts'=>$carts]);
+    }
+
+
+    // removeFromWishlist
+    public function removeFromWishlist(Request $request){
+        
+        $user = $request->user;
+        
+        $item = $request->item;
+        
+        $items = Wishlist::where('cust_id',$user)->where('item',$item)->first();
+
+        if ($items) {
+            $items->delete();
+            return 1;
+        }else{
+            return 0;
+        }
+        
     }
     
     
