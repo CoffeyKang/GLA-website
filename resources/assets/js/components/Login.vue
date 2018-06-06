@@ -52,7 +52,9 @@
                 2. Enable Javascript. <br>
                 3. Refresh the page. <br>
                 If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.
+                
             </div>
+            
             
         </div>
         
@@ -67,6 +69,27 @@ export default {
             userinfo:{
                 
             },
+            storage:window.localStorage,
+        }
+    },
+    mounted(){
+        // check if user is login
+		if(this.storage.getItem('userInfo')){
+				
+            let userData = JSON.parse(this.storage.getItem('userInfo'));
+            this.$router.push('home');
+		}else{
+			this.$router.push('Login');
+        }
+        
+        console.log(this.loginDirect);
+    },
+    computed:{
+        loginStatus(){
+            return this.$store.state.loginStatus;
+        },
+        loginDirect(){
+            return this.$store.state.loginDirect;
         }
     },
     methods:{
@@ -80,15 +103,15 @@ export default {
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
                     myStorage.setItem('token', response.data.token);
-                    
 
-                    this.$router.push({name:'CustomerInfo',params:{'id':response.data.user.id}});
+                    this.$store.commit('changeLoginStatus',true);
+                    
+                    this.$router.push(this.loginDirect);
                     
                 }), (function(response){
                     
                 });
 
-            
         },
         toRegister(){
             this.$router.push('/register');

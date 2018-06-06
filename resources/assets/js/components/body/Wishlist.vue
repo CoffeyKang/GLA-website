@@ -3,7 +3,7 @@
 		
 		<div class='wishBody'>
 			<div class='wishilist-items container-fuild col-xs-9'>
-				<div v-for="item in items">
+				<div v-for="item in items" :key="item.item">
 					<div class="wishlist-item container-fuild ">
 						<div class='item-img' :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
 							
@@ -52,15 +52,27 @@
 		data(){
 			return {
 				items:{},
+				storage:window.localStorage,
 			}
 		},
 		mounted(){
+			
+			// check if user is login
+			if(this.storage.getItem('userInfo')){
+				
+				let userData = JSON.parse(this.storage.getItem('userInfo'));
+			}else{
+				this.$store.commit('changeLoginDirect','wishlist');
+				this.$router.push('Login');
+			}
+
 			this.$http.get('/api/wishlist').then(response=>{
 				this.items = response.data.items;
 				console.log(this.items);
 			}, response=>{
 				console.log('wishlist error');
 			});
+
 		},
 		methods:{
 			open2(){

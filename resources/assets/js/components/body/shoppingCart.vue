@@ -101,14 +101,14 @@ export default {
             subtotal:0,
             shipping:"-",
             hst:"-",
-            total:'-',
+            // total:this.subtotal,
             
             }
         },
         computed:{
-            // total:function(){
-            //     return this.subtotal + this.shipping + this.hst;
-            // }
+            total:function(){
+                return this.subtotal;
+            }
         },
         mounted(){
             this.reloadElement();
@@ -132,7 +132,7 @@ export default {
                     console.log(this.subtotal);
                         
                 }, response => {
-                        // error 
+                    // error 
                     console.log("error");
                 });
             },
@@ -153,6 +153,7 @@ export default {
                         for (let i = 0; i < this.storage.length; i++) {
                             this.items.push(this.storage.key(i));
                         };
+
                         this.$http.post('/api/getItems_carts/',{data:this.items}).then(response => {
                             this.carts = response.data.carts;
                             this.$store.commit('carts_number',this.carts.length);
@@ -162,13 +163,9 @@ export default {
                                 this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
                             });
                         }, response => {
-                                // error 
+                            // error 
                             console.log("error");
                         });
-
-                        
-                        
-
                     }).catch(() => {
                     this.$message({
                         type: 'info',

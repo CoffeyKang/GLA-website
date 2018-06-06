@@ -9,7 +9,9 @@
 				<div>
 					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
-						<router-link to='/login' tag='li'>Log In</router-link>
+						<router-link to='/login' tag='li' v-if="!loginStatus">Log In</router-link>
+						<li v-if="loginStatus" @click="logOut()">Log Out</li>
+						<li v-if="loginStatus" @click='customerInfo()'>My Account</li>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>
 						<router-link to='/shoppingCart' tag='li'> 
 							<el-badge :value="carts_total" class="item">
@@ -18,6 +20,7 @@
 						</router-link>
 					</ul>
 				</div>
+				
 			</div>
 
 			<el-dialog
@@ -54,22 +57,39 @@
 			return {
 				centerDialogVisible:false,
 				labelPosition: 'left',
-				
+				storage:window.localStorage,
+				userID:0,
 			}
 		},
 		components:{
 			appSearchLayer:SearchLayer
 		},
 		methods:{
-			
+			logOut(){
+				this.storage.removeItem('userInfo');
+				this.$store.commit('changeLoginStatus',false);
+				this.$router.push('/');
+			},
+			customerInfo(){
+				this.$router.push({name:'CustomerInfo',params:{id:this.userID}});
+			}
 		},
 		mounted(){
 			
+
+			this.userID = JSON.parse(this.storage.getItem("user")).id;
+
 		},
 		computed:{
 			carts_total(){
 				return this.$store.state.carts_total;
-			}
+			},
+			loginStatus(){
+				return this.$store.state.loginStatus;
+			},
+
+
+
 		}
 		
 

@@ -16738,6 +16738,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			// error 
 			console.log("error");
 		});
+
+		// check if the use log in
+		if (this.storage.getItem("userInfo")) {
+			this.$store.commit('changeLoginStatus', true);
+		}
 	},
 
 	watch: {
@@ -16896,26 +16901,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			centerDialogVisible: false,
-			labelPosition: 'left'
-
+			labelPosition: 'left',
+			storage: window.localStorage,
+			userID: 0
 		};
 	},
 
 	components: {
 		appSearchLayer: __WEBPACK_IMPORTED_MODULE_0__body_parts_SearchLayer_vue___default.a
 	},
-	methods: {},
-	mounted: function mounted() {},
+	methods: {
+		logOut: function logOut() {
+			this.storage.removeItem('userInfo');
+			this.$store.commit('changeLoginStatus', false);
+			this.$router.push('/');
+		},
+		customerInfo: function customerInfo() {
+			this.$router.push({ name: 'CustomerInfo', params: { id: this.userID } });
+		}
+	},
+	mounted: function mounted() {
+
+		this.userID = JSON.parse(this.storage.getItem("user")).id;
+	},
 
 	computed: {
 		carts_total: function carts_total() {
 			return this.$store.state.carts_total;
+		},
+		loginStatus: function loginStatus() {
+			return this.$store.state.loginStatus;
 		}
 	}
 
@@ -17302,9 +17326,39 @@ var render = function() {
                   [_c("span", { staticClass: "glyphicon glyphicon-search" })]
                 ),
                 _vm._v(" "),
-                _c("router-link", { attrs: { to: "/login", tag: "li" } }, [
-                  _vm._v("Log In")
-                ]),
+                !_vm.loginStatus
+                  ? _c("router-link", { attrs: { to: "/login", tag: "li" } }, [
+                      _vm._v("Log In")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.loginStatus
+                  ? _c(
+                      "li",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.logOut()
+                          }
+                        }
+                      },
+                      [_vm._v("Log Out")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.loginStatus
+                  ? _c(
+                      "li",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.customerInfo()
+                          }
+                        }
+                      },
+                      [_vm._v("My Account")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("router-link", { attrs: { to: "/wishList", tag: "li" } }, [
                   _vm._v("Wish List")
@@ -67940,15 +67994,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	methods: {
-		change: function change() {
-			this.$store.commit('increment');
-		}
-	}
+	methods: {}
 });
 
 /***/ }),
@@ -67959,43 +68007,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container ccbd" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-success",
-        on: {
-          click: function($event) {
-            _vm.change()
-          }
-        }
-      },
-      [_vm._v("\n\t\tclick\n\t")]
-    )
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "banner" }, [
-      _c("img", { attrs: { src: "/images/ccbd_header.jpg", alt: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "wards" }, [
-      _c("p", [
-        _vm._v(
-          "In the restoration car parts industry, Dynacorn International, Incorporated constantly strives to be the best at what we do. As we streamline the purchasing process and continue to strengthen our customer service, we make it easier and easier to get your parts from dii. With facilities on the East and West coasts and Canada, we are now prepared to meet your needs better than ever."
-        )
+    return _c("div", { staticClass: "container ccbd" }, [
+      _c("div", { staticClass: "banner" }, [
+        _c("img", { attrs: { src: "/images/ccbd_header.jpg", alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "wards" }, [
+        _c("p", [
+          _vm._v(
+            "In the restoration car parts industry, Dynacorn International, Incorporated constantly strives to be the best at what we do. As we streamline the purchasing process and continue to strengthen our customer service, we make it easier and easier to get your parts from dii. With facilities on the East and West coasts and Canada, we are now prepared to meet your needs better than ever."
+          )
+        ])
       ])
     ])
   }
@@ -69960,11 +69989,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			items: {}
+			items: {},
+			storage: window.localStorage
 		};
 	},
 	mounted: function mounted() {
 		var _this = this;
+
+		// check if user is login
+		if (this.storage.getItem('userInfo')) {
+
+			var userData = JSON.parse(this.storage.getItem('userInfo'));
+		} else {
+			this.$store.commit('changeLoginDirect', 'wishlist');
+			this.$router.push('Login');
+		}
 
 		this.$http.get('/api/wishlist').then(function (response) {
 			_this.items = response.data.items;
@@ -70012,7 +70051,7 @@ var render = function() {
         "div",
         { staticClass: "wishilist-items container-fuild col-xs-9" },
         _vm._l(_vm.items, function(item) {
-          return _c("div", [
+          return _c("div", { key: item.item }, [
             _c("div", { staticClass: "wishlist-item container-fuild " }, [
               _c("div", {
                 staticClass: "item-img",
@@ -70398,14 +70437,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            userinfo: {}
+            userinfo: {},
+            storage: window.localStorage
         };
     },
+    mounted: function mounted() {
+        // check if user is login
+        if (this.storage.getItem('userInfo')) {
 
+            var userData = JSON.parse(this.storage.getItem('userInfo'));
+            this.$router.push('home');
+        } else {
+            this.$router.push('Login');
+        }
+
+        console.log(this.loginDirect);
+    },
+
+    computed: {
+        loginStatus: function loginStatus() {
+            return this.$store.state.loginStatus;
+        },
+        loginDirect: function loginDirect() {
+            return this.$store.state.loginDirect;
+        }
+    },
     methods: {
         loginTo: function loginTo() {
             this.$http.post('/api/loginCustomer', { loginInfo: this.userinfo }).then(function (response) {
@@ -70417,7 +70479,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 myStorage.setItem('token', response.data.token);
 
-                this.$router.push({ name: 'CustomerInfo', params: { 'id': response.data.user.id } });
+                this.$store.commit('changeLoginStatus', true);
+
+                this.$router.push(this.loginDirect);
             }), function (response) {};
         },
         toRegister: function toRegister() {
@@ -70614,7 +70678,7 @@ var staticRenderFns = [
         _vm._v("\n            3. Refresh the page. "),
         _c("br"),
         _vm._v(
-          "\n            If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.\n        "
+          "\n            If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.\n            \n        "
         )
       ])
     ])
@@ -71682,16 +71746,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             carts: [],
             subtotal: 0,
             shipping: "-",
-            hst: "-",
-            total: '-'
+            hst: "-"
+            // total:this.subtotal,
 
         };
     },
 
     computed: {
-        // total:function(){
-        //     return this.subtotal + this.shipping + this.hst;
-        // }
+        total: function total() {
+            return this.subtotal;
+        }
     },
     mounted: function mounted() {
         this.reloadElement();
@@ -71739,6 +71803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 for (var i = 0; i < _this2.storage.length; i++) {
                     _this2.items.push(_this2.storage.key(i));
                 };
+
                 _this2.$http.post('/api/getItems_carts/', { data: _this2.items }).then(function (response) {
                     _this2.carts = response.data.carts;
                     _this2.$store.commit('carts_number', _this2.carts.length);
@@ -72047,12 +72112,20 @@ var searchModule = {
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   state: {
-    carts_total: 0
+    carts_total: 0,
+    loginStatus: false,
+    loginDirect: '/'
   },
 
   mutations: {
     carts_number: function carts_number(state, number) {
       state.carts_total = number;
+    },
+    changeLoginStatus: function changeLoginStatus(state, status) {
+      state.loginStatus = status;
+    },
+    changeLoginDirect: function changeLoginDirect(state, direction) {
+      state.loginDirect = direction;
     }
   },
   modules: {

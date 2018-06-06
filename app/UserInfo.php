@@ -8,7 +8,10 @@ class UserInfo extends Model
 {
     protected $table = 'member_info';
     public $timestamps = false;
-
+    
+    // public function user_main(){
+    //     return $this->hasOne('App\User')
+    // }
 
     
 }

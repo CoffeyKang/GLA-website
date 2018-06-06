@@ -48,7 +48,12 @@
                 }, response => {
                         // error 
                     console.log("error");
-                });
+				});
+				
+			// check if the use log in
+			if (this.storage.getItem("userInfo")) {
+				this.$store.commit('changeLoginStatus',true);
+			}
 		},
 		watch: {
 	    '$route' (to, from) {
