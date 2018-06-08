@@ -32,13 +32,13 @@
 						<span>{{showLimitedWords(item.descrip,35)  }}</span>
 					</div>
 
-					<div class='add_details' @click='goToItem(item.item)'>
-						<button class="btn btn-primary">
+					<div class='add_details' >
+						<button class="btn btn-primary" @click='goToItem(item.item)'>
 							Details
 						</button>
-						<a href='#' class='add_to_cart'>
-							Add To Cart 
-						</a>
+						<button class='add_to_cart btn btn-link' @click='addToCart_common(item)'>
+							Add To Cart  
+						</button>
 					</div>
 				</div>
 			</div>

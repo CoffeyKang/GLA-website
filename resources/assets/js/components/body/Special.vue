@@ -4,7 +4,7 @@
 			<span>On Sale Products</span>
 		</div>
 		<div class='specialItems' >
-			<div v-for='a in 7'>
+			<div v-for='a in 7' :key="a">
 				<app-special-item></app-special-item>
 			</div>
 		</div>

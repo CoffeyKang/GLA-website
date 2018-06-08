@@ -2,7 +2,7 @@
     <div class="container">
         <h3>Shopping Carts</h3>
         <div class="col-sm-8" style='padding:0;'>
-            <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" >
+            <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
                 <div class='singleItem'>
                     <div class="itemImg" >
                         <div id="itemImg" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
@@ -36,7 +36,7 @@
                         <div class="closure ">
                             <span class="glyphicon glyphicon-remove" @click="removeFromCart(item.item)"></span>
                         </div>
-                        <div class="toWish">
+                        <div class="toWish" @click='removeToWish(item)'>
                             Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
 
                         </div>
@@ -50,6 +50,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="container-fulid oneItem alert alert-warning" v-if="carts.length<1" style='border:0'>
+                <h5>Your Shopping Cart is empty.</h5>
+                
             </div>
         </div>
         <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
@@ -187,6 +191,30 @@ export default {
                     this.reloadElement();        
 
                 }
+                
+            },
+            removeToWish(item){
+                this.items = [];
+                this.storage.removeItem(item.item);
+                // get items # from localstorage 
+                for (let i = 0; i < this.storage.length; i++) {
+                    this.items.push(this.storage.key(i));
+                };
+
+                this.$http.post('/api/getItems_carts/',{data:this.items}).then(response => {
+                    this.carts = response.data.carts;
+                    this.$store.commit('carts_number',this.carts.length);
+                    // subtotal 
+                    this.subtotal = 0;
+                    this.carts.forEach(element => {
+                        this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+                    });
+                }, response => {
+                    // error 
+                    console.log("error");
+                });
+
+                this.addToWishlist(item.item);
                 
             }
 

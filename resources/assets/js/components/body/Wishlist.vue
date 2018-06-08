@@ -46,11 +46,9 @@
 					<tr>
 						<td class='action-title' >MANAGE MY LIST</td>
 					</tr>
+					
 					<tr>
-						<td class='action-info'><span class='glyphicon glyphicon-download'></span> Email My List</td>
-					</tr>
-					<tr>
-						<td class='action-info' @click='open2'><span class='glyphicon glyphicon-remove-circle
+						<td class='action-info' @click='clearWish()'><span class='glyphicon glyphicon-remove-circle
 ' ></span> Clear My List</td>
 					</tr>
 				</table>
@@ -88,24 +86,18 @@
 			}
 		},
 		methods:{
-			open2(){
-		        this.$confirm('Are you sure to clear the wishlist?', 'Warning', {
-		          confirmButtonText: 'Empty',
-		          cancelButtonText: 'Cancel',
-		          type: 'warning'
-		        }).then(() => {
-		        	console.log('delete the wishlist table');
-		          this.$message({
-		            type: 'success',
-		            message: 'Clean Successfully!'
-		          });
-		        }).catch(() => {
-		          this.$message({
-		            type: 'info',
-		            message: 'Action Canceled.'
-		          });          
-		        });
-			  },
+			clearWish(){
+				  this.$http.post('/api/clearWishlist',{user:JSON.parse(this.storage.getItem("user")).id}).then(response=>{
+
+						const h = this.$createElement;
+						this.$notify({
+						title: 'Succsesfully Clear.',
+						message: h('b', { style: 'color: teal' }, 'The Wish list was cleared')
+						});
+					},response=>{
+
+					});
+			},
 			removeFromWhishlist(item){
 				var user = JSON.parse(this.storage.getItem("user")).id;
 				this.$http.post('/api/removeFromWishlist',{user:user,item:item.item})
@@ -114,7 +106,7 @@
 						if (response.data==1) {
 							this.items={},
 							this.getWishlist();
-							console.log(this.items);
+							// this.items.remove(item);
 						}else{
 
 						}
@@ -153,10 +145,9 @@
 
 
 			getWishlist(){
-
-				
 				this.$http.get('/api/wishlist').then(response=>{
 					this.items = response.data.items;
+					console.log(this.items);
 				}, response=>{
 					console.log('wishlist error');
 				});

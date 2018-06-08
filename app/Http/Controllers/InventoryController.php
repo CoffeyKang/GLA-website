@@ -118,13 +118,8 @@ class InventoryController extends Controller
      */
     public function singleItem($item){
         $singleItem = Inventory::where('item',$item)->first();
-        $singleItem->img_path = Inventory_img::where('item',$item)->first()->img_path;
-        
-        if (file_exists(public_path().$singleItem->img_path)) {
-                
-            }else{
-                $singleItem->img_path = "/images/default_bg.jpg";
-        }
+
+        $singleItem->itemFullInfo();
 
         $single = $singleItem->toArray();
         return $singleItem;
@@ -133,10 +128,11 @@ class InventoryController extends Controller
     public function related($item){
         
         $make = Inventory::where('item',$item)->first()->make;
+
         $related = Inventory::where('item','!=',$item)->where('make',$make)->inRandomOrder()->take(4)->get();
         
         foreach ($related as $r) {
-            $r->img_path = Inventory_img::where('item',$r->item)->first()->img_path;
+            $r->itemFullInfo();
         }
 
         foreach ($related as $item) {
@@ -288,6 +284,45 @@ class InventoryController extends Controller
         }else{
             return 0;
         }
+        
+    }
+
+    // add to wish list
+    public function addToWishlist(Request $request){
+        
+        $user = $request->user;
+
+        $item = $request->item;
+
+        $checkExist = Wishlist::where('cust_id',$user)->where('item',$item)->first();
+
+        if ($checkExist) {
+            return response()->json(['status'=>'exist'],200);
+        }else{
+
+            $wishlist = new Wishlist;
+
+            $wishlist->cust_id = $user;
+
+            $wishlist->item = $item;
+
+            $wishlist->save();
+
+            return response()->json(['status'=>'saved'],200);
+        }
+
+    }
+
+    // clearWishlist
+    public function clearWishlist(Request $request){
+        $user = $request->user;
+        
+        $wishlist = Wishlist::where('cust_id',$user)->get();
+
+        foreach ($wishlist as $w) {
+            $w->delete();
+        }
+        return response()->json(['status'=>'deleted'],200);
         
     }
     

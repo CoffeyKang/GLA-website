@@ -65,6 +65,7 @@ export default {
             confirm:null,
             receiveEmail:false,
             summary:false,
+            storage:window.localStorage,
         }
     },
     methods:{
@@ -76,9 +77,12 @@ export default {
                 'receiveEmail':this.receiveEmail, 
                 }).then(
                 function(response){
-                    console.log(response.data.token);
+                    this.storage.setItem('user',response.data.user);
+                    this.storage.setItem('userInfo',response.data.userInfo);
+                    this.$store.commit('changeLoginStatus',true);
+                    this.$router.push('/');
                 }),(function(response){
-                    console.log('something wrong.');
+                    
                 });
         }
     }

@@ -8,7 +8,7 @@
 
                     <div class="inputSearch">
                     
-	                  <el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
+	                  <el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
 
 										</el-input>
 						<div class='mySelect'>
@@ -62,28 +62,20 @@
 
 		methods:{
 			searchItem(){
-				this.$http.get('/api/searchResualt', 
-					{params:
-						{
+
+				this.$router.push({name:'SearchList',query:{
 							item:this.search.item, 
 							make:this.search.make,
 							year:this.search.year,
-							page:this.page,
-						}
-					}).then(response => {
-			    // get body data
-			    this.sr = response.body;
-			    console.log(this.sr);
-			    if(this.sr.data.length>=1){
-			    	this.$router.push({name:'SearchResualt',query:{make:this.search.make, year:this.search.year}});
-			    }else{
-			    	alert('not such item fond');
-			    }
-			  }, response => {
-			    console.log("error");
-			  });
-			}
-		}
+							desc:this.search.desc,
+						}});
+
+					this.$emit('closeSearchLayer',false);
+				},
+				resetSearch(){
+					return this.search={};
+					}
+				}
 
 		
 	}

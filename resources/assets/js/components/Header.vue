@@ -66,8 +66,9 @@
 		},
 		methods:{
 			logOut(){
-				this.storage.removeItem('userInfo');
+				this.storage.clear();
 				this.$store.commit('changeLoginStatus',false);
+				this.$store.commit('carts_number',0);
 				this.$router.push('/');
 			},
 			customerInfo(){
@@ -75,12 +76,20 @@
 			}
 		},
 		mounted(){
+
+			if (this.storage.getItem("user")) {
+				
+				this.userID = JSON.parse(this.storage.getItem("user")).id;
+					
+			}else{
+				console.log('not login');
+			}
 			
-			this.userID = JSON.parse(this.storage.getItem("user")).id;
 
 		},
 		
 		computed:{
+			
 			carts_total(){
 				return this.$store.state.carts_total;
 			},

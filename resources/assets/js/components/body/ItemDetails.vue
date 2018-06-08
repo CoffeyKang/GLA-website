@@ -43,7 +43,7 @@
 								</div>
 								
 							</div>
-							<div class="wish" @click='addToWishlist();'>
+							<div class="wish" @click="addToWishlist(item.item)">
 								Add To Wishlist &nbsp;<span class="glyphicon glyphicon-heart-empty"></span>
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		
-		</div>
+		
 
 	</div>
 </template>
@@ -131,6 +131,8 @@
 			    console.log("error");
 			  });
 
+
+			
 			  
 			
 
@@ -139,19 +141,9 @@
 			goTo($item){
 				this.$http.get('/api/item/'+ $item).then(response => {
 			    // get body data
-			    this.item = response.body;
+				this.item = response.body;
+				this.$router.push({name:'ItemDetails', params:{id:this.item.item}});
 			    window.scrollTo(0,0);
-			  }, response => {
-			  	// error 
-			    console.log("error");
-			  });
-
-			// get related item
-			this.$http.get('/api/related/'+ $item).then(response => {
-			    // get body data
-			    this.related = response.body;
-			    console.log(this.related);
-
 			  }, response => {
 			  	// error 
 			    console.log("error");
@@ -183,8 +175,7 @@
 					}else{
 						window.localStorage.setItem(item,this.quantity);
 						var newNumber = this.carts_number+1;
-						console.log('-----------------');
-						console.log(newNumber);
+						
 						this.$store.commit('carts_number',newNumber);
 
 					}
@@ -198,9 +189,7 @@
 				}
 				console.log(window.localStorage);
 			},
-			addToWishlist(){
-				this.addToWishlist();
-			}
+			
 			
 		},
 		computed:{
@@ -290,6 +279,7 @@
 	.wish{
 		color: red;
 		font-size: 1.4em;
+		cursor: pointer;
 	}
 	.addToCart{
 		font-size: 1.6em;

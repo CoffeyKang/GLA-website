@@ -51,6 +51,12 @@ Route::post('/newCustomer','AccessControl@newCustomer');
 // remove from wishlist
 Route::post('/removeFromWishlist','InventoryController@removeFromWishlist');
 
+// add To wishlist
+Route::post('/addToWishlist','InventoryController@addToWishlist');
+
+//delete all wishlist
+Route::post('/clearWishlist','InventoryController@clearWishlist');
+
 
 
 

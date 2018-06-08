@@ -65,9 +65,12 @@ class AccessControl extends Controller
             'password' => bcrypt($password),
         ]);
 
+        
+        $userInfo = UserInfo::where('m_id',$user->id)->first();
+
         $token = $user->createToken('token')->accessToken;
 
-        return response()->json(['user'=>$user,'token'=>$token],200);
+        return response()->json(['user'=>$user,'token'=>$token,'userInfo'=>$userInfo],200);
         // return response()->json(['data'=>$data],200);
     }
 
