@@ -67,7 +67,6 @@
 			}
 		},
 		mounted(){
-			
 			// check if user is login
 			if(this.storage.getItem('userInfo')){
 				

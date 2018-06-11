@@ -2,6 +2,7 @@
     <div class='container loginPage'>
         <div class="col-xs-12 col-sm-6" id='loginDev'>
             <div class="text-center row" id='loginForm'>
+                
                 <div class='title'>Login</div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <input type="text" placeholder="Email Address" class="form-control" v-model='userinfo.email'>
@@ -14,8 +15,8 @@
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                     <div>
-                        <input type="checkbox"  value='RemeberPassword' placeholder="remeber">
-                        <span class='forgetPassword'>Remember my GLA ID</span>
+                        <!-- <input type="checkbox"  value='RemeberPassword' placeholder="remeber">
+                        <span class='forgetPassword'>Remember my GLA ID</span> -->
                     </div>
                     <div>
                         <span class='forgetPassword'>Forgot Password?</span>
@@ -96,8 +97,9 @@ export default {
         loginTo(){
             this.$http.post('/api/loginCustomer', {loginInfo: this.userinfo}).then(
                 function(response){
-                    console.log(response.data);
+                    
                     var myStorage = localStorage;
+                    
                     myStorage.setItem('user', JSON.stringify(response.data.user));
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
@@ -108,8 +110,18 @@ export default {
                     
                     this.$router.push(this.loginDirect);
                     
-                }), (function(response){
+                }).catch(function(response){
+                    // Your account or password was entered incorrectly.
+                    if(response.status === 401) {
+                        this.$message({
+                            showClose: true,
+                            message: 'Your account or password was entered incorrectly.',
+                            type: 'error',
+                            duration:8000
+                        });
                     
+                    }
+                
                 });
 
         },

@@ -41,13 +41,13 @@
                 // get item information 
 				let data = this.items;
 				
-                this.$http.post('/api/getItems_carts/',{data:data}).then(response => {
+                this.$http.post('/api/getItems_carts',{data:this.items},[method=>"POST"]).then(response => {
                     this.carts = response.data.carts;
                     this.$store.commit('carts_number',this.carts.length);
                         
                 }, response => {
                         // error 
-                    console.log("error");
+                    console.log("error4");
 				});
 				
 			// check if the use log in

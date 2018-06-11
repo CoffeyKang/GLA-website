@@ -124,9 +124,8 @@ export default {
                 for (let i = 0; i < this.storage.length; i++) {
                     this.items.push(this.storage.key(i));
                 };
-                // get item information 
-                let data = this.items;
-                this.$http.post('/api/getItems_carts/',{data:data}).then(response => {
+                var d = this.items;
+                this.$http.post('api/getItems_carts',{data:d},[method=>"POST"]).then(response => {
                     this.carts = response.data.carts;
                     this.$store.commit('carts_number',this.carts.length);
                     this.subtotal = 0;                
@@ -137,7 +136,7 @@ export default {
                         
                 }, response => {
                     // error 
-                    console.log("error");
+                    console.log("reloadElement error");
                 });
             },
             
@@ -153,23 +152,7 @@ export default {
                         });
                         this.items = [];
                         this.storage.removeItem(item);
-                        // get items # from localstorage 
-                        for (let i = 0; i < this.storage.length; i++) {
-                            this.items.push(this.storage.key(i));
-                        };
-
-                        this.$http.post('/api/getItems_carts/',{data:this.items}).then(response => {
-                            this.carts = response.data.carts;
-                            this.$store.commit('carts_number',this.carts.length);
-                            // subtotal 
-                            this.subtotal = 0;
-                            this.carts.forEach(element => {
-                                this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
-                            });
-                        }, response => {
-                            // error 
-                            console.log("error");
-                        });
+                        this.reloadElement();
                     }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -189,7 +172,6 @@ export default {
                     this.storage.setItem(item.item,value);
                     this.items = [];
                     this.reloadElement();        
-
                 }
                 
             },
@@ -197,29 +179,9 @@ export default {
                 this.items = [];
                 this.storage.removeItem(item.item);
                 // get items # from localstorage 
-                for (let i = 0; i < this.storage.length; i++) {
-                    this.items.push(this.storage.key(i));
-                };
-
-                this.$http.post('/api/getItems_carts/',{data:this.items}).then(response => {
-                    this.carts = response.data.carts;
-                    this.$store.commit('carts_number',this.carts.length);
-                    // subtotal 
-                    this.subtotal = 0;
-                    this.carts.forEach(element => {
-                        this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
-                    });
-                }, response => {
-                    // error 
-                    console.log("error");
-                });
-
+                this.reloadElement();
                 this.addToWishlist(item.item);
-                
             }
-
-            
-            
         },
         watch:{
             
