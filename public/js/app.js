@@ -16733,7 +16733,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		});
 
 		// check if the use log in
-		if (this.storage.getItem("userInfo")) {
+		if (this.storage.getItem("user")) {
 			this.$store.commit('changeLoginStatus', true);
 		}
 	},
@@ -67709,7 +67709,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\nimg[data-v-6f1fb9b7]{\r\n\twidth: 100%;\n}\na[data-v-6f1fb9b7], a[data-v-6f1fb9b7]:hover{\r\n\ttext-decoration:none;\n}\na[data-v-6f1fb9b7]:hover{\r\n\tfont-weight: bold;\n}\n#car_makes[data-v-6f1fb9b7]{\r\n\t\tdisplay: -webkit-box;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-webkit-box-pack: center;\r\n\t\t    -ms-flex-pack: center;\r\n\t\t        justify-content: center;\r\n\t\t-ms-flex-wrap: wrap;\r\n\t\t    flex-wrap: wrap;\r\n\t\tmargin-bottom: 60px;\n}\n.car_make[data-v-6f1fb9b7]{\r\n\t\tmargin-top: 30px;\r\n\t\twidth: 200px;\r\n\t\tdisplay: -webkit-box;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-webkit-box-orient: vertical;\r\n\t\t-webkit-box-direction: normal;\r\n\t\t    -ms-flex-direction: column;\r\n\t\t        flex-direction: column;\n}\n.car_make_name[data-v-6f1fb9b7]{\r\n\t\tcolor: black;\r\n\t\tfont-size: 1.4em;\n}\n.car_img[data-v-6f1fb9b7]{\r\n\t\tpadding: 30px;\n}\n.blue[data-v-6f1fb9b7]{\r\n\t\tbackground-color: blue;\n}\r\n", ""]);
+exports.push([module.i, "\na[data-v-6f1fb9b7], a[data-v-6f1fb9b7]:hover{\r\n\ttext-decoration:none;\n}\na[data-v-6f1fb9b7]:hover{\r\n\tfont-weight: bold;\n}\n#car_makes[data-v-6f1fb9b7]{\r\n\t\tdisplay: -webkit-box;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-webkit-box-pack: center;\r\n\t\t    -ms-flex-pack: center;\r\n\t\t        justify-content: center;\r\n\t\t-ms-flex-wrap: wrap;\r\n\t\t    flex-wrap: wrap;\r\n\t\tmargin-bottom: 60px;\n}\n.car_make[data-v-6f1fb9b7]{\r\n\t\tmargin-top: 30px;\r\n\t\twidth: 200px;\r\n\t\tdisplay: -webkit-box;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-webkit-box-orient: vertical;\r\n\t\t-webkit-box-direction: normal;\r\n\t\t    -ms-flex-direction: column;\r\n\t\t        flex-direction: column;\n}\n.car_make_name[data-v-6f1fb9b7]{\r\n\t\tcolor: black;\r\n\t\tfont-size: 1.4em;\n}\n.car_img[data-v-6f1fb9b7]{\r\n\t\tpadding: 30px;\r\n\t\theight: 161px;\r\n\t\twidth: 200px;\n}\n.car_img img[data-v-6f1fb9b7]{\r\n\t\theight: 70px;\r\n\t\twidth: 140px;\n}\n.blue[data-v-6f1fb9b7]{\r\n\t\tbackground-color: blue;\n}\r\n", ""]);
 
 // exports
 
@@ -67720,7 +67720,6 @@ exports.push([module.i, "\nimg[data-v-6f1fb9b7]{\r\n\twidth: 100%;\n}\na[data-v-
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -67803,7 +67802,7 @@ var render = function() {
     _vm._l(_vm.makes, function(make) {
       return _c(
         "div",
-        { staticClass: "car_make" },
+        { key: make.make, staticClass: "car_make" },
         [
           _c(
             "router-link",
@@ -67819,7 +67818,9 @@ var render = function() {
             [
               make.path != "default"
                 ? _c("div", { staticClass: "car_img" }, [
-                    _c("img", { attrs: { src: make.path, alt: "123" } })
+                    _c("img", {
+                      attrs: { src: make.path, alt: "123 ", draggable: "false" }
+                    })
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -69978,9 +69979,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	mounted: function mounted() {
 		// check if user is login
-		if (this.storage.getItem('userInfo')) {
+		if (this.storage.getItem('user')) {
 
-			var userData = JSON.parse(this.storage.getItem('userInfo'));
+			var userData = JSON.parse(this.storage.getItem('user'));
 		} else {
 			this.$store.commit('changeLoginDirect', 'wishlist');
 			this.$router.push('Login');
@@ -70926,7 +70927,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'receiveEmail': this.receiveEmail
             }).then(function (response) {
                 this.storage.setItem('user', response.data.user);
-                this.storage.setItem('userInfo', response.data.userInfo);
                 this.$store.commit('changeLoginStatus', true);
                 this.$router.push('/');
             }), function (response) {};
@@ -71264,7 +71264,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.adminPage[data-v-58fda2a3], .userNav[data-v-58fda2a3], .userContent[data-v-58fda2a3]{\n        min-height: 1500px;\n}\n.adminPage[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.userNav[data-v-58fda2a3]{\n        width: 30%;\n}\n.userContent[data-v-58fda2a3]{\n        width: 70%;\n}\n.userNav[data-v-58fda2a3]{\n        background-color: gray;\n}\n.myAvatar[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        font-size: 14px;\n        height: 100px;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n.list-group[data-v-58fda2a3],.list-group-item[data-v-58fda2a3]{\n        color: black;\n        background-color: gray;\n        border-color: gray;\n}\n\t\n", ""]);
+exports.push([module.i, "\n.adminPage[data-v-58fda2a3], .userNav[data-v-58fda2a3], .userContent[data-v-58fda2a3]{\n        min-height: 1500px;\n}\n.adminPage[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.userNav[data-v-58fda2a3]{\n        width: 30%;\n}\n.userContent[data-v-58fda2a3]{\n        width: 70%;\n}\n.userNav[data-v-58fda2a3]{\n        background-color: gray;\n}\n.myAvatar[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        font-size: 14px;\n        height: 100px;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n.list-group[data-v-58fda2a3],.list-group-item[data-v-58fda2a3]{\n        color: black;\n        background-color: gray;\n        border-color: gray;\n}\n    \n\n    \n\t\n", ""]);
 
 // exports
 
@@ -71302,20 +71302,125 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			user: JSON.parse(localStorage.getItem('user')),
-			userInfo: JSON.parse(localStorage.getItem('userInfo'))
-		};
-	},
-	mounted: function mounted() {
-		console.log(this.userInfo);
-		console.log(localStorage);
-	},
+  data: function data() {
+    return {
+      user: JSON.parse(localStorage.getItem('user')),
+      userInfo: JSON.parse(localStorage.getItem('userInfo')),
+      details: {
+        surname: '',
+        forename: '',
+        gender: '',
+        brithday: '',
+        address: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        tel: '',
+        mobile: '',
+        edu: '',
+        job: '',
+        title: '',
+        car: ''
+      },
 
-	methods: {}
+      rules: {
+        keyInfo: [{ required: true, message: 'This felid is required.', trigger: 'blur' }]
+      }
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.userInfo);
+    console.log(localStorage);
+  },
+
+  methods: {}
 });
 
 /***/ }),
@@ -71327,72 +71432,417 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container adminPage" }, [
-    _c("div", { staticClass: "userNav" }, [
-      _c("div", { staticClass: "myAvatar" }, [
-        _c("span", [
-          _vm._v(
-            " " + _vm._s(_vm.userInfo.m_forename + " " + _vm.userInfo.m_surname)
-          )
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v(" " + _vm._s(_vm.userInfo.m_title) + " ")])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "list-group container-fuild" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "list-group-item",
-              attrs: { to: { name: "setPromotion" }, tag: "a" }
-            },
-            [_vm._v("Set promotion discount")]
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass: "list-group-item",
-              attrs: { to: { name: "editUser" }, tag: "a" }
-            },
-            [_vm._v("Set promotion discount")]
-          ),
-          _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Customer and dealer report")
+    _vm.userInfo
+      ? _c("div", [
+          _c("div", { staticClass: "userNav" }, [
+            _c("div", { staticClass: "myAvatar" }, [
+              _c("span", [
+                _vm._v(
+                  " " +
+                    _vm._s(
+                      _vm.userInfo.m_forename + " " + _vm.userInfo.m_surname
+                    )
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" " + _vm._s(_vm.userInfo.m_title) + " ")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "list-group container-fuild" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: { name: "setPromotion" }, tag: "a" }
+                  },
+                  [_vm._v("Set promotion discount")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: { name: "editUser" }, tag: "a" }
+                  },
+                  [_vm._v("Set promotion discount")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Customer and dealer report")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Add new customer and dealer")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Edit dealer and customer")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Show deal order history")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Show customer history")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Pending quote")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  [_vm._v("Awaits report")]
+                )
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Add new customer and dealer")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Edit dealer and customer")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Show deal order history")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Show customer history")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Pending quote")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-            _vm._v("Awaits report")
-          ])
-        ],
-        1
-      )
-    ]),
+          _c("div", { staticClass: "userContent" }, [_c("router-view")], 1)
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: " userContent" }, [_c("router-view")], 1)
+    _c(
+      "div",
+      {
+        staticClass: "user_details container text-center",
+        attrs: { if: "!userInfo" }
+      },
+      [
+        _c("div", { staticStyle: { margin: "50px 0" } }, [
+          _c("div", { staticClass: "alert alert-success text-left" }, [
+            _vm._v(
+              "\n                    Register a MuscleCarPartsOutlet account for a better shopping experience. You will be able to place order, check order status, \n                    shipping progress and fast and easy check out. If you don't have an account, please create a new one.\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-xs-12 col-sm-8 col-sm-offset-2" },
+            [
+              _c(
+                "el-form",
+                {
+                  attrs: {
+                    "label-position": "left",
+                    "label-width": "80px",
+                    rules: _vm.rules,
+                    model: _vm.details
+                  }
+                },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Surname" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Surname", prop: "name" },
+                        model: {
+                          value: _vm.surname,
+                          callback: function($$v) {
+                            _vm.surname = $$v
+                          },
+                          expression: "surname"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Forename" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Furname", prop: "name" },
+                        model: {
+                          value: _vm.forename,
+                          callback: function($$v) {
+                            _vm.forename = $$v
+                          },
+                          expression: "forename"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Gender" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Gender", prop: "gender" },
+                        model: {
+                          value: _vm.gender,
+                          callback: function($$v) {
+                            _vm.gender = $$v
+                          },
+                          expression: "gender"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Brithday" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Brithday", prop: "brithday" },
+                        model: {
+                          value: _vm.forename,
+                          callback: function($$v) {
+                            _vm.forename = $$v
+                          },
+                          expression: "forename"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "City" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "City", prop: "city" },
+                        model: {
+                          value: _vm.city,
+                          callback: function($$v) {
+                            _vm.city = $$v
+                          },
+                          expression: "city"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "State" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "State", prop: "state" },
+                        model: {
+                          value: _vm.state,
+                          callback: function($$v) {
+                            _vm.state = $$v
+                          },
+                          expression: "state"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "ZIPCODE" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "ZIPCODE", prop: "zipcode" },
+                        model: {
+                          value: _vm.zpicode,
+                          callback: function($$v) {
+                            _vm.zpicode = $$v
+                          },
+                          expression: "zpicode"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Country" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Country", prop: "country" },
+                        model: {
+                          value: _vm.country,
+                          callback: function($$v) {
+                            _vm.country = $$v
+                          },
+                          expression: "country"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Address" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Address", prop: "address" },
+                        model: {
+                          value: _vm.address,
+                          callback: function($$v) {
+                            _vm.address = $$v
+                          },
+                          expression: "address"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Tel" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Tel", prop: "tel" },
+                        model: {
+                          value: _vm.tel,
+                          callback: function($$v) {
+                            _vm.tel = $$v
+                          },
+                          expression: "tel"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Mobile" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Mobile", prop: "mobile" },
+                        model: {
+                          value: _vm.mobile,
+                          callback: function($$v) {
+                            _vm.mobile = $$v
+                          },
+                          expression: "mobile"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Edu" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Education", prop: "edu" },
+                        model: {
+                          value: _vm.edu,
+                          callback: function($$v) {
+                            _vm.edu = $$v
+                          },
+                          expression: "edu"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Job" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Job", prop: "job" },
+                        model: {
+                          value: _vm.job,
+                          callback: function($$v) {
+                            _vm.job = $$v
+                          },
+                          expression: "job"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Title" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Title", prop: "title" },
+                        model: {
+                          value: _vm.tit,
+                          callback: function($$v) {
+                            _vm.tit = $$v
+                          },
+                          expression: "tit"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Car" } },
+                    [
+                      _c("el-input", {
+                        attrs: { placeholder: "Car", prop: "car" },
+                        model: {
+                          value: _vm.car,
+                          callback: function($$v) {
+                            _vm.car = $$v
+                          },
+                          expression: "car"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    [
+                      _c("el-button", { attrs: { type: "default" } }, [
+                        _vm._v("Cancel")
+                      ]),
+                      _vm._v(" "),
+                      _c("el-button", { attrs: { type: "success" } }, [
+                        _vm._v("Register")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-2" })
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []

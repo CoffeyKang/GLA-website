@@ -78,7 +78,6 @@ export default {
                 }).then(
                 function(response){
                     this.storage.setItem('user',response.data.user);
-                    this.storage.setItem('userInfo',response.data.userInfo);
                     this.$store.commit('changeLoginStatus',true);
                     this.$router.push('/');
                 }),(function(response){

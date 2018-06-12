@@ -51,7 +51,7 @@
 				});
 				
 			// check if the use log in
-			if (this.storage.getItem("userInfo")) {
+			if (this.storage.getItem("user")) {
 				this.$store.commit('changeLoginStatus',true);
 			}
 		},

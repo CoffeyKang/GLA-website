@@ -68,9 +68,9 @@
 		},
 		mounted(){
 			// check if user is login
-			if(this.storage.getItem('userInfo')){
+			if(this.storage.getItem('user')){
 				
-				let userData = JSON.parse(this.storage.getItem('userInfo'));
+				let userData = JSON.parse(this.storage.getItem('user'));
 			}else{
 				this.$store.commit('changeLoginDirect','wishlist');
 				this.$router.push('Login');
