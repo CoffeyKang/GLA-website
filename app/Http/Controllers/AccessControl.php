@@ -49,8 +49,6 @@ class AccessControl extends Controller
             'email'=>'email:unique:users',
         ]);
 
-
-
         $username = $request->username;
 
         $email = $request->email;
@@ -71,7 +69,12 @@ class AccessControl extends Controller
         $token = $user->createToken('token')->accessToken;
 
         return response()->json(['user'=>$user,'token'=>$token,'userInfo'=>$userInfo],200);
-        // return response()->json(['data'=>$data],200);
+        
+    }
+
+
+    public function userDetails(Request $request){
+         
     }
 
     

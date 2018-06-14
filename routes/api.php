@@ -48,6 +48,9 @@ Route::post('/loginCustomer','AccessControl@userinfo');
 /** create new customer */
 Route::post('/newCustomer','AccessControl@newCustomer');
 
+// userdetails
+Route::post('/userDetails','AccessControl@userDetails');
+
 // remove from wishlist
 Route::post('/removeFromWishlist','InventoryController@removeFromWishlist');
 
@@ -56,6 +59,8 @@ Route::post('/addToWishlist','InventoryController@addToWishlist');
 
 //delete all wishlist
 Route::post('/clearWishlist','InventoryController@clearWishlist');
+
+
 
 
 

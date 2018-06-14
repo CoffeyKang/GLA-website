@@ -1,9 +1,11 @@
 <template>
 	<div class='container adminPage'>
+
+        
 		<div v-if="userInfo">
             <div class="userNav" >
                 <div class='myAvatar'>
-                <span> {{userInfo.m_forename + ' ' + userInfo.m_surname}}</span>
+                    <span> {{userInfo.m_forename + ' ' + userInfo.m_surname}}</span>
                     <span> {{ userInfo.m_title }} </span>
                 </div>
                 <div class="list-group container-fuild">
@@ -33,71 +35,97 @@
                     shipping progress and fast and easy check out. If you don't have an account, please create a new one.
                 </div>
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                <el-form  label-position="left" label-width="80px" :rules='rules'  :model="details">
+                <el-form  label-position="left" label-width="80px" 
+                            :rules="rules" :model="details" 
+                            ref="details" size="medium">
                     
-                    <el-form-item label="Surname">
-                        <el-input v-model="surname" placeholder="Surname" prop='name'></el-input>
+                    <el-form-item label="Surname" prop='surname'>
+                        <el-input v-model="surname" placeholder="Surname" ></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Forename">
-                        <el-input v-model="forename" placeholder="Furname"  prop='name'></el-input>
+                    <el-form-item label="Forename" prop='forename'>
+                        <el-input v-model="forename" placeholder="Furname"  ></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Gender">
-                        <el-input v-model="gender" placeholder="Gender"  prop='gender'></el-input>
-                    </el-form-item>
+                    <div class="inRow">
+                        <el-form-item label="Gender" prop='gender' >
+                            <el-select v-model="gender" placeholder="Gender">
+                                <el-option
+                                v-for="gender in ['Male','Female']"
+                                :key="gender"
+                                :label="gender"
+                                :value="gender">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
 
-                    <el-form-item label="Brithday">
-                        <el-input v-model="forename" placeholder="Brithday"  prop='brithday'></el-input>
-                    </el-form-item>
+                        <el-form-item label="Birthday" prop='brithday' >
+                            <el-input type='date' v-model="brithday"   ></el-input>
+                        </el-form-item>
+                    </div>
                     
-                    <el-form-item label="City">
-                        <el-input v-model="city" placeholder="City"  prop='city'></el-input>
+                    <div class="inRow">
+
+                        <el-form-item label="City" prop='city'>
+                            <el-input v-model="city" placeholder="City"  ></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="State" prop='state'>
+                            <el-input v-model="state" placeholder="State"  ></el-input>
+                        </el-form-item>
+                        
+                    </div>
+
+
+                    <div class="inRow">
+
+                        <el-form-item label="ZIPCODE"  prop='zipcode'>
+                            <el-input v-model="zipcode" placeholder="ZIPCODE" ></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="Country" prop='country'>
+                            <el-input v-model="country" placeholder="Country"  ></el-input>
+                        </el-form-item>
+                    </div>
+
+                    <el-form-item label="Address" prop='address'>
+                        <el-input v-model="address" placeholder="Address"  ></el-input>
                     </el-form-item>
 
-                    <el-form-item label="State">
-                        <el-input v-model="state" placeholder="State"  prop='state'></el-input>
+                    <el-form-item label="Tel" prop='tel'>
+                        <el-input type='number' v-model="tel" placeholder="Tel"></el-input>
                     </el-form-item>
                 
-                    <el-form-item label="ZIPCODE">
-                        <el-input v-model="zpicode" placeholder="ZIPCODE"  prop='zipcode'></el-input>
+                    <el-form-item label="Mobile" prop='mobile'>
+                        <el-input type='number' v-model="mobile" placeholder="Mobile"  ></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Country">
-                        <el-input v-model="country" placeholder="Country"  prop='country'></el-input>
-                    </el-form-item>
-                
-                    <el-form-item label="Address">
-                        <el-input v-model="address" placeholder="Address"  prop='address'></el-input>
-                    </el-form-item>
+                    <div class="inRow">
+                        <el-form-item label="Edu"  >
+                            <el-input v-model="edu" placeholder="Education" ></el-input>
+                        </el-form-item>
+                    
+                        <el-form-item label="Job"  prop='job'>
+                            <el-input v-model="job" placeholder="Job"  ></el-input>
+                        </el-form-item>
 
-                    <el-form-item label="Tel">
-                        <el-input v-model="tel" placeholder="Tel"  prop='tel'></el-input>
-                    </el-form-item>
-                
-                    <el-form-item label="Mobile">
-                        <el-input v-model="mobile" placeholder="Mobile"  prop='mobile'></el-input>
-                    </el-form-item>
+                        </div>
 
-                    <el-form-item label="Edu">
-                        <el-input v-model="edu" placeholder="Education"  prop='edu'></el-input>
-                    </el-form-item>
-                
-                    <el-form-item label="Job">
-                        <el-input v-model="job" placeholder="Job"  prop='job'></el-input>
-                    </el-form-item>
+                    <div class="inRow">
 
-                    <el-form-item label="Title">
-                        <el-input v-model="tit" placeholder="Title"  prop='title'></el-input>
-                    </el-form-item>
-                
-                    <el-form-item label="Car">
-                        <el-input v-model="car" placeholder="Car"  prop='car'></el-input>
-                    </el-form-item>
+                    
+                        <el-form-item label="Title" prop='tit'>
+                            <el-input v-model="tit" placeholder="Title"  ></el-input>
+                        </el-form-item>
+                    
+                        <el-form-item label="Car" prop='car'>
+                            <el-input v-model="car" placeholder="Car" ></el-input>
+                        </el-form-item>
 
+                    </div>
                     <el-form-item>
-                        <el-button type='default'>Cancel</el-button>
-                        <el-button type="success">Register</el-button>
+                        <el-button type='default' @click="resetForm(details)">Cancel</el-button>
+                        <el-button type="success" @click="submitForm(details)">Register</el-button>
                     </el-form-item>
                 </el-form>
                 </div>
@@ -115,28 +143,52 @@
 			return {
                 user:JSON.parse(localStorage.getItem('user')),
                 userInfo:JSON.parse(localStorage.getItem('userInfo')),
-                details:{
-                    surname:'',
-                    forename:'',
-                    gender:'',
-                    brithday:'',
-                    address:'',
-                    city:'',
-                    state:'',
-                    zipcode:'',
-                    country:'',
-                    tel:'',
-                    mobile:'',
-                    edu:'',
-                    job:'',
-                    title:'',
-                    car:'',
-                },
-
+                storage:window.localStorage,
+                surname:'',
+                forename:'',
+                gender:'',
+                brithday:'',
+                address:'',
+                city:'',
+                state:'',
+                zipcode:'',
+                country:'',
+                tel:'',
+                mobile:'',
+                edu:'',
+                job:'',
+                tit:'',
+                car:'',
+                details:{},
                 rules:{
-                    keyInfo: [
-                        { required: true, message: 'This felid is required.', trigger: 'blur' },
+                    surname:[
+                        { required: true, message: 'Surname is required.', trigger: 'blur', max:99 },
                     ],
+                    forename:[
+                        { required: true, message: 'Forename is required.', trigger: 'blur', max:99 },
+                    ],
+                    city:[
+                        { required: true, message: 'City is required.', trigger: 'blur', max:99 },
+                    ],
+                    state:[
+                        { required: true, message: 'State is required.', trigger: 'blur', max:99 },
+                    ],
+                    zipcode:[
+                        { required: true, message: 'Zip Code is required.', trigger: 'blur', max:99 },
+                    ],
+                    address:[
+                        { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
+                    ],
+                    country:[
+                        { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
+                    ],
+                    tel:[
+                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:15,}
+                    ],
+                    mobile:[
+                        {message: 'Invalid telephone number.', trigger: 'blur',  max: 15,}
+                    ],
+                    
                 }
 			}
 		},
@@ -145,7 +197,33 @@
             console.log(localStorage);
 		},
 		methods:{
-			
+            submitForm(details){
+                this.$refs["details"].validate((valid)=>{
+                    if (valid) {
+                        // submit userDetails info
+                        var userId = JSON.parse(this.storage.getItem("user")).id;
+                        
+                        this.userID = userId;
+
+                        this.$http.post('/api/userDetails',{data:this.details}).then((response)=>{
+                            console.log(response);
+                        });
+                        
+
+                    }else{
+                        this.$message({
+                            showClose:true,
+                            message:"Error Submit",
+                            type:"error",
+                            duration:5000,
+                        });
+                        return false;
+                    }
+                });
+            } ,
+            resetForm(details){
+                this.$refs["details"].resetFields();
+            },       
 		}
 	}
 </script>
@@ -180,6 +258,11 @@
         color: black;
         background-color: gray;
         border-color: gray;
+    }
+    .inRow{
+        display: flex;
+        justify-content: space-between;
+        
     }
     
 
