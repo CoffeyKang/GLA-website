@@ -132,7 +132,7 @@ export default {
                     this.carts.forEach(element => {
                         this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
                     });
-                    console.log(this.subtotal);
+                    
                         
                 }, response => {
                     // error 

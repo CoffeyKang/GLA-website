@@ -61,7 +61,7 @@
 			this.$http.get('/api/makes').then(response => {
 			    // get body data
 			    this.makes = response.body;
-			    console.log(this.makes);
+			    
 			  }, response => {
 			  	// error 
 			    console.log("error");

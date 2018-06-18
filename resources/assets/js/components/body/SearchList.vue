@@ -80,7 +80,7 @@
 		},
 
 		mounted(){
-			console.log(this.page);
+			
             this.$http.get('/api/searchResualt', 
 					{params:
 						{

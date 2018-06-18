@@ -107,6 +107,8 @@ export default {
                     myStorage.setItem('token', response.data.token);
 
                     this.$store.commit('changeLoginStatus',true);
+
+                    
                     
                     this.$router.push(this.loginDirect);
                     

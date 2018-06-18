@@ -74,7 +74,45 @@ class AccessControl extends Controller
 
 
     public function userDetails(Request $request){
-         
+         //check the userInfo exsits or not
+
+         $userID = $request->userID;
+
+         $data = $request->data;
+
+         $check = UserInfo::where('m_id',$userID)->first();
+
+         if ($check) {
+            
+         }else{
+             $userInfo = new UserInfo;
+
+             $userInfo->m_id = $userID;
+             
+             $userInfo->m_surname = $data["surname"];
+             $userInfo->m_forename = $data["forename"];
+             $userInfo->m_gender = $data["gender"];
+             $userInfo->m_birth = $data["brithday"];
+             $userInfo->m_address = $data["address"];
+             $userInfo->m_city = $data["city"];
+             $userInfo->m_state = $data["state"];
+             $userInfo->m_zipcode = $data["zipcode"];
+             $userInfo->m_country = $data["country"];
+             $userInfo->m_tel = $data["tel"];
+             $userInfo->m_mobile = $data["mobile"];
+             $userInfo->m_edu = $data["edu"];
+             $userInfo->m_job = $data["job"];
+             $userInfo->m_title = $data["tit"];
+             $userInfo->m_car = $data["car"];
+
+             $userInfo->save();
+
+
+
+
+         }
+
+         return response()->json(['userinfo'=>$userInfo],200);
     }
 
     

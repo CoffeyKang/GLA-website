@@ -108,7 +108,7 @@
 			    
 			    this.item = response.body;
 
-			    console.log(this.item.pricel);
+			    
 
 			    this.showItem = true;
 

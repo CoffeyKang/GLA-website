@@ -63,7 +63,7 @@
 		},
 		methods:{
 			test(){
-				console.log(1);
+				
 			}
 		}
 	}

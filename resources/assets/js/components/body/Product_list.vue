@@ -95,7 +95,7 @@
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
-			    console.log(this.data);
+			    
 
 			  }, response => {
 			  	// error 
@@ -117,7 +117,6 @@
 			},
 			showLimitedWords:function(str,num){
 				
-				console.log(num);
 				if (str.length <= num) {
 					return str;
 				}else{

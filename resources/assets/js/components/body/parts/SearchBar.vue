@@ -54,7 +54,7 @@
 		mounted(){
 			this.$http.get('/api/makes').then(response => {
 			    this.makes = response.body;
-			    console.log(this.makes);
+			    
 			  }, response => {
 			    console.log("error");
 			  });

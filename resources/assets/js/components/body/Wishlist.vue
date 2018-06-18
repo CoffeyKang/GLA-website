@@ -146,7 +146,7 @@
 			getWishlist(){
 				this.$http.get('/api/wishlist').then(response=>{
 					this.items = response.data.items;
-					console.log(this.items);
+					
 				}, response=>{
 					console.log('wishlist error');
 				});
