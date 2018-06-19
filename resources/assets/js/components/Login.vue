@@ -5,10 +5,10 @@
                 
                 <div class='title'>Login</div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="text" placeholder="Email Address" class="form-control" v-model='userinfo.email'>
+                    <input type="text" placeholder="Email Address" class="form-control" v-model='email'>
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Password" class="form-control" v-model='userinfo.password'>
+                    <input type="password" placeholder="Password" class="form-control" v-model='password'>
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <button class="btn btn-primary col-xs-12" id='loginBtn' @click="loginTo()">Login</button>
@@ -67,9 +67,8 @@
 export default {
     data(){
         return {
-            userinfo:{
-                
-            },
+            email:'',
+            password:'',
             storage:window.localStorage,
         }
     },
@@ -95,20 +94,18 @@ export default {
     },
     methods:{
         loginTo(){
-            this.$http.post('/api/loginCustomer', {loginInfo: this.userinfo}).then(
+            this.$http.post('/api/loginCustomer', {email: this.email, password:this.password}).then(
                 function(response){
-                    
+                    console.log("user---------------------");
+                    console.log(response.data);
+                    console.log("user---------------------");
                     var myStorage = localStorage;
                     
                     myStorage.setItem('user', JSON.stringify(response.data.user));
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
-                    myStorage.setItem('token', response.data.token);
-
                     this.$store.commit('changeLoginStatus',true);
-
-                    
                     
                     this.$router.push(this.loginDirect);
                     
@@ -117,7 +114,7 @@ export default {
                     if(response.status === 401) {
                         this.$message({
                             showClose: true,
-                            message: 'Your account or password was entered incorrectly.',
+                            message: 'Your email or password was entered incorrectly.',
                             type: 'error',
                             duration:8000
                         });

@@ -8,6 +8,9 @@ use Illuminate\Pagination\Paginator;
 use App\Inventory_img;
 use App\FeatureProduct;
 use App\Wishlist;
+use App\Temp_SO;
+use App\User;
+use App\UserInfo;
 class InventoryController extends Controller
 {
     /**
@@ -275,6 +278,8 @@ class InventoryController extends Controller
         $user = $request->user;
         
         $item = $request->item;
+
+        
         
         $items = Wishlist::where('cust_id',$user)->where('item',$item)->first();
 
@@ -323,6 +328,75 @@ class InventoryController extends Controller
             $w->delete();
         }
         return response()->json(['status'=>'deleted'],200);
+        
+    }
+
+    public function checkout(Request $request){
+        
+        $items = $request->storage;
+
+        $userID = $request->userID;
+        
+
+
+        $inventory = Inventory::select('item')->get()->pluck('item')->toArray();
+        
+        $deleteTheOldItem = Temp_SO::where('cust_id',$userID)->delete();
+
+        foreach ($items as $key => $value) {
+            if (in_array($key,$inventory)) {
+                $so = new Temp_SO;
+                $so->cust_id = $userID;
+                $so->item = $key;
+                $so->qty = $value;
+                $so->date = date('Y-m-d');
+                $so->save();
+            }else{
+
+            }
+        }
+
+        return response()->json(['status'=>"Success"],200);
+
+    }
+
+    /** KEY PROCESS HERE
+     * 1. get sales order
+     * 2. caculate shipping fee
+     * 3. determin wich price shoud be used for the current client
+     */
+    public function shortlist(Request $request){
+        $userID = $request->userid;
+        
+        $user = User::find($userID);
+
+        $userInfo = UserInfo::where('m_id',$userID)->first();
+
+        $shortlist = Temp_SO::where('cust_id',$userID)
+            ->get();
+
+        $subtotal = 0;
+
+        
+
+        foreach ($shortlist as $item) {
+            $info = $item->itemInfo()->first();
+            $info->itemFullInfo();
+            $item->price=$info->price;
+            $item->descrip=$info->descrip;
+            $item->img_path=$info->img_path;
+            $item->year_from=$info->year_from;
+            $item->year_end=$info->year_end;
+            $item->make=$info->make;
+
+            $subtotal += $item->price * $item->qty;
+            
+        }
+
+
+
+        return response()->json(['carts'=>$shortlist,'subtotal'=>$subtotal],200);
+
         
     }
     

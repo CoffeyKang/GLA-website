@@ -45,6 +45,15 @@ class Inventory extends Model
         return $this->hasMany('app\Wishlist','item','item');
     }
 
+    /**
+     * relationship to wishlist
+     * @return [type] [description]
+     */
+    public function temp_so(){
+        return $this->hasMany('app\Temp_SO','item','item');
+    }
+
+
     public function checkImgExists(){
         if (file_exists(public_path().$this->img_path)) {
             

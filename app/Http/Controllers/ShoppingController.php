@@ -9,9 +9,11 @@ use App\User;
 
 class ShoppingController extends Controller
 {
-    public function wishlist(){
-    	
-    	$wishlist = WIshlist::all();
+    public function wishlist(Request $request){
+		$userId = $request->userid;
+		
+		
+    	$wishlist = WIshlist::where('cust_id',$userId)->get();
 
     	$result = collect();
     	foreach ($wishlist as $w) {

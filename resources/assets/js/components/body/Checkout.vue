@@ -1,8 +1,28 @@
 <template>
     <div class="container">
-        <h3>Shopping Carts</h3>
+        <h3>Checkout</h3>
         <div class="col-sm-8" style='padding:0;'>
-            <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
+             <table class="table table-striped table-justified">
+                 <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Item</th>
+                        <th>Make</th>
+                        <th>QTY</th>
+                        <th>Price</th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                     <tr v-for="item in carts" :key="item.item" v-if="carts.length>=1" class='text-left'>
+                         <td>{{item.descrip}}</td>
+                         <td>{{item.item}} </td>
+                         <td>{{item.make}}</td>
+                         <td>{{item.qty}}</td>
+                         <td>$ {{(item.price * item.qty).toFixed(2)}}</td>
+                     </tr>
+                 </tbody>
+             </table>
+            <!-- <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
                 <div class='singleItem'>
                     <div class="itemImg" >
                         <div id="itemImg" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
@@ -18,33 +38,20 @@
                         </div>
                         
                         <div class="qty">
-                            <b style='width:50px; height:28px;line-height:28px;'> QTY: </b>
-                            
-                            <input type="number" :value="parseInt(storage.getItem(item.item))"
-                                style='width:50px;' min="0" :max="parseInt(item.onhand)" :id="item.item">
-                            <div style='height:28px; padding-left:15px;' class='update_link'>
-                                <button class='btn btn-link' @click="updateCart(item)">Update</button>
-                            </div>
+                            <b style='width:50px; height:28px;line-height:28px;'> QTY: {{ item. qty }} </b>
                             
                             
                         </div>
-                        <div class="instock">
-                            In-stock: {{item.onhand}}
-                        </div>
+                        
                     </div>
                     <div class="item_action text-right">
-                        <div class="closure ">
-                            <span class="glyphicon glyphicon-remove" @click="removeFromCart(item.item)"></span>
-                        </div>
-                        <div class="toWish" @click='removeToWish(item)'>
-                            Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
-                        </div>
+                        
                         <div class="price">
                             <span>
-                                PRICE: $ {{item.pricel}}
+                                PRICE: $ {{item.price.toFixed(2)}}
                             </span>
                             <span>
-                                TOTAL: $ {{(item.pricel) * parseInt(storage.getItem(item.item))}}
+                                TOTAL: $ {{(item.price * item.qty).toFixed(2)}}
                             </span>
                         </div>
                     </div>
@@ -53,7 +60,7 @@
             <div class="container-fulid oneItem alert alert-warning" v-if="carts.length<1" style='border:0'>
                 <h5>Your Shopping Cart is empty.</h5>
                 
-            </div>
+            </div> -->
         </div>
         <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
             <div class="summary" >
@@ -84,8 +91,7 @@
                 </div>
 
                 <div class="processBTN text-center">
-                    <button class='mybtn' @click='checkOut()'>Proceed To<br>
-                    Check Out</button>
+                    <button class='mybtn' @click='placeOrder()'>Place Order</button>
                 </div>
             </div>
         </div>
@@ -102,8 +108,8 @@ export default {
             storage:window.localStorage,
             carts:[],
             subtotal:0,
-            shipping:"-",
-            hst:"-",
+            shipping:0,
+            hst:0,
             // total:this.subtotal,
             
             }
@@ -114,103 +120,25 @@ export default {
             }
         },
         mounted(){
-            this.reloadElement();
-            },
-            
-        methods:{
-            reloadElement(){
-                // get items # from localstorage 
-                for (let i = 0; i < this.storage.length; i++) {
-                    this.items.push(this.storage.key(i));
-                };
-                var d = this.items;
-                this.$http.post('api/getItems_carts',{data:d},[method=>"POST"]).then(response => {
+            // determin if user has login
+			if(this.storage.getItem('user')){
+				// have to validate the user name and password once more here
+                var userData = JSON.parse(this.storage.getItem('user'));
+
+                /** check again */
+                this.$http.get('/api/shortlist',{params:{userid:userData.id}}).then(response=>{
                     this.carts = response.data.carts;
-                    this.$store.commit('carts_number',this.carts.length);
-                    this.subtotal = 0;                
-                    this.carts.forEach(element => {
-                        this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
-                    });
-                        
-                }, response => {
-                    // error 
-                    console.log("reloadElement error");
+                    this.subtotal = response.data.subtotal.toFixed(2);
                 });
-            },
-            
-            removeFromCart(item){
-                this.$confirm('Are you sure to delete the item from shopping cart.', 'Warning', {
-                    confirmButtonText: 'Delete',
-                    cancelButtonText: 'Cancel',
-                    type: 'warning'
-                    }).then(() => {
-                        this.$message({
-                            type: 'success',
-                            message: 'Scuccessfully delete!',
-                        });
-                        this.items = [];
-                        this.storage.removeItem(item);
-                        this.reloadElement();
-                    }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: 'Canceled'
-                    });          
-                });
-            },
 
-            updateCart(item){
-                var value = $("#"+item.item+"").val();
-                if (value>item.onhand) {
-                    this.$alert('Out of stock', 'Warning', {
-						confirmButtonText: 'OK',
-					});
-                }else{
-                    this.storage.removeItem(item.item);
-                    this.storage.setItem(item.item,value);
-                    this.items = [];
-                    this.reloadElement();        
-                }
-                
-            },
-            removeToWish(item){
-                this.items = [];
-                this.storage.removeItem(item.item);
-                // get items # from localstorage 
-                this.reloadElement();
-                this.addToWishlist(item.item);
-            },
-            checkOut(){
-                /** check if the client has logged in or not. if not, checkout requirs to login. */
-                var user = JSON.parse(this.storage.getItem("user"));
-                var userInfo = JSON.parse(this.storage.getItem("userInfo"));
-
-                if (user&&userInfo) {
-                    
-                    this.$http.post('api/checkout',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
-                        if (response.data.status=="Success") {
-                            this.$router.push('/checkout');
-                        }  
-                    }, response => {
-                        // error 
-                        console.log("reloadElement error");
-                    });
-                }else{
-
-                    /** require to login and then turn back to shoppingg cart */
-                    this.$store.commit('changeLoginDirect','shoppingCart');
-				    this.$router.push('Login');
-                    
-                }
-
-                return false;
-
-                
-                
-            },
+			}else{
+				this.$store.commit('changeLoginDirect','home');
+				this.$router.push('Login');
+            }
+        },
+        methods:{
         },
         watch:{
-            
         }
     
 
@@ -274,7 +202,7 @@ export default {
     .item_action{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content:flex-end;
     }
     .toWish{
         font-size: 16px;
@@ -335,3 +263,4 @@ export default {
     }
     
 </style>
+

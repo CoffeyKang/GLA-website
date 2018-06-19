@@ -17,6 +17,7 @@ import SetPromotion from './components/userAdmin/SetPromotion.vue';
 import EditUser from './components/userAdmin/SetPromotion.vue';
 import UserHome from './components/userAdmin/UserHome.vue';
 import ShoppingCart from './components/body/shoppingCart.vue';
+import Checkout from './components/body/Checkout.vue';
 
 export const routes = [
   {path: '/',component: Home,name: 'home'},
@@ -39,7 +40,8 @@ export const routes = [
     ]
   },
   {path: '/SearchList',component: SearchList, name: 'SearchList'},
-  {path:'/shoppingCart', component:ShoppingCart, name:'ShoppingCart'},
+  {path: '/shoppingCart', component: ShoppingCart, name: 'ShoppingCart'},
+  { path: '/checkout', component: Checkout, name: 'checkout' },
   {path: '*', component: PageNotFound }
 
 ];

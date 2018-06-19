@@ -9,6 +9,7 @@ use App\UserInfo;
 use Validator;
 
 
+
 class AccessControl extends Controller
 {
      /**
@@ -18,23 +19,18 @@ class AccessControl extends Controller
      */
     public function userinfo(Request $request)
     {	
-        $email = $request->loginInfo['email'];
+        $email = $request->email;
         
-        $user = User::where('email',$email)->first();
-        
-        if ($user) {
-            
+        $password = $request->password;
+
+        if(Auth::attempt(['email'=>$email,'password'=>$password])){
+            $user = Auth::user();
             $userInfo = UserInfo::where('m_id',$user->id)->first();
-
-            
-            
-            $token = $user->createToken('token')->accessToken;
-            
-
-            return response()->json(['user'=>$user, 'token'=>$token, 'userInfo'=>$userInfo],200);
+            return response()->json(['user'=>$user, 'userInfo'=>$userInfo],200);
         }else{
-            return response()->json([],401);
-        }    
+            return response()->json([], 401);
+        };
+         
     }
 
     /**
@@ -66,14 +62,15 @@ class AccessControl extends Controller
         
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
-        $token = $user->createToken('token')->accessToken;
 
-        return response()->json(['user'=>$user,'token'=>$token,'userInfo'=>$userInfo],200);
+        return response()->json(['user'=>$user,'userInfo'=>$userInfo],200);
         
     }
 
 
     public function userDetails(Request $request){
+
+        
          //check the userInfo exsits or not
 
          $userID = $request->userID;
@@ -81,10 +78,11 @@ class AccessControl extends Controller
          $data = $request->data;
 
          $check = UserInfo::where('m_id',$userID)->first();
-
+        
          if ($check) {
             
          }else{
+
              $userInfo = new UserInfo;
 
              $userInfo->m_id = $userID;
@@ -113,6 +111,16 @@ class AccessControl extends Controller
          }
 
          return response()->json(['userinfo'=>$userInfo],200);
+    }
+
+    /** double check the user info */
+    public function doubleCheck(Request $request){
+        $username = $request->username;
+        $password = $request->userPass;
+
+
+        return $password;
+
     }
 
     

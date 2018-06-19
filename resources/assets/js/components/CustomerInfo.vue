@@ -1,7 +1,7 @@
 <template>
 	<div class='adminPage'>
 
-		<div v-if="hasInfo " class='container' >
+		<div v-if="hasInfo" class='container' >
 
             <div class="userNav col-xs-4">
 
@@ -20,14 +20,11 @@
                 <a href="#" class="list-group-item">Pending quote</a>
                 <a href="#" class="list-group-item">Awaits report</a>
             </div>
-
             </div>
         
             <div class="userContent col-xs-8">
                 <router-view></router-view>  
             </div>
-
-            
         </div>
 
         <!-- if do not have details, please enter details first -->
@@ -74,7 +71,14 @@
                         </el-form-item>
 
                         <el-form-item label="State" prop='state'>
-                            <el-input v-model="details.state" placeholder="State"  ></el-input>
+                            <el-select v-model="details.state" placeholder="State">
+                                <el-option
+                                v-for="item in privince"
+                                :key="item.name"
+                                :label="item.name"
+                                :value="item.Code">
+                                </el-option>
+                            </el-select>
                         </el-form-item>
                         
                     </div>
@@ -144,9 +148,24 @@
 	export default {
 		data(){
 			return {
-                user:JSON.parse(localStorage.getItem('user')),
                 storage:window.localStorage,
                 hasInfo:false,
+                user:{},
+                privince:[
+                    {name:'Alberta',Code:"AB"},
+                    {name:'British-Coloumbia',Code:"BC"},
+                    {name:'Manitoba',Code:"MB"},
+                    {name:'New-Brunswick',Code:"NB"},
+                    {name:'Newfoundland and Labrador',Code:"NL"},
+                    {name:'Northwest Territories',Code:"NT"},
+                    {name:'Nova-Scotia',Code:"NS"},
+                    {name:'Nunavut',Code:"NU"},
+                    {name:'Ontario',Code:"ON"},
+                    {name:'Prince-Edward Island',Code:"PE"},
+                    {name:'Quebec',Code:"QC"},
+                    {name:'Saskatchewan',Code:"SK"},
+                    {name:'Yukon',Code:"YT"},
+                ],  
                 userInfo:{},
                 details:{
                     surname:'',
@@ -201,7 +220,7 @@
             // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
 
             
-
+            this.user = JSON.parse(this.storage.getItem('user'));
             this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
             console.log(this.userInfo);
             if (this.userInfo) {
@@ -218,15 +237,19 @@
 		},
 		methods:{
             submitForm(details){
+                console.log('submit form');
                 this.$refs["details"].validate((valid)=>{
                     if (valid){
                         // submit userDetails info        
-                        var userId = JSON.parse(this.storage.getItem("user")).id;
+                        var userId = this.user.id;
                         this.userID = userId;
                         this.$http.post('/api/userDetails',{
                             data:this.details,
                             userID:this.userID,
                         }).then((response)=>{   
+                            console.log(response.data);
+
+
                             var info = response.data.userinfo;
 
                             this.storage.setItem('userInfo',JSON.stringify(info));

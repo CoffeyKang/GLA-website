@@ -60,6 +60,21 @@ Route::post('/addToWishlist','InventoryController@addToWishlist');
 //delete all wishlist
 Route::post('/clearWishlist','InventoryController@clearWishlist');
 
+/** start checkout,
+ * process steps
+ * 1. insert shipping cart items in to temp_so,
+ * 2. turn to php page.
+ * 3. calculate shipping
+ * 4. ditermin the price level
+ * 5. payment
+ * 6. finish order
+ */
+Route::post('/checkout','InventoryController@checkout');
+
+Route::get('/shortlist','InventoryController@shortlist');
+
+
+
 
 
 

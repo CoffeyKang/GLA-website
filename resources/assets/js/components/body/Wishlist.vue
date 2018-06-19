@@ -101,13 +101,13 @@
 				var user = JSON.parse(this.storage.getItem("user")).id;
 				this.$http.post('/api/removeFromWishlist',{user:user,item:item.item})
 					.then(response=>{
-						console.log(response.data);
+						
 						if (response.data==1) {
 							this.items={},
 							this.getWishlist();
-							// this.items.remove(item);
+							this.items.remove(item);
 						}else{
-
+							
 						}
 					}, response=>{
 						console.log('error');
@@ -144,9 +144,12 @@
 
 
 			getWishlist(){
-				this.$http.get('/api/wishlist').then(response=>{
+				console.log("gegtWishlist called");
+				var userID = JSON.parse(this.storage.getItem("user")).id;
+				this.$http.get('/api/wishlist', {params:{userid:userID}}).then(response=>{
+					console.log("call get wishlist api");
 					this.items = response.data.items;
-					
+					console.log(this.items);
 				}, response=>{
 					console.log('wishlist error');
 				});
