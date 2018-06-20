@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="processBTN text-center">
-                    <button class='mybtn' @click='checkOut()'>Proceed To<br>
+                    <button class='mybtn btn btn-success' @click='checkOut()'>Proceed To
                     Check Out</button>
                 </div>
             </div>
@@ -165,12 +165,18 @@ export default {
                     this.$alert('Out of stock', 'Warning', {
 						confirmButtonText: 'OK',
 					});
+                    
                 }else{
                     this.storage.removeItem(item.item);
                     this.storage.setItem(item.item,value);
                     this.items = [];
-                    this.reloadElement();        
+                    this.reloadElement();  
+                    this.$message({
+                        type: 'success',
+                        message: 'Update Successful.'
+                    });        
                 }
+                
                 
             },
             removeToWish(item){
@@ -321,13 +327,7 @@ export default {
         border-bottom: 1px solid black;
     }
     .mybtn{
-        border: none;
-        font-size: 28px;
-        color: white;
-        font-weight: bold;
-        background: #009456;
-        border-radius: 5px;
-        padding: 5px 20px;
+       font-size: 16px;
     }
     .fakeLink{
         cursor: pointer;

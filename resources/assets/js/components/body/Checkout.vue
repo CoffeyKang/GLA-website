@@ -63,6 +63,7 @@
             </div> -->
         </div>
         <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
+            
             <div class="summary" >
                 <div class="summary_title">
                     ORDER SUMMARY
@@ -85,14 +86,16 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>TOTAL:</span><span>${{ total }}</span>
+                            <span>TOTAL:</span><span>${{ total.toFixed(2) }}</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="processBTN text-center">
-                    <button class='mybtn' @click='placeOrder()'>Place Order</button>
+                <div class=" text-center">
+                    <button class='mybtn btn btn-success' @click='placeOrder()'>Place Order</button>
+                    <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
+                
             </div>
         </div>
         
@@ -110,13 +113,13 @@ export default {
             subtotal:0,
             shipping:0,
             hst:0,
-            // total:this.subtotal,
+            
             
             }
         },
         computed:{
             total:function(){
-                return this.subtotal;
+                return parseFloat(this.subtotal) + parseFloat(this.hst);
             }
         },
         mounted(){
@@ -127,8 +130,10 @@ export default {
 
                 /** check again */
                 this.$http.get('/api/shortlist',{params:{userid:userData.id}}).then(response=>{
+                    console.log(response);
                     this.carts = response.data.carts;
                     this.subtotal = response.data.subtotal.toFixed(2);
+                    this.hst = response.data.tax_total.toFixed(2);
                 });
 
 			}else{
@@ -250,12 +255,9 @@ export default {
     }
     .mybtn{
         border: none;
-        font-size: 28px;
         color: white;
         font-weight: bold;
-        background: #009456;
-        border-radius: 5px;
-        padding: 5px 20px;
+        margin-bottom: 10px;
     }
     .fakeLink{
         cursor: pointer;

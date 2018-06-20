@@ -377,25 +377,72 @@ class InventoryController extends Controller
 
         $subtotal = 0;
 
+                    
+        switch ($user->state)
+        {
+            case "AB":
+                $tax = 5;
+                break;  
+            case "BC":
+                $tax = 12;
+                break;
+            case "MB":
+                $tax = 13;
+                break;  
+            case "NB":
+                $tax = 15;
+                break;
+            case "NL":
+                $tax = 5;
+                break; 
+            case "NT":
+                $tax = 5;
+                break; 
+            case "NS":
+                $tax = 15;
+                break;
+            case "NU":
+                $tax = 5;
+                break;
+            case "ON":
+                $tax = 13;
+                break;  
+            case "PE":
+                $tax = 15;
+                break;
+            case "QC":
+                $tax = 14.975;
+                break;
+            case "SK":
+                $tax = 11;
+                break;  
+            case "YT":
+                $tax = 5;
+            break;
+            
+            default:
+                $tax = 13;
+        }
+
+
         
 
         foreach ($shortlist as $item) {
             $info = $item->itemInfo()->first();
             $info->itemFullInfo();
+            // different level determin different price level
             $item->price=$info->price;
             $item->descrip=$info->descrip;
             $item->img_path=$info->img_path;
             $item->year_from=$info->year_from;
             $item->year_end=$info->year_end;
             $item->make=$info->make;
-
             $subtotal += $item->price * $item->qty;
-            
         }
 
+            $tax_total = $subtotal * $tax / 100;
 
-
-        return response()->json(['carts'=>$shortlist,'subtotal'=>$subtotal],200);
+        return response()->json(['carts'=>$shortlist,'subtotal'=>$subtotal,'tax_total'=>$tax_total],200);
 
         
     }
