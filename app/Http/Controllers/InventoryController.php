@@ -440,11 +440,129 @@ class InventoryController extends Controller
             $subtotal += $item->price * $item->qty;
         }
 
-            $tax_total = $subtotal * $tax / 100;
+        $tax_total = $subtotal * $tax / 100;
+
+
+        // calculate shipping
+        
 
         return response()->json(['carts'=>$shortlist,'subtotal'=>$subtotal,'tax_total'=>$tax_total],200);
 
         
+    }
+
+
+    public function test(){
+
+        $xml = new \DomDocument("1.0","UTF-8");
+
+        $Eshipper = $xml->createElement("Eshipper");
+        $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
+        $Eshipper->setAttribute('username',"veistrading");
+        $Eshipper->setAttribute('password',"229280");
+        $Eshipper->setAttribute('version',"3.0.0");
+        $Eshipper = $xml->appendChild($Eshipper);
+
+
+        $QuoteRequest = $xml->createElement("QuoteRequest");
+        $QuoteRequest->setAttribute("serviceId",0);
+        $QuoteRequest->setAttribute("stackable","true");
+        $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
+
+        $From = $xml->createElement("From");
+        $From->setAttribute("id",1);
+        $From->setAttribute("company","Veis Trading Inc.");
+        $From->setAttribute("address1","200 Riviera Drive, Unit 2");
+        $From->setAttribute("city","Toronto");
+        $From->setAttribute("state","ON");
+        $From->setAttribute("country","Canada");
+        $From->setAttribute("zip","L3R5M1");
+        $From = $QuoteRequest->appendChild($From);
+
+        $To = $xml->createElement("To");
+        $To->setAttribute("company","Home");
+        $To->setAttribute("address1","167 Durhamview");
+        $To->setAttribute("city","Stouffville");
+        $To->setAttribute("state","ON");
+        $To->setAttribute("country","Canada");
+        $To->setAttribute("zip","L4A1S2");
+        $To = $QuoteRequest->appendChild($To);
+
+        $Packages = $xml->createElement("Packages");
+        $Packages->setAttribute("type","Package");
+        $Package = $xml->createElement("Package");
+            $Package->setAttribute("length",15);
+            $Package->setAttribute("width",10);
+            $Package->setAttribute("height",12);
+            $Package->setAttribute("weight",10);
+            $Package->setAttribute("type","Package");
+            $Package->setAttribute("freightClass",70);
+            $Package->setAttribute("nmfcCode",123456);
+            $Package->setAttribute("insuranceAmount",0);
+            $Package->setAttribute("codAmount",0);
+            $Package->setAttribute("description","this is a test item");
+        $Package=$Packages->appendChild($Package);
+        
+        $Packages = $QuoteRequest->appendChild($Packages);
+
+        $xml->FormatOutput = true;
+
+        
+        $string_value = $xml->saveXML();
+
+        
+        
+        $xml->save('eshipping.xml');
+
+        $myXml = file_get_contents('eshipping.xml');
+
+        $client = new \GuzzleHttp\Client([
+               
+        ]);
+        
+        $response = $client->POST('http://web.eshipper.com/rpc2',[
+         'body'=>$myXml,
+        ]);
+            
+        $res = $response->getBody();
+        
+        $r = new \SimpleXMLElement($res);
+        
+        $quotes = $r->QuoteReply->Quote;
+
+        
+
+        
+
+        foreach ($quotes as $quote) {
+            echo "<pre>";
+            $a = (array) $quote;
+            echo "<hr>";
+            var_dump($a["@attributes"]['carrierName']);
+            
+            echo "</pre>";
+
+            echo "<hr>";
+        }
+        
+
+        // $quotes = json_encode($r->QuoteReply);
+
+        // var_dump($quotes);
+        
+        
+        
+        
+        
+
+        
+
+        
+
+        
+        
+
+
     }
     
     
