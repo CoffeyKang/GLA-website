@@ -275,7 +275,8 @@
             resetForm(details){
                 this.$refs["details"].resetFields();
             },       
-		}
+        },
+        
 	}
 </script>
 

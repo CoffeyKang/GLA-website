@@ -1,5 +1,8 @@
 <template>
-    <div class="container">
+    <div class="container" v-loading='loading'  
+		element-loading-text="Calculating ..."
+        
+	>
         <h3>Checkout</h3>
         <div class="col-sm-8" style='padding:0;'>
             <div>
@@ -25,22 +28,91 @@
                 </table>
             </div>
             <div class='shipingTo'>
-                <h4>Shipping To</h4>
-                <el-card class="box-card col-xs-6" >
-                    <div>
-                        <h5>{{userInfo.m_forename}} {{userInfo.m_surname}} <br>
-                        {{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>
-                        {{userInfo.m_state}}, {{userInfo.m_country}}</h5>
-                        <div class='shipToAddress'>
-                        <button class="  btn btn-warning text-center">
-                            Edit Address
-                        </button>
-                        </div>
+                    <div class='col-xs-12' v-if="defaultAddress">
+                        <h4>Shipping To</h4>
+                        <el-card class="box-card" >
+                                <h5><b>{{userInfo.m_forename}} {{userInfo.m_surname}}</b> <br> <br>
+                                {{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>
+                                {{userInfo.m_state}}, {{userInfo.m_country}}</h5>
+                        </el-card>
                     </div>
-                </el-card>
+
+                <div class='addressBook col-xs-12'>
                 
+                    <div class='address' v-for="address in addressBook" :key="address.id">
+                        <el-card class="box-card" >
+                                <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
+                                {{address.address}},  {{address.city}}, {{address.zipcode}}<br>
+                                {{address.state}}, {{address.country}}</h5>
+                                <div class='shipToAddress'>
+                                    <button class=" btn btn-success text-center">
+                                        Deliver to address
+                                    </button>
+                                    <button class=" btn btn-danger text-center" @click="deleteAddress(address.id)">
+                                        Delete this address
+                                    </button>
+                                </div>
+                        </el-card>
+                    </div>
+                </div>
                 
+                <div class="newShipping col-xs-12">
+                    <h4 >New Shipping Address</h4>
+                    <el-card class="box-card" >
+                        <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
+                            <div class="inRow">
+                                <el-form-item label="Surname" prop='surname'>
+                                    <el-input v-model="newAdd.surname"></el-input>
+                                </el-form-item>
+                                <el-form-item label="Forename" prop='forename'>
+                                    <el-input v-model="newAdd.forename"></el-input>
+                                </el-form-item>
+                            </div>
+                            <el-form-item label="Address" prop='address'>
+                                <el-input v-model="newAdd.address"></el-input>
+                            </el-form-item>
+                            <div class="inRow">
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
+                                </el-form-item>
+
+                                <el-form-item label="State" prop='state'>
+                                    <el-select v-model="newAdd.state" placeholder="State">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                                
+                            </div>
+                            <div class="inRow">
+                                <el-form-item label="Zipcode" prop='zipcode'>
+                                    <el-input v-model="newAdd.zipcode"></el-input>
+                                </el-form-item>
+                                <el-form-item label="Country" prop='country'>
+                                    <el-input v-model="newAdd.country"></el-input>
+                                </el-form-item>
+                            </div>
+                            <el-form-item label="Telphone" prop='tel'>
+                                <el-input v-model="newAdd.tel"></el-input>
+                            </el-form-item>
+
+                            <el-form-item class='text-center'>
+                                <el-button type="success" @click="submitForm(newAdd)">Add New Address</el-button>
+                                
+                            </el-form-item>
+                            
+                        </el-form>                
+                    </el-card>    
+                </div>
             </div>
+
+            
+
+
             
             
         </div>
@@ -112,8 +184,56 @@ export default {
             expressDay:1,
             groundDay:1,
             shippingRate:'',
+            privince:[
+                    {name:'Alberta',Code:"AB"},
+                    {name:'British-Coloumbia',Code:"BC"},
+                    {name:'Manitoba',Code:"MB"},
+                    {name:'New-Brunswick',Code:"NB"},
+                    {name:'Newfoundland and Labrador',Code:"NL"},
+                    {name:'Northwest Territories',Code:"NT"},
+                    {name:'Nova-Scotia',Code:"NS"},
+                    {name:'Nunavut',Code:"NU"},
+                    {name:'Ontario',Code:"ON"},
+                    {name:'Prince-Edward Island',Code:"PE"},
+                    {name:'Quebec',Code:"QC"},
+                    {name:'Saskatchewan',Code:"SK"},
+                    {name:'Yukon',Code:"YT"},
+                ],  
+            userInfo:[],
+            loading:1,
+            addressBook:[],
+            defaultAddress:true,
+            newAdd:{
+
+            },
+            rules:{
+                surname:[
+                        { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
+                    ],
+                    forename:[
+                        { required: true, message: 'Forename is required.', trigger: 'blur', max:99 },
+                    ],
+                    city:[
+                        { required: true, message: 'City is required.', trigger: 'blur', max:99 },
+                    ],
+                    state:[
+                        { required: true, message: 'State is required.', trigger: 'blur', max:99 },
+                    ],
+                    zipcode:[
+                        { required: true, message: 'Zip Code is required.', trigger: 'blur', max:99 },
+                    ],
+                    address:[
+                        { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
+                    ],
+                    country:[
+                        { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
+                    ],
+                    tel:[
+                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:15,}
+                    ],
             }
-        },
+        }
+    },
         computed:{
             total:function(){
                 return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
@@ -144,6 +264,8 @@ export default {
                     this.shipping = this.quotes['ground'];
                     this.groundDay = response.data.groundDay;
                     this.expressDay = response.data.expressDay;
+                    this.loading = 0;
+                    this.addressBook = response.data.addressBook;
 
 
                     
@@ -155,6 +277,68 @@ export default {
             }
         },
         methods:{
+            submitForm(newAdd){
+                console.log('submit form');
+                this.$refs["newAdd"].validate((valid)=>{
+                    if (valid){
+                        // submit userDetails info        
+                        var userId = this.userInfo.m_id;
+                        this.$http.post('/api/newShippingAdd',
+                            {
+                                'userID':userId,
+                                'data':this.newAdd,
+                            }).then((response)=>{
+                                this.addressBook = response.data.addressBook;
+                                this.$message(
+                                    {
+                                        showClose:true,
+                                        message:"Successfully create new shipping address",
+                                        type:"success",
+                                        duration:5000,
+                                    }
+                                );
+                                this.$refs["newAdd"].resetFields();
+                                window.scrollTo(0,0);
+                            });
+                        
+                        
+
+                    }else{
+                        this.$message({
+                            showClose:true,
+                            message:"Error Submit",
+                            type:"error",
+                            duration:5000,
+                        });
+                        return false;
+                    }
+                });
+            } ,
+
+            deleteAddress(id){
+                this.$confirm('Are you sure to delete the address.', 'Warning', {
+                    confirmButtonText: 'Delete',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                    }).then(() => {
+                        this.$http.post('/api/deleteAddress',{'id':id}).then(response=>{
+                            console.log(response);
+                            this.$message({
+                                type: 'success',
+                                message: 'Scuccessfully delete!',
+                            });
+                            this.addressBook = response.data.addressBook;
+                            window.scrollTo(0,0);
+
+                        });
+                        
+                    }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: 'Canceled'
+                    });          
+                });
+            }
         },
         watch:{
         }
@@ -284,7 +468,25 @@ export default {
         display: flex;
         justify-content: space-around;
     }
-    
+    .address{
+        min-width: 350px;
+        margin-top:20px;
+    }
+    .addressBook{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .newShipping{
+        margin-top: 20px;
+        margin-bottom:20px;
+    }
+
+    .inRow{
+        display: flex;
+        justify-content: space-between;
+        
+    }
     
 </style>
 

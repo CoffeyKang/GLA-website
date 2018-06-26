@@ -28,7 +28,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    
+    public function addressBook(){
+        return $this->hasMany('App\AddressBook','cust_id');
+    }
 
     
 }

@@ -71514,6 +71514,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs["details"].resetFields();
         }
     }
+
 });
 
 /***/ }),
@@ -72470,13 +72471,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 cancelButtonText: 'Cancel',
                 type: 'warning'
             }).then(function () {
+                _this2.items = [];
+                _this2.storage.removeItem(item.item);
+                _this2.reloadElement();
                 _this2.$message({
                     type: 'success',
                     message: 'Scuccessfully delete!'
                 });
-                _this2.items = [];
-                _this2.storage.removeItem(item);
-                _this2.reloadElement();
             }).catch(function () {
                 _this2.$message({
                     type: 'info',
@@ -72486,6 +72487,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         updateCart: function updateCart(item) {
             var value = $("#" + item.item + "").val();
+
+            if (value == 0) {
+                this.removeFromCart(item);
+                return false;
+            }
             if (value > item.onhand) {
                 this.$alert('Out of stock', 'Warning', {
                     confirmButtonText: 'OK'
@@ -72663,7 +72669,7 @@ var render = function() {
                           staticClass: "glyphicon glyphicon-remove",
                           on: {
                             click: function($event) {
-                              _vm.removeFromCart(item.item)
+                              _vm.removeFromCart(item)
                             }
                           }
                         })
@@ -72889,7 +72895,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.oneItem[data-v-ee6b16ce]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-ee6b16ce]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-ee6b16ce]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-ee6b16ce]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-ee6b16ce]{\n    width: 30%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-ee6b16ce]{\n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-ee6b16ce]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack:end;\n        -ms-flex-pack:end;\n            justify-content:flex-end;\n}\n.toWish[data-v-ee6b16ce]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.summary[data-v-ee6b16ce]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-ee6b16ce]{\n    padding: 15px;\n}\n.summary_details div[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-ee6b16ce]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 60px;\n}\n.summary_title[data-v-ee6b16ce]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n}\n.mybtn[data-v-ee6b16ce]{\n    border: none;\n    color: white;\n    font-weight: bold;\n    margin-bottom: 10px;\n}\n.fakeLink[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.shippingOPT[data-v-ee6b16ce]{\n    padding: 20px;\n}\n.shipToAddress[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.oneItem[data-v-ee6b16ce]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-ee6b16ce]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-ee6b16ce]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-ee6b16ce]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-ee6b16ce]{\n    width: 30%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-ee6b16ce]{\n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-ee6b16ce]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack:end;\n        -ms-flex-pack:end;\n            justify-content:flex-end;\n}\n.toWish[data-v-ee6b16ce]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.summary[data-v-ee6b16ce]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-ee6b16ce]{\n    padding: 15px;\n}\n.summary_details div[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-ee6b16ce]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 60px;\n}\n.summary_title[data-v-ee6b16ce]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n}\n.mybtn[data-v-ee6b16ce]{\n    border: none;\n    color: white;\n    font-weight: bold;\n    margin-bottom: 10px;\n}\n.fakeLink[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.shippingOPT[data-v-ee6b16ce]{\n    padding: 20px;\n}\n.shipToAddress[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n.address[data-v-ee6b16ce]{\n    min-width: 350px;\n    margin-top:20px;\n}\n.addressBook[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.newShipping[data-v-ee6b16ce]{\n    margin-top: 20px;\n    margin-bottom:20px;\n}\n.inRow[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n", ""]);
 
 // exports
 
@@ -72900,6 +72906,78 @@ exports.push([module.i, "\n.oneItem[data-v-ee6b16ce]{\n    border: 1px solid bla
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -73013,7 +73091,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             shippingOPT: 1,
             expressDay: 1,
             groundDay: 1,
-            shippingRate: ''
+            shippingRate: '',
+            privince: [{ name: 'Alberta', Code: "AB" }, { name: 'British-Coloumbia', Code: "BC" }, { name: 'Manitoba', Code: "MB" }, { name: 'New-Brunswick', Code: "NB" }, { name: 'Newfoundland and Labrador', Code: "NL" }, { name: 'Northwest Territories', Code: "NT" }, { name: 'Nova-Scotia', Code: "NS" }, { name: 'Nunavut', Code: "NU" }, { name: 'Ontario', Code: "ON" }, { name: 'Prince-Edward Island', Code: "PE" }, { name: 'Quebec', Code: "QC" }, { name: 'Saskatchewan', Code: "SK" }, { name: 'Yukon', Code: "YT" }],
+            userInfo: [],
+            loading: 1,
+            addressBook: [],
+            defaultAddress: true,
+            newAdd: {},
+            rules: {
+                surname: [{ required: true, message: 'Surname is required.', trigger: 'blur', max: 99 }],
+                forename: [{ required: true, message: 'Forename is required.', trigger: 'blur', max: 99 }],
+                city: [{ required: true, message: 'City is required.', trigger: 'blur', max: 99 }],
+                state: [{ required: true, message: 'State is required.', trigger: 'blur', max: 99 }],
+                zipcode: [{ required: true, message: 'Zip Code is required.', trigger: 'blur', max: 99 }],
+                address: [{ required: true, message: 'Address is required.', trigger: 'blur', max: 99 }],
+                country: [{ required: true, message: 'Country is required.', trigger: 'blur', max: 99 }],
+                tel: [{ required: true, message: 'Invalid telephone number.', trigger: 'blur', max: 15 }]
+            }
         };
     },
 
@@ -73049,6 +73143,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.shipping = _this.quotes['ground'];
                 _this.groundDay = response.data.groundDay;
                 _this.expressDay = response.data.expressDay;
+                _this.loading = 0;
+                _this.addressBook = response.data.addressBook;
             });
         } else {
             this.$store.commit('changeLoginDirect', 'home');
@@ -73056,7 +73152,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    methods: {},
+    methods: {
+        submitForm: function submitForm(newAdd) {
+            var _this2 = this;
+
+            console.log('submit form');
+            this.$refs["newAdd"].validate(function (valid) {
+                if (valid) {
+                    // submit userDetails info        
+                    var userId = _this2.userInfo.m_id;
+                    _this2.$http.post('/api/newShippingAdd', {
+                        'userID': userId,
+                        'data': _this2.newAdd
+                    }).then(function (response) {
+                        _this2.addressBook = response.data.addressBook;
+                        _this2.$message({
+                            showClose: true,
+                            message: "Successfully create new shipping address",
+                            type: "success",
+                            duration: 5000
+                        });
+                        _this2.$refs["newAdd"].resetFields();
+                        window.scrollTo(0, 0);
+                    });
+                } else {
+                    _this2.$message({
+                        showClose: true,
+                        message: "Error Submit",
+                        type: "error",
+                        duration: 5000
+                    });
+                    return false;
+                }
+            });
+        },
+        deleteAddress: function deleteAddress(id) {
+            var _this3 = this;
+
+            this.$confirm('Are you sure to delete the address.', 'Warning', {
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(function () {
+                _this3.$http.post('/api/deleteAddress', { 'id': id }).then(function (response) {
+                    console.log(response);
+                    _this3.$message({
+                        type: 'success',
+                        message: 'Scuccessfully delete!'
+                    });
+                    _this3.addressBook = response.data.addressBook;
+                    window.scrollTo(0, 0);
+                });
+            }).catch(function () {
+                _this3.$message({
+                    type: 'info',
+                    message: 'Canceled'
+                });
+            });
+        }
+    },
     watch: {}
 
 });
@@ -73069,220 +73223,534 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h3", [_vm._v("Checkout")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-sm-8", staticStyle: { padding: "0" } }, [
-      _c("div", [
-        _c("table", { staticClass: "table table-striped table-justified" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.carts, function(item) {
-              return _vm.carts.length >= 1
-                ? _c("tr", { key: item.item, staticClass: "text-left" }, [
-                    _c("td", [_vm._v(_vm._s(item.descrip))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.item) + " ")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.make))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.qty))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v("$ " + _vm._s((item.price * item.qty).toFixed(2)))
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "loading",
+          rawName: "v-loading",
+          value: _vm.loading,
+          expression: "loading"
+        }
+      ],
+      staticClass: "container",
+      attrs: { "element-loading-text": "Calculating ..." }
+    },
+    [
+      _c("h3", [_vm._v("Checkout")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8", staticStyle: { padding: "0" } }, [
+        _c("div", [
+          _c("table", { staticClass: "table table-striped table-justified" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.carts, function(item) {
+                return _vm.carts.length >= 1
+                  ? _c("tr", { key: item.item, staticClass: "text-left" }, [
+                      _c("td", [_vm._v(_vm._s(item.descrip))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.item) + " ")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.make))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.qty))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "$ " + _vm._s((item.price * item.qty).toFixed(2))
+                        )
+                      ])
+                    ])
+                  : _vm._e()
+              })
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "shipingTo" }, [
+          _vm.defaultAddress
+            ? _c(
+                "div",
+                { staticClass: "col-xs-12" },
+                [
+                  _c("h4", [_vm._v("Shipping To")]),
+                  _vm._v(" "),
+                  _c("el-card", { staticClass: "box-card" }, [
+                    _c("h5", [
+                      _c("b", [
+                        _vm._v(
+                          _vm._s(_vm.userInfo.m_forename) +
+                            " " +
+                            _vm._s(_vm.userInfo.m_surname)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.userInfo.m_address) +
+                          ",  " +
+                          _vm._s(_vm.userInfo.m_city) +
+                          ", " +
+                          _vm._s(_vm.userInfo.m_zipcode)
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.userInfo.m_state) +
+                          ", " +
+                          _vm._s(_vm.userInfo.m_country)
+                      )
                     ])
                   ])
-                : _vm._e()
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "addressBook col-xs-12" },
+            _vm._l(_vm.addressBook, function(address) {
+              return _c(
+                "div",
+                { key: address.id, staticClass: "address" },
+                [
+                  _c("el-card", { staticClass: "box-card" }, [
+                    _c("h5", [
+                      _c("b", [
+                        _vm._v(
+                          _vm._s(address.forename) +
+                            " " +
+                            _vm._s(address.surname)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(address.address) +
+                          ",  " +
+                          _vm._s(address.city) +
+                          ", " +
+                          _vm._s(address.zipcode)
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(address.state) +
+                          ", " +
+                          _vm._s(address.country)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "shipToAddress" }, [
+                      _c(
+                        "button",
+                        { staticClass: " btn btn-success text-center" },
+                        [
+                          _vm._v(
+                            "\n                                        Deliver to address\n                                    "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: " btn btn-danger text-center",
+                          on: {
+                            click: function($event) {
+                              _vm.deleteAddress(address.id)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                        Delete this address\n                                    "
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ],
+                1
+              )
             })
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "newShipping col-xs-12" },
+            [
+              _c("h4", [_vm._v("New Shipping Address")]),
+              _vm._v(" "),
+              _c(
+                "el-card",
+                { staticClass: "box-card" },
+                [
+                  _c(
+                    "el-form",
+                    {
+                      ref: "newAdd",
+                      attrs: {
+                        "label-position": "left",
+                        "label-width": "100px",
+                        model: _vm.newAdd,
+                        rules: _vm.rules
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "inRow" },
+                        [
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "Surname", prop: "surname" } },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.newAdd.surname,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newAdd, "surname", $$v)
+                                  },
+                                  expression: "newAdd.surname"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "Forename", prop: "forename" } },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.newAdd.forename,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newAdd, "forename", $$v)
+                                  },
+                                  expression: "newAdd.forename"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-form-item",
+                        { attrs: { label: "Address", prop: "address" } },
+                        [
+                          _c("el-input", {
+                            model: {
+                              value: _vm.newAdd.address,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newAdd, "address", $$v)
+                              },
+                              expression: "newAdd.address"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "inRow" },
+                        [
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "City", prop: "city" } },
+                            [
+                              _c("el-input", {
+                                attrs: { placeholder: "City" },
+                                model: {
+                                  value: _vm.newAdd.city,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newAdd, "city", $$v)
+                                  },
+                                  expression: "newAdd.city"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "State", prop: "state" } },
+                            [
+                              _c(
+                                "el-select",
+                                {
+                                  attrs: { placeholder: "State" },
+                                  model: {
+                                    value: _vm.newAdd.state,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.newAdd, "state", $$v)
+                                    },
+                                    expression: "newAdd.state"
+                                  }
+                                },
+                                _vm._l(_vm.privince, function(item) {
+                                  return _c("el-option", {
+                                    key: item.name,
+                                    attrs: {
+                                      label: item.name,
+                                      value: item.Code
+                                    }
+                                  })
+                                })
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "inRow" },
+                        [
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "Zipcode", prop: "zipcode" } },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.newAdd.zipcode,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newAdd, "zipcode", $$v)
+                                  },
+                                  expression: "newAdd.zipcode"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "Country", prop: "country" } },
+                            [
+                              _c("el-input", {
+                                model: {
+                                  value: _vm.newAdd.country,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.newAdd, "country", $$v)
+                                  },
+                                  expression: "newAdd.country"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-form-item",
+                        { attrs: { label: "Telphone", prop: "tel" } },
+                        [
+                          _c("el-input", {
+                            model: {
+                              value: _vm.newAdd.tel,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newAdd, "tel", $$v)
+                              },
+                              expression: "newAdd.tel"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-form-item",
+                        { staticClass: "text-center" },
+                        [
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { type: "success" },
+                              on: {
+                                click: function($event) {
+                                  _vm.submitForm(_vm.newAdd)
+                                }
+                              }
+                            },
+                            [_vm._v("Add New Address")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
           )
         ])
       ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "shipingTo" },
+        {
+          staticClass: "col-sm-4",
+          staticStyle: {
+            "padding-right": "0",
+            "padding-top": "15px",
+            "padding-left": "30px"
+          }
+        },
         [
-          _c("h4", [_vm._v("Shipping To")]),
-          _vm._v(" "),
-          _c("el-card", { staticClass: "box-card col-xs-6" }, [
-            _c("div", [
-              _c("h5", [
-                _vm._v(
-                  _vm._s(_vm.userInfo.m_forename) +
-                    " " +
-                    _vm._s(_vm.userInfo.m_surname) +
-                    " "
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.userInfo.m_address) +
-                    ",  " +
-                    _vm._s(_vm.userInfo.m_city) +
-                    ", " +
-                    _vm._s(_vm.userInfo.m_zipcode)
-                ),
-                _c("br"),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.userInfo.m_state) +
-                    ", " +
-                    _vm._s(_vm.userInfo.m_country)
-                )
+          _c("div", { staticClass: "summary" }, [
+            _c("div", { staticClass: "summary_title" }, [
+              _vm._v("\n                    ORDER SUMMARY\n                ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "summary_details" }, [
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("SUBTOTAL:")]),
+                  _c("span", [_vm._v("$" + _vm._s(_vm.subtotal))])
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "shipToAddress" }, [
-                _c("button", { staticClass: "  btn btn-warning text-center" }, [
-                  _vm._v(
-                    "\n                        Edit Address\n                    "
-                  )
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("SHIPPING:")]),
+                  _vm.shippingRate == "quotable"
+                    ? _c("span", [_vm._v("$" + _vm._s(_vm.shipping))])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.shippingRate != "quotable"
+                    ? _c("span", [_vm._v("TBD")])
+                    : _vm._e()
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("HST:")]),
+                  _c("span", [_vm._v("$" + _vm._s(_vm.hst))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("TOTAL:")]),
+                  _vm.shippingRate == "quotable"
+                    ? _c("span", [_vm._v("$" + _vm._s(_vm.total.toFixed(2)))])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.shippingRate != "quotable"
+                    ? _c("span", [_vm._v("TBD")])
+                    : _vm._e()
                 ])
               ])
-            ])
-          ])
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "col-sm-4",
-        staticStyle: {
-          "padding-right": "0",
-          "padding-top": "15px",
-          "padding-left": "30px"
-        }
-      },
-      [
-        _c("div", { staticClass: "summary" }, [
-          _c("div", { staticClass: "summary_title" }, [
-            _vm._v("\n                ORDER SUMMARY\n            ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "summary_details" }, [
-            _c("div", { staticClass: "summary_list" }, [
-              _c("div", { staticClass: "summary_amount" }, [
-                _c("span", [_vm._v("SUBTOTAL:")]),
-                _c("span", [_vm._v("$" + _vm._s(_vm.subtotal))])
-              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "summary_list" }, [
-              _c("div", { staticClass: "summary_amount" }, [
-                _c("span", [_vm._v("SHIPPING:")]),
-                _vm.shippingRate == "quotable"
-                  ? _c("span", [_vm._v("$" + _vm._s(_vm.shipping))])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.shippingRate != "quotable"
-                  ? _c("span", [_vm._v("TBD")])
-                  : _vm._e()
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "summary_list" }, [
-              _c("div", { staticClass: "summary_amount" }, [
-                _c("span", [_vm._v("HST:")]),
-                _c("span", [_vm._v("$" + _vm._s(_vm.hst))])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "summary_list" }, [
-              _c("div", { staticClass: "summary_amount" }, [
-                _c("span", [_vm._v("TOTAL:")]),
-                _vm.shippingRate == "quotable"
-                  ? _c("span", [_vm._v("$" + _vm._s(_vm.total.toFixed(2)))])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.shippingRate != "quotable"
-                  ? _c("span", [_vm._v("TBD")])
-                  : _vm._e()
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _vm.shippingRate == "quotable"
-            ? _c("div", { staticClass: " text-center" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "mybtn btn btn-success",
-                    on: {
-                      click: function($event) {
-                        _vm.placeOrder()
-                      }
-                    }
-                  },
-                  [_vm._v("Place Order")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "mybtn btn btn-warning",
-                    on: {
-                      click: function($event) {
-                        _vm.$router.push("shoppingCart")
-                      }
-                    }
-                  },
-                  [_vm._v("Edit Order")]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "text-center shippingOPT " },
-            [
-              _vm.shippingRate == "quotable"
-                ? _c(
-                    "el-radio-group",
+            _vm.shippingRate == "quotable"
+              ? _c("div", { staticClass: " text-center" }, [
+                  _c(
+                    "button",
                     {
-                      model: {
-                        value: _vm.shippingOPT,
-                        callback: function($$v) {
-                          _vm.shippingOPT = $$v
-                        },
-                        expression: "shippingOPT"
+                      staticClass: "mybtn btn btn-success",
+                      on: {
+                        click: function($event) {
+                          _vm.placeOrder()
+                        }
                       }
                     },
-                    [
-                      _c("el-radio", { attrs: { label: 1 } }, [
-                        _vm._v("Ground Shipping, taking "),
-                        _c("b", [_vm._v(_vm._s(parseInt(_vm.groundDay) + 3))]),
-                        _vm._v(" days")
-                      ]),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("el-radio", { attrs: { label: 2 } }, [
-                        _vm._v("Express Shipping, taking "),
-                        _c("b", [_vm._v(_vm._s(parseInt(_vm.expressDay) + 1))]),
-                        _vm._v(" days")
-                      ])
-                    ],
-                    1
+                    [_vm._v("Place Order")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "mybtn btn btn-warning",
+                      on: {
+                        click: function($event) {
+                          _vm.$router.push("shoppingCart")
+                        }
+                      }
+                    },
+                    [_vm._v("Edit Order")]
                   )
-                : _vm._e()
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm.shippingRate != "quotable"
-            ? _c("div", { staticClass: " text-center" }, [
-                _c("button", { staticClass: "mybtn btn btn-success" }, [
-                  _vm._v("Get a Quote")
                 ])
-              ])
-            : _vm._e()
-        ])
-      ]
-    )
-  ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "text-center shippingOPT " },
+              [
+                _vm.shippingRate == "quotable"
+                  ? _c(
+                      "el-radio-group",
+                      {
+                        model: {
+                          value: _vm.shippingOPT,
+                          callback: function($$v) {
+                            _vm.shippingOPT = $$v
+                          },
+                          expression: "shippingOPT"
+                        }
+                      },
+                      [
+                        _c("el-radio", { attrs: { label: 1 } }, [
+                          _vm._v("Ground Shipping, taking "),
+                          _c("b", [
+                            _vm._v(_vm._s(parseInt(_vm.groundDay) + 3))
+                          ]),
+                          _vm._v(" days")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("el-radio", { attrs: { label: 2 } }, [
+                          _vm._v("Express Shipping, taking "),
+                          _c("b", [
+                            _vm._v(_vm._s(parseInt(_vm.expressDay) + 1))
+                          ]),
+                          _vm._v(" days")
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.shippingRate != "quotable"
+              ? _c("div", { staticClass: " text-center" }, [
+                  _c("button", { staticClass: "mybtn btn btn-success" }, [
+                    _vm._v("Get a Quote")
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {

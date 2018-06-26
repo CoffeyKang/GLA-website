@@ -34,7 +34,7 @@
                     </div>
                     <div class="item_action text-right">
                         <div class="closure ">
-                            <span class="glyphicon glyphicon-remove" @click="removeFromCart(item.item)"></span>
+                            <span class="glyphicon glyphicon-remove" @click="removeFromCart(item)"></span>
                         </div>
                         <div class="toWish" @click='removeToWish(item)'>
                             Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
@@ -144,13 +144,13 @@ export default {
                     cancelButtonText: 'Cancel',
                     type: 'warning'
                     }).then(() => {
+                        this.items = [];
+                        this.storage.removeItem(item.item);
+                        this.reloadElement();
                         this.$message({
                             type: 'success',
                             message: 'Scuccessfully delete!',
                         });
-                        this.items = [];
-                        this.storage.removeItem(item);
-                        this.reloadElement();
                     }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -161,6 +161,12 @@ export default {
 
             updateCart(item){
                 var value = $("#"+item.item+"").val();
+
+                
+                if (value==0) {
+                    this.removeFromCart(item);
+                    return false;
+                }
                 if (value>item.onhand) {
                     this.$alert('Out of stock', 'Warning', {
 						confirmButtonText: 'OK',

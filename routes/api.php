@@ -73,6 +73,12 @@ Route::post('/checkout','InventoryController@checkout');
 
 Route::get('/shortlist','InventoryController@shortlist');
 
+/** add new shipping address */
+Route::post('/newShippingAdd','InventoryController@newShippingAdd');
+
+/** add new shipping address */
+Route::post('/deleteAddress','InventoryController@deleteAddress');
+
 
 
 

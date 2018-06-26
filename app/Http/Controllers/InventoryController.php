@@ -11,6 +11,7 @@ use App\Wishlist;
 use App\Temp_SO;
 use App\User;
 use App\UserInfo;
+use App\AddressBook;
 class InventoryController extends Controller
 {
     /**
@@ -372,7 +373,11 @@ class InventoryController extends Controller
         
         $user = User::find($userID);
 
+        $addressBook = $user->addressBook()->get();
+
         $userInfo = UserInfo::where('m_id',$userID)->first();
+
+        $fullName = $userInfo->m_surname . ' ' . $userInfo->m_forename;
 
         $shortlist = Temp_SO::where('cust_id',$userID)
             ->get();
@@ -475,17 +480,17 @@ class InventoryController extends Controller
             $From->setAttribute("address1","200 Riviera Drive, Unit 2");
             $From->setAttribute("city","Toronto");
             $From->setAttribute("state","ON");
-            $From->setAttribute("country","Canada");
+            $From->setAttribute("country","CA");
             $From->setAttribute("zip","L3R5M1");
             $From = $QuoteRequest->appendChild($From);
 
             $To = $xml->createElement("To");
-            $To->setAttribute("company","Starbucks");
-            $To->setAttribute("address1","2980 Main St");
-            $To->setAttribute("city","Vancouver");
-            $To->setAttribute("state","ON");
-            $To->setAttribute("country","Canada");
-            $To->setAttribute("zip","l4m0a9");
+            $To->setAttribute("company",$fullName);
+            $To->setAttribute("address1",$userInfo->m_address);
+            $To->setAttribute("city",$userInfo->m_city);
+            $To->setAttribute("state",$userInfo->m_state);
+            $To->setAttribute("country",$userInfo->m_country);
+            $To->setAttribute("zip",$userInfo->m_zipcode);
             $To = $QuoteRequest->appendChild($To);
 
             $Packages = $xml->createElement("Packages");
@@ -571,10 +576,10 @@ class InventoryController extends Controller
 
                 
                 foreach ($myQuotes as $quote) {
-                    if ($quote[0]=="Purolator" &&$quote[1]="Purolator Ground") {
+                    if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
                         $quoteOpt['ground'] = $quote[2];
                         $groundDay = $quote[3]; 
-                    }elseif($quote[0]=="Purolator" &&$quote[1]="Purolator Express"){
+                    }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
                         $quoteOpt['express'] = $quote[2]; 
                         $expressDay = $quote[3];
                     }
@@ -609,11 +614,13 @@ class InventoryController extends Controller
 
                 $shippingRate = 'quotable';
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,'groundDay'=>$groundDay,'expressDay'=>$expressDay],200);
+                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,
+                'groundDay'=>$groundDay,'expressDay'=>$expressDay,'addressBook'=>$addressBook],200);
             }else{
                 $shippingRate = 'TBD';
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0],200);
+                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
+                'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
             }
         
 
@@ -624,80 +631,91 @@ class InventoryController extends Controller
 
 
     public function test(){
+        $myXml = file_get_contents("shipping/eshipping_18.xml");
 
-
-        $myXml = file_get_contents('shipping/eshipping_18.xml');
-
-        
-        $client = new \GuzzleHttp\Client([
-               
-        ]);
-        
-        $response = $client->POST('http://web.eshipper.com/rpc2',[
-         'body'=>$myXml,
-        ]);
-        
-        
-        $res = $response->getBody();
-        
-        $r = new \SimpleXMLElement($res);
-        
-        
-
-        $quotes = $r->QuoteReply->Quote;
-        
-
-        $myQuotes = [];
-
-        $quoteOpt = [];
-
-        
-        foreach ($quotes as $q) {
+            $client = new \GuzzleHttp\Client([
+                
+            ]);
             
-            $arr = (array)$q[0];
+            $response = $client->POST('http://web.eshipper.com/rpc2',[
+            'body'=>$myXml,
+            ]);
             
-            $carrierName = $arr['@attributes']['carrierName'];
-
-            $serviceName = $arr['@attributes']['serviceName'];
-
-            $totalCost = $arr['@attributes']['totalCharge'];
-
-            array_push($myQuotes,[$carrierName,$serviceName,$totalCost]);
-           
-            }
-
+            $res = $response->getBody();
             
-            foreach ($myQuotes as $quote) {
-                if ($quote[0]=="Purolator" &&$quote[1]="Purolator Ground") {
-                    $quoteOpt['ground'] = $quote[2]; 
-                }elseif($quote[0]=="Purolator" &&$quote[1]="Purolator Express"){
-                    $quoteOpt['express'] = $quote[2]; 
+            $r = new \SimpleXMLElement($res);
+            
+            $quotes = $r->QuoteReply->Quote;
+        
+
+            $myQuotes = [];
+
+            $quoteOpt = [];
+
+            $groundDay= 1;
+            
+            $expressDay= 1;
+            
+            foreach ($quotes as $q) {
+                
+                $arr = (array)$q[0];
+                
+                $carrierName = $arr['@attributes']['carrierName'];
+
+                $serviceName = $arr['@attributes']['serviceName'];
+
+                $totalCost = $arr['@attributes']['totalCharge'];
+
+                $transitDays = $arr['@attributes']['transitDays'];
+
+                array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+            
                 }
-            }
-            
-            if (!isset($quoteOpt['ground'])) {
-                $quoteOpt['ground']=1000000000;
+                
+
+                
                 foreach ($myQuotes as $quote) {
-                    if ($quoteOpt['ground']>=$quote[2]) {
+                    if ($quote[0]=="Purolator" && $quote[1]=="Purolator Ground") {
                         $quoteOpt['ground'] = $quote[2];
-                    }else{
-
+                        $groundDay = $quote[3]; 
+                    }elseif($quote[0]=="Purolator" && $quote[1]=="Purolator Express"){
+                        $quoteOpt['express'] = $quote[2]; 
+                        $expressDay = $quote[3];
                     }
                 }
-            }
 
-            if (!isset($quoteOpt['express'])) {
-                $quoteOpt['express']=0;
-                foreach ($myQuotes as $quote) {
-                    if ($quoteOpt['express']<=$quote[2]) {
-                        $quoteOpt['express'] = $quote[2];
-                    }else{
+                
+                
+                if (!isset($quoteOpt['ground'])) {
+                    $quoteOpt['ground']=1000000000;
+                    foreach ($myQuotes as $quote) {
+                        if ($quoteOpt['ground']>=$quote[2]) {
+                            $quoteOpt['ground'] = $quote[2];
+                            $groundDay = $quote[3];
+                            
+                        }else{
 
+                        }
                     }
                 }
-            }
-        dd($quoteOpt);
-        echo "<hr>";
+                if (!isset($quoteOpt['express'])) {
+                    $quoteOpt['express']=0;
+                    foreach ($myQuotes as $quote) {
+                        if ($quoteOpt['express']<=$quote[2]) {
+                            $quoteOpt['express'] = $quote[2];
+                            $expressDay = $quote[3];
+                        }else{
+
+                        }
+                    }
+                }
+
+                $shippingRate = 'quotable';
+                return response()->json([
+                "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,'groundDay'=>$groundDay,'expressDay'=>$expressDay],200);
+            
+
+
 
         
         
@@ -715,6 +733,55 @@ class InventoryController extends Controller
 
 
     }
-    
+
+    /***    addd new shipping address */
+    public function newShippingAdd(Request $request){
+        $userid = $request->userID;
+        $data = $request->data;
+        $data['zipcode'] = str_replace(' ','',$data['zipcode']);
+        $user = User::find($userid);
+        
+        $newAdd = new AddressBook;
+        $newAdd->cust_id=$userid;
+       
+        $newAdd->address=$data['address'];
+        
+        $newAdd->city=$data['city']; 
+        $newAdd->state=$data['state'];
+        $newAdd->zipcode=$data['zipcode'];
+        $newAdd->country=$data['country'];
+        $newAdd->tel=$data['tel'];
+        $newAdd->forename=$data['forename'];
+        $newAdd->surname=$data['surname'];
+        $newAdd->save();
+        
+        $addressBook = $user->addressBook()->get();
+
+        return response()->json(['addressBook'=>$addressBook],200);
+
+        
+    }
+
+    public function deleteAddress(Request $request){
+        $id = $request->id;
+
+        
+
+        $addr = AddressBook::find($id);
+        
+        if ($addr) {
+            $user = $addr->user()->first();
+            
+            $addr->delete();
+            $addressBook = $user->addressBook()->get();
+
+            return response()->json(['addressBook'=>$addressBook],200);
+        }else{
+            $addressBook = $user->addressBook()->get();
+
+            return response()->json(['addressBook'=>$addressBook],200);
+        }
+        
+    }
     
 }
