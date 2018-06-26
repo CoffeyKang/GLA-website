@@ -367,6 +367,8 @@ class InventoryController extends Controller
      */
     public function shortlist(Request $request){
         $userID = $request->userid;
+
+        $oversize = false;
         
         $user = User::find($userID);
 
@@ -438,15 +440,184 @@ class InventoryController extends Controller
             $item->year_end=$info->year_end;
             $item->make=$info->make;
             $subtotal += $item->price * $item->qty;
+
+            // length + (2 x width) + (2 x height), may not exceed 165 in. 
+
+            if ($info->length + (2*$info->width) + (2*$info->height)>=165) {
+                $oversize = true;
+            }
         }
 
         $tax_total = $subtotal * $tax / 100;
 
 
         // calculate shipping
+
+        if (!$oversize) {
+            # code...
         
 
-        return response()->json(['carts'=>$shortlist,'subtotal'=>$subtotal,'tax_total'=>$tax_total],200);
+            $xml = new \DomDocument("1.0","UTF-8");
+            $Eshipper = $xml->createElement("Eshipper");
+            $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
+            $Eshipper->setAttribute('username',"veistrading");
+            $Eshipper->setAttribute('password',"229280");
+            $Eshipper->setAttribute('version',"3.0.0");
+            $Eshipper = $xml->appendChild($Eshipper);
+
+
+            $QuoteRequest = $xml->createElement("QuoteRequest");
+            $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
+
+            $From = $xml->createElement("From");
+            $From->setAttribute("id",$userID);
+            $From->setAttribute("company","Veis Trading Inc.");
+            $From->setAttribute("address1","200 Riviera Drive, Unit 2");
+            $From->setAttribute("city","Toronto");
+            $From->setAttribute("state","ON");
+            $From->setAttribute("country","Canada");
+            $From->setAttribute("zip","L3R5M1");
+            $From = $QuoteRequest->appendChild($From);
+
+            $To = $xml->createElement("To");
+            $To->setAttribute("company","Starbucks");
+            $To->setAttribute("address1","2980 Main St");
+            $To->setAttribute("city","Vancouver");
+            $To->setAttribute("state","ON");
+            $To->setAttribute("country","Canada");
+            $To->setAttribute("zip","l4m0a9");
+            $To = $QuoteRequest->appendChild($To);
+
+            $Packages = $xml->createElement("Packages");
+            $Packages->setAttribute("type","Package");
+
+            /** need foreach every items */
+
+            foreach ($shortlist as $item) {
+                $item_info = $item->itemInfo()->first();
+
+                if ($item_info->length<=1) {
+                    $item_info->length=1;
+                }
+                if ($item_info->width<=1) {
+                    $item_info->width=1;
+                }
+                if ($item_info->height<=1) {
+                    $item_info->height=1;
+                }
+                if ($item_info->weight<=1) {
+                    $item_info->weight=1;
+                }
+
+                $Package = $xml->createElement("Package");
+                    $Package->setAttribute("length",$item_info->length);
+                    $Package->setAttribute("width",$item_info->width);
+                    $Package->setAttribute("height",$item_info->height);
+                    $Package->setAttribute("weight",$item_info->weight);
+                $Package=$Packages->appendChild($Package);
+
+                $Packages = $QuoteRequest->appendChild($Packages);
+
+            }
+
+            $xml->FormatOutput = true;
+
+            $string_value = $xml->saveXML();
+            
+            $xml->save("shipping/eshipping_$userID.xml");
+
+            // call api
+
+            $myXml = file_get_contents("shipping/eshipping_$userID.xml");
+
+            $client = new \GuzzleHttp\Client([
+                
+            ]);
+            
+            $response = $client->POST('http://web.eshipper.com/rpc2',[
+            'body'=>$myXml,
+            ]);
+            
+            $res = $response->getBody();
+            
+            $r = new \SimpleXMLElement($res);
+            
+            $quotes = $r->QuoteReply->Quote;
+        
+
+            $myQuotes = [];
+
+            $quoteOpt = [];
+
+            $groundDay= 1;
+            
+            $expressDay= 1;
+            
+            foreach ($quotes as $q) {
+                
+                $arr = (array)$q[0];
+                
+                $carrierName = $arr['@attributes']['carrierName'];
+
+                $serviceName = $arr['@attributes']['serviceName'];
+
+                $totalCost = $arr['@attributes']['totalCharge'];
+
+                $transitDays = $arr['@attributes']['transitDays'];
+
+                array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+            
+                }
+
+                
+                foreach ($myQuotes as $quote) {
+                    if ($quote[0]=="Purolator" &&$quote[1]="Purolator Ground") {
+                        $quoteOpt['ground'] = $quote[2];
+                        $groundDay = $quote[3]; 
+                    }elseif($quote[0]=="Purolator" &&$quote[1]="Purolator Express"){
+                        $quoteOpt['express'] = $quote[2]; 
+                        $expressDay = $quote[3];
+                    }
+                }
+                
+                if (!isset($quoteOpt['ground'])) {
+                    $quoteOpt['ground']=1000000000;
+                    foreach ($myQuotes as $quote) {
+                        if ($quoteOpt['ground']>=$quote[2]) {
+                            $quoteOpt['ground'] = $quote[2];
+                            $groundDay = $quote[3];
+                            
+                        }else{
+
+                        }
+                    }
+                }
+
+                if (!isset($quoteOpt['express'])) {
+                    $quoteOpt['express']=0;
+                    foreach ($myQuotes as $quote) {
+                        if ($quoteOpt['express']<=$quote[2]) {
+                            $quoteOpt['express'] = $quote[2];
+                            $expressDay = $quote[3];
+                        }else{
+
+                        }
+                    }
+                }
+
+                
+
+                $shippingRate = 'quotable';
+                return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,'groundDay'=>$groundDay,'expressDay'=>$expressDay],200);
+            }else{
+                $shippingRate = 'TBD';
+                return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0],200);
+            }
+        
+
+        
 
         
     }
@@ -454,68 +625,10 @@ class InventoryController extends Controller
 
     public function test(){
 
-        $xml = new \DomDocument("1.0","UTF-8");
 
-        $Eshipper = $xml->createElement("Eshipper");
-        $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
-        $Eshipper->setAttribute('username',"veistrading");
-        $Eshipper->setAttribute('password',"229280");
-        $Eshipper->setAttribute('version',"3.0.0");
-        $Eshipper = $xml->appendChild($Eshipper);
-
-
-        $QuoteRequest = $xml->createElement("QuoteRequest");
-        $QuoteRequest->setAttribute("serviceId",0);
-        $QuoteRequest->setAttribute("stackable","true");
-        $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
-
-        $From = $xml->createElement("From");
-        $From->setAttribute("id",1);
-        $From->setAttribute("company","Veis Trading Inc.");
-        $From->setAttribute("address1","200 Riviera Drive, Unit 2");
-        $From->setAttribute("city","Toronto");
-        $From->setAttribute("state","ON");
-        $From->setAttribute("country","Canada");
-        $From->setAttribute("zip","L3R5M1");
-        $From = $QuoteRequest->appendChild($From);
-
-        $To = $xml->createElement("To");
-        $To->setAttribute("company","Home");
-        $To->setAttribute("address1","167 Durhamview");
-        $To->setAttribute("city","Stouffville");
-        $To->setAttribute("state","ON");
-        $To->setAttribute("country","Canada");
-        $To->setAttribute("zip","L4A1S2");
-        $To = $QuoteRequest->appendChild($To);
-
-        $Packages = $xml->createElement("Packages");
-        $Packages->setAttribute("type","Package");
-        $Package = $xml->createElement("Package");
-            $Package->setAttribute("length",15);
-            $Package->setAttribute("width",10);
-            $Package->setAttribute("height",12);
-            $Package->setAttribute("weight",10);
-            $Package->setAttribute("type","Package");
-            $Package->setAttribute("freightClass",70);
-            $Package->setAttribute("nmfcCode",123456);
-            $Package->setAttribute("insuranceAmount",0);
-            $Package->setAttribute("codAmount",0);
-            $Package->setAttribute("description","this is a test item");
-        $Package=$Packages->appendChild($Package);
-        
-        $Packages = $QuoteRequest->appendChild($Packages);
-
-        $xml->FormatOutput = true;
+        $myXml = file_get_contents('shipping/eshipping_18.xml');
 
         
-        $string_value = $xml->saveXML();
-
-        
-        
-        $xml->save('eshipping.xml');
-
-        $myXml = file_get_contents('eshipping.xml');
-
         $client = new \GuzzleHttp\Client([
                
         ]);
@@ -523,32 +636,70 @@ class InventoryController extends Controller
         $response = $client->POST('http://web.eshipper.com/rpc2',[
          'body'=>$myXml,
         ]);
-            
+        
+        
         $res = $response->getBody();
         
         $r = new \SimpleXMLElement($res);
         
+        
+
         $quotes = $r->QuoteReply->Quote;
-
         
 
-        
+        $myQuotes = [];
 
-        foreach ($quotes as $quote) {
-            echo "<pre>";
-            $a = (array) $quote;
-            echo "<hr>";
-            var_dump($a["@attributes"]['carrierName']);
+        $quoteOpt = [];
+
+        
+        foreach ($quotes as $q) {
             
-            echo "</pre>";
+            $arr = (array)$q[0];
+            
+            $carrierName = $arr['@attributes']['carrierName'];
 
-            echo "<hr>";
-        }
+            $serviceName = $arr['@attributes']['serviceName'];
+
+            $totalCost = $arr['@attributes']['totalCharge'];
+
+            array_push($myQuotes,[$carrierName,$serviceName,$totalCost]);
+           
+            }
+
+            
+            foreach ($myQuotes as $quote) {
+                if ($quote[0]=="Purolator" &&$quote[1]="Purolator Ground") {
+                    $quoteOpt['ground'] = $quote[2]; 
+                }elseif($quote[0]=="Purolator" &&$quote[1]="Purolator Express"){
+                    $quoteOpt['express'] = $quote[2]; 
+                }
+            }
+            
+            if (!isset($quoteOpt['ground'])) {
+                $quoteOpt['ground']=1000000000;
+                foreach ($myQuotes as $quote) {
+                    if ($quoteOpt['ground']>=$quote[2]) {
+                        $quoteOpt['ground'] = $quote[2];
+                    }else{
+
+                    }
+                }
+            }
+
+            if (!isset($quoteOpt['express'])) {
+                $quoteOpt['express']=0;
+                foreach ($myQuotes as $quote) {
+                    if ($quoteOpt['express']<=$quote[2]) {
+                        $quoteOpt['express'] = $quote[2];
+                    }else{
+
+                    }
+                }
+            }
+        dd($quoteOpt);
+        echo "<hr>";
+
         
-
-        // $quotes = json_encode($r->QuoteReply);
-
-        // var_dump($quotes);
         
         
         
