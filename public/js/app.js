@@ -72781,18 +72781,20 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "processBTN text-center" }, [
-            _c(
-              "button",
-              {
-                staticClass: "mybtn btn btn-success",
-                on: {
-                  click: function($event) {
-                    _vm.checkOut()
-                  }
-                }
-              },
-              [_vm._v("Proceed To\n                Check Out")]
-            )
+            _vm.carts.length >= 1
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "mybtn btn btn-success",
+                    on: {
+                      click: function($event) {
+                        _vm.checkOut()
+                      }
+                    }
+                  },
+                  [_vm._v("Proceed To\n                Check Out")]
+                )
+              : _vm._e()
           ])
         ])
       ]
