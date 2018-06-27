@@ -72895,7 +72895,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.oneItem[data-v-ee6b16ce]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-ee6b16ce]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-ee6b16ce]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-ee6b16ce]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-ee6b16ce]{\n    width: 30%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-ee6b16ce]{\n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-ee6b16ce]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack:end;\n        -ms-flex-pack:end;\n            justify-content:flex-end;\n}\n.toWish[data-v-ee6b16ce]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.summary[data-v-ee6b16ce]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-ee6b16ce]{\n    padding: 15px;\n}\n.summary_details div[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-ee6b16ce]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 60px;\n}\n.summary_title[data-v-ee6b16ce]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n}\n.mybtn[data-v-ee6b16ce]{\n    border: none;\n    color: white;\n    font-weight: bold;\n    margin-bottom: 10px;\n}\n.fakeLink[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.shippingOPT[data-v-ee6b16ce]{\n    padding: 20px;\n}\n.shipToAddress[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n.address[data-v-ee6b16ce]{\n    min-width: 350px;\n    margin-top:20px;\n}\n.addressBook[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.newShipping[data-v-ee6b16ce]{\n    margin-top: 20px;\n    margin-bottom:20px;\n}\n.inRow[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n", ""]);
+exports.push([module.i, "\n.oneItem[data-v-ee6b16ce]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-ee6b16ce]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-ee6b16ce]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-ee6b16ce]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-ee6b16ce]{\n    width: 30%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-ee6b16ce]{  \n    display: -webkit-box;  \n    display: -ms-flexbox;  \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-ee6b16ce]{ \n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-ee6b16ce]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack:end;\n        -ms-flex-pack:end;\n            justify-content:flex-end;\n}\n.toWish[data-v-ee6b16ce]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.summary[data-v-ee6b16ce]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-ee6b16ce]{\n    padding: 15px;\n}\n.summary_details div[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-ee6b16ce]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 60px;\n}\n.summary_title[data-v-ee6b16ce]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n}\n.mybtn[data-v-ee6b16ce]{\n    border: none;\n    color: white;\n    font-weight: bold;\n    margin-bottom: 10px;\n}\n.fakeLink[data-v-ee6b16ce]{\n    cursor: pointer;\n}\n.shippingOPT[data-v-ee6b16ce]{\n    padding: 20px;\n}\n.shipToAddress[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n.address[data-v-ee6b16ce]{\n    min-width: 350px;\n    margin-top:20px;\n}\n.addressBook[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.newShipping[data-v-ee6b16ce]{\n    margin-top: 20px;\n    margin-bottom:20px;\n}\n.inRow[data-v-ee6b16ce]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n", ""]);
 
 // exports
 
@@ -73076,6 +73076,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -73083,6 +73105,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             items: [],
             qtys: [],
+            otherAddress: false,
             storage: window.localStorage,
             carts: [],
             subtotal: 0,
@@ -73098,6 +73121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             addressBook: [],
             defaultAddress: true,
             newAdd: {},
+            selectAdd: "Shipping To Another Address",
             rules: {
                 surname: [{ required: true, message: 'Surname is required.', trigger: 'blur', max: 99 }],
                 forename: [{ required: true, message: 'Forename is required.', trigger: 'blur', max: 99 }],
@@ -73209,6 +73233,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     message: 'Canceled'
                 });
             });
+        },
+        changeAddress: function changeAddress(id) {
+            var _this4 = this;
+
+            this.loading = 1;
+            window.scrollTo(0, 0);
+            this.$http.post('/api/changeAddress', { "id": id }).then(function (response) {
+                console.log(response);
+                _this4.subtotal = response.data.subtotal.toFixed(2);
+                _this4.hst = response.data.tax_total.toFixed(2);
+                _this4.userInfo = response.data.userInfo;
+                _this4.shippingRate = response.data.shippingRate;
+                _this4.quotes = response.data.quotes;
+                _this4.shipping = _this4.quotes['ground'];
+                _this4.groundDay = response.data.groundDay;
+                _this4.expressDay = response.data.expressDay;
+                _this4.addressBook = response.data.addressBook;
+                console.log(response.data.addressBook);
+                _this4.otherAddress = true;
+
+                _this4.loading = 0;
+
+                $('.addressBox').css("border", 'none');
+                $("#box" + id).css("border", '3px solid green');
+            });
         }
     },
     watch: {}
@@ -73259,9 +73308,7 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(item.qty))]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          "$ " + _vm._s((item.price * item.qty).toFixed(2))
-                        )
+                        _vm._v("$" + _vm._s((item.price * item.qty).toFixed(2)))
                       ])
                     ])
                   : _vm._e()
@@ -73271,7 +73318,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "shipingTo" }, [
-          _vm.defaultAddress
+          !_vm.otherAddress
             ? _c(
                 "div",
                 { staticClass: "col-xs-12" },
@@ -73313,21 +73360,20 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "addressBook col-xs-12" },
-            _vm._l(_vm.addressBook, function(address) {
-              return _c(
+          _vm.otherAddress
+            ? _c(
                 "div",
-                { key: address.id, staticClass: "address" },
+                { staticClass: "col-xs-12" },
                 [
+                  _c("h4", [_vm._v("Shipping To")]),
+                  _vm._v(" "),
                   _c("el-card", { staticClass: "box-card" }, [
                     _c("h5", [
                       _c("b", [
                         _vm._v(
-                          _vm._s(address.forename) +
+                          _vm._s(_vm.userInfo.forename) +
                             " " +
-                            _vm._s(address.surname)
+                            _vm._s(_vm.userInfo.surname)
                         )
                       ]),
                       _vm._v(" "),
@@ -73336,53 +73382,144 @@ var render = function() {
                       _c("br"),
                       _vm._v(
                         "\n                                " +
-                          _vm._s(address.address) +
+                          _vm._s(_vm.userInfo.address) +
                           ",  " +
-                          _vm._s(address.city) +
+                          _vm._s(_vm.userInfo.city) +
                           ", " +
-                          _vm._s(address.zipcode)
+                          _vm._s(_vm.userInfo.zipcode)
                       ),
                       _c("br"),
                       _vm._v(
                         "\n                                " +
-                          _vm._s(address.state) +
+                          _vm._s(_vm.userInfo.state) +
                           ", " +
-                          _vm._s(address.country)
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "shipToAddress" }, [
-                      _c(
-                        "button",
-                        { staticClass: " btn btn-success text-center" },
-                        [
-                          _vm._v(
-                            "\n                                        Deliver to address\n                                    "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: " btn btn-danger text-center",
-                          on: {
-                            click: function($event) {
-                              _vm.deleteAddress(address.id)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                        Delete this address\n                                    "
-                          )
-                        ]
+                          _vm._s(_vm.userInfo.country)
                       )
                     ])
                   ])
                 ],
                 1
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-xs-12", staticStyle: { "margin-top": "20px" } },
+            [
+              _c("h4", [_vm._v("Shipping To another address")]),
+              _vm._v(" "),
+              _c(
+                "el-select",
+                {
+                  attrs: { placeholder: "Shipping To ..." },
+                  model: {
+                    value: _vm.selectAdd,
+                    callback: function($$v) {
+                      _vm.selectAdd = $$v
+                    },
+                    expression: "selectAdd"
+                  }
+                },
+                _vm._l(_vm.addressBook, function(item) {
+                  return _c("el-option", {
+                    key: item.id,
+                    attrs: {
+                      label: item.forename + " " + item.surname,
+                      value: item.id
+                    }
+                  })
+                })
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "addressBook col-xs-12" },
+            _vm._l(_vm.addressBook, function(address) {
+              return address.id == _vm.selectAdd
+                ? _c(
+                    "div",
+                    { key: address.id, staticClass: "address" },
+                    [
+                      _c(
+                        "el-card",
+                        {
+                          staticClass: "box-card addressBox",
+                          attrs: { id: "box" + address.id }
+                        },
+                        [
+                          _c("h5", [
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(address.forename) +
+                                  " " +
+                                  _vm._s(address.surname)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(address.address) +
+                                ",  " +
+                                _vm._s(address.city) +
+                                ", " +
+                                _vm._s(address.zipcode)
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(address.state) +
+                                ", " +
+                                _vm._s(address.country)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "shipToAddress" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: " btn btn-success text-center",
+                                on: {
+                                  click: function($event) {
+                                    _vm.changeAddress(address.id)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Deliver to address\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: " btn btn-danger text-center",
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteAddress(address.id)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Delete this address\n                                    "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
             })
           ),
           _vm._v(" "),
@@ -73676,11 +73813,11 @@ var render = function() {
                       staticClass: "mybtn btn btn-success",
                       on: {
                         click: function($event) {
-                          _vm.placeOrder()
+                          _vm.confirm()
                         }
                       }
                     },
-                    [_vm._v("Place Order")]
+                    [_vm._v("Confirm Order")]
                   ),
                   _vm._v(" "),
                   _c(

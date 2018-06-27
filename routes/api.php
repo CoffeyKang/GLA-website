@@ -79,6 +79,9 @@ Route::post('/newShippingAdd','InventoryController@newShippingAdd');
 /** add new shipping address */
 Route::post('/deleteAddress','InventoryController@deleteAddress');
 
+/** change address */
+Route::post('/changeAddress','InventoryController@changeAddress');
+
 
 
 

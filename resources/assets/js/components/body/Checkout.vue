@@ -22,13 +22,13 @@
                             <td>{{item.item}} </td>
                             <td>{{item.make}}</td>
                             <td>{{item.qty}}</td>
-                            <td>$ {{(item.price * item.qty).toFixed(2)}}</td>
+                            <td>${{(item.price * item.qty).toFixed(2)}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class='shipingTo'>
-                    <div class='col-xs-12' v-if="defaultAddress">
+                    <div class='col-xs-12' v-if="!otherAddress">
                         <h4>Shipping To</h4>
                         <el-card class="box-card" >
                                 <h5><b>{{userInfo.m_forename}} {{userInfo.m_surname}}</b> <br> <br>
@@ -37,15 +37,35 @@
                         </el-card>
                     </div>
 
-                <div class='addressBook col-xs-12'>
-                
-                    <div class='address' v-for="address in addressBook" :key="address.id">
+                    <div class='col-xs-12' v-if="otherAddress">
+                        <h4>Shipping To</h4>
                         <el-card class="box-card" >
+                                <h5><b>{{userInfo.forename}} {{userInfo.surname}}</b> <br> <br>
+                                {{userInfo.address}},  {{userInfo.city}}, {{userInfo.zipcode}}<br>
+                                {{userInfo.state}}, {{userInfo.country}}</h5>
+                        </el-card>
+                    </div>
+
+
+                    <div class='col-xs-12'  style='margin-top:20px;'>
+                        <h4>Shipping To another address</h4>
+                        <el-select v-model="selectAdd" placeholder="Shipping To ...">
+                            <el-option
+                            v-for="item in addressBook"
+                            :key="item.id"
+                            :label="item.forename + ' '+ item.surname "
+                            :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </div>
+                <div class='addressBook col-xs-12' >
+                    <div class='address' v-for="address in addressBook" :key="address.id" v-if="address.id==selectAdd">
+                        <el-card class="box-card addressBox" :id="'box'+address.id" >
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
                                 {{address.address}},  {{address.city}}, {{address.zipcode}}<br>
                                 {{address.state}}, {{address.country}}</h5>
                                 <div class='shipToAddress'>
-                                    <button class=" btn btn-success text-center">
+                                    <button class=" btn btn-success text-center" @click='changeAddress(address.id)'>
                                         Deliver to address
                                     </button>
                                     <button class=" btn btn-danger text-center" @click="deleteAddress(address.id)">
@@ -55,6 +75,8 @@
                         </el-card>
                     </div>
                 </div>
+
+                
                 
                 <div class="newShipping col-xs-12">
                     <h4 >New Shipping Address</h4>
@@ -147,7 +169,7 @@
                 </div>
 
                 <div class=" text-center" v-if="shippingRate=='quotable'">
-                    <button class='mybtn btn btn-success' @click='placeOrder()'>Place Order</button>
+                    <button class='mybtn btn btn-success' @click='confirm()'>Confirm Order</button>
                     <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
 
@@ -175,6 +197,7 @@ export default {
         return {
             items:[],
             qtys:[],
+            otherAddress:false,
             storage:window.localStorage,
             carts:[],
             subtotal:0,
@@ -206,6 +229,7 @@ export default {
             newAdd:{
 
             },
+            selectAdd:"Shipping To Another Address",
             rules:{
                 surname:[
                         { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
@@ -313,7 +337,7 @@ export default {
                         return false;
                     }
                 });
-            } ,
+            },
 
             deleteAddress(id){
                 this.$confirm('Are you sure to delete the address.', 'Warning', {
@@ -338,7 +362,30 @@ export default {
                         message: 'Canceled'
                     });          
                 });
-            }
+            },
+            changeAddress(id){
+                this.loading = 1;
+                window.scrollTo(0,0);   
+                this.$http.post('/api/changeAddress',{"id":id}).then(response=>{
+                    console.log(response);
+                    this.subtotal = response.data.subtotal.toFixed(2);
+                    this.hst = response.data.tax_total.toFixed(2);
+                    this.userInfo = response.data.userInfo;
+                    this.shippingRate = response.data.shippingRate;
+                    this.quotes = response.data.quotes;
+                    this.shipping = this.quotes['ground'];
+                    this.groundDay = response.data.groundDay;
+                    this.expressDay = response.data.expressDay;
+                    this.addressBook = response.data.addressBook;
+                    console.log(response.data.addressBook);
+                    this.otherAddress = true;
+                    
+                    this.loading = 0;
+                    
+                    $('.addressBox').css("border",'none');
+                    $("#box"+id).css("border",'3px solid green');
+                });        
+            },
         },
         watch:{
         }
@@ -379,11 +426,11 @@ export default {
     .singleItem{
         display: flex;
     }
-    .desc{
+    .desc{  
         display: flex;
-        flex-direction: column;
+        flex-direction: column;         
     }
-    .info{
+    .info{ 
         color: gray;
         font-size: 12px;
     }
