@@ -1,5 +1,5 @@
 <template>
-    <div class='container loginPage'>
+    <div class='container loginPage' @keyup.enter="loginTo()">
         <div class="col-xs-12 col-sm-6" id='loginDev'>
             <div class="text-center row" id='loginForm'>
                 

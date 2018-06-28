@@ -78,12 +78,12 @@
 
                 
                 
-                <div class="newShipping col-xs-12">
+                <div class="newShipping col-xs-12" @keyup.enter='submitForm(newAdd)'>
                     <h4 >New Shipping Address</h4>
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
                             <div class="inRow">
-                                <el-form-item label="Surname" prop='surname'>
+                                <el-form-item label="Surname" prop='surname' component:input>
                                     <el-input v-model="newAdd.surname"></el-input>
                                 </el-form-item>
                                 <el-form-item label="Forename" prop='forename'>
@@ -229,7 +229,7 @@ export default {
             newAdd:{
 
             },
-            selectAdd:"Shipping To Another Address",
+            selectAdd:"",
             rules:{
                 surname:[
                         { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
@@ -260,7 +260,9 @@ export default {
     },
         computed:{
             total:function(){
+                
                 return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
+
             },
             shipping:function(){
                 if (this.shippingOPT==1) {

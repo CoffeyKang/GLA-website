@@ -1,10 +1,11 @@
 <template>
-	<div class="searchBar">
+	<div class="searchBar" @keyup.enter="searchItem()">
 		<!-- search layer -->
-
-    	<el-form label-width="80px" size="medium">
+		
+    	<el-form label-width="80px" size="medium" >
 			<el-form-item label="Item" >
-		    	<el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A " style='width:350px;'>
+		    	<el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A " 
+				style='width:350px;' >
 		    	</el-input>
 			</el-form-item>
 
@@ -55,6 +56,7 @@
 				makes:{},
 				sr:{},
 				currentYear:new Date().getFullYear(),
+				checkInput:false,
 			}
 		},
 		mounted(){
@@ -69,6 +71,7 @@
 		},
 		methods:{
 			searchItem(){
+				
 				this.$router.push({name:'SearchList',query:{
 							item:this.search.item, 
 							make:this.search.make,

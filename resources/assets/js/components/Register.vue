@@ -1,5 +1,5 @@
 <template>
-    <div class='container '>
+    <div class='container ' @keyup.enter='register()'>
         <div class="col-xs-1"></div>
         <div class="text-center col-xs-10 " id='registerForm' >
                 <div class="col-xs-8 col-xs-offset-2 form-group title-span" >
@@ -16,11 +16,12 @@
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Password" class="form-control" v-model='password' required>
+                    <input type="password" id='password' placeholder="Password" class="form-control" v-model='password' required>
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Confirm Password" class="form-control" v-model='confirm' required>
+                    <input type="password" placeholder="Confirm Password" class="form-control" 
+                     v-model='confirm' required>
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
@@ -45,7 +46,6 @@
                     Email : {{ email}}<br>
                     Password: {{ password}}<br>
                     receiveEmail: {{ receiveEmail}}
-
                 </div>
                 
             </div>
@@ -70,6 +70,15 @@ export default {
     },
     methods:{
         register(){
+            if (this.password!=this.confirm) {
+                this.$message(
+                    {
+                        message:'Password Confirmation does not match Password',
+                        type:'error', 
+                    }
+                );
+                return false;
+            }
             this.$http.post('/api/newCustomer',{
                 'username':this.username,
                 'email':this.email,
@@ -80,8 +89,13 @@ export default {
                     this.storage.setItem('user',response.data.user);
                     this.$store.commit('changeLoginStatus',true);
                     this.$router.push('/');
-                }),(function(response){
-                    
+                },function(response){
+                    this.$message(
+                            {
+                                message:'Please Check Your Input.',
+                                type:'error',
+                            }
+                        );
                 });
         }
     }

@@ -744,7 +744,7 @@ class InventoryController extends Controller
 
     /***    addd new shipping address */
     public function newShippingAdd(Request $request){
-
+        
         
         $userid = $request->userID;
         $data = $request->data;
