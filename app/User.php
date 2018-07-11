@@ -32,5 +32,12 @@ class User extends Authenticatable
         return $this->hasMany('App\AddressBook','cust_id');
     }
 
+    public function somast(){
+        return $this->hasMany('App\SOMAST','m_id');
+    }
+
+    public function sotran(){
+        return $this->hasMany('App\SOTRAN','m_id');
+    }
     
 }

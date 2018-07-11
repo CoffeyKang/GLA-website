@@ -96,9 +96,6 @@ export default {
         loginTo(){
             this.$http.post('/api/loginCustomer', {email: this.email, password:this.password}).then(
                 function(response){
-                    console.log("user---------------------");
-                    console.log(response.data);
-                    console.log("user---------------------");
                     var myStorage = localStorage;
                     
                     myStorage.setItem('user', JSON.stringify(response.data.user));

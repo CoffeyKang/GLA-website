@@ -66,7 +66,16 @@ export const myMixin = {
 
     currentPath: function () {
       console.log(this.$route.path);
+    },
+
+    customerOrderHistory: function () {
+      var id = JSON.parse(this.storage.getItem('user')).id;
+      this.$http.get('/api/customerOrderHistory', { params: { 'id': id } }).then(response => {
+        this.orderHistory = response.data.history;
+        this.pending = response.data.pending;
+      });
     }
+
   },
   computed: {
     carts_number() {

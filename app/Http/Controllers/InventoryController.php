@@ -12,6 +12,8 @@ use App\Temp_SO;
 use App\User;
 use App\UserInfo;
 use App\AddressBook;
+use App\SOMAST;
+use App\SOTRAN;
 class InventoryController extends Controller
 {
     /**
@@ -1058,7 +1060,6 @@ class InventoryController extends Controller
                             }
                         }
                     }
-
                     
                     $shippingRate = 'quotable';
 
@@ -1075,6 +1076,18 @@ class InventoryController extends Controller
         }else{
             
         }
+    }
+
+    // get customer order history
+    public function customerOrderHistory(Request $request){
+
+        $id = $request->id;
+
+        $history = SOMAST::where('m_id',$id)->get();
+
+        $pending = SOMAST::where('m_id',$id)->where('sales_status',1)->get();
+        
+        return response()->json(['history'=>$history,'pending'=>$pending],200);
     }
     
 }

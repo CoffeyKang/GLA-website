@@ -82,6 +82,9 @@ Route::post('/deleteAddress','InventoryController@deleteAddress');
 /** change address */
 Route::post('/changeAddress','InventoryController@changeAddress');
 
+/** get customer so history */
+Route::get('/customerOrderHistory','InventoryController@customerOrderHistory');
+
 
 
 

@@ -19,7 +19,6 @@
 						      :label="item.make"
 						      :value="item.make">
 						    </el-option>
-
 	                    </el-select >
 						</div>
 						<div class='mySelect'>	

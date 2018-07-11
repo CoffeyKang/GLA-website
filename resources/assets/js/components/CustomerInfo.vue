@@ -1,28 +1,22 @@
 <template>
 	<div class='adminPage'>
+		<div v-if="hasInfo" class='container adminMain' >
 
-		<div v-if="hasInfo" class='container' >
+            <div class="userNav">
+            
+                <div class="list-group">
+                    <router-link to='/' tag='a' class="list-group-item">My Account </router-link>
+                    <router-link to='/' tag='a' class="list-group-item">Order History <span v-if="orderHistory" class='num'>({{orderHistory.length}})</span></router-link>
+                    <router-link to='/' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
+                    <router-link to='/' tag='a' class="list-group-item">Track My Order</router-link>
+                    <router-link to='/' tag='a' class="list-group-item">Submit Inquiry</router-link>
+                    <router-link to='/' tag='a' class="list-group-item">Change Profile </router-link>
+                    <router-link to='/' tag='a' class="list-group-item">Change Password </router-link>
+                </div>
+            
+            </div>
 
-            <div class="userNav col-xs-4">
-
-            <div class='myAvatar'>
-                <span> {{userInfo.m_forename + ' ' + userInfo.m_surname}}</span>
-                <span> {{ userInfo.m_title }} </span>
-            </div>
-            <div class="list-group container-fuild">
-                <router-link :to="{name:'setPromotion'}" tag='a' class='list-group-item'>Set promotion discount</router-link>
-                <router-link :to="{name:'editUser'}" tag='a' class='list-group-item'>Set promotion discount</router-link>
-                <a href="#" class="list-group-item">Customer and dealer report</a>
-                <a href="#" class="list-group-item">Add new customer and dealer</a>
-                <a href="#" class="list-group-item">Edit dealer and customer</a>
-                <a href="#" class="list-group-item">Show deal order history</a>
-                <a href="#" class="list-group-item">Show customer history</a>
-                <a href="#" class="list-group-item">Pending quote</a>
-                <a href="#" class="list-group-item">Awaits report</a>
-            </div>
-            </div>
-        
-            <div class="userContent col-xs-8">
+            <div class="userContent">
                 <router-view></router-view>  
             </div>
         </div>
@@ -167,6 +161,8 @@
                     {name:'Yukon',Code:"YT"},
                 ],  
                 userInfo:{},
+                orderHistory:[],
+                pending:[],
                 details:{
                     surname:'',
                     forename:'',
@@ -232,7 +228,10 @@
                 this.hasInfo=false;
             }
 
-            console.log(this.hasInfo);
+            
+
+
+            this.customerOrderHistory();
             
 		},
 		methods:{
@@ -249,7 +248,6 @@
                         }).then((response)=>{   
                             console.log(response.data);
 
-
                             var info = response.data.userinfo;
 
                             this.storage.setItem('userInfo',JSON.stringify(info));
@@ -259,7 +257,6 @@
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
                         
                         });
-                        
 
                     }else{
                         this.$message({
@@ -274,16 +271,21 @@
             } ,
             resetForm(details){
                 this.$refs["details"].resetFields();
-            },       
+            },
+                
         },
         
 	}
 </script>
 
 <style scoped>
-	.adminPage, .userNav, .userContent{
-        min-height: 1500px;
-
+    .adminMain{
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+	.adminPage{
+       margin: 30px 0;
     }
     .adminPage{
         display: flex;
@@ -292,31 +294,30 @@
         width: 30%;
     }
     .userContent{
-        width: 70%;
+        width: 65%;
     }
     .userNav{
-        background-color: gray;
-    }
-    .myAvatar{
+        background-color: black;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
-        font-size: 14px;
-        height: 100px;
         justify-content: center;
-        align-items: center;
-
     }
+    
     .list-group,.list-group-item{
-        color: black;
-        background-color: gray;
-        border-color: gray;
+        color: white;
+        background-color: black;
+        border-color: black;
     }
     .inRow{
         display: flex;
         justify-content: space-between;
         
     }
-    
+    .num{
+        font-weight: bold;
+        color: red;
+    }
 
     
 	

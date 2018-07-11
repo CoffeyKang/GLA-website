@@ -65855,7 +65855,18 @@ var myMixin = {
 
     currentPath: function currentPath() {
       console.log(this.$route.path);
+    },
+
+    customerOrderHistory: function customerOrderHistory() {
+      var _this2 = this;
+
+      var id = JSON.parse(this.storage.getItem('user')).id;
+      this.$http.get('/api/customerOrderHistory', { params: { 'id': id } }).then(function (response) {
+        _this2.orderHistory = response.data.history;
+        _this2.pending = response.data.pending;
+      });
     }
+
   },
   computed: {
     carts_number: function carts_number() {
@@ -66440,7 +66451,6 @@ exports.push([module.i, "\n.searchForm[data-v-95927b68]{\n      width: 80%;\n   
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -70541,9 +70551,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         loginTo: function loginTo() {
             this.$http.post('/api/loginCustomer', { email: this.email, password: this.password }).then(function (response) {
-                console.log("user---------------------");
-                console.log(response.data);
-                console.log("user---------------------");
                 var myStorage = localStorage;
 
                 myStorage.setItem('user', JSON.stringify(response.data.user));
@@ -71346,7 +71353,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.adminPage[data-v-58fda2a3], .userNav[data-v-58fda2a3], .userContent[data-v-58fda2a3]{\n        min-height: 1500px;\n}\n.adminPage[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.userNav[data-v-58fda2a3]{\n        width: 30%;\n}\n.userContent[data-v-58fda2a3]{\n        width: 70%;\n}\n.userNav[data-v-58fda2a3]{\n        background-color: gray;\n}\n.myAvatar[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        font-size: 14px;\n        height: 100px;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n.list-group[data-v-58fda2a3],.list-group-item[data-v-58fda2a3]{\n        color: black;\n        background-color: gray;\n        border-color: gray;\n}\n.inRow[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n    \n\n    \n\t\n", ""]);
+exports.push([module.i, "\n.adminMain[data-v-58fda2a3]{\n        padding: 0;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.adminPage[data-v-58fda2a3]{\n       margin: 30px 0;\n}\n.adminPage[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.userNav[data-v-58fda2a3]{\n        width: 30%;\n}\n.userContent[data-v-58fda2a3]{\n        width: 65%;\n}\n.userNav[data-v-58fda2a3]{\n        background-color: black;\n        border-radius: 10px;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n}\n.list-group[data-v-58fda2a3],.list-group-item[data-v-58fda2a3]{\n        color: white;\n        background-color: black;\n        border-color: black;\n}\n.inRow[data-v-58fda2a3]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.num[data-v-58fda2a3]{\n        font-weight: bold;\n        color: red;\n}\n\n    \n\t\n", ""]);
 
 // exports
 
@@ -71497,12 +71504,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71512,6 +71513,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             user: {},
             privince: [{ name: 'Alberta', Code: "AB" }, { name: 'British-Coloumbia', Code: "BC" }, { name: 'Manitoba', Code: "MB" }, { name: 'New-Brunswick', Code: "NB" }, { name: 'Newfoundland and Labrador', Code: "NL" }, { name: 'Northwest Territories', Code: "NT" }, { name: 'Nova-Scotia', Code: "NS" }, { name: 'Nunavut', Code: "NU" }, { name: 'Ontario', Code: "ON" }, { name: 'Prince-Edward Island', Code: "PE" }, { name: 'Quebec', Code: "QC" }, { name: 'Saskatchewan', Code: "SK" }, { name: 'Yukon', Code: "YT" }],
             userInfo: {},
+            orderHistory: [],
+            pending: [],
             details: {
                 surname: '',
                 forename: '',
@@ -71558,7 +71561,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.hasInfo = false;
         }
 
-        console.log(this.hasInfo);
+        this.customerOrderHistory();
     },
 
     methods: {
@@ -71613,95 +71616,94 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "adminPage" }, [
     _vm.hasInfo
-      ? _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "userNav col-xs-4" }, [
-            _c("div", { staticClass: "myAvatar" }, [
-              _c("span", [
-                _vm._v(
-                  " " +
-                    _vm._s(
-                      _vm.userInfo.m_forename + " " + _vm.userInfo.m_surname
-                    )
-                )
-              ]),
-              _vm._v(" "),
-              _c("span", [_vm._v(" " + _vm._s(_vm.userInfo.m_title) + " ")])
-            ]),
-            _vm._v(" "),
+      ? _c("div", { staticClass: "container adminMain" }, [
+          _c("div", { staticClass: "userNav" }, [
             _c(
               "div",
-              { staticClass: "list-group container-fuild" },
+              { staticClass: "list-group" },
               [
                 _c(
                   "router-link",
                   {
                     staticClass: "list-group-item",
-                    attrs: { to: { name: "setPromotion" }, tag: "a" }
+                    attrs: { to: "/", tag: "a" }
                   },
-                  [_vm._v("Set promotion discount")]
+                  [_vm._v("My Account ")]
                 ),
                 _vm._v(" "),
                 _c(
                   "router-link",
                   {
                     staticClass: "list-group-item",
-                    attrs: { to: { name: "editUser" }, tag: "a" }
+                    attrs: { to: "/", tag: "a" }
                   },
-                  [_vm._v("Set promotion discount")]
+                  [
+                    _vm._v("Order History "),
+                    _vm.orderHistory
+                      ? _c("span", { staticClass: "num" }, [
+                          _vm._v("(" + _vm._s(_vm.orderHistory.length) + ")")
+                        ])
+                      : _vm._e()
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Customer and dealer report")]
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: "/", tag: "a" }
+                  },
+                  [
+                    _vm._v("Pending Order "),
+                    _vm.pending
+                      ? _c("span", { staticClass: "num" }, [
+                          _vm._v("(" + _vm._s(_vm.pending.length) + ")")
+                        ])
+                      : _vm._e()
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Add new customer and dealer")]
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: "/", tag: "a" }
+                  },
+                  [_vm._v("Track My Order")]
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Edit dealer and customer")]
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: "/", tag: "a" }
+                  },
+                  [_vm._v("Submit Inquiry")]
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Show deal order history")]
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: "/", tag: "a" }
+                  },
+                  [_vm._v("Change Profile ")]
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Show customer history")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Pending quote")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Awaits report")]
+                  "router-link",
+                  {
+                    staticClass: "list-group-item",
+                    attrs: { to: "/", tag: "a" }
+                  },
+                  [_vm._v("Change Password ")]
                 )
               ],
               1
             )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "userContent col-xs-8" },
-            [_c("router-view")],
-            1
-          )
+          _c("div", { staticClass: "userContent" }, [_c("router-view")], 1)
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -72267,7 +72269,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.details{\n    margin-top: 30px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.el-col{\n    margin-bottom: 10px;\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -72285,8 +72287,101 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            storage: window.localStorage,
+            userInfo: {},
+            user: {},
+            orderHistory: []
+        };
+    },
+    mounted: function mounted() {
+        this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+        this.user = JSON.parse(this.storage.getItem('user'));
+        this.customerOrderHistory();
+    },
+
+
+    computed: {
+        fullname: function fullname() {
+            return this.userInfo.m_forename + ' ' + this.userInfo.m_surname;
+        },
+
+        address: function address() {
+            return this.userInfo.m_address + ' ' + this.userInfo.m_city + ' ' + this.userInfo.m_state + ' ' + this.userInfo.m_country + ' ' + this.userInfo.m_zipcode;
+        }
+    }
+
+});
 
 /***/ }),
 /* 294 */
@@ -72296,7 +72391,214 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    home\n\n")])
+  return _c("div", [
+    _c(
+      "div",
+      [
+        _c("el-card", { staticClass: "box-card" }, [
+          _c(
+            "div",
+            {
+              staticClass: "clearfix",
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [_vm._v("\n                Latest News\n            ")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "text" }, [
+            _vm._v(
+              "\n                Once the spring thaw gives the way to soiling summer heat, I fill in love with swimming.\n            "
+            )
+          ])
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "details" }, [
+      _c(
+        "div",
+        { staticStyle: { width: "48%" } },
+        [
+          _c("el-card", { staticClass: "box-card" }, [
+            _c(
+              "div",
+              {
+                staticClass: "clearfix",
+                attrs: { slot: "header" },
+                slot: "header"
+              },
+              [
+                _vm._v(
+                  "\n                    Account Details\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "text", staticStyle: { "min-height": "120px" } },
+              [
+                _c(
+                  "el-row",
+                  { attrs: { gutter: 20, justify: "center" } },
+                  [
+                    _c("el-col", { attrs: { span: 8 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v("Name:")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-col", { attrs: { span: 16 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v(_vm._s(_vm.fullname))
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-row",
+                  { attrs: { gutter: 20, justify: "center" } },
+                  [
+                    _c("el-col", { attrs: { span: 8 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v("Email:")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-col", { attrs: { span: 16 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v(_vm._s(_vm.user.email))
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-row",
+                  { attrs: { gutter: 20, justify: "center" } },
+                  [
+                    _c("el-col", { attrs: { span: 8 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v("Address:")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-col", { attrs: { span: 16 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v(_vm._s(_vm.address))
+                      ])
+                    ])
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { width: "48%" } },
+        [
+          _c("el-card", { staticClass: "box-card" }, [
+            _c(
+              "div",
+              {
+                staticClass: "clearfix",
+                attrs: { slot: "header" },
+                slot: "header"
+              },
+              [_vm._v("\n                    Order Status\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "text", staticStyle: { "min-height": "120px" } },
+              [
+                _c(
+                  "el-row",
+                  { attrs: { gutter: 20, justify: "center" } },
+                  [
+                    _c("el-col", { attrs: { span: 8 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v("Recent Order")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-col", { attrs: { span: 16 } }, [
+                      _vm.orderHistory.length >= 1
+                        ? _c("div", { staticClass: "grid-content" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.orderHistory[0].order_num) +
+                                ", " +
+                                _vm._s(_vm.orderHistory[0].date_order) +
+                                "\n                            "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.orderHistory.length < 1
+                        ? _c("div", { staticClass: "grid-content" }, [
+                            _vm._v(
+                              "\n                                --\n                            "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-row",
+                  { attrs: { gutter: 20, justify: "center" } },
+                  [
+                    _c("el-col", { attrs: { span: 8 } }, [
+                      _c("div", { staticClass: "grid-content" }, [
+                        _vm._v("Order History")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-col", { attrs: { span: 16 } }, [
+                      _vm.orderHistory.length >= 1
+                        ? _c("div", { staticClass: "grid-content" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.orderHistory.length) +
+                                "\n                            "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.orderHistory.length < 1
+                        ? _c("div", { staticClass: "grid-content" }, [
+                            _vm._v(
+                              "\n                                --\n                            "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        ],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
