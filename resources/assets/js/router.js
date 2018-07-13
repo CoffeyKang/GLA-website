@@ -15,6 +15,7 @@ import Register from './components/Register.vue';
 import CustomerInfo from './components/CustomerInfo.vue';
 import UserHome from './components/userAdmin/UserHome.vue';
 import OrderHistory from './components/userAdmin/OrderHistory.vue';
+import PendingOrder from './components/userAdmin/PendingOrder.vue';
 import OneOrder from './components/userAdmin/OneOrder.vue';
 import ChangeProfile from './components/userAdmin/ChangeProfile.vue';
 import ChangePassword from './components/userAdmin/ChangePassword.vue';
@@ -39,6 +40,7 @@ export const routes = [
     children: [
       { path: 'HomePage', component: UserHome, name: 'userHome' },
       { path: 'OrderHistory', component: OrderHistory, name: 'OrderHistory' },
+      { path: 'PendingOrder', component: PendingOrder, name: 'PendingOrder' },
       { path: 'oneOrder/:order_num', component: OneOrder, name: 'OneOrder' },
       { path: 'ChangeProfile', component: ChangeProfile, name: 'ChangeProfile'},
       { path: 'ChangePassword', component: ChangePassword, name: 'ChangePassword' }

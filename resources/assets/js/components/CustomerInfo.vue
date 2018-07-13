@@ -6,7 +6,7 @@
                 <div class="list-group">
                     <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">My Account </router-link>
                     <router-link to='/CustomerInfo/OrderHistory' tag='a' class="list-group-item">Order History <span v-if="orderHistory" class='num'>({{orderHistory.length}})</span></router-link>
-                    <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
+                    <router-link to='/CustomerInfo/PendingOrder' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
                     <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Track My Order</router-link>
                     <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Submit Inquiry</router-link>
                     <router-link to='/CustomerInfo/ChangeProfile' tag='a' class="list-group-item">Edit Profile </router-link>
@@ -23,7 +23,6 @@
         <div v-if="!hasInfo" class='user_details container text-center' >
 
             <div style='margin:50px 0;'>
-
                 <div class="alert alert-success text-left">
                     Register a MuscleCarPartsOutlet account for a better shopping experience. You will be able to place order, check order status, 
                     shipping progress and fast and easy check out. If you don't have an account, please create a new one.

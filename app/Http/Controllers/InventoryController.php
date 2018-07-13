@@ -1085,7 +1085,7 @@ class InventoryController extends Controller
 
         $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->get();
 
-        $pending = SOMAST::where('m_id',$id)->where('sales_status',1)->orderBy('order_num','desc')->get();
+        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[0,1,3,5,7])->orderBy('order_num','desc')->get();
         
         return response()->json(['history'=>$history,'pending'=>$pending],200);
     }

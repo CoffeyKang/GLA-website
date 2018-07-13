@@ -65866,16 +65866,19 @@ var myMixin = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_userAdmin_UserHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_userAdmin_UserHome_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_OrderHistory_vue__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_userAdmin_OrderHistory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OneOrder_vue__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OneOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_ChangeProfile_vue__ = __webpack_require__(343);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_ChangeProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_userAdmin_ChangeProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangePassword_vue__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangePassword_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangePassword_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_body_shoppingCart_vue__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_body_shoppingCart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__components_body_shoppingCart_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_body_Checkout_vue__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_body_Checkout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__components_body_Checkout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_PendingOrder_vue__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_userAdmin_PendingOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OneOrder_vue__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OneOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangeProfile_vue__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangeProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangeProfile_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangePassword_vue__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangePassword_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangePassword_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_body_shoppingCart_vue__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_body_shoppingCart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__components_body_shoppingCart_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_body_Checkout_vue__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_body_Checkout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__components_body_Checkout_vue__);
+
 
 
 
@@ -65901,8 +65904,8 @@ var myMixin = {
 
 var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }, { path: '/SearchResualt', component: __WEBPACK_IMPORTED_MODULE_8__components_body_SearchResualt_vue___default.a, name: 'SearchResualt' }, { path: '/Item/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_body_ItemDetails_vue___default.a, name: 'ItemDetails' }, { path: '/wishlist', component: __WEBPACK_IMPORTED_MODULE_10__components_body_Wishlist_vue___default.a, name: 'Wishlist' }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_12__components_Login_vue___default.a, name: 'Login' }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_13__components_Register_vue___default.a, name: 'Register' }, {
   path: '/customerinfo', component: __WEBPACK_IMPORTED_MODULE_14__components_CustomerInfo_vue___default.a, name: 'CustomerInfo',
-  children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_15__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
-}, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_20__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_21__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__components_body_PageNotFound_vue___default.a }];
+  children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_15__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_PendingOrder_vue___default.a, name: 'PendingOrder' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
+}, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_21__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_22__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__components_body_PageNotFound_vue___default.a }];
 
 /***/ }),
 /* 195 */
@@ -71457,7 +71460,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71605,7 +71607,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "list-group-item",
-                    attrs: { to: "/CustomerInfo/HomePage", tag: "a" }
+                    attrs: { to: "/CustomerInfo/PendingOrder", tag: "a" }
                   },
                   [
                     _vm._v("Pending Order "),
@@ -72150,7 +72152,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.details{\n    margin-top: 30px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.el-col{\n    margin-bottom: 10px;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n.details{\n    margin-top: 30px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.el-col{\n    margin-bottom: 10px;\n}\n.edit_title{\n    background-color: black;\n    color: white;\n    font-weight: bold;\n    padding: 10px 0 10px 30px;\n    border-radius: 10px;\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -72161,6 +72163,9 @@ exports.push([module.i, "\n.details{\n    margin-top: 30px;\n    display: -webki
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -72273,8 +72278,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "edit_title" }, [
+      _vm._v("\n        User Homepage\n    ")
+    ]),
+    _vm._v(" "),
     _c(
       "div",
+      { staticStyle: { "margin-top": "20px" } },
       [
         _c("el-card", { staticClass: "box-card" }, [
           _c(
@@ -72421,7 +72431,12 @@ var render = function() {
                               "\n                                " +
                                 _vm._s(_vm.orderHistory[0].order_num) +
                                 ", " +
-                                _vm._s(_vm.orderHistory[0].date_order) +
+                                _vm._s(
+                                  _vm.orderHistory[0].date_order.substring(
+                                    0,
+                                    10
+                                  )
+                                ) +
                                 "\n                            "
                             )
                           ])
@@ -72577,7 +72592,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.current{\n    padding: 0 30px;\n}\n\n", ""]);
+exports.push([module.i, "\n.current{\n    padding: 0 30px;\n}\n.edit_title{\n    background-color: black;\n    color: white;\n    font-weight: bold;\n    padding: 10px 0 10px 30px;\n    border-radius: 10px;\n}\n\n", ""]);
 
 // exports
 
@@ -72588,6 +72603,8 @@ exports.push([module.i, "\n.current{\n    padding: 0 30px;\n}\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -72681,81 +72698,96 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("table", { staticClass: "table table-striped table-hover" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.orderHistory.slice(_vm.from, _vm.end), function(item) {
-          return _c(
-            "tr",
-            {
-              key: item.sales_serial,
-              on: {
-                click: function($event) {
-                  _vm.HistoryDetails(item.order_num)
-                }
-              }
-            },
-            [
-              _c("td", [_vm._v(_vm._s(item.date_order.substring(0, 10)))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.order_num))]),
-              _vm._v(" "),
-              _c("th", [_vm._v(_vm._s(item.currency))]),
-              _vm._v(" "),
-              _c("th", [
-                item.sales_status == 0
-                  ? _c("span", [_vm._v("Payment Failed\n                    ")])
-                  : _vm._e(),
-                _vm._v(" "),
-                item.sales_status == 1
-                  ? _c("span", [
-                      _vm._v("Payment Success\n                    ")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                item.sales_status == 3
-                  ? _c("span", [
-                      _vm._v("Pending for Quote\n                    ")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                item.sales_status == 5
-                  ? _c("span", [
-                      _vm._v("Pending for Reply\n                    ")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                item.sales_status == 7
-                  ? _c("span", [_vm._v("Under Process\n                    ")])
-                  : _vm._e(),
-                _vm._v(" "),
-                item.sales_status == 9
-                  ? _c("span", [_vm._v("Shipped\n                    ")])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.track_num))]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-right" }, [
-                _vm._v(
-                  "$ " +
-                    _vm._s(
-                      (
-                        parseFloat(item.subtotal) +
-                        parseFloat(item.tax) +
-                        parseFloat(item.shipping)
-                      ).toFixed(2)
-                    ) +
-                    "\n                "
-                )
-              ])
-            ]
-          )
-        })
-      )
+    _c("div", { staticClass: "edit_title" }, [
+      _vm._v("\n        Order History\n    ")
     ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      {
+        staticClass: "table table-striped table-hover",
+        staticStyle: { "margin-top": "20px" }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.orderHistory.slice(_vm.from, _vm.end), function(item) {
+            return _c(
+              "tr",
+              {
+                key: item.sales_serial,
+                on: {
+                  click: function($event) {
+                    _vm.HistoryDetails(item.order_num)
+                  }
+                }
+              },
+              [
+                _c("td", [_vm._v(_vm._s(item.date_order.substring(0, 10)))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.order_num))]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(item.currency))]),
+                _vm._v(" "),
+                _c("th", [
+                  item.sales_status == 0
+                    ? _c("span", [
+                        _vm._v("Payment Failed\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 1
+                    ? _c("span", [
+                        _vm._v("Payment Success\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 3
+                    ? _c("span", [
+                        _vm._v("Pending for Quote\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 5
+                    ? _c("span", [
+                        _vm._v("Pending for Reply\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 7
+                    ? _c("span", [
+                        _vm._v("Under Process\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 9
+                    ? _c("span", [_vm._v("Shipped\n                    ")])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.track_num))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v(
+                    "$ " +
+                      _vm._s(
+                        (
+                          parseFloat(item.subtotal) +
+                          parseFloat(item.tax) +
+                          parseFloat(item.shipping)
+                        ).toFixed(2)
+                      ) +
+                      "\n                "
+                  )
+                ])
+              ]
+            )
+          })
+        )
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -72906,7 +72938,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.edit_title{\r\n        background-color: black;\r\n        color: white;\r\n        font-weight: bold;\r\n        padding: 10px 30px;\r\n        border-radius: 10px;\r\n        margin-bottom:20px;\r\n        display: -webkit-box;\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        -webkit-box-pack: justify;\r\n            -ms-flex-pack: justify;\r\n                justify-content: space-between;\n}\r\n", ""]);
 
 // exports
 
@@ -72917,6 +72949,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -72979,7 +73014,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", [_vm._v("Order Number : " + _vm._s(_vm.so))]),
+    _c("div", { staticClass: "edit_title" }, [
+      _c("span", [_vm._v("Order Number : " + _vm._s(_vm.so))]),
+      _vm._v(" "),
+      _c("span", [
+        _vm._v("Order Date : " + _vm._s(_vm.somast.date_order.substring(0, 10)))
+      ])
+    ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-striped table-hover" }, [
       _vm._m(0),
@@ -107896,6 +107937,353 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7badec0c", module.exports)
+  }
+}
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(354)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(356)
+/* template */
+var __vue_template__ = __webpack_require__(357)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\userAdmin\\PendingOrder.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1166f174", Component.options)
+  } else {
+    hotAPI.reload("data-v-1166f174", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(355);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("1aed9df8", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1166f174\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PendingOrder.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1166f174\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PendingOrder.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 355 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.current{\n    padding: 0 30px;\n}\n.edit_title{\n    background-color: black;\n    color: white;\n    font-weight: bold;\n    padding: 10px 0 10px 30px;\n    border-radius: 10px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 356 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            orderHistory: [],
+            current: 1,
+            pending: []
+
+        };
+    },
+    mounted: function mounted() {
+        this.customerOrderHistory();
+    },
+
+    methods: {
+        HistoryDetails: function HistoryDetails(order_num) {
+            console.log(order_num);
+            this.$router.push({ name: 'OneOrder', params: { order_num: order_num } });
+        },
+        previousPage: function previousPage() {
+            this.current -= 1;
+        },
+        nextPage: function nextPage() {
+            this.current += 1;
+        }
+    },
+    computed: {
+        from: function from() {
+            return 10 * (this.current - 1);
+        },
+        end: function end() {
+            return 10 * this.current;
+        }
+    }
+});
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "edit_title" }, [
+      _vm._v("\n        Pending Order\n    ")
+    ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      {
+        staticClass: "table table-striped table-hover",
+        staticStyle: { "margin-top": "20px" }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.pending.slice(_vm.from, _vm.end), function(item) {
+            return _c(
+              "tr",
+              {
+                key: item.sales_serial,
+                on: {
+                  click: function($event) {
+                    _vm.HistoryDetails(item.order_num)
+                  }
+                }
+              },
+              [
+                _c("td", [_vm._v(_vm._s(item.date_order.substring(0, 10)))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.order_num))]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(item.currency))]),
+                _vm._v(" "),
+                _c("th", [
+                  item.sales_status == 0
+                    ? _c("span", [
+                        _vm._v("Payment Failed\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 1
+                    ? _c("span", [
+                        _vm._v("Payment Success\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 3
+                    ? _c("span", [
+                        _vm._v("Pending for Quote\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 5
+                    ? _c("span", [
+                        _vm._v("Pending for Reply\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 7
+                    ? _c("span", [
+                        _vm._v("Under Process\n                    ")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  item.sales_status == 9
+                    ? _c("span", [_vm._v("Shipped\n                    ")])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(item.track_num))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v(
+                    "$ " +
+                      _vm._s(
+                        (
+                          parseFloat(item.subtotal) +
+                          parseFloat(item.tax) +
+                          parseFloat(item.shipping)
+                        ).toFixed(2)
+                      ) +
+                      "\n                "
+                  )
+                ])
+              ]
+            )
+          })
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "text-center" },
+      [
+        _vm.current > 1
+          ? _c("el-button", {
+              attrs: { icon: "el-icon-d-arrow-left", circle: "" },
+              on: {
+                click: function($event) {
+                  _vm.previousPage()
+                }
+              }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c("span", { staticClass: "current" }, [_vm._v(_vm._s(_vm.current))]),
+        _vm._v(" "),
+        _vm.current < _vm.pending.length / 10
+          ? _c("el-button", {
+              attrs: { icon: "el-icon-d-arrow-right", circle: "" },
+              on: {
+                click: function($event) {
+                  _vm.nextPage()
+                }
+              }
+            })
+          : _vm._e()
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Order Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Order Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Currency")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Order Status")]),
+        _vm._v(" "),
+        _c("th", { staticStyle: { width: "100px" } }, [_vm._v("track_num")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Subtotal")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1166f174", module.exports)
   }
 }
 

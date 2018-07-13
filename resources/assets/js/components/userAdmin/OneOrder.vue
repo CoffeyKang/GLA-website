@@ -1,7 +1,10 @@
 <template>
     
     <div>
-        <h3>Order Number : {{so}}</h3> 
+        <div class="edit_title">
+            <span>Order Number : {{so}}</span> <span>Order Date : {{ (somast.date_order).substring(0,10) }}</span>
+        </div>
+        
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -54,8 +57,17 @@ export default {
 
 }
 </script>
-
+    
 <style>
 
-
+.edit_title{
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        padding: 10px 30px;
+        border-radius: 10px;
+        margin-bottom:20px;
+        display: flex;
+        justify-content: space-between;
+    }
 </style>

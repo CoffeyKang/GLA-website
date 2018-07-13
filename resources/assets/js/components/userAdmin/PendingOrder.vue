@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="edit_title">
-            Order History
+            Pending Order
         </div>
         <table class="table table-striped table-hover" style='margin-top:20px;'>
             <thead>
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in orderHistory.slice(from,end)" :key="item.sales_serial" @click='HistoryDetails(item.order_num)'>
+                <tr v-for="item in pending.slice(from,end)" :key="item.sales_serial" @click='HistoryDetails(item.order_num)'>
                     <td>{{item.date_order.substring(0,10)}}</td>
                     <td>{{item.order_num}}</td>
                     <th>{{item.currency}}</th>
@@ -43,7 +43,7 @@
         <div class='text-center'>
             <el-button icon="el-icon-d-arrow-left" circle @click='previousPage()' v-if="current>1"></el-button>
             <span class='current'>{{current}}</span>
-            <el-button icon="el-icon-d-arrow-right" circle @click='nextPage()'  v-if="current<(orderHistory.length/10)"></el-button>
+            <el-button icon="el-icon-d-arrow-right" circle @click='nextPage()'  v-if="current<(pending.length/10)"></el-button>
         </div>
     </div>
     
@@ -55,6 +55,7 @@ export default {
         return {
             orderHistory:[],
             current:1,
+            pending:[],
             
         }
     },

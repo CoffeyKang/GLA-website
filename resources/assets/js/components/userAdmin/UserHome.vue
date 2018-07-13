@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div>
+        <div class="edit_title">
+            User Homepage
+        </div>
+        <div style='margin-top:20px;'>
             <el-card class="box-card">
                 <div class="clearfix" slot="header">
                     Latest News
@@ -44,7 +47,7 @@
                             <el-col :span="8"><div class="grid-content">Recent Order</div></el-col>
                             <el-col :span="16">
                                 <div class="grid-content" v-if="orderHistory.length>=1">
-                                    {{ orderHistory[0].order_num }}, {{ orderHistory[0].date_order }}
+                                    {{ orderHistory[0].order_num }}, {{ (orderHistory[0].date_order).substring(0,10) }}
                                 </div>
 
                                 <div class="grid-content" v-if="orderHistory.length<1">
@@ -113,6 +116,13 @@ export default {
     }
     .el-col{
         margin-bottom: 10px;
+    }
+    .edit_title{
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        padding: 10px 0 10px 30px;
+        border-radius: 10px;
     }
     
     
