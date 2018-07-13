@@ -3,17 +3,15 @@
 		<div v-if="hasInfo" class='container adminMain' >
 
             <div class="userNav">
-            
                 <div class="list-group">
-                    <router-link to='/' tag='a' class="list-group-item">My Account </router-link>
-                    <router-link to='/' tag='a' class="list-group-item">Order History <span v-if="orderHistory" class='num'>({{orderHistory.length}})</span></router-link>
-                    <router-link to='/' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
-                    <router-link to='/' tag='a' class="list-group-item">Track My Order</router-link>
-                    <router-link to='/' tag='a' class="list-group-item">Submit Inquiry</router-link>
-                    <router-link to='/' tag='a' class="list-group-item">Change Profile </router-link>
-                    <router-link to='/' tag='a' class="list-group-item">Change Password </router-link>
+                    <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">My Account </router-link>
+                    <router-link to='/CustomerInfo/OrderHistory' tag='a' class="list-group-item">Order History <span v-if="orderHistory" class='num'>({{orderHistory.length}})</span></router-link>
+                    <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
+                    <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Track My Order</router-link>
+                    <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Submit Inquiry</router-link>
+                    <router-link to='/CustomerInfo/ChangeProfile' tag='a' class="list-group-item">Edit Profile </router-link>
+                    <router-link to='/CustomerInfo/ChangePassword' tag='a' class="list-group-item">Change Password </router-link>
                 </div>
-            
             </div>
 
             <div class="userContent">
@@ -59,7 +57,6 @@
                     </div>
                     
                     <div class="inRow">
-
                         <el-form-item label="City" prop='city'>
                             <el-input v-model="details.city" placeholder="City"  ></el-input>
                         </el-form-item>
@@ -74,12 +71,9 @@
                                 </el-option>
                             </el-select>
                         </el-form-item>
-                        
                     </div>
 
-
                     <div class="inRow">
-
                         <el-form-item label="ZIPCODE"  prop='zipcode'>
                             <el-input v-model="details.zipcode" placeholder="ZIPCODE" ></el-input>
                         </el-form-item>
@@ -110,7 +104,7 @@
                             <el-input v-model="details.job" placeholder="Job"  ></el-input>
                         </el-form-item>
 
-                        </div>
+                    </div>
 
                     <div class="inRow">
 
@@ -301,7 +295,8 @@
         border-radius: 10px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        padding: 30px 0;
+        
     }
     
     .list-group,.list-group-item{
@@ -312,7 +307,6 @@
     .inRow{
         display: flex;
         justify-content: space-between;
-        
     }
     .num{
         font-weight: bold;

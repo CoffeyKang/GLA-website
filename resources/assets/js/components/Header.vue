@@ -5,7 +5,7 @@
 				<div>
 					<img src="images/header_logo.png" alt="Logo">
 				</div>
-				
+
 				<div>
 					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
@@ -72,7 +72,7 @@
 				this.$router.push('/');
 			},
 			customerInfo(){
-				this.$router.push({name:'CustomerInfo',params:{id:this.userID}});
+				this.$router.push({path:'/CustomerInfo/HomePage'});
 			}
 		},
 		mounted(){

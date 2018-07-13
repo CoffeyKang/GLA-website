@@ -74,6 +74,10 @@ export const myMixin = {
         this.orderHistory = response.data.history;
         this.pending = response.data.pending;
       });
+    },
+
+    oneOrderDetails: function (so, id) {
+      
     }
 
   },

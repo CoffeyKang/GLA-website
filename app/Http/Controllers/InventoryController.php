@@ -1083,11 +1083,32 @@ class InventoryController extends Controller
 
         $id = $request->id;
 
-        $history = SOMAST::where('m_id',$id)->get();
+        $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->get();
 
-        $pending = SOMAST::where('m_id',$id)->where('sales_status',1)->get();
+        $pending = SOMAST::where('m_id',$id)->where('sales_status',1)->orderBy('order_num','desc')->get();
         
         return response()->json(['history'=>$history,'pending'=>$pending],200);
+    }
+
+    public function oneOrder(Request $request){
+
+        $so = $request->so;
+
+        $id = $request->id;
+
+        $history = SOMAST::where('order_num',$so)->where('m_id',$id)->first();
+
+        if ($history) {
+            
+            $oneOrder = $history->sotran()->get();
+
+            return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid']);
+        
+        }else{
+
+            return response()->json(['status'=>'invalid']);
+        }
+        
     }
     
 }

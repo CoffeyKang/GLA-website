@@ -33,7 +33,6 @@
 			appFooter:Footer,
 		},
 		mounted(){
-			
 			// get items # from localstorage 
                 for (let i = 0; i < this.storage.length; i++) {
                     this.items.push(this.storage.key(i));
@@ -71,6 +70,6 @@
 
 <style scoped>
 	#body{
-		min-height: 700px;
+		min-height: 500px;
 	}
 </style>

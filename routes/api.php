@@ -84,7 +84,14 @@ Route::post('/changeAddress','InventoryController@changeAddress');
 
 /** get customer so history */
 Route::get('/customerOrderHistory','InventoryController@customerOrderHistory');
+// oneOrder
+Route::get('/oneOrder','InventoryController@oneOrder');
 
+// updateUserInfo
+Route::post('/updateUserInfo','AccessControl@updateUserInfo');
+
+// change password 
+Route::post('/changePassword','AccessControl@changePassword');
 
 
 
