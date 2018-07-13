@@ -67568,7 +67568,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67587,7 +67587,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			a: 1
+		};
+	},
+	mounted: function mounted() {}
+});
 
 /***/ }),
 /* 229 */
@@ -67598,7 +67605,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._v("\n\there is the catelog .\n\t\n\t\n")
+    _vm._v("\n\there is the catelog .\n\t\n\t" + _vm._s(_vm.a) + "\n")
   ])
 }
 var staticRenderFns = []
@@ -72981,6 +72988,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72989,7 +73003,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             storage: window.localStorage,
             id: 0,
             oneOrder: [],
-            somast: []
+            somast: [],
+            empty: false,
+            show: false
 
         };
     },
@@ -72998,9 +73014,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.id = JSON.parse(this.storage.getItem('user')).id;
         this.$http.get('/api/oneOrder', { params: { 'so': this.so, 'id': this.id } }).then(function (response) {
-            _this.oneOrder = response.data.oneOrder;
-            _this.somast = response.data.somast;
-            _this.status = response.data.status;
+            if (response.data.status == 'invalid') {
+                _this.empty = true;
+                _this.$message({
+                    message: 'Order not found.',
+                    type: 'error'
+                });
+                _this.$router.push({ name: 'userHome' });
+            } else {
+                _this.oneOrder = response.data.oneOrder;
+                _this.somast = response.data.somast;
+                _this.status = response.data.status;
+                _this.show = true;
+            }
+        }, function () {
+            this.empty = true;
         });
     }
 });
@@ -73014,54 +73042,71 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "edit_title" }, [
-      _c("span", [_vm._v("Order Number : " + _vm._s(_vm.so))]),
-      _vm._v(" "),
-      _c("span", [
-        _vm._v("Order Date : " + _vm._s(_vm.somast.date_order.substring(0, 10)))
-      ])
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-striped table-hover" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.oneOrder, function(item) {
-          return _c("tr", { key: item.order_serial }, [
-            _c("td", [_vm._v(_vm._s(item.item))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.qty))]),
-            _vm._v(" "),
-            _c("th", [
-              _vm._v(_vm._s(item.make.replace("_ca", "").toUpperCase()))
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v("$ " + _vm._s(item.price.toFixed(2)))])
+    _vm.empty
+      ? _c("div", [
+          _c("div", { staticClass: "alert alert-danger" }, [
+            _vm._v("\r\n            Order not found. \r\n        ")
           ])
-        })
-      )
-    ]),
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "text-right" },
-      [
-        _c(
-          "el-button",
-          {
-            attrs: { type: "primary" },
-            on: {
-              click: function($event) {
-                _vm.$router.push({ name: "OrderHistory" })
-              }
-            }
-          },
-          [_vm._v("Back")]
-        )
-      ],
-      1
-    )
+    !_vm.empty
+      ? _c("div", [
+          _c("div", { staticClass: "edit_title" }, [
+            _c("span", [_vm._v("Order Number : " + _vm._s(_vm.so))]),
+            _vm.show
+              ? _c("span", [
+                  _vm._v(
+                    "Order Date : " +
+                      _vm._s(_vm.somast.date_order.substring(0, 10)) +
+                      " "
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("table", { staticClass: "table table-striped table-hover" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.oneOrder, function(item) {
+                return _c("tr", { key: item.order_serial }, [
+                  _c("td", [_vm._v(_vm._s(item.item))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(item.qty))]),
+                  _vm._v(" "),
+                  _c("th", [
+                    _vm._v(_vm._s(item.make.replace("_ca", "").toUpperCase()))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v("$ " + _vm._s(item.price.toFixed(2)))])
+                ])
+              })
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-right" },
+            [
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary" },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "OrderHistory" })
+                    }
+                  }
+                },
+                [_vm._v("Back")]
+              )
+            ],
+            1
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -106893,6 +106938,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -106928,7 +106984,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 country: [{ required: true, message: 'Country is required.', trigger: 'blur', max: 99 }],
                 tel: [{ required: true, message: 'Invalid telephone number.', trigger: 'blur', max: 15 }],
                 mobile: [{ message: 'Invalid telephone number.', trigger: 'blur', max: 15 }]
-            }
+            },
+
+            edu: [{ value: 1, label: 'High School or Less' }, { value: 2, label: 'College / Trade School' }, { value: 3, label: 'University' }, { value: 4, label: 'Graduate School' }]
         };
     },
     mounted: function mounted() {
@@ -106970,13 +107028,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         var info = response.data.userinfo;
                         _this.storage.setItem('userInfo', JSON.stringify(info));
                         _this.userInfo = JSON.parse(_this.storage.getItem('userInfo'));
-
                         _this.$message({
                             showClose: true,
                             message: "Edit Successfully",
                             type: "success",
                             duration: 5000
                         });
+                        window.scrollTo(0, 0);
                     });
                 } else {
                     _this.$message({
@@ -107372,16 +107430,25 @@ var render = function() {
                         "el-form-item",
                         { attrs: { label: "Edu", prop: "education" } },
                         [
-                          _c("el-input", {
-                            attrs: { placeholder: "Education" },
-                            model: {
-                              value: _vm.details.edu,
-                              callback: function($$v) {
-                                _vm.$set(_vm.details, "edu", $$v)
-                              },
-                              expression: "details.edu"
-                            }
-                          })
+                          _c(
+                            "el-select",
+                            {
+                              attrs: { placeholder: "Edu" },
+                              model: {
+                                value: _vm.details.edu,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "edu", $$v)
+                                },
+                                expression: "details.edu"
+                              }
+                            },
+                            _vm._l(_vm.edu, function(item) {
+                              return _c("el-option", {
+                                key: item.value,
+                                attrs: { label: item.label, value: item.value }
+                              })
+                            })
+                          )
                         ],
                         1
                       ),

@@ -57,7 +57,7 @@
 		watch: {
 	    '$route' (to, from) {
 			console.log('url changed');
-			window.scrollTo(0,0);
+				window.scrollTo(0,0);
 			}
 		},
 		methods:{

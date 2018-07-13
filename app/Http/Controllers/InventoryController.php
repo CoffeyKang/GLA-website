@@ -1102,7 +1102,7 @@ class InventoryController extends Controller
             
             $oneOrder = $history->sotran()->get();
 
-            return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid']);
+            return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid'],200);
         
         }else{
 

@@ -1,8 +1,15 @@
 <template>
-    
-    <div>
-        <div class="edit_title">
-            <span>Order Number : {{so}}</span> <span>Order Date : {{ (somast.date_order).substring(0,10) }}</span>
+<div>
+   
+    <div v-if="empty">
+        <div class="alert alert-danger">
+            Order not found. 
+        </div>
+    </div>
+    <div v-if="!empty">
+
+        <div class="edit_title" >
+            <span>Order Number : {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }} </span>
         </div>
         
         <table class="table table-striped table-hover">
@@ -27,7 +34,7 @@
             <el-button type='primary' @click='$router.push({name:"OrderHistory"})'>Back</el-button>    
         </div>  
     </div>
-        
+</div>        
 </template>
 
 <script>
@@ -39,7 +46,8 @@ export default {
             id:0,
             oneOrder:[],
             somast:[],
-            
+            empty:false,
+            show:false,
 
         }
     },
@@ -47,10 +55,24 @@ export default {
     mounted(){
         this.id = JSON.parse(this.storage.getItem('user')).id;
         this.$http.get('/api/oneOrder', { params: { 'so': this.so,'id': this.id } }).then(response => {
-        this.oneOrder = response.data.oneOrder;
-        this.somast = response.data.somast;
-        this.status = response.data.status;
+        if (response.data.status=='invalid') {
+            this.empty=true;
+            this.$message(
+                {
+                    message:'Order not found.',
+                    type:'error',
+                }
+            );
+            this.$router.push({name:'userHome'});
+        }else{
+            this.oneOrder = response.data.oneOrder;
+            this.somast = response.data.somast;
+            this.status = response.data.status;
+            this.show = true;
+        }
         
+      },function(){
+          this.empty=true;
       });
     }
 

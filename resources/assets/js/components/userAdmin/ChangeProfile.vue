@@ -105,8 +105,19 @@
                     </div>
                     <div class="text">
                         <div class="inRow">
-                            <el-form-item label="Edu"  prop='education'>
+                            <!-- <el-form-item label="Edu"  prop='education'>
                                 <el-input v-model="details.edu" placeholder="Education" ></el-input>
+                            </el-form-item> -->
+
+                            <el-form-item label="Edu" prop='education'>
+                                <el-select v-model="details.edu" placeholder="Edu">
+                                    <el-option
+                                    v-for="item in edu"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                    </el-option>
+                                </el-select>
                             </el-form-item>
                         
                             <el-form-item label="Job"  prop='job'>
@@ -208,7 +219,14 @@ export default {
                 mobile:[
                     {message: 'Invalid telephone number.', trigger: 'blur',  max: 15,}
                 ],
-            }
+            },
+
+            edu:[
+                {value:1,label:'High School or Less'},
+                {value:2,label:'College / Trade School'},
+                {value:3,label:'University'},
+                {value:4,label:'Graduate School'},
+            ],
         }
         
     },
@@ -251,13 +269,13 @@ export default {
                             var info = response.data.userinfo;
                             this.storage.setItem('userInfo',JSON.stringify(info));
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
-                            
                             this.$message({
                             showClose:true,
                             message:"Edit Successfully",
                             type:"success",
                             duration:5000,
                         });
+                        window.scrollTo(0,0);
                         });
                     }else{
                         this.$message({
