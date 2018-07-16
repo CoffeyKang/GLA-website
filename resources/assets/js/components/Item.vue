@@ -12,7 +12,7 @@
 			
 			<small>Year Fit: {{ item.year_begin}} -- {{item.year_end}}</small>
 			
-			<small>Make: {{ item.make}}</small>
+			<small>Make: {{ item.make}} </small>
 			
 			<span class='price'>${{ item.pricel.toFixed(2)}}</span>
 			

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Inventory;
 use Illuminate\Pagination\Paginator;
 use App\Inventory_img;
+use App\Item_make;
 use App\FeatureProduct;
 use App\Wishlist;
 use App\Temp_SO;
@@ -123,12 +124,17 @@ class InventoryController extends Controller
      * @return [type]       [description]
      */
     public function singleItem($item){
+
         $singleItem = Inventory::where('item',$item)->first();
 
         $singleItem->itemFullInfo();
 
         $single = $singleItem->toArray();
-        return $singleItem;
+
+        $item_makes = Item_make::where('item',$item)->get();
+
+        return response()->json(['singleItem'=>$single,'item_makes'=>$item_makes],200);
+
     }
 
     public function related($item){
@@ -139,6 +145,7 @@ class InventoryController extends Controller
         
         foreach ($related as $r) {
             $r->itemFullInfo();
+            $r->allMakes();
         }
 
         foreach ($related as $item) {
@@ -191,6 +198,7 @@ class InventoryController extends Controller
             }
 
         }
+        
         return $resault;
     }
 
@@ -200,7 +208,6 @@ class InventoryController extends Controller
         $year = $request->year?$request->year:'year';
         $desc = $request->desc?$request->desc:'desc';
         $page = $request->page?$request->page:1;
-        
         $data = [$item,$make,$year,$desc,$page];
 
         
@@ -221,12 +228,23 @@ class InventoryController extends Controller
         }else{
 
         }
-
         
         /** make */
         if ($make!='make') {
+
+
+            $item_from_make_table = Item_make::where('make',$make)->get();
+
+            $from_make_table_item = [];
+            
+            foreach ($item_from_make_table as $i) {
                 
-            $items = $items->where('make',$make);
+                array_push($from_make_table_item,$i->item);
+            }
+
+            $items = $items->whereIn('item',$from_make_table_item);
+            
+           
 
         }else{
         }
@@ -248,10 +266,31 @@ class InventoryController extends Controller
                 
         }
 
-        $items=$items->paginate(20);
 
+        $item_make_itemno = $items->get();
+        
+        $item_number = [];
+
+        foreach ($item_make_itemno as $a) {
+            array_push($item_number,$a->item);
+        }
+
+        $item_makes = Item_make::whereIn('item',$item_number)->get();
+
+
+        // $items_makes = Inventory::orderBy('item','asc')->whereIn('item',$from_make_table_item)->paginate(20);
+
+
+        
+
+        $items = $items->paginate(20);
+
+       
+
+        
+
+        return response()->json(['items'=>$items,'item_makes'=>$item_makes],200);
             
-        return $items;
             
     }
 

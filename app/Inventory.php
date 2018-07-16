@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Item_make;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
@@ -23,6 +25,10 @@ class Inventory extends Model
         return $this->belongsTo('App\FeatureProduct','item','item');
     }
 
+    public function itemMake(){
+        return $this->hasMany('App\Item_make','item','item');
+    }
+
     /**
      * get item information with img_path and viewed
      */
@@ -42,7 +48,7 @@ class Inventory extends Model
      * @return [type] [description]
      */
     public function wishlist(){
-        return $this->hasMany('app\Wishlist','item','item');
+        return $this->hasMany('App\Wishlist','item','item');
     }
 
     /**
@@ -50,7 +56,7 @@ class Inventory extends Model
      * @return [type] [description]
      */
     public function temp_so(){
-        return $this->hasMany('app\Temp_SO','item','item');
+        return $this->hasMany('App\Temp_SO','item','item');
     }
 
 
@@ -60,5 +66,16 @@ class Inventory extends Model
         }else{
             $this->img_path = '/images/default_bg.jpg';
         }
+    }
+
+    public function allMakes(){
+        $makes = Item_make::where('item',$this->item)->get();
+        $string = '';
+        foreach ($makes as $make) {
+            $string .= $make->make.' ';
+        }
+        $this->all_makes = $string;
+
+        return $this;
     }
 }

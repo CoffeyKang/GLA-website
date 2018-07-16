@@ -6,12 +6,13 @@
                     <th>Item</th>
                     <th>Description</th>
 					<th>Thumbnail</th>
-                    <th>Make</th>
+                    <th>Compatible Make</th>
                     <th class='text-right'>Price</th>
                     <th class='text-center'>Action</th>
                 </tr>
             </thead>
             <tbody>
+				
                 <tr v-for="thing in list" :key="thing.item">
                     <td>{{thing.item}}</td>
                     <td>{{thing.descrip}}</td>
@@ -24,7 +25,11 @@
 							background-repeat:no-repeat;
 							background-position:center'
 					></td>
-                    <td>{{thing.make}}</td>
+                    <td>
+						<span v-for="item_make in makes" :key="item_make.row_id" v-if="item_make.item == thing.item"> 
+							{{item_make.make}} &nbsp; 
+						</span>
+					</td>
                     <td class='text-right'>${{thing.pricel.toFixed(2)}}</td>
                     <td class='text-center'>
                         <button class="btn btn-primary" @click="goToItem(thing.item)">Item Details</button>
@@ -91,21 +96,21 @@
 							page:this.page,
 						}
 					}).then(response => {
-			    // get body data
-				this.sr = response.body;
-				this.list = this.sr.data;
-                this.data = response.body;
+						
+						console.log(response);
+				// get body data
+				this.list = response.body.items.data;
+				this.data = response.body.items;
 				this.page = this.data.current_page;
+				this.makes = response.body.item_makes;
+				console.log(this.makes);
 				if (this.data.total>=1) {
 					this.result=true;
-
 					// i need put the search details to vuex, in order to backbing to search result pages
 					this.$store.commit('setItem',this.item);
 					this.$store.commit('setMake',this.make);
 					this.$store.commit('setDesc',this.desc);
 					this.$store.commit('setYear',this.year);
-					
-					
 
 				}else{
 					this.empty=true;
