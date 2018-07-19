@@ -93,6 +93,8 @@ Route::post('/updateUserInfo','AccessControl@updateUserInfo');
 // change password 
 Route::post('/changePassword','AccessControl@changePassword');
 
+Route::post('/viewed','AdminController@viewed');
+
 
 
 

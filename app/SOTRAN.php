@@ -19,4 +19,9 @@ class SOTRAN extends Model
     public function somast(){
         return $this->belongsTo('App\SOMAST',"order_num","order_num");
     }
+
+    // item information
+    public function itemInfo(){
+        return $this->belongsTo('App\Inventory','item','item');
+    }
 }

@@ -1141,6 +1141,11 @@ class InventoryController extends Controller
             
             $oneOrder = $history->sotran()->get();
 
+            foreach ($oneOrder as $item) {
+                $iteminfo = $item->itemInfo()->first()->allMakes();
+                $item->make = $iteminfo->all_makes;
+            }
+
             return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid'],200);
         
         }else{

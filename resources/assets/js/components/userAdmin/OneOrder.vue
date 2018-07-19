@@ -17,7 +17,7 @@
                 <tr>
                 <th>Item</th>
                 <th>QTY</th>
-                <th>Make</th>
+                <th>Compatiable Make</th>
                 <th>Price</th>
                 </tr>
             </thead>
@@ -79,7 +79,7 @@ export default {
 
 }
 </script>
-    
+
 <style>
 
 .edit_title{

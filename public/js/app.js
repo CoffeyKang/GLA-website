@@ -73498,7 +73498,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("QTY")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Make")]),
+        _c("th", [_vm._v("Compatiable Make")]),
         _vm._v(" "),
         _c("th", [_vm._v("Price")])
       ])

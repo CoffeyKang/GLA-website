@@ -29,6 +29,10 @@ class Inventory extends Model
         return $this->hasMany('App\Item_make','item','item');
     }
 
+    public function sotran(){
+        return $this->hasMany('App\SOTRAN','item','item');
+    }
+
     /**
      * get item information with img_path and viewed
      */
@@ -77,5 +81,9 @@ class Inventory extends Model
         $this->all_makes = $string;
 
         return $this;
+    }
+
+    public function popular(){
+        return $this->hasOne('App\Popular','item','item');
     }
 }

@@ -21,4 +21,13 @@ Auth::routes();
 
 Route::get('/checkout', 'HomeController@index')->name('home');
 
+Route::get('/GLAAdmin','AdminController@index')->name('index');
 
+
+
+Route::middleware('auth')->group(function () {
+    
+    Route::get('/home','AdminController@home');
+
+    Route::get('/top10', 'AdminController@top10');
+});

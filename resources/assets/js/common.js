@@ -76,6 +76,12 @@ export const myMixin = {
       });
     },
 
+    viewed:function(item){
+      this.$http.post('/api/viewed',  { 'item': item } ).then(response => {
+        console.log(response.data.message);
+      });
+    },
+
     
 
     oneOrderDetails: function (so, id) {
