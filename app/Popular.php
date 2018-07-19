@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Popular extends Model
 {
     protected $table = 'popular';
+
+    protected $primaryKey = 'item';
+
+    public $incrementing = false;
     
     public $timestamps = false;
 

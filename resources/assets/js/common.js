@@ -76,17 +76,15 @@ export const myMixin = {
       });
     },
 
-    viewed:function(item){
-      this.$http.post('/api/viewed',  { 'item': item } ).then(response => {
-        console.log(response.data.message);
+    viewed: function (item) {
+      this.$http.post('/api/viewed', { 'item': item }).then(response => {
+        console.log(response);
       });
     },
 
-    
 
-    oneOrderDetails: function (so, id) {
-      
-    }
+
+    oneOrderDetails: function (so, id) {}
 
   },
   computed: {

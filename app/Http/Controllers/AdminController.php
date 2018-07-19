@@ -34,11 +34,25 @@ class AdminController extends Controller
         return view('admin.top10',compact('top10','i','viewed','v'));
     }
 
+    public function orderHistory(){
+        $orderHistory = SOMAST::orderBy('order_num','asc')->paginate(18);
+
+        return view('admin.orderhistory',compact('orderHistory'));
+    }
+
     public function viewed(Request $request){
-        $item = Popular::where('item',$item)->first();
-        $item->viewed +=1;
+        
+        $id = $request->item;
+        
+        $item = Popular::where('item',$id)->first();
+        
+        $item->viewed++;
+        
         $item->save();
+        
         return response()->json(['message'=>'item viewed plus one'],200);
     }
+
+
 
 }

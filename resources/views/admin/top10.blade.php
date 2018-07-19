@@ -16,10 +16,10 @@
         <tbody>
             @foreach ($top10 as $item)
                 <tr>
-                    <th scope="row">{{$i++}}</th>
-                    <td>{{$item->item}}</td>
-                    <td>{{$item->itemInfo()->first()->allMakes()->all_makes}}</td>
-                    <td>{{$item->sold}}</td>
+                    <th  scope="row">{{$i++}}</th>
+                    <td >{{$item->item}}</td>
+                    <td >{{$item->itemInfo()->first()->allMakes()->all_makes}}</td>
+                    <td >{{$item->sold}}</td>
                 </tr>
             @endforeach          
         </tbody>

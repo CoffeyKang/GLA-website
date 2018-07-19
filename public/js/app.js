@@ -65816,6 +65816,12 @@ var myMixin = {
       });
     },
 
+    viewed: function viewed(item) {
+      this.$http.post('/api/viewed', { 'item': item }).then(function (response) {
+        console.log(response);
+      });
+    },
+
     oneOrderDetails: function oneOrderDetails(so, id) {}
 
   },
@@ -68637,6 +68643,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			// error 
 			console.log("error");
 		});
+
+		this.viewed(this.id);
 	},
 
 	methods: {

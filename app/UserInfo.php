@@ -10,6 +10,12 @@ class UserInfo extends Model
     public $timestamps = false;
     
     
+    public function somast(){
+        return $this->hasMany('App\SOMAST','m_id','m_id');
+    }
 
+    public function fullname(){
+        return $this->m_forename . ' ' .$this->m_surname;
+    }
     
 }

@@ -22,11 +22,14 @@
         crossorigin="anonymous"></script>
     <title>GLA Inventory Website Admin</title>
     <style>
+        *{
+            text-transform:uppercase;
+        }
         .name{
 
         }
         .body{
-            margin: 30px 0;
+            margin: 20px;
         }
         .footer{
             background-color: #666666;
@@ -35,6 +38,7 @@
         .gloable_nav{
             background-color:#666666;
             color: white;
+            
         }
         .golden_nav
         {
@@ -58,7 +62,7 @@
 <body>
     <div id="admin_app">
         <div class="gloable_nav" >
-            <nav class="navbar navbar-expand-sm navbar-light container">
+            <nav class="navbar navbar-expand-sm navbar-light">
                 
                 <div class="navbar-header col-sm-6" >
                     <a class="navbar-brand" href="{{ url('/') }}" target="_blank">
@@ -89,12 +93,12 @@
             </nav>
         </div>
         <div class="body ">
-            <div class="container">
+            <div class="">
                 <div class="row">
-                    <div class="col-sm-3 golden_nav" style='padding:0'>
+                    <div class="col-sm-2 golden_nav" style='padding:0'>
                         <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link active" id="home"   href="/home" role="tab">Home | {{Auth::user()->name}}</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Dealer Managenment</a>
+                            <a class="nav-link active" id="home"   href="/home" role="tab">Admin Home | {{Auth::user()->name}} </a>
+                            <a class="nav-link" id=""   href="#v" role="tab" aria-disabled="true">Dealer Managenment</a>
                             <a class="nav-link" id=""   href="#v" role="tab">Add New Dealer</a>
                             <a class="nav-link" id=""   href="#v" role="tab">Dealer Order History</a>
                             <a class="nav-link" id=""   href="#v" role="tab">Download Dealer Info</a>
@@ -104,7 +108,7 @@
                             <a class="nav-link" id=""   href="#v" role="tab">Member List - USA</a>
 
                             <a class="nav-link" id=""   href="#v" role="tab">Sales Records - CA</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Order History</a>
+                            <a class="nav-link" id="orderHistory"   href="/orderHistory" role="tab">Order History</a>
                             <a class="nav-link" id=""   href="" role="tab">Pending Quotes (0)</a>
                             <a class="nav-link" id=""   href="#v" role="tab">Awaits Reply (0)</a>
                             <a class="nav-link" id=""   href="#v" role="tab">Confirm Shipment (0)</a>
@@ -127,7 +131,7 @@
                         </div>
                     </div>
             
-                    <div class="col-sm-9" >
+                    <div class="col-sm-10" >
                         @yield('content')
                     </div>   
                 </div>

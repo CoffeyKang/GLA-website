@@ -30,4 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/home','AdminController@home');
 
     Route::get('/top10', 'AdminController@top10');
+
+    Route::get('/orderHistory', 'AdminController@orderHistory');
 });
