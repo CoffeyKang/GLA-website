@@ -32,4 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/top10', 'AdminController@top10');
 
     Route::get('/orderHistory', 'AdminController@orderHistory');
+
+    Route::get('/customerList', 'AdminController@customerList');
+
+    Route::get('/pendingQuotes', 'AdminController@pendingQuotes');
+
 });

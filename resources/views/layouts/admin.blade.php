@@ -8,7 +8,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
@@ -53,7 +53,6 @@
         .active{
             background-color: #8e8e8e !important;
             color: yellow !important;
-            
         }
     </style>
 
@@ -98,36 +97,35 @@
                     <div class="col-sm-2 golden_nav" style='padding:0'>
                         <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                             <a class="nav-link active" id="home"   href="/home" role="tab">Admin Home | {{Auth::user()->name}} </a>
-                            <a class="nav-link" id=""   href="#v" role="tab" aria-disabled="true">Dealer Managenment</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Add New Dealer</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Dealer Order History</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Download Dealer Info</a>
+                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true">Dealer Managenment</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Add New Dealer</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Dealer Order History</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Download Dealer Info</a>
 
-                            <a class="nav-link" id=""   href="" role="tab">Member Managenment</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Member List - Canada</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Member List - USA</a>
-
-                            <a class="nav-link" id=""   href="#v" role="tab">Sales Records - CA</a>
+                            <a class="nav-link" id="customerList"   href="/customerList" role="tab">Member List </a>
+                            <a class="nav-link" id="" href="#v" role="tab">Sales Records</a>
                             <a class="nav-link" id="orderHistory"   href="/orderHistory" role="tab">Order History</a>
-                            <a class="nav-link" id=""   href="" role="tab">Pending Quotes (0)</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Awaits Reply (0)</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Confirm Shipment (0)</a>
-                            <a class="nav-link" id="top10"   href="/top10">Top 10 Best Sellers</a>
+                            <a class="nav-link" id="pendingQuotes" href="/pendingQuotes" role="tab">
+                            Pending Quotes Profile 
+                            <span class="badge badge-light float-right">
+                                {{count(App\SOMAST::where('sales_status','!=',9)->get())}}
+                            </span>
+                            </a>
+                            <a class="nav-link" id="" href="#v" role="tab">Awaits Reply 
+                                <span class="badge badge-light float-right">9</span>
+                            </a>
+                            <a class="nav-link" id="" href="#v" role="tab">Confirm Shipment 
+                                <span class="badge badge-light float-right">9</span>
+                            </a>
+                            <a class="nav-link" id="top10" href="/top10">Top 10 Best Sellers</a>
 
-                            <a class="nav-link" id=""   href="#v" role="tab">Sales Records - US</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Order History</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Pending Quotes (0)</a>
-                            <a class="nav-link" id=""   href="" role="tab">Awaits Reply (0)</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Awaits Reply (0)</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Confirm Shipment (0)</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Website Managenment</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Update Feature Products</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Broadcasting Email</a>
 
-                            <a class="nav-link" id=""   href="#v" role="tab">Website Managenment</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Update Feature Products</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Broadcasting Email</a>
-
-                            <a class="nav-link" id=""   href="#v" role="tab">Account Details</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Account Details</a>
                             <a class="nav-link" id="v-home"   href="" role="tab">Edit Profile</a>
-                            <a class="nav-link" id=""   href="#v" role="tab">Change Password</a>
+                            <a class="nav-link" id="" href="#v" role="tab">Change Password</a>
                         </div>
                     </div>
             

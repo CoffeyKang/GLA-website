@@ -35,7 +35,7 @@ class AdminController extends Controller
     }
 
     public function orderHistory(){
-        $orderHistory = SOMAST::orderBy('order_num','asc')->paginate(18);
+        $orderHistory = SOMAST::orderBy('sales_status','asc')->orderBy('order_num','desc')->paginate(18);
 
         return view('admin.orderhistory',compact('orderHistory'));
     }
@@ -51,6 +51,21 @@ class AdminController extends Controller
         $item->save();
         
         return response()->json(['message'=>'item viewed plus one'],200);
+    }
+
+
+    public function customerList(){
+
+        $customerList = UserInfo::orderBy('m_id','asc')->paginate(18);
+
+        return view('admin.customerList',compact('customerList'));
+    }
+
+    public function pendingQuotes(){
+
+        $pendingQuotes = SOMAST::where('sales_status','!=',9)->get();
+
+        return view('admin.pendingQuotes',compact('pendingQuotes'));
     }
 
 
