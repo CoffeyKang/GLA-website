@@ -1,9 +1,11 @@
 <template>
 	<div class='adminPage'>
+        
 		<div v-if="hasInfo" class='container adminMain' >
 
             <div class="userNav">
                 <div class="list-group">
+                    <a href="/GLAAdmin" class="list-group-item" v-if="user.level==1">Admin Panel</a>
                     <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">My Account </router-link>
                     <router-link to='/CustomerInfo/OrderHistory' tag='a' class="list-group-item">Order History <span v-if="orderHistory" class='num'>({{orderHistory.length}})</span></router-link>
                     <router-link to='/CustomerInfo/PendingOrder' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
@@ -21,7 +23,6 @@
 
         <!-- if do not have details, please enter details first -->
         <div v-if="!hasInfo" class='user_details container text-center' >
-
             <div style='margin:50px 0;'>
                 <div class="alert alert-success text-left">
                     Register a MuscleCarPartsOutlet account for a better shopping experience. You will be able to place order, check order status, 
@@ -207,17 +208,13 @@
 		},
 		mounted(){
             // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
-
-            
+            console.log("tthis is user");
             this.user = JSON.parse(this.storage.getItem('user'));
             this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
-            console.log(this.userInfo);
             if (this.userInfo) {
-                
                 this.hasInfo=true;
-            
             }else{
-                
+               
                 this.hasInfo=false;
             }
 

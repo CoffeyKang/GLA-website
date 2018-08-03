@@ -32,12 +32,9 @@
                     </div>
                     
                 </div>
-
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <button class="btn btn-success col-xs-12" id='loginBtn' @click="register()">Register</button>
                 </div>
-
-                
             </div>
             <div class="col-xs-1"></div>
             <div class="col-xs-10 col-xs-offset-1" v-if="summary">
@@ -86,9 +83,12 @@ export default {
                 'receiveEmail':this.receiveEmail, 
                 }).then(
                 function(response){
-                    this.storage.setItem('user',response.data.user);
+                    console.log(response.data.user);
+                    this.storage.setItem('user',JSON.stringify(response.data.user));
+                    this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
                     this.$store.commit('changeLoginStatus',true);
                     this.$router.push('/');
+                    
                 },function(response){
                     this.$message(
                             {

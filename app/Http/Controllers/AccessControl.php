@@ -60,7 +60,6 @@ class AccessControl extends Controller
             'password' => bcrypt($password),
         ]);
 
-        
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
 
@@ -83,20 +82,24 @@ class AccessControl extends Controller
          if ($check) {
             
          }else{
-
              $userInfo = new UserInfo;
-
              $userInfo->m_id = $userID;
              
              $userInfo->m_surname = $data["surname"];
              $userInfo->m_forename = $data["forename"];
-             $userInfo->m_gender = $data["gender"];
+
+             if ($data["gender"]=='Female') {
+                 $userInfo->m_gender = 2;
+             }else{
+                 $userInfo->m_gender = 1;
+             }
+             
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
              $userInfo->m_city = $data["city"];
              $userInfo->m_state = $data["state"];
              $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = $data["country"];
+             $userInfo->m_country = "ca";
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
              $userInfo->m_edu = $data["edu"];
@@ -104,6 +107,7 @@ class AccessControl extends Controller
              $userInfo->m_title = $data["tit"];
              $userInfo->m_car = $data["car"];
 
+             
              $userInfo->save();
 
 
@@ -140,13 +144,17 @@ class AccessControl extends Controller
              $userInfo = $check;
              $userInfo->m_surname = $data["surname"];
              $userInfo->m_forename = $data["forename"];
-             $userInfo->m_gender = $data["gender"];
+              if ($data["gender"]=='Female') {
+                 $userInfo->m_gender = 2;
+             }else{
+                 $userInfo->m_gender = 1;
+             }
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
              $userInfo->m_city = $data["city"];
              $userInfo->m_state = $data["state"];
              $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = $data["country"];
+             $userInfo->m_country = "ca";
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
              $userInfo->m_edu = $data["edu"];

@@ -16,6 +16,7 @@ use App\AddressBook;
 use App\SOMAST;
 use App\SOTRAN;
 use App\Popular;
+use Auth;
 
 class AdminController extends Controller
 {

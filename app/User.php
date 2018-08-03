@@ -40,5 +40,4 @@ class User extends Authenticatable
         return $this->hasMany('App\SOTRAN','m_id');
     }
     
-    
 }
