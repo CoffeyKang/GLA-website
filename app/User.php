@@ -28,6 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function userDetails(){
+        return $this->hasOne('App\UserInfo','m_id');
+    }
+
     public function addressBook(){
         return $this->hasMany('App\AddressBook','cust_id');
     }
@@ -38,6 +42,14 @@ class User extends Authenticatable
 
     public function sotran(){
         return $this->hasMany('App\SOTRAN','m_id');
+    }
+
+    public function level(){
+        if ($this->level==1) {
+            return "Admin";
+        }else{
+            return "Customer";
+        }
     }
     
 }

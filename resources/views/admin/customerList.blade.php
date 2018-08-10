@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col">Surname</th>
                 <th scope="col">Forename</th>
+                <th scope="col">Level</th>
                 <th scope='col'>Address</th>
                 <th scope='col'>City</th>
                 <th scope="col">State</th>
@@ -23,6 +24,9 @@
                 <td>{{$so->m_surname}}</td>
                 <td>
                    {{$so->m_forename}} 
+                </td>
+                <td>
+                    {{$so->main_user()->first()?$so->main_user()->first()->level():"Customer"}}
                 </td>
                 <td>{{$so->m_address}}</td>
                 <td>{{$so->m_city}}</td>

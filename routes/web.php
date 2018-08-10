@@ -37,4 +37,25 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pendingQuotes', 'AdminController@pendingQuotes');
 
+    Route::get('/changePassword', 'AdminController@changePassword');
+
+    Route::post('/updatePassword','AdminController@updatePassword');
+
+    Route::get('/updateInfo','AdminController@updateInfo');
+
+    Route::post('/updateInfo','AdminController@updateUser');
+
+    Route::get('/dealerList','AdminController@dealerList');
+
+    Route::get('/dealerHistory','AdminController@dealerHistory');
+
+    Route::get('/dealerHistory/{id}','AdminController@dealerHistory_oneDealer');
+
+    Route::get('/newDealer','AdminController@newDealer');
+
+    Route::post('/newDealer','AdminController@storeDealer');
+    
+    Route::get('/editDealer/{id}','AdminController@editDealer');
+
+    Route::post('/updateDealer/{id}','AdminController@updateDealer');
 });

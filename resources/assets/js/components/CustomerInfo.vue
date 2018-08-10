@@ -2,7 +2,6 @@
 	<div class='adminPage'>
         
 		<div v-if="hasInfo" class='container adminMain' >
-
             <div class="userNav">
                 <div class="list-group">
                     <a href="/GLAAdmin" class="list-group-item" v-if="user.level==1">Admin Panel</a>
@@ -15,7 +14,6 @@
                     <router-link to='/CustomerInfo/ChangePassword' tag='a' class="list-group-item">Change Password </router-link>
                 </div>
             </div>
-
             <div class="userContent">
                 <router-view></router-view>  
             </div>

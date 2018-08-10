@@ -17,5 +17,9 @@ class UserInfo extends Model
     public function fullname(){
         return $this->m_forename . ' ' .$this->m_surname;
     }
+
+    public function main_user(){
+        return $this->hasOne('App\User','id','m_id');
+    }
     
 }

@@ -97,11 +97,12 @@
                     <div class="col-sm-2 golden_nav" style='padding:0'>
                         <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                             <a class="nav-link active" id="home"   href="/home" role="tab">Admin Home | {{Auth::user()->name}} </a>
-                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true">Dealer Managenment</a>
-                            <a class="nav-link" id="" href="#v" role="tab">Add New Dealer</a>
-                            <a class="nav-link" id="" href="#v" role="tab">Dealer Order History</a>
-                            <a class="nav-link" id="" href="#v" role="tab">Download Dealer Info</a>
-
+                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Dealer Managenment</b></a>
+                            <a class="nav-link" id="dealerList" href="/dealerList" role="tab">Dealer List</a>
+                            <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a>
+                            <a class="nav-link" id="dealerHistory" href="/dealerHistory" role="tab">Dealer Order History</a>
+                            
+                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Member Managenment</b></a>
                             <a class="nav-link" id="customerList"   href="/customerList" role="tab">Member List </a>
                             <a class="nav-link" id="" href="#v" role="tab">Sales Records</a>
                             <a class="nav-link" id="orderHistory"   href="/orderHistory" role="tab">Order History</a>
@@ -117,19 +118,20 @@
                             <a class="nav-link" id="" href="#v" role="tab">Confirm Shipment 
                                 <span class="badge badge-light float-right">9</span>
                             </a>
+
+                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Website Managenment</b></a>
                             <a class="nav-link" id="top10" href="/top10">Top 10 Best Sellers</a>
 
-                            <a class="nav-link" id="" href="#v" role="tab">Website Managenment</a>
                             <a class="nav-link" id="" href="#v" role="tab">Update Feature Products</a>
                             <a class="nav-link" id="" href="#v" role="tab">Broadcasting Email</a>
 
-                            <a class="nav-link" id="" href="#v" role="tab">Account Details</a>
-                            <a class="nav-link" id="v-home"   href="" role="tab">Edit Profile</a>
-                            <a class="nav-link" id="" href="#v" role="tab">Change Password</a>
+                            {{-- <a class="nav-link" id="" href="#v" role="tab">Account Details</a> --}}
+                            {{-- <a class="nav-link" id="updateInfo"  href="/updateInfo" role="tab">Edit Profile</a> --}}
+                            <a class="nav-link" id="changePassword" href="/changePassword" role="tab">Change Password</a>
                         </div>
                     </div>
             
-                    <div class="col-sm-10" >
+                    <div class="col-sm-10"  style='min-height:750px;'>
                         @yield('content')
                     </div>   
                 </div>

@@ -7,7 +7,7 @@
     </div>
     <table class="table ">
         <thead>
-            <tr >
+            <tr>
                 <th scope="col">Order Number</th>
                 <th scope="col">Customer Name</th>
                 <th scope='col'>Order Date</th>
