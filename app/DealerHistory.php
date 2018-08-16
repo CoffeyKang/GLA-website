@@ -22,8 +22,13 @@ class DealerHistory extends Model
 
     // dealer company name
     public function fullname(){
-        if ($this->dealer()->first()->dealerInfo()->first()) {
-            return $this->dealer()->first()->dealerInfo()->first()->name;
+        if ($this->dealer()->first()) {
+            if ($this->dealer()->first()->dealerInfo()->first()) {
+                return $this->dealer()->first()->dealerInfo()->first()->name;
+            }else{
+                return $this->account;
+            }
+            
         }else{
             return $this->account;
         }

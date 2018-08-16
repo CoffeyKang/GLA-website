@@ -24,9 +24,9 @@
 			</div>
 
 			<el-dialog
-			  title="I WANT TO FIND: "
+			  title=""
 			  :visible.sync="centerDialogVisible"
-			  width="30%"
+			  width="50%"
 			  center
 			  >
 			  	<app-search-layer @closeSearchLayer='centerDialogVisible = $event'></app-search-layer>

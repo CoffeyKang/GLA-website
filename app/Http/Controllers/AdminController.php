@@ -18,7 +18,7 @@ use App\SOTRAN;
 use App\Popular;
 use App\Dealer;
 use App\DealerInfo;
-use App\dealerHistory;
+use App\DealerHistory;
 use App\DealerDetails;
 use Auth;
 
@@ -42,7 +42,7 @@ class AdminController extends Controller
     public function orderHistory(){
         $orderHistory = SOMAST::orderBy('sales_status','asc')->orderBy('order_num','desc')->paginate(18);
 
-        return view('admin.orderhistory',compact('orderHistory'));
+        return view('admin.orderHistory',compact('orderHistory'));
     }
 
     public function viewed(Request $request){

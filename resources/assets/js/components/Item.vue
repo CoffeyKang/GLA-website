@@ -17,7 +17,7 @@
 			<span class='price'>${{ item.pricel.toFixed(2)}}</span>
 			
 			<router-link :to="{
-				name:'ItemDetails',
+				name:'ItemDetails',	
 				params:{id:item.item}
 			}" tag='button' class='btn btn-primary'>
 				Details

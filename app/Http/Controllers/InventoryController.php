@@ -479,7 +479,7 @@ class InventoryController extends Controller
             $info = $item->itemInfo()->first();
             $info->itemFullInfo();
             // different level determin different price level
-            $item->price=$info->price;
+            $item->price=$info->pricel;
             $item->descrip=$info->descrip;
             $item->img_path=$info->img_path;
             $item->year_from=$info->year_from;
@@ -916,7 +916,7 @@ class InventoryController extends Controller
 
                 
                 // different level determin different price level
-                $item->price=$info->price;
+                $item->price=$info->pricel;
                 $item->descrip=$info->descrip;
                 $item->img_path=$info->img_path;
                 $item->year_from=$info->year_from;

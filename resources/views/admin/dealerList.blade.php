@@ -28,10 +28,12 @@
                     <td>{{$d->dealerInfo()->first()?$d->dealerInfo()->first()->pplan:"Price4"}}</td>
                     <td class='d-flex justify-content-around'>
                     <a class="btn btn-success btn-sm" style='width:71px;' href="/dealerHistory/{{$d->id}}">History</a>
-                        <button class="btn btn-danger btn-sm" style='width:71px;' >Delete</button> 
+                        <button class="btn btn-danger btn-sm delete_btn" style='width:71px;' @if($d->orderNum()>0) disabled @endif  
+                            >Delete</button>
                         <a class="btn btn-warning btn-sm" style='width:71px;' href="/editDealer/{{$d->id}}">Edit</a>
                     </td>
                 </tr>
+            
             @endforeach
         </tbody>
     </table>
@@ -41,13 +43,21 @@
 
 
 
-
 </div>
 <script>
     $(window).ready(function(){
         $('.nav-link').removeClass('active');
         $('#dealerList').addClass('active');
+        $('.delete_btn').click(function(){
+            console.log(this.target);
+            alert(this);
+        });
+
+
+
     });
+
+    
 
 </script>
 @endsection

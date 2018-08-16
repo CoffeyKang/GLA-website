@@ -309,6 +309,7 @@ export default {
                     if (valid){
                         // submit userDetails info        
                         var userId = this.userInfo.m_id;
+                        console.log(userId);
                         this.$http.post('/api/newShippingAdd',
                             {
                                 'userID':userId,

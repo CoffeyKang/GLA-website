@@ -16983,7 +16983,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.searchBar[data-v-45ecef6c]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n}\n.searchTitle[data-v-45ecef6c]{\n\tfont-weight: bold;\n\ttext-align: center;\n\tfont-size: 20px;\n\tpadding-bottom: 20px;\n\twidth: 100%;\n}\n.searchCatalog[data-v-45ecef6c]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\twidth: 50%;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n\tborder-left: 1px solid black;\n}\n.searchDetails[data-v-45ecef6c]{\n\twidth: 50%;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.img[data-v-45ecef6c]{\n\tbackground-image: url('/images/catalogSearch.jpg');\n\tbackground-position: center;\n\tbackground-size: contain;\n\theight: 160px;\n\tbackground-repeat: no-repeat;\n\tmargin-bottom:30px;\n}\n", ""]);
 
 // exports
 
@@ -16994,6 +16994,36 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17112,142 +17142,236 @@ var render = function() {
     },
     [
       _c(
-        "el-form",
-        { attrs: { "label-width": "80px", size: "medium" } },
+        "div",
+        { staticClass: "searchDetails" },
         [
-          _c(
-            "el-form-item",
-            { attrs: { label: "Item" } },
-            [
-              _c("el-input", {
-                staticStyle: { width: "350px" },
-                attrs: {
-                  placeholder: "Enter a specific item number, ie. 1000A "
-                },
-                model: {
-                  value: _vm.search.item,
-                  callback: function($$v) {
-                    _vm.$set(_vm.search, "item", $$v)
-                  },
-                  expression: "search.item"
-                }
-              })
-            ],
-            1
-          ),
+          _c("span", { staticClass: "searchTitle" }, [
+            _vm._v("I am searching for:")
+          ]),
           _vm._v(" "),
           _c(
-            "el-form-item",
-            { attrs: { label: "Keywords" } },
-            [
-              _c("el-input", {
-                staticStyle: { width: "350px" },
-                attrs: {
-                  placeholder:
-                    "Enter a specific part, ie. Fender, Hood, Lamp, etc."
-                },
-                model: {
-                  value: _vm.search.desc,
-                  callback: function($$v) {
-                    _vm.$set(_vm.search, "desc", $$v)
-                  },
-                  expression: "search.desc"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-form-item",
-            { attrs: { label: "Make" } },
+            "el-form",
+            { attrs: { "label-width": "80px", size: "medium" } },
             [
               _c(
-                "el-select",
-                {
-                  staticStyle: { width: "350px" },
-                  attrs: { placeholder: "Make" },
-                  model: {
-                    value: _vm.search.make,
-                    callback: function($$v) {
-                      _vm.$set(_vm.search, "make", $$v)
+                "el-form-item",
+                { attrs: { label: "Item" } },
+                [
+                  _c("el-input", {
+                    staticStyle: { width: "350px" },
+                    attrs: {
+                      placeholder: "Enter a specific item number, ie. 1000A "
                     },
-                    expression: "search.make"
-                  }
-                },
-                _vm._l(_vm.makes, function(item) {
-                  return _c("el-option", {
-                    key: item.id,
-                    attrs: { label: item.make, value: item.make }
-                  })
-                })
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-form-item",
-            { attrs: { label: "Year" } },
-            [
-              _c(
-                "el-select",
-                {
-                  staticStyle: { width: "350px" },
-                  attrs: { placeholder: "Year" },
-                  model: {
-                    value: _vm.search.year,
-                    callback: function($$v) {
-                      _vm.$set(_vm.search, "year", $$v)
-                    },
-                    expression: "search.year"
-                  }
-                },
-                _vm._l(_vm.currentYear, function(a) {
-                  return a > 1949
-                    ? _c("el-option", { key: a, attrs: { label: a, value: a } })
-                    : _vm._e()
-                })
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-form-item",
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: { type: "primary" },
-                  on: {
-                    click: function($event) {
-                      _vm.searchItem()
+                    model: {
+                      value: _vm.search.item,
+                      callback: function($$v) {
+                        _vm.$set(_vm.search, "item", $$v)
+                      },
+                      expression: "search.item"
                     }
-                  }
-                },
-                [_vm._v("Search")]
+                  })
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "el-button",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.resetSearch()
+                "el-form-item",
+                { attrs: { label: "Keywords" } },
+                [
+                  _c("el-input", {
+                    staticStyle: { width: "350px" },
+                    attrs: {
+                      placeholder:
+                        "Enter a specific part, ie. Fender, Hood, Lamp, etc."
+                    },
+                    model: {
+                      value: _vm.search.desc,
+                      callback: function($$v) {
+                        _vm.$set(_vm.search, "desc", $$v)
+                      },
+                      expression: "search.desc"
                     }
-                  }
-                },
-                [_vm._v(" Reset ")]
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                { attrs: { label: "Make" } },
+                [
+                  _c(
+                    "el-select",
+                    {
+                      staticStyle: { width: "350px" },
+                      attrs: { placeholder: "Make" },
+                      model: {
+                        value: _vm.search.make,
+                        callback: function($$v) {
+                          _vm.$set(_vm.search, "make", $$v)
+                        },
+                        expression: "search.make"
+                      }
+                    },
+                    _vm._l(_vm.makes, function(item) {
+                      return _c("el-option", {
+                        key: item.id,
+                        attrs: { label: item.make, value: item.make }
+                      })
+                    })
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                { attrs: { label: "Year" } },
+                [
+                  _c(
+                    "el-select",
+                    {
+                      staticStyle: { width: "350px" },
+                      attrs: { placeholder: "Year" },
+                      model: {
+                        value: _vm.search.year,
+                        callback: function($$v) {
+                          _vm.$set(_vm.search, "year", $$v)
+                        },
+                        expression: "search.year"
+                      }
+                    },
+                    _vm._l(_vm.currentYear, function(a) {
+                      return a > 1949
+                        ? _c("el-option", {
+                            key: a,
+                            attrs: { label: a, value: a }
+                          })
+                        : _vm._e()
+                    })
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                [
+                  _c(
+                    "el-button",
+                    {
+                      attrs: { type: "primary" },
+                      on: {
+                        click: function($event) {
+                          _vm.searchItem()
+                        }
+                      }
+                    },
+                    [_vm._v("Search")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.resetSearch()
+                        }
+                      }
+                    },
+                    [_vm._v(" Reset ")]
+                  )
+                ],
+                1
               )
             ],
             1
           )
         ],
         1
-      )
-    ],
-    1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "searchCatalog" }, [
+        _c("span", { staticClass: "searchTitle" }, [
+          _vm._v("Search by Catalog:")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "img" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "btn_div" },
+          [
+            _c(
+              "el-form",
+              { attrs: { "label-width": "80px", size: "medium" } },
+              [
+                _c(
+                  "el-form-item",
+                  { attrs: { label: "Make" } },
+                  [
+                    _c(
+                      "el-select",
+                      {
+                        staticStyle: { width: "350px" },
+                        attrs: { placeholder: "Make" },
+                        model: {
+                          value: _vm.search.make,
+                          callback: function($$v) {
+                            _vm.$set(_vm.search, "make", $$v)
+                          },
+                          expression: "search.make"
+                        }
+                      },
+                      _vm._l(_vm.makes, function(item) {
+                        return _c("el-option", {
+                          key: item.id,
+                          attrs: { label: item.make, value: item.make }
+                        })
+                      })
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "primary" },
+                        on: {
+                          click: function($event) {
+                            _vm.searchItem()
+                          }
+                        }
+                      },
+                      [_vm._v("Search")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.resetSearch()
+                          }
+                        }
+                      },
+                      [_vm._v(" Reset ")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -17360,9 +17484,9 @@ var render = function() {
           "el-dialog",
           {
             attrs: {
-              title: "I WANT TO FIND: ",
+              title: "",
               visible: _vm.centerDialogVisible,
-              width: "30%",
+              width: "50%",
               center: ""
             },
             on: {
@@ -67574,7 +67698,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.title[data-v-960719d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-960719d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -67592,11 +67716,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			a: 1
+			makes: []
 		};
 	},
 	mounted: function mounted() {}
@@ -67610,11 +67735,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._v("\n\there is the catelog .\n\t\n\t" + _vm._s(_vm.a) + "\n")
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "title" }, [_c("span", [_vm._v("Catalog")])])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -75803,6 +75935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (valid) {
                     // submit userDetails info        
                     var userId = _this2.userInfo.m_id;
+                    console.log(userId);
                     _this2.$http.post('/api/newShippingAdd', {
                         'userID': userId,
                         'data': _this2.newAdd
