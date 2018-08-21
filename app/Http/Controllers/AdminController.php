@@ -20,6 +20,7 @@ use App\Dealer;
 use App\DealerInfo;
 use App\DealerHistory;
 use App\DealerDetails;
+use App\Catalog;
 use Auth;
 
 class AdminController extends Controller
@@ -229,6 +230,11 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('status','Dealer information has been updated.');
+    }
+
+    public function uploadCatalog(){
+        $catalogs = Catalog::all();
+        return view('admin.uploadCatalog',compact('catalogs'));
     }
 
 }

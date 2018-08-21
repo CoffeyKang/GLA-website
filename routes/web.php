@@ -58,4 +58,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/editDealer/{id}','AdminController@editDealer');
 
     Route::post('/updateDealer/{id}','AdminController@updateDealer');
+
+    ROute::get('/uploadCatalog','AdminController@uploadCatalog');
 });
