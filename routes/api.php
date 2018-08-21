@@ -95,6 +95,8 @@ Route::post('/changePassword','AccessControl@changePassword');
 
 Route::post('/viewed','AdminController@viewed');
 
+Route::get('/catalogs','InventoryController@catalogs');
+
 
 
 

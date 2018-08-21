@@ -15,6 +15,7 @@ use App\UserInfo;
 use App\AddressBook;
 use App\SOMAST;
 use App\SOTRAN;
+use App\Catalog;
 class InventoryController extends Controller
 {
     /**
@@ -1153,6 +1154,13 @@ class InventoryController extends Controller
             return response()->json(['status'=>'invalid']);
         }
         
+    }
+
+    public function catalogs(Request $request){
+        
+        $catalogs = Catalog::all();
+
+        return response()->json(['catalogs'=>$catalogs],200);
     }
     
 }

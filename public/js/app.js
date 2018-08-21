@@ -67698,7 +67698,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.title[data-v-960719d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-960719d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n.title[data-v-960719d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-960719d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n.cat_img[data-v-960719d4]{\n\theight: 230px;\n\tbackground-position: center;\n\tbackground-size: contain;\n\tbackground-repeat: no-repeat;\n}\n.viewOnline[data-v-960719d4]{\n\tbackground-color: yellow;\n\tfont-size: 1.2em;\n}\n.download[data-v-960719d4]{\n\tbackground-color: black;\n\tcolor: white;\n\tfont-size: 1.2em;\n}\n", ""]);
 
 // exports
 
@@ -67717,14 +67717,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			makes: []
+			catalogs: []
 		};
 	},
-	mounted: function mounted() {}
+	mounted: function mounted() {
+		var _this = this;
+
+		// get featureProducts
+		this.$http.get('/api/catalogs').then(function (response) {
+			_this.catalogs = response.body.catalogs;
+		}, function (response) {
+			// error log
+		});
+	},
+
+	methods: {
+		download: function download(name) {
+			window.open('/images/PDF/' + name + '.PDF');
+		}
+	}
 });
 
 /***/ }),
@@ -67735,15 +67767,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "container", staticStyle: { "margin-bottom": "10px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._l(_vm.catalogs, function(catalog) {
+        return _c("div", { key: catalog.id, staticClass: "col-xs-3 cat" }, [
+          _c("div", {
+            staticClass: "cat_img",
+            style: {
+              backgroundImage: "url(/images/catalog/" + catalog.path + ")"
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "cat_btn" }, [
+            _c("h3", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(catalog.name))
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-block viewOnline" }, [
+              _vm._v("\n\t\t\t\tView Online\n\t\t\t")
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-block download",
+                on: {
+                  click: function($event) {
+                    _vm.download(catalog.name)
+                  }
+                }
+              },
+              [_vm._v("\n\t\t\t\tDownload PDF\n\t\t\t")]
+            )
+          ])
+        ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "title" }, [_c("span", [_vm._v("Catalog")])])
+    return _c("div", { staticClass: "title" }, [
+      _c("span", [_vm._v("Catalog")])
     ])
   }
 ]
