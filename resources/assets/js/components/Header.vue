@@ -9,7 +9,7 @@
 				<div>
 					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
-						<router-link to='/login' tag='li' v-if="!loginStatus">Log In</router-link>
+						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register</router-link>
 						<li v-if="loginStatus" @click="logOut()">Log Out</li>
 						<li v-if="loginStatus" @click='customerInfo()'>My Account</li>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>

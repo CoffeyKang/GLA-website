@@ -4,7 +4,7 @@
         <div class="edit_title">
             Edit Your Profile
         </div>
-        <el-form  label-position="left" label-width="80px" :rules="rules" :model="details" ref="details" size="mini">
+        <el-form  label-position="left" label-width="100px" :rules="rules" :model="details" ref="details" size="mini">
 
             <div class='part'>
                 <el-card class="box-card">
@@ -13,16 +13,16 @@
                     </div>
                     <div class="text">
                         <div class="inRow">
-                            <el-form-item label="Surname" prop='surname'>
-                                <el-input v-model="details.surname" placeholder="Surname" ></el-input>
+                            <el-form-item label="Last Name" prop='surname'>
+                                <el-input v-model="details.surname" placeholder="Last Name" ></el-input>
                             </el-form-item>
 
-                            <el-form-item label="Forename" prop='forename'>
-                                <el-input v-model="details.forename" placeholder="Furname"  ></el-input>
+                            <el-form-item label="First Names" prop='forename'>
+                                <el-input v-model="details.forename" placeholder="First Names"  ></el-input>
                             </el-form-item>
                         </div>
                         <div class="inRow">
-                            <el-form-item label="Birthday" prop='brithday' >
+                            <el-form-item label="Date of Birth" prop='brithday' >
                                 <el-input type='date' v-model="details.brithday"   ></el-input>
                             </el-form-item>
 
@@ -58,8 +58,8 @@
                                 <el-input v-model="details.city" placeholder="City"  ></el-input>
                             </el-form-item>
 
-                            <el-form-item label="State" prop='state'>
-                                <el-select v-model="details.state" placeholder="State">
+                            <el-form-item label="Province" prop='state'>
+                                <el-select v-model="details.state" placeholder="Province">
                                     <el-option
                                     v-for="item in privince"
                                     :key="item.name"
@@ -71,8 +71,8 @@
                         </div>
 
                         <div class="inRow">
-                            <el-form-item label="ZIPCODE"  prop='zipcode'>
-                                <el-input v-model="details.zipcode" placeholder="ZIPCODE" ></el-input>
+                            <el-form-item label="Postal Code"  prop='zipcode'>
+                                <el-input v-model="details.zipcode" placeholder="Postal Code" ></el-input>
                             </el-form-item>
 
                             <el-form-item label="Country" prop='country'>
@@ -109,8 +109,8 @@
                                 <el-input v-model="details.edu" placeholder="Education" ></el-input>
                             </el-form-item> -->
 
-                            <el-form-item label="Edu" prop='education'>
-                                <el-select v-model="details.edu" placeholder="Edu">
+                            <el-form-item label="Education" prop='education'>
+                                <el-select v-model="details.edu" placeholder="Education">
                                     <el-option
                                     v-for="item in edu"
                                     :key="item.value"

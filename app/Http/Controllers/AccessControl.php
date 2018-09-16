@@ -43,7 +43,7 @@ class AccessControl extends Controller
         $this->validate($request,[
             'username'=>'required',
             'email'=>'email:unique:users',
-            'password'=>'required',
+            'password'=>'required|min:8',
         ]);
 
         $username = $request->username;

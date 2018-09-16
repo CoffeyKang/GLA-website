@@ -1,5 +1,5 @@
 <template>
-    <div class='container ' @keyup.enter='register()'>
+    <div class='container' @keyup.enter='register()'>
         <div class="col-xs-1"></div>
         <div class="text-center col-xs-10 " id='registerForm' >
                 <div class="col-xs-8 col-xs-offset-2 form-group title-span" >
@@ -27,7 +27,7 @@
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                     <div>
                         <input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'>
-                        <span class='forgetPassword'>Click here to agree to allow Newegg Canada to send you 
+                        <span class='forgetPassword'>Click here to agree to allow Golden Leaf Automotive to send you 
                             exclusive email offers and discounts. You can unsubscribe at any time.</span>
                     </div>
                     
@@ -52,54 +52,54 @@
 
 
 <script>
-export default {
-    data(){
-        return {
-            errors:[],
-            username:null,
-            email:null,
-            password:null,
-            confirm:null,
-            receiveEmail:false,
-            summary:false,
-            storage:window.localStorage,
-        }
-    },
-    methods:{
-        register(){
-            if (this.password!=this.confirm) {
-                this.$message(
-                    {
-                        message:'Password Confirmation does not match Password',
-                        type:'error', 
-                    }
-                );
-                return false;
+    export default{
+        data(){
+            return {
+                errors:[],
+                username:null,
+                email:null,
+                password:null,
+                confirm:null,
+                receiveEmail:false,
+                summary:false,
+                storage:window.localStorage,
             }
-            this.$http.post('/api/newCustomer',{
-                'username':this.username,
-                'email':this.email,
-                'password':this.password,
-                'receiveEmail':this.receiveEmail, 
-                }).then(
-                function(response){
-                    console.log(response.data.user);
-                    this.storage.setItem('user',JSON.stringify(response.data.user));
-                    this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
-                    this.$store.commit('changeLoginStatus',true);
-                    this.$router.push('/');
-                    
-                },function(response){
+        },
+        methods:{
+            register(){
+                if (this.password!=this.confirm) {
                     this.$message(
-                            {
-                                message:'Please Check Your Input.',
-                                type:'error',
-                            }
-                        );
-                });
+                        {
+                            message:'Password Confirmation does not match Password',
+                            type:'error', 
+                        }
+                    );
+                    return false;
+                }
+                this.$http.post('/api/newCustomer',{
+                    'username':this.username,
+                    'email':this.email,
+                    'password':this.password,
+                    'receiveEmail':this.receiveEmail, 
+                    }).then(
+                    function(response){
+                        console.log(response.data.user);
+                        this.storage.setItem('user',JSON.stringify(response.data.user));
+                        this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
+                        this.$store.commit('changeLoginStatus',true);
+                        this.$router.push('/');
+                        
+                    },function(response){
+                        this.$message(
+                                {
+                                    message:'Please Check Your Input.',
+                                    type:'error',
+                                }
+                            );
+                    });
+            },
         }
     }
-}
 </script>
 
 
