@@ -193,6 +193,8 @@ export default {
                 this.addToWishlist(item.item);
             },
             checkOut(){
+
+                
                 /** check if the client has logged in or not. if not, checkout requirs to login. */
                 var user = JSON.parse(this.storage.getItem("user"));
                 var userInfo = JSON.parse(this.storage.getItem("userInfo"));
@@ -200,9 +202,14 @@ export default {
                 if (user&&userInfo) {
                     
                     this.$http.post('api/checkout',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
+
+                        console.log(response);
+                        
                         if (response.data.status=="Success") {
                             this.$router.push('/checkout');
-                        }  
+                        }else if (response.data.status=='noDetails') {
+                            this.$router.push({path:'customerInfo'});
+                        } 
                     }, response => {
                         // error 
                         console.log("reloadElement error");
@@ -211,7 +218,7 @@ export default {
 
                     /** require to login and then turn back to shoppingg cart */
                     this.$store.commit('changeLoginDirect','shoppingCart');
-				    this.$router.push('Login');
+				    this.$router.push({path:'customerInfo'});
                     
                 }
 

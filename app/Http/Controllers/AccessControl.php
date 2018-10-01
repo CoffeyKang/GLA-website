@@ -45,7 +45,17 @@ class AccessControl extends Controller
             'email'=>'email:unique:users',
             'password'=>'required|min:8',
         ]);
+        
 
+        $checkEmail = User::where('email',$request->email)->first();
+
+        if ($checkEmail) {
+            
+            return response()->json(['status'=>"userExists"],200);
+        
+        }else{
+
+        }
         $username = $request->username;
 
         $email = $request->email;

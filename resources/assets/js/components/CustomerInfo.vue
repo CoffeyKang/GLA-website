@@ -27,14 +27,14 @@
                     shipping progress and fast and easy check out. If you don't have an account, please create a new one.
                 </div>
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                <el-form  label-position="left" label-width="80px" :rules="rules" :model="details" ref="details" size="medium">
+                <el-form  label-position="left" label-width="120px" :rules="rules" :model="details" ref="details" size="medium">
                     
-                    <el-form-item label="Surname" prop='surname'>
-                        <el-input v-model="details.surname" placeholder="Surname" ></el-input>
+                    <el-form-item label="Last Name" prop='surname'>
+                        <el-input v-model="details.surname" placeholder="Last Name" ></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Forename" prop='forename'>
-                        <el-input v-model="details.forename" placeholder="Furname"  ></el-input>
+                    <el-form-item label="First Name" prop='forename'>
+                        <el-input v-model="details.forename" placeholder="First Name"  ></el-input>
                     </el-form-item>
 
                     <div class="inRow">
@@ -49,7 +49,7 @@
                             </el-select>
                         </el-form-item>
 
-                        <el-form-item label="Birthday" prop='brithday' >
+                        <el-form-item label="Date of Birth" prop='brithday' >
                             <el-input type='date' v-model="details.brithday"   ></el-input>
                         </el-form-item>
                     </div>
@@ -59,7 +59,7 @@
                             <el-input v-model="details.city" placeholder="City"  ></el-input>
                         </el-form-item>
 
-                        <el-form-item label="State" prop='state'>
+                        <el-form-item label="Province" prop='state'>
                             <el-select v-model="details.state" placeholder="State">
                                 <el-option
                                 v-for="item in privince"
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="inRow">
-                        <el-form-item label="ZIPCODE"  prop='zipcode'>
+                        <el-form-item label="Postal Code"  prop='zipcode'>
                             <el-input v-model="details.zipcode" placeholder="ZIPCODE" ></el-input>
                         </el-form-item>
 
@@ -94,7 +94,7 @@
                     </el-form-item>
 
                     <div class="inRow">
-                        <el-form-item label="Edu"  prop='education'>
+                        <el-form-item label="Education"  prop='education'>
                             <el-input v-model="details.edu" placeholder="Education" ></el-input>
                         </el-form-item>
                     

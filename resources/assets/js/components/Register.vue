@@ -76,6 +76,16 @@
                     );
                     return false;
                 }
+
+                if (this.password.length<8) {
+                    this.$message(
+                        {
+                            message:'The minimal length of password if 8',
+                            type:'error', 
+                        }
+                    );
+                    return false;
+                }
                 this.$http.post('/api/newCustomer',{
                     'username':this.username,
                     'email':this.email,
@@ -83,11 +93,22 @@
                     'receiveEmail':this.receiveEmail, 
                     }).then(
                     function(response){
+
+                        if (response.data.status=="userExists") {
+                            this.$message(
+                                {
+                                    message:'The Email has been used.',
+                                    type:'error', 
+                                }
+                            );
+                            return false;
+                        }
+                        console.log(response);
                         console.log(response.data.user);
                         this.storage.setItem('user',JSON.stringify(response.data.user));
                         this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
                         this.$store.commit('changeLoginStatus',true);
-                        this.$router.push('/');
+                        this.$router.push({name:'userHome'});
                         
                     },function(response){
                         this.$message(

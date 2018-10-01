@@ -9,7 +9,8 @@ class UserInfo extends Model
     protected $table = 'member_info';
     public $timestamps = false;
     
-    
+    protected $primaryKey = 'm_id';
+
     public function somast(){
         return $this->hasMany('App\SOMAST','m_id','m_id');
     }

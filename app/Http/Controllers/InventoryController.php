@@ -379,6 +379,14 @@ class InventoryController extends Controller
         $items = $request->storage;
 
         $userID = $request->userID;
+
+        $userInfo = UserInfo::find($userID);
+
+        if ($userInfo) {
+            # code...
+        }else{
+            return response()->json(['status'=>"noDetails"],200);
+        }
         
 
 
