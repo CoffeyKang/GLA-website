@@ -564,14 +564,19 @@ class InventoryController extends Controller
                     $item_info->weight=1;
                 }
 
-                $Package = $xml->createElement("Package");
-                    $Package->setAttribute("length",$item_info->length);
-                    $Package->setAttribute("width",$item_info->width);
-                    $Package->setAttribute("height",$item_info->height);
-                    $Package->setAttribute("weight",$item_info->weight);
-                $Package=$Packages->appendChild($Package);
+                for ($i=0; $i < $item->qty ; $i++) { 
+                    // calculate shipping fee by every item
 
-                $Packages = $QuoteRequest->appendChild($Packages);
+                    $Package = $xml->createElement("Package");
+                        $Package->setAttribute("length",$item_info->length);
+                        $Package->setAttribute("width",$item_info->width);
+                        $Package->setAttribute("height",$item_info->height);
+                        $Package->setAttribute("weight",$item_info->weight);
+                    $Package=$Packages->appendChild($Package);
+
+                    $Packages = $QuoteRequest->appendChild($Packages);
+
+                }
 
             }
 

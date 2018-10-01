@@ -207,6 +207,7 @@ export default {
             expressDay:1,
             groundDay:1,
             shippingRate:'',
+            // shipping:0,
             privince:[
                     {name:'Alberta',Code:"AB"},
                     {name:'British-Coloumbia',Code:"BC"},
@@ -264,12 +265,20 @@ export default {
                 return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
 
             },
-            shipping:function(){
-                if (this.shippingOPT==1) {
-                    return this.quotes['ground'];
-                }else{
-                    return this.quotes['express'];
+            shipping:{
+
+                get:function () {
+                    if (this.shippingOPT==1) {
+                        return this.quotes['ground'];
+                    }else{
+                        return this.quotes['express'];
+                    }
+                },
+
+                set:function() {
+                    
                 }
+                
             }
         },
         mounted(){
@@ -292,9 +301,6 @@ export default {
                     this.expressDay = response.data.expressDay;
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
-
-
-                    
                 });
 
 			}else{

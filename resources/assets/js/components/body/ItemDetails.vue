@@ -126,7 +126,7 @@
 				console.log(this.related);
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			    console.log("error_related");
 			  });
 
 			this.viewed(this.id);

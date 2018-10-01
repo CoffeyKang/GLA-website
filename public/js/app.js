@@ -69048,7 +69048,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			console.log(_this.related);
 		}, function (response) {
 			// error 
-			console.log("error");
+			console.log("error_related");
 		});
 
 		this.viewed(this.id);
@@ -76163,6 +76163,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             expressDay: 1,
             groundDay: 1,
             shippingRate: '',
+            // shipping:0,
             privince: [{ name: 'Alberta', Code: "AB" }, { name: 'British-Coloumbia', Code: "BC" }, { name: 'Manitoba', Code: "MB" }, { name: 'New-Brunswick', Code: "NB" }, { name: 'Newfoundland and Labrador', Code: "NL" }, { name: 'Northwest Territories', Code: "NT" }, { name: 'Nova-Scotia', Code: "NS" }, { name: 'Nunavut', Code: "NU" }, { name: 'Ontario', Code: "ON" }, { name: 'Prince-Edward Island', Code: "PE" }, { name: 'Quebec', Code: "QC" }, { name: 'Saskatchewan', Code: "SK" }, { name: 'Yukon', Code: "YT" }],
             userInfo: [],
             loading: 1,
@@ -76188,12 +76189,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
         },
-        shipping: function shipping() {
-            if (this.shippingOPT == 1) {
-                return this.quotes['ground'];
-            } else {
-                return this.quotes['express'];
-            }
+        shipping: {
+
+            get: function get() {
+                if (this.shippingOPT == 1) {
+                    return this.quotes['ground'];
+                } else {
+                    return this.quotes['express'];
+                }
+            },
+
+            set: function set() {}
+
         }
     },
     mounted: function mounted() {
