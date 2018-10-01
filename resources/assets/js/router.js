@@ -13,10 +13,14 @@ import PageNotFound from './components/body/PageNotFound.vue';
 import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import CustomerInfo from './components/CustomerInfo.vue';
-import SetPromotion from './components/userAdmin/SetPromotion.vue';
-import EditUser from './components/userAdmin/SetPromotion.vue';
 import UserHome from './components/userAdmin/UserHome.vue';
+import OrderHistory from './components/userAdmin/OrderHistory.vue';
+import PendingOrder from './components/userAdmin/PendingOrder.vue';
+import OneOrder from './components/userAdmin/OneOrder.vue';
+import ChangeProfile from './components/userAdmin/ChangeProfile.vue';
+import ChangePassword from './components/userAdmin/ChangePassword.vue';
 import ShoppingCart from './components/body/shoppingCart.vue';
+import Checkout from './components/body/Checkout.vue';
 
 export const routes = [
   {path: '/',component: Home,name: 'home'},
@@ -31,15 +35,20 @@ export const routes = [
   {path: '/wishlist',component: Wishlist, name: 'Wishlist'},
   {path: '/login',component: Login, name: 'Login'},
   {path: '/register', component: Register, name: 'Register'},
-  {path: '/customerinfo/:id', component: CustomerInfo, name: 'CustomerInfo',
+  {
+    path: '/customerinfo', component: CustomerInfo, name: 'CustomerInfo',
     children: [
-      { path: '', component: UserHome, name: 'userHome' },
-      {path: 'setPromotion',component: SetPromotion, name: 'setPromotion'},
-      {path: 'editUser',component: EditUser, name: 'editUser'}
+      { path: 'HomePage', component: UserHome, name: 'userHome' },
+      { path: 'OrderHistory', component: OrderHistory, name: 'OrderHistory' },
+      { path: 'PendingOrder', component: PendingOrder, name: 'PendingOrder' },
+      { path: 'oneOrder/:order_num', component: OneOrder, name: 'OneOrder' },
+      { path: 'ChangeProfile', component: ChangeProfile, name: 'ChangeProfile'},
+      { path: 'ChangePassword', component: ChangePassword, name: 'ChangePassword' }
     ]
   },
   {path: '/SearchList',component: SearchList, name: 'SearchList'},
-  {path:'/shoppingCart', component:ShoppingCart, name:'ShoppingCart'},
+  {path: '/shoppingCart', component: ShoppingCart, name: 'ShoppingCart'},
+  { path: '/checkout', component: Checkout, name: 'checkout' },
   {path: '*', component: PageNotFound }
 
 ];

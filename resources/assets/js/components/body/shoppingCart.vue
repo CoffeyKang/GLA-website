@@ -2,7 +2,7 @@
     <div class="container">
         <h3>Shopping Carts</h3>
         <div class="col-sm-8" style='padding:0;'>
-            <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" >
+            <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
                 <div class='singleItem'>
                     <div class="itemImg" >
                         <div id="itemImg" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
@@ -34,11 +34,10 @@
                     </div>
                     <div class="item_action text-right">
                         <div class="closure ">
-                            <span class="glyphicon glyphicon-remove" @click="removeFromCart(item.item)"></span>
+                            <span class="glyphicon glyphicon-remove" @click="removeFromCart(item)"></span>
                         </div>
-                        <div class="toWish">
+                        <div class="toWish" @click='removeToWish(item)'>
                             Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
-
                         </div>
                         <div class="price">
                             <span>
@@ -50,6 +49,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="container-fulid oneItem alert alert-warning" v-if="carts.length<1" style='border:0'>
+                <h5>Your Shopping Cart is empty.</h5>
+                
             </div>
         </div>
         <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
@@ -81,7 +84,7 @@
                 </div>
 
                 <div class="processBTN text-center">
-                    <button class='mybtn'>Proceed To<br>
+                    <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1">Proceed To
                     Check Out</button>
                 </div>
             </div>
@@ -101,14 +104,14 @@ export default {
             subtotal:0,
             shipping:"-",
             hst:"-",
-            total:'-',
+            // total:this.subtotal,
             
             }
         },
         computed:{
-            // total:function(){
-            //     return this.subtotal + this.shipping + this.hst;
-            // }
+            total:function(){
+                return this.subtotal;
+            }
         },
         mounted(){
             this.reloadElement();
@@ -120,20 +123,18 @@ export default {
                 for (let i = 0; i < this.storage.length; i++) {
                     this.items.push(this.storage.key(i));
                 };
-                // get item information 
-                let data = this.items;
-                this.$http.post('/api/getItems_carts/',{data:data}).then(response => {
+                var d = this.items;
+                this.$http.post('api/getItems_carts',{data:d},[method=>"POST"]).then(response => {
                     this.carts = response.data.carts;
                     this.$store.commit('carts_number',this.carts.length);
                     this.subtotal = 0;                
                     this.carts.forEach(element => {
                         this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
                     });
-                    console.log(this.subtotal);
                         
                 }, response => {
-                        // error 
-                    console.log("error");
+                    // error 
+                    console.log("reloadElement error");
                 });
             },
             
@@ -143,32 +144,13 @@ export default {
                     cancelButtonText: 'Cancel',
                     type: 'warning'
                     }).then(() => {
+                        this.items = [];
+                        this.storage.removeItem(item.item);
+                        this.reloadElement();
                         this.$message({
                             type: 'success',
                             message: 'Scuccessfully delete!',
                         });
-                        this.items = [];
-                        this.storage.removeItem(item);
-                        // get items # from localstorage 
-                        for (let i = 0; i < this.storage.length; i++) {
-                            this.items.push(this.storage.key(i));
-                        };
-                        this.$http.post('/api/getItems_carts/',{data:this.items}).then(response => {
-                            this.carts = response.data.carts;
-                            this.$store.commit('carts_number',this.carts.length);
-                            // subtotal 
-                            this.subtotal = 0;
-                            this.carts.forEach(element => {
-                                this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
-                            });
-                        }, response => {
-                                // error 
-                            console.log("error");
-                        });
-
-                        
-                        
-
                     }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -179,22 +161,72 @@ export default {
 
             updateCart(item){
                 var value = $("#"+item.item+"").val();
+
+                
+                if (value==0) {
+                    this.removeFromCart(item);
+                    return false;
+                }
                 if (value>item.onhand) {
                     this.$alert('Out of stock', 'Warning', {
 						confirmButtonText: 'OK',
 					});
+                    
                 }else{
                     this.storage.removeItem(item.item);
                     this.storage.setItem(item.item,value);
                     this.items = [];
-                    this.reloadElement();        
-
+                    this.reloadElement();  
+                    this.$message({
+                        type: 'success',
+                        message: 'Update Successful.'
+                    });        
                 }
                 
-            }
+                
+            },
+            removeToWish(item){
+                this.items = [];
+                this.storage.removeItem(item.item);
+                // get items # from localstorage 
+                this.reloadElement();
+                this.addToWishlist(item.item);
+            },
+            checkOut(){
 
-            
-            
+                
+                /** check if the client has logged in or not. if not, checkout requirs to login. */
+                var user = JSON.parse(this.storage.getItem("user"));
+                var userInfo = JSON.parse(this.storage.getItem("userInfo"));
+
+                if (user&&userInfo) {
+                    
+                    this.$http.post('api/checkout',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
+
+                        console.log(response);
+                        
+                        if (response.data.status=="Success") {
+                            this.$router.push('/checkout');
+                        }else if (response.data.status=='noDetails') {
+                            this.$router.push({path:'customerInfo'});
+                        } 
+                    }, response => {
+                        // error 
+                        console.log("reloadElement error");
+                    });
+                }else{
+
+                    /** require to login and then turn back to shoppingg cart */
+                    this.$store.commit('changeLoginDirect','shoppingCart');
+				    this.$router.push({path:'customerInfo'});
+                    
+                }
+
+                return false;
+
+                
+                
+            },
         },
         watch:{
             
@@ -308,13 +340,7 @@ export default {
         border-bottom: 1px solid black;
     }
     .mybtn{
-        border: none;
-        font-size: 28px;
-        color: white;
-        font-weight: bold;
-        background: #009456;
-        border-radius: 5px;
-        padding: 5px 20px;
+       font-size: 16px;
     }
     .fakeLink{
         cursor: pointer;

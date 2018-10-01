@@ -1,5 +1,5 @@
 <template>
-    <div class='container '>
+    <div class='container' @keyup.enter='register()'>
         <div class="col-xs-1"></div>
         <div class="text-center col-xs-10 " id='registerForm' >
                 <div class="col-xs-8 col-xs-offset-2 form-group title-span" >
@@ -16,27 +16,25 @@
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Password" class="form-control" v-model='password' required>
+                    <input type="password" id='password' placeholder="Password" class="form-control" v-model='password' required>
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Confirm Password" class="form-control" v-model='confirm' required>
+                    <input type="password" placeholder="Confirm Password" class="form-control" 
+                     v-model='confirm' required>
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                     <div>
                         <input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'>
-                        <span class='forgetPassword'>Click here to agree to allow Newegg Canada to send you 
+                        <span class='forgetPassword'>Click here to agree to allow Golden Leaf Automotive to send you 
                             exclusive email offers and discounts. You can unsubscribe at any time.</span>
                     </div>
                     
                 </div>
-
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <button class="btn btn-success col-xs-12" id='loginBtn' @click="register()">Register</button>
                 </div>
-
-                
             </div>
             <div class="col-xs-1"></div>
             <div class="col-xs-10 col-xs-offset-1" v-if="summary">
@@ -45,7 +43,6 @@
                     Email : {{ email}}<br>
                     Password: {{ password}}<br>
                     receiveEmail: {{ receiveEmail}}
-
                 </div>
                 
             </div>
@@ -55,34 +52,75 @@
 
 
 <script>
-export default {
-    data(){
-        return {
-            errors:[],
-            username:null,
-            email:null,
-            password:null,
-            confirm:null,
-            receiveEmail:false,
-            summary:false,
-        }
-    },
-    methods:{
-        register(){
-            this.$http.post('/api/newCustomer',{
-                'username':this.username,
-                'email':this.email,
-                'password':this.password,
-                'receiveEmail':this.receiveEmail, 
-                }).then(
-                function(response){
-                    console.log(response.data.token);
-                }),(function(response){
-                    console.log('something wrong.');
-                });
+    export default{
+        data(){
+            return {
+                errors:[],
+                username:null,
+                email:null,
+                password:null,
+                confirm:null,
+                receiveEmail:false,
+                summary:false,
+                storage:window.localStorage,
+            }
+        },
+        methods:{
+            register(){
+                if (this.password!=this.confirm) {
+                    this.$message(
+                        {
+                            message:'Password Confirmation does not match Password',
+                            type:'error', 
+                        }
+                    );
+                    return false;
+                }
+
+                if (this.password.length<8) {
+                    this.$message(
+                        {
+                            message:'The minimal length of password if 8',
+                            type:'error', 
+                        }
+                    );
+                    return false;
+                }
+                this.$http.post('/api/newCustomer',{
+                    'username':this.username,
+                    'email':this.email,
+                    'password':this.password,
+                    'receiveEmail':this.receiveEmail, 
+                    }).then(
+                    function(response){
+
+                        if (response.data.status=="userExists") {
+                            this.$message(
+                                {
+                                    message:'The Email has been used.',
+                                    type:'error', 
+                                }
+                            );
+                            return false;
+                        }
+                        console.log(response);
+                        console.log(response.data.user);
+                        this.storage.setItem('user',JSON.stringify(response.data.user));
+                        this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
+                        this.$store.commit('changeLoginStatus',true);
+                        this.$router.push({name:'userHome'});
+                        
+                    },function(response){
+                        this.$message(
+                                {
+                                    message:'Please Check Your Input.',
+                                    type:'error',
+                                }
+                            );
+                    });
+            },
         }
     }
-}
 </script>
 
 

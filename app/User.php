@@ -12,11 +12,11 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
+     * different level determin different price level
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','level',
     ];
 
     /**
@@ -28,5 +28,28 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function userDetails(){
+        return $this->hasOne('App\UserInfo','m_id');
+    }
+
+    public function addressBook(){
+        return $this->hasMany('App\AddressBook','cust_id');
+    }
+
+    public function somast(){
+        return $this->hasMany('App\SOMAST','m_id');
+    }
+
+    public function sotran(){
+        return $this->hasMany('App\SOTRAN','m_id');
+    }
+
+    public function level(){
+        if ($this->level==1) {
+            return "Admin";
+        }else{
+            return "Customer";
+        }
+    }
     
 }

@@ -15,7 +15,49 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test','inventoryController@test');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/checkout', 'HomeController@index')->name('home');
+
+Route::get('/GLAAdmin','AdminController@index')->name('index');
+
+
+
+Route::middleware('auth')->group(function () {
+    
+    Route::get('/home','AdminController@home');
+
+    Route::get('/top10', 'AdminController@top10');
+
+    Route::get('/orderHistory', 'AdminController@orderHistory');
+
+    Route::get('/customerList', 'AdminController@customerList');
+
+    Route::get('/pendingQuotes', 'AdminController@pendingQuotes');
+
+    Route::get('/changePassword', 'AdminController@changePassword');
+
+    Route::post('/updatePassword','AdminController@updatePassword');
+
+    Route::get('/updateInfo','AdminController@updateInfo');
+
+    Route::post('/updateInfo','AdminController@updateUser');
+
+    Route::get('/dealerList','AdminController@dealerList');
+
+    Route::get('/dealerHistory','AdminController@dealerHistory');
+
+    Route::get('/dealerHistory/{id}','AdminController@dealerHistory_oneDealer');
+
+    Route::get('/newDealer','AdminController@newDealer');
+
+    Route::post('/newDealer','AdminController@storeDealer');
+    
+    Route::get('/editDealer/{id}','AdminController@editDealer');
+
+    Route::post('/updateDealer/{id}','AdminController@updateDealer');
+
+    ROute::get('/uploadCatalog','AdminController@uploadCatalog');
+});

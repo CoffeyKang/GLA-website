@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Eshipper xmlns="http://www.eshipper.net/XMLSchema" username="veistrading" password="229280" version="3.0.0">
+	<QuoteRequest serviceId="18" stackable="true">
+		<From id="18" company="Veis Trading Inc." address1="200 Riviera Drive, Unit 2" city="Toronto" state="ON" country="Canada" zip="L3R5M1"/>
+		<To company="Home" address1="167 Durhamview" city="Stouffville" state="ON" country="Canada" zip="L4A1S2"/>
+		<Packages type="Package">
+				<Package length="74" width="47.5" height="15.5" weight="16" type="Package" freightClass="70" nmfcCode="123456" insuranceAmount="0" codAmount="0" description="this is a test item"/>
+				<Package length="6" width="5" height="5" weight="22" type="Package" freightClass="70" nmfcCode="123456" insuranceAmount="0" codAmount="0" description="this is a test item"/>
+				<Package length="25" width="20" height="5" weight="22" type="Package" freightClass="70" nmfcCode="123456" insuranceAmount="0" codAmount="0" description="this is a test item"/>
+		</Packages>
+	</QuoteRequest>
+</Eshipper>
+
+
+<Package length="15" width="10" height="12" weight="12" />
+<Package length="15" width="10" height="10" weight="14" />
+
+<Package length="15" width="10" height="12" weight="10"/>
+<Package length="74" width="47" height="15" weight="16"/>
+<Package length="61" width="15" height="15" weight="22" />
+<Package length="25" width="20" height="15" weight="22" />

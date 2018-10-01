@@ -11,33 +11,40 @@ const searchModule = {
   },
   mutations: {
     setItem(state, item) {
-        state.item = item;
+      state.item = item;
     },
     setDesc(state, desc) {
-        state.desc = desc;
+      state.desc = desc;
     },
     setMake(state, make) {
-        state.make = make;
+      state.make = make;
     },
     setYear(state, year) {
-        state.year = year;
+      state.year = year;
     }
   }
 };
 
 export const store = new Vuex.Store({
-  state:{
-    carts_total:0,
+  state: {
+    carts_total: 0,
+    loginStatus: false,
+    loginDirect: '/'
   },
 
-  mutations:{
-    carts_number(state,number){
+  mutations: {
+    carts_number(state, number) {
       state.carts_total = number;
+    },
+    changeLoginStatus(state, status) {
+      state.loginStatus = status;
+    },
+    changeLoginDirect(state, direction) {
+      state.loginDirect = direction;
     }
   },
   modules: {
     search: searchModule
   }
-
 
 });

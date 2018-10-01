@@ -1,22 +1,21 @@
 <template>
 	<div class='container' id='car_makes' v-loading='loading' element-loading-text='Loading ...'>
-		<div class='car_make' v-for='make in makes' >
+		<div class='car_make' v-for='make in makes' :key="make.make">
 			<router-link :to="{
 				name:'Pruduct_list', 
 				query:{ make: make.make }
 				}" tag='a'>
 				<div class="car_img" v-if='make.path!="default"'>
-					<img :src="make.path" alt="123">
+					<img :src="make.path" alt="123 " draggable='false'>
 				</div>
+
 				<div class="car_img" v-if=' make.path == "default"'>
-					
 					<img src="/images/makes/default.jpg" alt="2">
 				</div>
 
 				<div class="car_make_name text-center">
 					{{ make.make.toUpperCase().replace("_"," " ) }}
 				</div>
-
 			</router-link>
 			
 		</div>
@@ -56,9 +55,7 @@
 	}
 </script>
 <style scoped>
-img{
-	width: 100%;
-}
+
 a, a:hover{
 	text-decoration:none;
 }
@@ -84,6 +81,13 @@ a:hover{
 	}
 	.car_img{
 		padding: 30px;
+		height: 161px;
+		width: 200px;
+		
+	}
+	.car_img img{
+		height: 70px;
+		width: 140px;
 	}
 	.blue{
 		background-color: blue;

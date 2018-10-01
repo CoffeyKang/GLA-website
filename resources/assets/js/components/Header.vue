@@ -5,11 +5,13 @@
 				<div>
 					<img src="images/header_logo.png" alt="Logo">
 				</div>
-				
+
 				<div>
 					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
-						<router-link to='/login' tag='li'>Log In</router-link>
+						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register</router-link>
+						<li v-if="loginStatus" @click="logOut()">Log Out</li>
+						<li v-if="loginStatus" @click='customerInfo()'>My Account</li>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>
 						<router-link to='/shoppingCart' tag='li'> 
 							<el-badge :value="carts_total" class="item">
@@ -18,12 +20,13 @@
 						</router-link>
 					</ul>
 				</div>
+				
 			</div>
 
 			<el-dialog
-			  title="I WANT TO FIND: "
+			  title=""
 			  :visible.sync="centerDialogVisible"
-			  width="30%"
+			  width="50%"
 			  center
 			  >
 			  	<app-search-layer @closeSearchLayer='centerDialogVisible = $event'></app-search-layer>
@@ -54,22 +57,48 @@
 			return {
 				centerDialogVisible:false,
 				labelPosition: 'left',
-				
+				storage:window.localStorage,
+				userID:0,
 			}
 		},
 		components:{
 			appSearchLayer:SearchLayer
 		},
 		methods:{
-			
+			logOut(){
+				this.storage.clear();
+				this.$store.commit('changeLoginStatus',false);
+				this.$store.commit('carts_number',0);
+				this.$router.push('/');
+			},
+			customerInfo(){
+				this.$router.push({path:'/CustomerInfo/HomePage'});
+			}
 		},
 		mounted(){
+
+			if (this.storage.getItem("user")) {
+				
+				this.userID = JSON.parse(this.storage.getItem("user")).id;
+					
+			}else{
+				console.log('not login');
+			}
 			
+
 		},
+		
 		computed:{
+			
 			carts_total(){
 				return this.$store.state.carts_total;
-			}
+			},
+			loginStatus(){
+				return this.$store.state.loginStatus;
+			},
+
+
+
 		}
 		
 

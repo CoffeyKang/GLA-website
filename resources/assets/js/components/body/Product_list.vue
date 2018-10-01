@@ -32,13 +32,13 @@
 						<span>{{showLimitedWords(item.descrip,35)  }}</span>
 					</div>
 
-					<div class='add_details' @click='goToItem(item.item)'>
-						<button class="btn btn-primary">
+					<div class='add_details' >
+						<button class="btn btn-primary" @click='goToItem(item.item)'>
 							Details
 						</button>
-						<a href='#' class='add_to_cart'>
-							Add To Cart 
-						</a>
+						<button class='add_to_cart btn btn-link' @click='addToCart_common(item)'>
+							Add To Cart  
+						</button>
 					</div>
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
-			    console.log(this.data);
+			    
 
 			  }, response => {
 			  	// error 
@@ -117,7 +117,6 @@
 			},
 			showLimitedWords:function(str,num){
 				
-				console.log(num);
 				if (str.length <= num) {
 					return str;
 				}else{

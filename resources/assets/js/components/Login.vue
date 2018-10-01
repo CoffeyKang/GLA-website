@@ -1,21 +1,22 @@
 <template>
-    <div class='container loginPage'>
+    <div class='container loginPage' @keyup.enter="loginTo()">
         <div class="col-xs-12 col-sm-6" id='loginDev'>
             <div class="text-center row" id='loginForm'>
+                
                 <div class='title'>Login</div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="text" placeholder="Email Address" class="form-control" v-model='userinfo.email'>
+                    <input type="text" placeholder="Email Address" class="form-control" v-model='email'>
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Password" class="form-control" v-model='userinfo.password'>
+                    <input type="password" placeholder="Password" class="form-control" v-model='password'>
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <button class="btn btn-primary col-xs-12" id='loginBtn' @click="loginTo()">Login</button>
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                     <div>
-                        <input type="checkbox"  value='RemeberPassword' placeholder="remeber">
-                        <span class='forgetPassword'>Remember my GLA ID</span>
+                        <!-- <input type="checkbox"  value='RemeberPassword' placeholder="remeber">
+                        <span class='forgetPassword'>Remember my GLA ID</span> -->
                     </div>
                     <div>
                         <span class='forgetPassword'>Forgot Password?</span>
@@ -52,7 +53,9 @@
                 2. Enable Javascript. <br>
                 3. Refresh the page. <br>
                 If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.
+                
             </div>
+            
             
         </div>
         
@@ -64,31 +67,59 @@
 export default {
     data(){
         return {
-            userinfo:{
-                
-            },
+            email:'',
+            password:'',
+            storage:window.localStorage,
+        }
+    },
+    mounted(){
+        // check if user is login
+		if(this.storage.getItem('userInfo')){
+				
+            let userData = JSON.parse(this.storage.getItem('userInfo'));
+            this.$router.push('home');
+		}else{
+			this.$router.push('Login');
+        }
+        
+        console.log(this.loginDirect);
+    },
+    computed:{
+        loginStatus(){
+            return this.$store.state.loginStatus;
+        },
+        loginDirect(){
+            return this.$store.state.loginDirect;
         }
     },
     methods:{
         loginTo(){
-            this.$http.post('/api/loginCustomer', {loginInfo: this.userinfo}).then(
+            this.$http.post('/api/loginCustomer', {email: this.email, password:this.password}).then(
                 function(response){
-                    console.log(response.data);
                     var myStorage = localStorage;
+                    
                     myStorage.setItem('user', JSON.stringify(response.data.user));
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
-                    myStorage.setItem('token', response.data.token);
+                    this.$store.commit('changeLoginStatus',true);
                     
-
-                    this.$router.push({name:'CustomerInfo',params:{'id':response.data.user.id}});
+                    this.$router.push(this.loginDirect);
                     
-                }), (function(response){
+                }).catch(function(response){
+                    // Your account or password was entered incorrectly.
+                    if(response.status === 401) {
+                        this.$message({
+                            showClose: true,
+                            message: 'Your email or password was entered incorrectly.',
+                            type: 'error',
+                            duration:8000
+                        });
                     
+                    }
+                
                 });
 
-            
         },
         toRegister(){
             this.$router.push('/register');

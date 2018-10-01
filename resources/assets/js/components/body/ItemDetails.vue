@@ -15,7 +15,7 @@
 				<div class="details text-left">
 					<li><span class='column_name'>Item Number:</span> <b>{{item.item}}</b></li>
 					<li><span class='column_name'>Year Fit: </span><b>{{item.year_from}} -- {{item.year_end}}</b></li>
-					<li><span class='column_name'>Make: </span><b>{{item.make}}</b></li>
+					<li><span class='column_name'>Compatible Make: </span><b v-for="item_make in item_makes" :key="item_make.row_id"> {{item_make.make}} &nbsp;</b></li>
 				</div>
 				<div class="priceDiv">
 					<div class="price">
@@ -43,7 +43,7 @@
 								</div>
 								
 							</div>
-							<div class="wish">
+							<div class="wish" @click="addToWishlist(item.item)">
 								Add To Wishlist &nbsp;<span class="glyphicon glyphicon-heart-empty"></span>
 							</div>
 						</div>
@@ -67,7 +67,7 @@
 						<li><span class='related_colum'>Item Number: #{{r.item}}</span> </li>
 						<li><b>{{r.descrip}}</b></li>
 						<li><span class='related_colum'>Year Fit: {{r.year_from}} -- {{r.year_end}}</span></li>
-						<li><span class='related_colum'>Make: {{r.make}}</span></li>
+						<li><span class='related_colum all_make'>Make: {{r.all_makes}}</span></li>
 						<div class="realted_priceDiv">
 							${{r.pricel.toFixed(2)}}
 						</div>
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		
-		</div>
+		
 
 	</div>
 </template>
@@ -106,13 +106,13 @@
 			this.$http.get('/api/item/'+ this.id).then(response => {
 			    // get body data
 			    
-			    this.item = response.body;
+				this.item = response.body.singleItem;
+				
+				this.item_makes = response.body.item_makes;
 
-			    console.log(this.item.pricel);
+				
 
 			    this.showItem = true;
-
-
 
 			  }, response => {
 			  	// error 
@@ -122,36 +122,28 @@
 			// get related item
 			this.$http.get('/api/related/'+ this.id).then(response => {
 			    // get body data
-			    
-			    this.related = response.body;
-			    console.log(this.related);
-
+				this.related = response.data;
+				console.log(this.related);
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			    console.log("error_related");
 			  });
 
+			this.viewed(this.id);
+
+			
 			  
 			
 
 		},
 		methods:{
-			goTo($item){
-				this.$http.get('/api/item/'+ $item).then(response => {
+			goTo(item){
+				console.log(item);
+				this.$http.get('/api/item/'+ item).then(response => {
 			    // get body data
-			    this.item = response.body;
+				this.item = response.body;
+				this.$router.push({name:'ItemDetails', params:{id:item}});
 			    window.scrollTo(0,0);
-			  }, response => {
-			  	// error 
-			    console.log("error");
-			  });
-
-			// get related item
-			this.$http.get('/api/related/'+ $item).then(response => {
-			    // get body data
-			    this.related = response.body;
-			    console.log(this.related);
-
 			  }, response => {
 			  	// error 
 			    console.log("error");
@@ -183,8 +175,7 @@
 					}else{
 						window.localStorage.setItem(item,this.quantity);
 						var newNumber = this.carts_number+1;
-						console.log('-----------------');
-						console.log(newNumber);
+						
 						this.$store.commit('carts_number',newNumber);
 
 					}
@@ -196,8 +187,8 @@
 						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
 					});
 				}
-				console.log(window.localStorage);
-			}
+			},
+			
 			
 		},
 		computed:{
@@ -287,6 +278,7 @@
 	.wish{
 		color: red;
 		font-size: 1.4em;
+		cursor: pointer;
 	}
 	.addToCart{
 		font-size: 1.6em;

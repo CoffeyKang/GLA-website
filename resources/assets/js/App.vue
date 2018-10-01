@@ -20,7 +20,6 @@
 	import Header from './components/Header.vue';
 	import Footer from './components/Footer.vue';
 	
-
 	export default {
 		data(){
 			return {
@@ -41,26 +40,36 @@
                 // get item information 
 				let data = this.items;
 				
-                this.$http.post('/api/getItems_carts/',{data:data}).then(response => {
+                this.$http.post('/api/getItems_carts',{data:this.items},[method=>"POST"]).then(response => {
                     this.carts = response.data.carts;
                     this.$store.commit('carts_number',this.carts.length);
                         
                 }, response => {
                         // error 
-                    console.log("error");
-                });
+                    console.log("error4");
+				});
+				
+			// check if the use log in
+			if (this.storage.getItem("user")) {
+				this.$store.commit('changeLoginStatus',true);
+			}
 		},
 		watch: {
 	    '$route' (to, from) {
-	      console.log('url changed');
-	      window.scrollTo(0,0);
-	    }
-	  }
+			console.log('url changed');
+				window.scrollTo(0,0);
+			}
+		},
+		methods:{
+			test(){
+				
+			}
+		}
 	}
 </script>
 
 <style scoped>
 	#body{
-		min-height: 700px;
+		min-height: 500px;
 	}
 </style>

@@ -98,7 +98,7 @@
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
-			    console.log(this.lists);
+			    
 			  }, response => {
 			  	// error 
 			    console.log("error");
@@ -128,7 +128,7 @@
 			    this.data = response.body;
 			    this.lists = response.body.data;
 			    this.page = this.data.current_page;
-			    console.log(this.data);
+			    
 
 			  }, response => {
 			  	// error 

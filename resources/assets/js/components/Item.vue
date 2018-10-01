@@ -12,12 +12,12 @@
 			
 			<small>Year Fit: {{ item.year_begin}} -- {{item.year_end}}</small>
 			
-			<small>Make: {{ item.make}}</small>
+			<small>Make: {{ item.make}} </small>
 			
 			<span class='price'>${{ item.pricel.toFixed(2)}}</span>
 			
 			<router-link :to="{
-				name:'ItemDetails',
+				name:'ItemDetails',	
 				params:{id:item.item}
 			}" tag='button' class='btn btn-primary'>
 				Details
