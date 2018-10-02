@@ -47,7 +47,11 @@
 			</el-form>
 		</div>
 		<div class='searchCatalog'>
-			<span class="searchTitle">Search by Catalog:</span>
+			<span class="searchTitle">Search by Catalog 1:</span>
+			<span class='searchTitle_D'>
+				If you don't know the particular <b>Part Name</b> or <b>Item Number</b>, you may search by browsing our online catalogue.
+				Please select your desired <b>Make</b> from the menu selection below:
+			</span>
 			<div class="img">
 
 			</div>
@@ -68,7 +72,7 @@
 					</el-form-item>
 					
 					<el-form-item>
-						<el-button type="primary" @click="searchItem()">Search</el-button>
+						<el-button type="primary" @click="searchItem_cat()">Search</el-button>
 						<el-button @click='resetSearch()'> Reset </el-button>
 					</el-form-item>
 				</el-form>
@@ -101,20 +105,24 @@
 		},
 		methods:{
 			searchItem(){
-				
 				this.$router.push({name:'SearchList',query:{
 							item:this.search.item, 
 							make:this.search.make,
 							year:this.search.year,
 							desc:this.search.desc,
 						}});
-
 				this.$emit('closeSearchLayer',false);
 			},
 			resetSearch(){
 				return this.search={};
-			}
+			},
+
+			searchItem_cat(){
+				alert(123);
+			},
 		},
+
+		
 		watch: {
 			
 				
@@ -132,6 +140,14 @@
 		font-weight: bold;
 		text-align: center;
 		font-size: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+	}
+
+	.searchTitle_D{
+		padding-left: 15px;
+		text-align: left;
+		font-size: 16px;
 		padding-bottom: 20px;
 		width: 100%;
 	}

@@ -480,8 +480,6 @@ class InventoryController extends Controller
             default:
                 $tax = 13;
         }
-
-
         
 
         foreach ($shortlist as $item) {
@@ -692,6 +690,7 @@ class InventoryController extends Controller
         
     }
 
+    
 
     public function test(){
         $myXml = file_get_contents("shipping/eshipping_18.xml");
@@ -1117,7 +1116,7 @@ class InventoryController extends Controller
                     $shippingRate = 'quotable';
 
                     return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,
+                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'addressID'=>$oneAdd->id, 'quotes'=>$quoteOpt,
                     'groundDay'=>$groundDay,'expressDay'=>$expressDay,'addressBook'=>$addressBook],200);
                 
                 }else{
@@ -1174,6 +1173,30 @@ class InventoryController extends Controller
         $catalogs = Catalog::all();
 
         return response()->json(['catalogs'=>$catalogs],200);
+    }
+
+    public function confirmOrder(Request $request){
+        
+        $id = $request->userId;
+        
+        $user = User::find($id);
+
+        return response()->json(['user'=>$user],200);
+    }
+
+
+    public function address($id){
+        
+        $address = AddressBook::find($id);
+
+        if ($address) {
+            
+            return response()->json(['address'=>$address],200);
+        
+        }else{
+            
+            return response()->json(['address'=>"notFound"],200);
+        }
     }
     
 }

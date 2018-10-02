@@ -21,6 +21,7 @@ import ChangeProfile from './components/userAdmin/ChangeProfile.vue';
 import ChangePassword from './components/userAdmin/ChangePassword.vue';
 import ShoppingCart from './components/body/shoppingCart.vue';
 import Checkout from './components/body/Checkout.vue';
+import ConfirmOrder from './components/body/ConfirmOrder.vue';
 
 export const routes = [
   {path: '/',component: Home,name: 'home'},
@@ -49,6 +50,7 @@ export const routes = [
   {path: '/SearchList',component: SearchList, name: 'SearchList'},
   {path: '/shoppingCart', component: ShoppingCart, name: 'ShoppingCart'},
   { path: '/checkout', component: Checkout, name: 'checkout' },
+  { path: '/ConfirmOrder', component: ConfirmOrder, name: 'ConfirmOrder' },
   {path: '*', component: PageNotFound }
 
 ];

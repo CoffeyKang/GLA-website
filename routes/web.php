@@ -25,6 +25,8 @@ Route::get('/GLAAdmin','AdminController@index')->name('index');
 
 
 
+
+
 Route::middleware('auth')->group(function () {
     
     Route::get('/home','AdminController@home');

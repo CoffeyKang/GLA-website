@@ -182,7 +182,6 @@
 
                 <div class=" text-center" v-if="shippingRate!='quotable'">
                     <button class='mybtn btn btn-success' >Get a Quote</button>
-                    
                 </div>
                 
             </div>
@@ -202,6 +201,7 @@ export default {
             carts:[],
             subtotal:0,
             hst:0,
+            addressID:0,
             quotes:[],
             shippingOPT:1,
             expressDay:1,
@@ -376,7 +376,6 @@ export default {
                 this.loading = 1;
                 window.scrollTo(0,0);   
                 this.$http.post('/api/changeAddress',{"id":id}).then(response=>{
-                    console.log(response);
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
                     this.userInfo = response.data.userInfo;
@@ -386,14 +385,38 @@ export default {
                     this.groundDay = response.data.groundDay;
                     this.expressDay = response.data.expressDay;
                     this.addressBook = response.data.addressBook;
-                    console.log(response.data.addressBook);
                     this.otherAddress = true;
-                    
+                    this.addressID = response.data.addressID,
                     this.loading = 0;
-                    
                     $('.addressBox').css("border",'none');
                     $("#box"+id).css("border",'3px solid green');
                 });        
+            },
+
+            confirm(){
+
+                /** store to database */
+
+                this.$http.post('/api/confirmOrder',{userId:this.userInfo.m_id}).then(response=>{
+                    console.log('------------');
+                    console.log(response);
+                    return false;
+                });
+
+                // this.$router.push({name:"ConfirmOrder", 
+                //     params:{
+                //         shippingOPT:this.shippingOPT,
+                //         subtotal : this.subtotal,
+                //         hst : this.hst,
+                //         groundDays: parseInt(this.groundDay)+3,
+                //         expressDay: parseInt(this.expressDay)+1,
+                //         addressBook:this.addressBook,
+                //         shipping :this.shipping,
+                //         carts:this.carts,
+                //         addressID:this.addressID,
+                //         userInfo:this.userInfo,
+                //     }
+                // });
             },
         },
         watch:{
