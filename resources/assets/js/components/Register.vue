@@ -1,14 +1,17 @@
 <template>
     <div class='container' @keyup.enter='register()'>
-        <div class="col-xs-1"></div>
-        <div class="text-center col-xs-10 " id='registerForm' >
+        <div class="text-center col-xs-12 " id='registerForm' >
                 <div class="col-xs-8 col-xs-offset-2 form-group title-span" >
-                    <span class='title'>NEW CUSTOMER</span>
-                    <span class='haveAccount'>Have an account? <router-link tag='a' to='/login'>Sign in</router-link></span>
+                    <span class='title'>NEW CUSTOMER<br>EXPRESS REGISTRATION</span>
+                    <span class='haveAccount'>Already have an account? <router-link tag='a' to='/login'>Sign in</router-link></span>
                 </div>
 
-                <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="text" placeholder="Name" class="form-control" v-model='username' required>
+                <div class="col-xs-4 col-xs-offset-2 form-group">
+                    <input type="text" placeholder="First Name" class="form-control" v-model='firstname' required>
+                </div>
+
+                <div class="col-xs-4  form-group">
+                    <input type="text" placeholder="Last Name" class="form-control" v-model='lastname' required>
                 </div>
 
                 <div class="col-xs-8 col-xs-offset-2 form-group">
@@ -27,7 +30,7 @@
                 <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                     <div>
                         <input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'>
-                        <span class='forgetPassword'>Click here to agree to allow Golden Leaf Automotive to send you 
+                        <span class='forgetPassword'>Click here to disagree to allow Golden Leaf Automotive to send you 
                             exclusive email offers and discounts. You can unsubscribe at any time.</span>
                     </div>
                     
@@ -36,10 +39,11 @@
                     <button class="btn btn-success col-xs-12" id='loginBtn' @click="register()">Register</button>
                 </div>
             </div>
-            <div class="col-xs-1"></div>
+            
             <div class="col-xs-10 col-xs-offset-1" v-if="summary">
                 <div class="col-xs-8 col-xs-offset-2">
-                    Username : {{ username}}<br>
+                    First Name : {{ frstname }}<br>
+                    Last Name : {{ lastname }}<br>
                     Email : {{ email}}<br>
                     Password: {{ password}}<br>
                     receiveEmail: {{ receiveEmail}}
@@ -57,16 +61,33 @@
             return {
                 errors:[],
                 username:null,
+                firstname:null,
+                lastname:null,
                 email:null,
                 password:null,
                 confirm:null,
-                receiveEmail:false,
+                receiveEmail:true,
                 summary:false,
                 storage:window.localStorage,
             }
         },
         methods:{
+            checkPwd(str) {
+                if (str.length < 8) {
+                    return("Password minimal length is 8.");
+                } else if (str.length > 50) {
+                    return("Password too long.");
+                } else if (str.search(/\d/) == -1) {
+                    return("Password must contain number and alphabet.");
+                } else if (str.search(/[a-zA-Z]/) == -1) {
+                    return("Password must contain number and alphabet.");
+                } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+                    return("Password must contain number and alphabet.");
+                }
+                return("ok");
+            },
             register(){
+
                 if (this.password!=this.confirm) {
                     this.$message(
                         {
@@ -77,23 +98,26 @@
                     return false;
                 }
 
-                if (this.password.length<8) {
+                if (this.checkPwd(this.password)!="ok") {
                     this.$message(
                         {
-                            message:'The minimal length of password if 8',
+                            message:this.checkPwd(this.password),
                             type:'error', 
                         }
                     );
                     return false;
                 }
+
+                
                 this.$http.post('/api/newCustomer',{
-                    'username':this.username,
+                    'lastname':this.lastname,
+                    'firstname':this.firstname,
                     'email':this.email,
                     'password':this.password,
                     'receiveEmail':this.receiveEmail, 
                     }).then(
                     function(response){
-
+                        
                         if (response.data.status=="userExists") {
                             this.$message(
                                 {
@@ -108,7 +132,33 @@
                         this.storage.setItem('user',JSON.stringify(response.data.user));
                         this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
                         this.$store.commit('changeLoginStatus',true);
-                        this.$router.push({name:'userHome'});
+
+                        this.$confirm('', 'Congratulation', {
+                            confirmButtonText: 'Fill in Details',
+                            cancelButtonText: 'Start Shopping',
+                            type: 'success',
+                            center: true
+                            }).then(() => {
+                                this.$router.push({name:'userHome'});
+                            }).catch(() => {
+                                console.log(123);
+                                this.$router.push({path:'/'});
+                                
+                        });
+
+                        // this.$confirm('', 'Congratulation', {
+                        //     confirmButtonText: 'Start Shopping',
+                        //     cancelButtonText: 'Fill in Details',
+                        //     type: 'success',
+                        //     center: true
+                        //     }).then(() => {
+                        //         this.$router.push({name:''});
+                        //     }).catch(() => {
+                        //         console.log(123);
+                        //         this.$router.push({name:'userHome'});
+                        // });
+
+                        
                         
                     },function(response){
                         this.$message(
@@ -130,6 +180,7 @@
     }
     .title-span{
         display: flex;
+        text-align: left;
         justify-content: space-between;
         
     }

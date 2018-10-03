@@ -41,7 +41,8 @@ class AccessControl extends Controller
     public function newCustomer(Request $request){
 
         $this->validate($request,[
-            'username'=>'required',
+            'firstname'=>'required',
+            'lastname'=>'required',
             'email'=>'email:unique:users',
             'password'=>'required|min:8',
         ]);
@@ -56,20 +57,24 @@ class AccessControl extends Controller
         }else{
 
         }
-        $username = $request->username;
+        $firstname = $request->firstname;
 
+        $lastname = $request->lastname;
+        
         $email = $request->email;
 
         $password = $request->password;
 
         $receiveEmail = $request->receiveEmail;
-
+        
         $user = User::create([
-            'name' => $username,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
             'email' => $email,
             'password' => bcrypt($password),
         ]);
-
+        
+        
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
 
@@ -100,24 +105,24 @@ class AccessControl extends Controller
 
              if ($data["gender"]=='Female') {
                  $userInfo->m_gender = 2;
-             }else{
+             }elseif($data["gender"]=='Male'){
                  $userInfo->m_gender = 1;
+             }else{
+                 $userInfo->m_gender = 3;
              }
              
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
-             $userInfo->m_city = $data["city"];
-             $userInfo->m_state = $data["state"];
-             $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = "ca";
+             $userInfo->m_city = strtoupper($data["city"]);
+             $userInfo->m_state = strtoupper($data["state"]);
+             $userInfo->m_zipcode = strtoupper($data["zipcode"]);
+             $userInfo->m_country = $data["country"];
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
              $userInfo->m_edu = $data["edu"];
              $userInfo->m_job = $data["job"];
              $userInfo->m_title = $data["tit"];
              $userInfo->m_car = $data["car"];
-
-             
              $userInfo->save();
 
 

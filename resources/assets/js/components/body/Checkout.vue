@@ -83,10 +83,10 @@
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
                             <div class="inRow">
-                                <el-form-item label="Surname" prop='surname' component:input>
+                                <el-form-item label="Last Name" prop='surname' component:input>
                                     <el-input v-model="newAdd.surname"></el-input>
                                 </el-form-item>
-                                <el-form-item label="Forename" prop='forename'>
+                                <el-form-item label="First Name" prop='forename'>
                                     <el-input v-model="newAdd.forename"></el-input>
                                 </el-form-item>
                             </div>
@@ -394,29 +394,26 @@ export default {
             },
 
             confirm(){
-
                 /** store to database */
-
-                this.$http.post('/api/confirmOrder',{userId:this.userInfo.m_id}).then(response=>{
-                    console.log('------------');
-                    console.log(response);
-                    return false;
-                });
-
-                // this.$router.push({name:"ConfirmOrder", 
-                //     params:{
-                //         shippingOPT:this.shippingOPT,
-                //         subtotal : this.subtotal,
-                //         hst : this.hst,
-                //         groundDays: parseInt(this.groundDay)+3,
-                //         expressDay: parseInt(this.expressDay)+1,
-                //         addressBook:this.addressBook,
-                //         shipping :this.shipping,
-                //         carts:this.carts,
-                //         addressID:this.addressID,
-                //         userInfo:this.userInfo,
-                //     }
+                // this.$http.post('/api/confirmOrder',{userId:this.userInfo.m_id}).then(response=>{
+                //     console.log('------------');
+                //     console.log(response);
+                //     return false;
                 // });
+                this.$router.push({name:"ConfirmOrder", 
+                    params:{
+                        shippingOPT:this.shippingOPT,
+                        subtotal : this.subtotal,
+                        hst : this.hst,
+                        groundDays: parseInt(this.groundDay)+3,
+                        expressDay: parseInt(this.expressDay)+1,
+                        addressBook:this.addressBook,
+                        shipping :this.shipping,
+                        carts:this.carts,
+                        addressID:this.addressID,
+                        userInfo:this.userInfo,
+                    }
+                });
             },
         },
         watch:{
