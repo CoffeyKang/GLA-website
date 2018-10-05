@@ -127,7 +127,7 @@
                         <el-form-item  prop='education' label-width="10px" >
                             <el-select v-model="details.year" placeholder="Year">
                                 <el-option
-                                v-for="item in myRange(1949,2000)"
+                                v-for="item in myRange(1949, year)"
                                 :key="item"
                                 :label="item"
                                 :value="item" >
@@ -147,7 +147,7 @@
                     
                     <el-form-item>
                         <el-button type='default' @click="resetForm(details)">Reset</el-button>
-                        <el-button type="success" @click="submitForm(details)">Camplate </el-button>
+                        <el-button type="success" @click="submitForm(details)">Complate </el-button>
                     </el-form-item>
                 </el-form>
                 </div>
@@ -166,7 +166,7 @@
                 storage:window.localStorage,
                 hasInfo:false,
                 user:{},
-
+                
                 
                 US_states:[
                     {
@@ -546,6 +546,12 @@
             }
                 
         },
+
+        computed:{
+            year(){
+                return (new Date()).getFullYear();
+            }
+        }
 
 
         

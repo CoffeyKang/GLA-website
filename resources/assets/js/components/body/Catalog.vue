@@ -6,8 +6,6 @@
 		<div class="col-xs-3 cat" v-for="catalog in catalogs" :key="catalog.id">
 			<div class="cat_img" 
 			:style="{ backgroundImage: 'url(/images/catalog/' + catalog.path + ')' }">
-			
-
 			</div>
 			<div class="cat_btn">
 				<h3 class='text-center'>{{catalog.name}}</h3>

@@ -67977,8 +67977,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -68160,7 +68158,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\na[data-v-6bc0fa4a], a[data-v-6bc0fa4a]:hover{\r\n\ttext-decoration:none;\n}\na[data-v-6bc0fa4a]:hover{\r\n\tfont-weight: bold;\n}\n#car_makes[data-v-6bc0fa4a]{\r\n\t\tdisplay: -webkit-box;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-webkit-box-pack: center;\r\n\t\t    -ms-flex-pack: center;\r\n\t\t        justify-content: center;\r\n\t\t-ms-flex-wrap: wrap;\r\n\t\t    flex-wrap: wrap;\r\n\t\tmargin-bottom: 60px;\n}\n.car_make[data-v-6bc0fa4a]{\r\n\t\tmargin-top: 30px;\r\n\t\twidth: 200px;\r\n\t\tdisplay: -webkit-box;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-webkit-box-orient: vertical;\r\n\t\t-webkit-box-direction: normal;\r\n\t\t    -ms-flex-direction: column;\r\n\t\t        flex-direction: column;\n}\n.car_make_name[data-v-6bc0fa4a]{\r\n\t\tcolor: black;\r\n\t\tfont-size: 1.4em;\n}\n.car_img[data-v-6bc0fa4a]{\r\n\t\tpadding: 30px;\r\n\t\theight: 161px;\r\n\t\twidth: 200px;\n}\n.car_img img[data-v-6bc0fa4a]{\r\n\t\theight: 70px;\r\n\t\twidth: 140px;\n}\n.blue[data-v-6bc0fa4a]{\r\n\t\tbackground-color: blue;\n}\r\n", ""]);
+exports.push([module.i, "\na[data-v-6bc0fa4a], a[data-v-6bc0fa4a]:hover{\r\n\ttext-decoration:none;\n}\na[data-v-6bc0fa4a]:hover{\r\n\tfont-weight: bold;\n}\n#car_makes[data-v-6bc0fa4a]{\r\n\t\t\r\n\t\tmargin-bottom: 60px;\n}\n.car_make[data-v-6bc0fa4a]{\r\n\t\tmargin-top: 30px;\n}\n.car_make_name[data-v-6bc0fa4a]{\r\n\t\tcolor: black;\r\n\t\tfont-size: 1.4em;\n}\n.car_img[data-v-6bc0fa4a]{\r\n\t\theight: 230px;\r\n\t\tbackground-position: center;\r\n\t\tbackground-size: contain;\r\n\t\tbackground-repeat: no-repeat;\n}\n.car_img img[data-v-6bc0fa4a]{\r\n\t\theight: 70px;\r\n\t\twidth: 140px;\n}\n.blue[data-v-6bc0fa4a]{\r\n\t\tbackground-color: blue;\n}\n.viewOnline[data-v-6bc0fa4a]{\r\n\t\tbackground-color: black;\r\n\t\tcolor: white;\r\n\t\tfont-size: 1.2em;\n}\r\n", ""]);
 
 // exports
 
@@ -68171,6 +68169,9 @@ exports.push([module.i, "\na[data-v-6bc0fa4a], a[data-v-6bc0fa4a]:hover{\r\n\tte
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -68238,22 +68239,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      directives: [
-        {
-          name: "loading",
-          rawName: "v-loading",
-          value: _vm.loading,
-          expression: "loading"
-        }
-      ],
-      staticClass: "container",
-      attrs: { id: "car_makes", "element-loading-text": "Loading ..." }
-    },
+    { staticClass: "container", attrs: { id: "car_makes" } },
     _vm._l(_vm.makes, function(make) {
       return _c(
         "div",
-        { key: make.make, staticClass: "car_make" },
+        { key: make.make, staticClass: "car_make col-xs-3" },
         [
           _c(
             "router-link",
@@ -68268,22 +68258,20 @@ var render = function() {
             },
             [
               make.path != "default"
-                ? _c("div", { staticClass: "car_img" }, [
-                    _c("img", {
-                      attrs: { src: make.path, alt: "123 ", draggable: "false" }
-                    })
-                  ])
+                ? _c("div", {
+                    staticClass: "car_img",
+                    style: { backgroundImage: "url(" + make.path + ")" }
+                  })
                 : _vm._e(),
               _vm._v(" "),
               make.path == "default"
-                ? _c("div", { staticClass: "car_img" }, [
-                    _c("img", {
-                      attrs: { src: "/images/makes/default.jpg", alt: "2" }
-                    })
-                  ])
+                ? _c("div", {
+                    staticClass: "car_img",
+                    style: { backgroundImage: "url(/images/makes/default.jpg)" }
+                  })
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "car_make_name text-center" }, [
+              _c("button", { staticClass: "btn btn-block viewOnline" }, [
                 _vm._v(
                   "\n\t\t\t\t" +
                     _vm._s(make.make.toUpperCase().replace("_", " ")) +
@@ -72410,6 +72398,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             return ar;
         }
+    },
+
+    computed: {
+        year: function year() {
+            return new Date().getFullYear();
+        }
     }
 
 });
@@ -72898,7 +72892,9 @@ var render = function() {
                                   expression: "details.year"
                                 }
                               },
-                              _vm._l(_vm.myRange(1949, 2000), function(item) {
+                              _vm._l(_vm.myRange(1949, _vm.year), function(
+                                item
+                              ) {
                                 return _c("el-option", {
                                   key: item,
                                   attrs: { label: item, value: item }
@@ -72956,7 +72952,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Camplate ")]
+                          [_vm._v("Complate ")]
                         )
                       ],
                       1

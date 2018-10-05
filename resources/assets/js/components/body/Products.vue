@@ -1,21 +1,24 @@
 <template>
-	<div class='container' id='car_makes' v-loading='loading' element-loading-text='Loading ...'>
-		<div class='car_make' v-for='make in makes' :key="make.make">
+	<div class='container' id='car_makes'>
+		<div class='car_make col-xs-3' v-for='make in makes' :key="make.make">
 			<router-link :to="{
 				name:'Pruduct_list', 
 				query:{ make: make.make }
 				}" tag='a'>
-				<div class="car_img" v-if='make.path!="default"'>
-					<img :src="make.path" alt="123 " draggable='false'>
+				<div class="car_img" v-if='make.path!="default"' 
+					:style="{ backgroundImage: 'url(' + make.path + ')' }"
+				>
+					<!-- <img :src="make.path" alt="123 " draggable='false'> -->
 				</div>
 
-				<div class="car_img" v-if=' make.path == "default"'>
-					<img src="/images/makes/default.jpg" alt="2">
+				<div class="car_img" v-if=' make.path == "default"' :style="{ backgroundImage: 'url(/images/makes/default.jpg)' }">
+					<!-- <img src="/images/makes/default.jpg" alt="2"> -->
 				</div>
 
-				<div class="car_make_name text-center">
+				<button class="btn btn-block viewOnline">
 					{{ make.make.toUpperCase().replace("_"," " ) }}
-				</div>
+				</button>
+				
 			</router-link>
 			
 		</div>
@@ -63,26 +66,22 @@ a:hover{
 	font-weight: bold;
 }
 	#car_makes{
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
+		
 		margin-bottom: 60px;
 	}
 	.car_make{
 		margin-top: 30px;
-		width: 200px;
-		display: flex;
-		flex-direction: column;
-
+		
 	}
 	.car_make_name{
 		color: black;
 		font-size: 1.4em;
 	}
 	.car_img{
-		padding: 30px;
-		height: 161px;
-		width: 200px;
+		height: 230px;
+		background-position: center;
+		background-size: contain;
+		background-repeat: no-repeat;
 		
 	}
 	.car_img img{
@@ -91,5 +90,10 @@ a:hover{
 	}
 	.blue{
 		background-color: blue;
+	}
+	.viewOnline{
+		background-color: black;
+		color: white;
+		font-size: 1.2em;
 	}
 </style>
