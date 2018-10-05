@@ -50,7 +50,7 @@
                     <div class='col-xs-12'  style='margin-top:20px;'>
                         <h4>Shipping To another address</h4>
                         <div style='display:flex; justify-content:space-between'> 
-                        <el-select v-model="selectAdd" placeholder="Shipping To ...">
+                        <el-select v-model="selectAdd" placeholder="To default address.">
                             <el-option
                             v-for="item in addressBook"
                             :key="item.id"
@@ -100,11 +100,11 @@
                                 <el-input v-model="newAdd.address"></el-input>
                             </el-form-item>
                             <div class="inRow">
-                                <el-form-item label="City" prop='city'>
+                                <!-- <el-form-item label="City" prop='city'>
                                     <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
-                                </el-form-item>
+                                </el-form-item> -->
 
-                                <el-form-item label="State" prop='state'>
+                                <!-- <el-form-item label="State" prop='state'>
                                     <el-select v-model="newAdd.state" placeholder="State">
                                         <el-option
                                         v-for="item in privince"
@@ -113,19 +113,60 @@
                                         :value="item.Code">
                                         </el-option>
                                     </el-select>
-                                </el-form-item>
+                                </el-form-item> -->
                                 
                             </div>
+
+                            
                             <div class="inRow">
-                                <el-form-item label="Zipcode" prop='zipcode'>
+                                <el-form-item label="Postal Code" prop='zipcode'>
                                     <el-input v-model="newAdd.zipcode"></el-input>
                                 </el-form-item>
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
+                                </el-form-item>
+                            </div>
+
+                            <div class="inRow">
+                        
+
                                 <el-form-item label="Country" prop='country'>
-                                    <el-input v-model="newAdd.country"></el-input>
+                                    <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
+                                    <el-select v-model="newAdd.country" placeholder="Country" @change='newAdd.state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='CA'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='USA'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
                                 </el-form-item>
                             </div>
                             <el-form-item label="Telphone" prop='tel'>
-                                <el-input v-model="newAdd.tel"></el-input>
+                                <el-input type='number' v-model="newAdd.tel"></el-input>
                             </el-form-item>
 
                             <el-form-item class='text-center'>
@@ -152,12 +193,12 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ subtotal }}</span>
+                            <span>SUBTOTAL:</span><span>${{ parseFloat(subtotal).toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span v-if="shippingRate=='quotable'">${{ shipping }}</span>
+                            <span>SHIPPING:</span><span v-if="shippingRate=='quotable'">${{ parseFloat(shipping).toFixed(2) }}</span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
                     </div>
@@ -215,6 +256,10 @@ export default {
             groundDay:1,
             shippingRate:'',
             // shipping:0,
+            country:[
+                        {name:'Canada',Code:"CA"},
+                        {name:'USA',Code:"USA"},
+                ],
             privince:[
                     {name:'Alberta',Code:"AB"},
                     {name:'British-Coloumbia',Code:"BC"},
@@ -234,16 +279,254 @@ export default {
             loading:1,
             addressBook:[],
             defaultAddress:true,
+            US_states:[
+                    {
+                        "name": "Alabama",
+                        "abbreviation": "AL"
+                    },
+                    {
+                        "name": "Alaska",
+                        "abbreviation": "AK"
+                    },
+                    {
+                        "name": "American Samoa",
+                        "abbreviation": "AS"
+                    },
+                    {
+                        "name": "Arizona",
+                        "abbreviation": "AZ"
+                    },
+                    {
+                        "name": "Arkansas",
+                        "abbreviation": "AR"
+                    },
+                    {
+                        "name": "California",
+                        "abbreviation": "CA"
+                    },
+                    {
+                        "name": "Colorado",
+                        "abbreviation": "CO"
+                    },
+                    {
+                        "name": "Connecticut",
+                        "abbreviation": "CT"
+                    },
+                    {
+                        "name": "Delaware",
+                        "abbreviation": "DE"
+                    },
+                    {
+                        "name": "District Of Columbia",
+                        "abbreviation": "DC"
+                    },
+                    {
+                        "name": "Federated States Of Micronesia",
+                        "abbreviation": "FM"
+                    },
+                    {
+                        "name": "Florida",
+                        "abbreviation": "FL"
+                    },
+                    {
+                        "name": "Georgia",
+                        "abbreviation": "GA"
+                    },
+                    {
+                        "name": "Guam",
+                        "abbreviation": "GU"
+                    },
+                    {
+                        "name": "Hawaii",
+                        "abbreviation": "HI"
+                    },
+                    {
+                        "name": "Idaho",
+                        "abbreviation": "ID"
+                    },
+                    {
+                        "name": "Illinois",
+                        "abbreviation": "IL"
+                    },
+                    {
+                        "name": "Indiana",
+                        "abbreviation": "IN"
+                    },
+                    {
+                        "name": "Iowa",
+                        "abbreviation": "IA"
+                    },
+                    {
+                        "name": "Kansas",
+                        "abbreviation": "KS"
+                    },
+                    {
+                        "name": "Kentucky",
+                        "abbreviation": "KY"
+                    },
+                    {
+                        "name": "Louisiana",
+                        "abbreviation": "LA"
+                    },
+                    {
+                        "name": "Maine",
+                        "abbreviation": "ME"
+                    },
+                    {
+                        "name": "Marshall Islands",
+                        "abbreviation": "MH"
+                    },
+                    {
+                        "name": "Maryland",
+                        "abbreviation": "MD"
+                    },
+                    {
+                        "name": "Massachusetts",
+                        "abbreviation": "MA"
+                    },
+                    {
+                        "name": "Michigan",
+                        "abbreviation": "MI"
+                    },
+                    {
+                        "name": "Minnesota",
+                        "abbreviation": "MN"
+                    },
+                    {
+                        "name": "Mississippi",
+                        "abbreviation": "MS"
+                    },
+                    {
+                        "name": "Missouri",
+                        "abbreviation": "MO"
+                    },
+                    {
+                        "name": "Montana",
+                        "abbreviation": "MT"
+                    },
+                    {
+                        "name": "Nebraska",
+                        "abbreviation": "NE"
+                    },
+                    {
+                        "name": "Nevada",
+                        "abbreviation": "NV"
+                    },
+                    {
+                        "name": "New Hampshire",
+                        "abbreviation": "NH"
+                    },
+                    {
+                        "name": "New Jersey",
+                        "abbreviation": "NJ"
+                    },
+                    {
+                        "name": "New Mexico",
+                        "abbreviation": "NM"
+                    },
+                    {
+                        "name": "New York",
+                        "abbreviation": "NY"
+                    },
+                    {
+                        "name": "North Carolina",
+                        "abbreviation": "NC"
+                    },
+                    {
+                        "name": "North Dakota",
+                        "abbreviation": "ND"
+                    },
+                    {
+                        "name": "Northern Mariana Islands",
+                        "abbreviation": "MP"
+                    },
+                    {
+                        "name": "Ohio",
+                        "abbreviation": "OH"
+                    },
+                    {
+                        "name": "Oklahoma",
+                        "abbreviation": "OK"
+                    },
+                    {
+                        "name": "Oregon",
+                        "abbreviation": "OR"
+                    },
+                    {
+                        "name": "Palau",
+                        "abbreviation": "PW"
+                    },
+                    {
+                        "name": "Pennsylvania",
+                        "abbreviation": "PA"
+                    },
+                    {
+                        "name": "Puerto Rico",
+                        "abbreviation": "PR"
+                    },
+                    {
+                        "name": "Rhode Island",
+                        "abbreviation": "RI"
+                    },
+                    {
+                        "name": "South Carolina",
+                        "abbreviation": "SC"
+                    },
+                    {
+                        "name": "South Dakota",
+                        "abbreviation": "SD"
+                    },
+                    {
+                        "name": "Tennessee",
+                        "abbreviation": "TN"
+                    },
+                    {
+                        "name": "Texas",
+                        "abbreviation": "TX"
+                    },
+                    {
+                        "name": "Utah",
+                        "abbreviation": "UT"
+                    },
+                    {
+                        "name": "Vermont",
+                        "abbreviation": "VT"
+                    },
+                    {
+                        "name": "Virgin Islands",
+                        "abbreviation": "VI"
+                    },
+                    {
+                        "name": "Virginia",
+                        "abbreviation": "VA"
+                    },
+                    {
+                        "name": "Washington",
+                        "abbreviation": "WA"
+                    },
+                    {
+                        "name": "West Virginia",
+                        "abbreviation": "WV"
+                    },
+                    {
+                        "name": "Wisconsin",
+                        "abbreviation": "WI"
+                    },
+                    {
+                        "name": "Wyoming",
+                        "abbreviation": "WY"
+                    }
+                ],
             newAdd:{
-
+                country:"CA",
             },
             selectAdd:"",
             rules:{
                 surname:[
-                        { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
+                        { required: true, message: 'Last name is required.', trigger: 'blur', max:99 }
                     ],
                     forename:[
-                        { required: true, message: 'Forename is required.', trigger: 'blur', max:99 },
+                        { required: true, message: 'First name is required.', trigger: 'blur', max:99 },
                     ],
                     city:[
                         { required: true, message: 'City is required.', trigger: 'blur', max:99 },
@@ -252,7 +535,7 @@ export default {
                         { required: true, message: 'State is required.', trigger: 'blur', max:99 },
                     ],
                     zipcode:[
-                        { required: true, message: 'Zip Code is required.', trigger: 'blur', max:99 },
+                        { required: true, message: 'Postal code is required.', trigger: 'blur', max:99 },
                     ],
                     address:[
                         { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
@@ -261,7 +544,7 @@ export default {
                         { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
                     ],
                     tel:[
-                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:15,}
+                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                     ],
             }
         }
@@ -418,10 +701,13 @@ export default {
                 /** store to database */
                 this.loading = 0;
 
-                this.carts.forEach(element => {
-                    this.storage.removeItem(element.item);
-                });
-                this.$store.commit('carts_number',0);
+                /** remove item from shopping cart */
+                // this.carts.forEach(element => {
+                //     this.storage.removeItem(element.item);
+                // });
+                // this.$store.commit('carts_number',0);
+
+
                 this.$http.post('/api/confirmOrder',{
                         userId:this.userInfo.m_id,
                         shippingOPT:this.shippingOPT,

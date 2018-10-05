@@ -111,11 +111,11 @@
                     
 
                     <el-form-item label="Tel" prop='tel'>
-                        <el-input type='text' v-model="details.tel" placeholder="Tel"></el-input>
+                        <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
                     </el-form-item>
                 
                     <el-form-item label="Mobile" prop='mobile'>
-                        <el-input type='text' v-model="details.mobile" placeholder="Mobile"  ></el-input>
+                        <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
                     </el-form-item>
 
                     <div class="inRow" >
@@ -468,10 +468,10 @@
                         { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
                     ],
                     tel:[
-                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:15,}
+                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                     ],
                     mobile:[
-                        {message: 'Invalid telephone number.', trigger: 'blur',  max: 15,}
+                        {message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                     ],
                     
                 }

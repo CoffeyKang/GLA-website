@@ -7,7 +7,7 @@ use Auth;
 use App\User;
 use App\UserInfo;
 use Validator;
-
+use Illuminate\Support\Facades\Log;
 
 use App\Inventory_img;
 use App\Item_make;
@@ -245,12 +245,7 @@ class AccessControl extends Controller
     /** test page */
     public function kang(){
 
-        $item = SOTRAN::first();
-
-        // $item = $item->itemInfo;
-
-        $item1 = $item->itemInfo();
-        dd($item1);
+       Log::info(123);
         
     }
 

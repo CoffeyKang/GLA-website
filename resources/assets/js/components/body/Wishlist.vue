@@ -33,7 +33,7 @@
                                 PRICE: $ {{item.pricel}}
                             </span>
                             <span>
-                                <button class="btn btn-success" @click="addToCart(item)">Add To Cart</button>
+                                <button class="btn btn-success" @click="addToCart(item)" v-if="item.onhand>=1">Add To Cart</button>
                             </span>
                         </div>
                     </div>
@@ -77,6 +77,8 @@
 			}
 
 			this.getWishlist();
+
+			
 
 		},
 		computed:{
@@ -138,10 +140,12 @@
 						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
 					});
 
+					this.removeFromWhishlist(item);
+
 					console.log(window.localStorage);
 				}
 
-				this.removeFromWhishlist(item);
+				
 				
 			},
 

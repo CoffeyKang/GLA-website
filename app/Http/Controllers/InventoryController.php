@@ -16,6 +16,8 @@ use App\AddressBook;
 use App\SOMAST;
 use App\SOTRAN;
 use App\Catalog;
+/** use LOG */
+use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
 {
     /**
@@ -1321,7 +1323,9 @@ class InventoryController extends Controller
         }
         
 
+        Log::useFiles(storage_path('/logs/GLAlog.log'));
 
+        Log::info(" $sono created." );
 
         return response()->json(['somast'=>$somast,'sotran'=>$sotran,'address'=>$address],200);
     }

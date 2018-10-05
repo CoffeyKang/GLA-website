@@ -52,23 +52,23 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ somast.subtotal }}</span>
+                            <span>SUBTOTAL:</span><span>${{ parseFloat(somast.subtotal).toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span>${{ somast.shipping }}</span>
+                            <span>SHIPPING:</span><span>${{ parseFloat(somast.shipping).toFixed(2) }}</span>
                             
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ somast.tax }}</span>
+                            <span>HST:</span><span>${{ parseFloat(somast.tax).toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>TOTAL:</span><span>${{ total }}</span>
+                            <span>TOTAL:</span><span>${{ parseFloat(total).toFixed(2) }}</span>
                             
                         </div>
                     </div>
