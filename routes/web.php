@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/kang',"AccessControl@kang");
+
 Route::get('/', function () {
     return view('welcome');
 });

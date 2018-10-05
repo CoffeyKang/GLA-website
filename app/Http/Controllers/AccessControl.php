@@ -9,6 +9,17 @@ use App\UserInfo;
 use Validator;
 
 
+use App\Inventory_img;
+use App\Item_make;
+use App\FeatureProduct;
+use App\Wishlist;
+use App\Temp_SO;
+use App\AddressBook;
+use App\SOMAST;
+use App\SOTRAN;
+use App\Catalog;
+
+
 
 class AccessControl extends Controller
 {
@@ -110,6 +121,31 @@ class AccessControl extends Controller
              }else{
                  $userInfo->m_gender = 3;
              }
+
+
+             //check tel format 
+
+             $tel = $data["tel"];
+
+             $tel = preg_replace('/[^0-9]/','',$tel);
+             if ( strlen($tel)>=10 ){
+                $tel = substr_replace($tel,'(',0,0);
+                $tel = substr_replace($tel,') ',4,0);
+                $tel = substr_replace($tel,'-',9,0);
+             }else{
+                
+             }
+
+             $mobile = $data["mobile"];
+
+             $mobile = preg_replace('/[^0-9]/','',$mobile);
+             if ( strlen($mobile)>=10 ){
+                $mobile = substr_replace($mobile,'(',0,0);
+                $mobile = substr_replace($mobile,') ',4,0);
+                $mobile = substr_replace($mobile,'-',9,0);
+             }else{
+                
+             }
              
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
@@ -117,11 +153,11 @@ class AccessControl extends Controller
              $userInfo->m_state = strtoupper($data["state"]);
              $userInfo->m_zipcode = strtoupper($data["zipcode"]);
              $userInfo->m_country = $data["country"];
-             $userInfo->m_tel = $data["tel"];
-             $userInfo->m_mobile = $data["mobile"];
-             $userInfo->m_edu = $data["edu"];
-             $userInfo->m_job = $data["job"];
-             $userInfo->m_title = $data["tit"];
+             $userInfo->m_tel = $tel;
+             $userInfo->m_mobile = $mobile;
+             $userInfo->m_make = $data["make"];
+             $userInfo->m_year = $data["year"];
+            //  $userInfo->m_title = $data["tit"];
              $userInfo->m_car = $data["car"];
              $userInfo->save();
 
@@ -137,8 +173,6 @@ class AccessControl extends Controller
     public function doubleCheck(Request $request){
         $username = $request->username;
         $password = $request->userPass;
-
-
         return $password;
 
     }
@@ -204,6 +238,20 @@ class AccessControl extends Controller
         
        
 
+    }
+
+
+
+    /** test page */
+    public function kang(){
+
+        $item = SOTRAN::first();
+
+        // $item = $item->itemInfo;
+
+        $item1 = $item->itemInfo();
+        dd($item1);
+        
     }
 
     

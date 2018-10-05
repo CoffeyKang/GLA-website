@@ -3,7 +3,7 @@
 		element-loading-text="Calculating ..."
         
 	>
-        <h3>Confirm Order</h3>
+        <h3>Payment</h3>
         <div class="col-sm-8" style='padding:0;'>
             <div>
                 <table class="table table-striped table-justified">
@@ -28,16 +28,7 @@
                 </table>
             </div>
             <div class='shipingTo'>
-                    <div class='col-xs-12' v-if="addressID==0">
-                        <h4>Shipping To</h4>
-                        <el-card class="box-card" >
-                                <h5><b>{{userInfo.m_forename}} {{userInfo.m_surname}}</b> <br> <br>
-                                {{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>
-                                {{userInfo.m_state}}, {{userInfo.m_country}}</h5>
-                        </el-card>
-                    </div>
-
-                    <div class='col-xs-12' v-if="addressID!=0">
+                    <div class='col-xs-12' >
                         <h4>Shipping To</h4>
                         <el-card class="box-card" >
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
@@ -61,18 +52,18 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ subtotal }}</span>
+                            <span>SUBTOTAL:</span><span>${{ somast.subtotal.toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span>${{ shipping }}</span>
+                            <span>SHIPPING:</span><span>${{ somast.shipping.toFixed(2) }}</span>
                             
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst }}</span>
+                            <span>HST:</span><span>${{ somast.tax.toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -83,11 +74,11 @@
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <h5>Estimate Shipping Date : {{ shippingDays }} Days</h5>
+                        <h5>Estimate Shipping Date : {{ somast.shippingdays }} Days</h5>
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
+                        <button class='mybtn btn btn-success'>Place Order</button>
                     </div>
                 </div>
                     
@@ -103,34 +94,16 @@
 export default {
     data(){
         return {
-            items:[],
-            qtys:[],
-            otherAddress:false,
-            storage:window.localStorage,
-            carts:this.$route.params.carts,
-            subtotal:this.$route.params.subtotal,
-            hst:this.$route.params.hst,
-            quotes:[],
-            shippingOPT:this.$route.params.shippingOPT,
-            shipping:this.$route.params.shipping,
-            userInfo:this.$route.params.userInfo,
-            loading:1,
-            addressBook:this.$route.params.addressBook,
-            addressID:this.$route.params.addressID,
+            sono:this.$route.params.sono,
+            somast:[],
+            carts:[],
             address:[],
+            loading:1,
         }
     },
         computed:{
-            total:function(){
-                return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
-            },
-
-            shippingDays:function(){
-                if (this.shippingOPT==1) {
-                    return this.$route.params.groundDays;
-                }else{
-                    return this.$route.params.expressDay;
-                }
+            total(){
+                return this.somast.tax + this.somast.subtotal +this.somast.shipping; 
             }
             
         },
@@ -139,27 +112,21 @@ export default {
 			if(this.storage.getItem('user')){
 				// have to validate the user name and password once more here
                 var userData = JSON.parse(this.storage.getItem('user'));
-                
                 /** check again */
-                this.loading = 0;
+                
 			}else{
 				this.$store.commit('changeLoginDirect','home');
 				this.$router.push('Login');
             };
 
-            if (this.addressID!=0) {
-                this.$http.get('/api/address/'+this.addressID).then(response => {
-                    console.log(response);
-                    if (response.address!='notFound') {
-                        this.address = response.address;
-                    }else{
-                        this.addressID=0;
-                    }
-                    
-                }, response => {
-                    
-                })
-            };
+            this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
+                this.somast = response.data.somast;
+                this.carts = response.data.sotran;
+                this.address = response.data.address;
+                
+                this.loading = 0;
+                console.log(response);
+            })
         },
         methods:{
             

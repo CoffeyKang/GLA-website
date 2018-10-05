@@ -284,7 +284,7 @@ class InventoryController extends Controller
 
         
 
-        $items = $items->paginate(20);
+        $items = $items->paginate(10);
 
        
 
@@ -1181,7 +1181,83 @@ class InventoryController extends Controller
         
         $user = User::find($id);
 
-        return response()->json(['user'=>$user],200);
+        $shortlist = Temp_SO::where('cust_id',$id)->get();
+
+        $items = Temp_SO::where('cust_id',$id)->select('item')->get()->toArray();
+
+        $addressID = $request->addressID;
+
+        $hst = $request->hst;
+
+        $subtotal = $request->subtotal;
+
+        $sonum = SOMAST::get()->max('order_num')+1;
+
+        $somast = new SOMAST;
+
+        $somast->order_num = $sonum;
+
+        $somast->m_id = $id;
+
+        $somast->subtotal = $subtotal;
+
+        $somast->tax = $hst;
+
+        $somast->currency = "CAD";
+
+        $somast->shipping = $request->shippingFee;
+
+        $somast->shippingDays = $request->shippingDays;
+
+        $somast->date_order = date('Y-m-d');
+
+        $somast->sales_status = 0;
+        
+        $somast->address = $request->addressID;
+
+        $somast->courier = '';
+
+        $somast->track_num = '';
+
+        $somast->discount =0.0;
+
+        $somast->notes = '';
+
+        $somast->save();
+
+        foreach ($shortlist as $item) {
+            
+            $sotran = new SOTRAN;
+
+            $sotran->order_num = $somast->order_num;
+
+            $sotran->m_id = $id;
+
+            $sotran->item = $item->item;
+
+            $sotran->qty = $item->qty;
+
+            $sotran->price = $item->itemInfo->pricel;
+
+            $sotran->make = $item->itemInfo->make;
+
+            $sotran->date_sold = date("Y-m-d");
+
+            $sotran->sale = 0;
+
+            $sotran->save();
+
+            $item->delete();
+        }
+
+        
+
+        return response()->json(['status'=>"orderCreate",'sono'=>$somast->order_num],200);
+        
+
+        
+
+        
     }
 
 
@@ -1197,6 +1273,57 @@ class InventoryController extends Controller
             
             return response()->json(['address'=>"notFound"],200);
         }
+    }
+
+    public function aOrder($sono){
+
+        $somast = SOMAST::where('order_num',$sono)->first();
+
+
+        $userInfo = $somast->customerInfo;
+
+        if ($somast){
+            
+            $sotran = $somast->sotran()->get();
+        
+        }else{
+        
+        }
+
+        /**
+         * shipping to address
+         */
+        if ($somast->address == 0) {
+            $address['forename'] = $userInfo->m_forename;
+            $address['surname'] = $userInfo->m_surname;
+            $address['address'] = $userInfo->m_address;
+            $address['city'] = $userInfo->m_city;
+            $address['state'] = $userInfo->m_state;
+            $address['zipcode'] = $userInfo->m_zipcode;
+            $address['country'] = $userInfo->m_country;
+            
+        }else{
+            $toAddress = AddressBook::find($somast->address);
+
+            if ($toAddress) {
+                $address['forename'] = $toAddress->forename;
+                $address['surname'] = $toAddress->surname;
+                $address['address'] = $toAddress->address;
+                $address['city'] = $toAddress->city;
+                $address['state'] = $toAddress->state;
+                $address['zipcode'] = $toAddress->zipcode;
+                $address['country'] = $toAddress->country;
+            }
+        }
+
+        foreach ($sotran as $sod) {
+            $sod->descrip = $sod->itemInfo->descrip;
+        }
+        
+
+
+
+        return response()->json(['somast'=>$somast,'sotran'=>$sotran,'address'=>$address],200);
     }
     
 }

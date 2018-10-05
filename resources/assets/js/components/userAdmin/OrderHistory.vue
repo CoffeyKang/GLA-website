@@ -20,7 +20,7 @@
                     <td>{{item.order_num}}</td>
                     <th>{{item.currency}}</th>
                     <th>
-                        <span v-if="item.sales_status==0">Payment Failed
+                        <span v-if="item.sales_status==0">Unpaid
                         </span>
                         <span v-if="item.sales_status==1">Payment Success
                         </span>

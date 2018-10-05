@@ -42,6 +42,9 @@ class SOMAST extends Model
     public function statusCode(){
         $status = '';
         switch ($this->sales_status) {
+            case 0:
+                $status = "Unpaid";
+                break;
             case'':
                 $status = 'Payment Failed';
                 break;

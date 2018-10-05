@@ -111,39 +111,43 @@
                     
 
                     <el-form-item label="Tel" prop='tel'>
-                        <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
+                        <el-input type='text' v-model="details.tel" placeholder="Tel"></el-input>
                     </el-form-item>
                 
                     <el-form-item label="Mobile" prop='mobile'>
-                        <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
+                        <el-input type='text' v-model="details.mobile" placeholder="Mobile"  ></el-input>
                     </el-form-item>
 
-                    <div class="inRow">
-                        <el-form-item label="Education"  prop='education'>
-                            <el-input v-model="details.edu" placeholder="Education" ></el-input>
+                    <div class="inRow" >
+
+                        <el-form-item label="Car" prop='car' label-width="120px">
+                            <el-input v-model="details.car" placeholder="Make" ></el-input>
+                        </el-form-item>
+                        
+                        <el-form-item  prop='education' label-width="10px" >
+                            <el-select v-model="details.year" placeholder="Year">
+                                <el-option
+                                v-for="item in myRange(1949,2000)"
+                                :key="item"
+                                :label="item"
+                                :value="item" >
+                                </el-option>
+                            </el-select>
                         </el-form-item>
                     
-                        <el-form-item label="Job"  prop='job'>
-                            <el-input v-model="details.job" placeholder="Job"  ></el-input>
+                        <el-form-item   prop='job'  label-width="10px" >
+                            <el-input v-model="details.make" placeholder="Model" ></el-input>
                         </el-form-item>
+                        <!-- <el-form-item   prop='tit'  label-width="10px" >
+                            <el-input v-model="details.tit" placeholder="Model"  ></el-input>
+                        </el-form-item> -->
 
                     </div>
 
-                    <div class="inRow">
-
                     
-                        <el-form-item label="Title" prop='tit'>
-                            <el-input v-model="details.tit" placeholder="Title"  ></el-input>
-                        </el-form-item>
-                    
-                        <el-form-item label="Car" prop='car'>
-                            <el-input v-model="details.car" placeholder="Car" ></el-input>
-                        </el-form-item>
-
-                    </div>
                     <el-form-item>
-                        <el-button type='default' @click="resetForm(details)">Cancel</el-button>
-                        <el-button type="success" @click="submitForm(details)">Register</el-button>
+                        <el-button type='default' @click="resetForm(details)">Reset</el-button>
+                        <el-button type="success" @click="submitForm(details)">Camplate </el-button>
                     </el-form-item>
                 </el-form>
                 </div>
@@ -437,10 +441,9 @@
                     country:'CA',
                     tel:'',
                     mobile:'',
-                    edu:'',
-                    job:'',
-                    tit:'',
                     car:'',
+                    year:'',
+                    make:'',
                 },
                 rules:{
                     surname:[
@@ -478,8 +481,10 @@
         
 		mounted(){
             // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
-            console.log("tthis is user");
+            
             this.user = JSON.parse(this.storage.getItem('user'));
+            this.details.surname = this.user.lastname;
+            this.details.forename = this.user.firstname;
             this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
             if (this.userInfo) {
                 this.hasInfo=true;
@@ -487,9 +492,6 @@
                
                 this.hasInfo=false;
             }
-
-            
-
 
             this.customerOrderHistory();
             
@@ -532,8 +534,20 @@
             resetForm(details){
                 this.$refs["details"].resetFields();
             },
+
+            myRange(start,end){
+                let ar = [];
+                let l = parseInt(end)-parseInt(start);
+                for (let i = 0; i <= l; i++) {
+                    ar[i] = start;
+                    start++;
+                }
+                return ar;
+            }
                 
         },
+
+
         
 	}
 </script>

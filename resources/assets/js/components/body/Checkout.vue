@@ -3,7 +3,7 @@
 		element-loading-text="Calculating ..."
         
 	>
-        <h3>Checkout</h3>
+        <h3>Confimr Order</h3>
         <div class="col-sm-8" style='padding:0;'>
             <div>
                 <table class="table table-striped table-justified">
@@ -195,6 +195,7 @@ export default {
     data(){
         return {
             items:[],
+            
             qtys:[],
             otherAddress:false,
             storage:window.localStorage,
@@ -279,6 +280,14 @@ export default {
                     
                 }
                 
+            },
+
+            shippingDays(){
+                if (this.shippingOPT=='1') {
+                    return parseInt(this.groundDay)+3;
+                }else{
+                    return parseInt(this.expressDay)+1;
+                }
             }
         },
         mounted(){
@@ -395,25 +404,31 @@ export default {
 
             confirm(){
                 /** store to database */
-                // this.$http.post('/api/confirmOrder',{userId:this.userInfo.m_id}).then(response=>{
-                //     console.log('------------');
-                //     console.log(response);
-                //     return false;
-                // });
-                this.$router.push({name:"ConfirmOrder", 
-                    params:{
-                        shippingOPT:this.shippingOPT,
-                        subtotal : this.subtotal,
-                        hst : this.hst,
-                        groundDays: parseInt(this.groundDay)+3,
-                        expressDay: parseInt(this.expressDay)+1,
-                        addressBook:this.addressBook,
-                        shipping :this.shipping,
-                        carts:this.carts,
-                        addressID:this.addressID,
-                        userInfo:this.userInfo,
-                    }
+                this.loading = 0;
+
+                this.carts.forEach(element => {
+                    this.storage.removeItem(element.item);
                 });
+                this.$store.commit('carts_number',0);
+                this.$http.post('/api/confirmOrder',{
+                        userId:this.userInfo.m_id,
+                        shippingOPT:this.shippingOPT,
+                        shippingFee:this.shipping,
+                        shippingDays:this.shippingDays,
+                        hst:this.hst,
+                        subtotal:this.subtotal,
+                        addressID:this.addressID,
+
+                    }).then(response=>{
+                        
+                        this.$router.push({name:"ConfirmOrder", 
+                            params:{
+                                sono:response.data.sono,
+                                userId:this.userInfo.m_id,
+                            }
+                        });
+                })
+                
             },
         },
         watch:{

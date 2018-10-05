@@ -106,6 +106,8 @@ Route::get('/address/{id}','InventoryController@address');
 
 Route::post('/confirmOrder','InventoryController@confirmOrder');
 
+Route::get('/oneOrder/{sono}','InventoryController@aOrder');
+
 
 
 

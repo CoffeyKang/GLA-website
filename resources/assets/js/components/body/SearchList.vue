@@ -1,6 +1,7 @@
 <template>
-	<div class='container'>
-		<table class="table table-striped table-bordered" v-if='result' style='margin-top:30px;'>
+	<div class='container' v-loading='loading'  
+		element-loading-text="Searching ..." style='min-height:600px;'>
+		<table class="table table-striped table-bordered vertical-center" v-if='result' style='margin-top:30px; '>
             <thead>
                 <tr>
                     <th>Item</th>
@@ -14,12 +15,12 @@
             <tbody>
 				
                 <tr v-for="thing in list" :key="thing.item">
-                    <td>{{thing.item}}</td>
+                    <td  style='height:80px; vertical-align:middle !important'>{{thing.item}}</td>
                     <td>{{thing.descrip}}</td>
 					<td 
 						style='
 							padding:5px;
-							height:50px; 
+							height:80px; 
 							background-image:url("/images/default.jpg");
 							background-size:contain;
 							background-repeat:no-repeat;
@@ -81,6 +82,7 @@
 				page:this.$route.query.page,
 				result:false,
 				empty:false,
+				loading:1,
 			}
 		},
 
@@ -111,13 +113,16 @@
 					this.$store.commit('setMake',this.make);
 					this.$store.commit('setDesc',this.desc);
 					this.$store.commit('setYear',this.year);
-
+					this.loading=0;
 				}else{
 					this.empty=true;
+					this.loading=0;
 				}
 			  }, response => {
 			    console.log("error");
 			  });
+
+			  
         },
 
 		
@@ -183,6 +188,11 @@
 	}
 	.paginate_btn .btn{
 		min-width: 115px;
+	}
+
+	td{
+		height:80px; 
+		vertical-align:middle !important;
 	}
 	
 </style>

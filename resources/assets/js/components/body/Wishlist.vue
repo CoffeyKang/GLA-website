@@ -90,9 +90,10 @@
 
 						const h = this.$createElement;
 						this.$notify({
-						title: 'Succsesfully Clear.',
-						message: h('b', { style: 'color: teal' }, 'The Wish list was cleared')
+							title: 'Succsesfully Clear.',
+							message: h('b', { style: 'color: teal' }, 'The Wish list was cleared')
 						});
+						this.getWishlist();
 					},response=>{
 
 					});
@@ -101,11 +102,13 @@
 				var user = JSON.parse(this.storage.getItem("user")).id;
 				this.$http.post('/api/removeFromWishlist',{user:user,item:item.item})
 					.then(response=>{
-						
+						const h = this.$createElement;
 						if (response.data==1) {
-							this.items={},
 							this.getWishlist();
-							this.items.remove(item);
+							this.$notify({
+								title: 'Succsesfully remove.',
+								message: h('b', { style: 'color: teal' }, 'The item removed.')
+							});
 						}else{
 							
 						}
