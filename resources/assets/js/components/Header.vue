@@ -120,9 +120,9 @@
 }
 li a{
 	border-radius: 0;
-	font-size: 18px;
+	font-size: 24px;
 	color: black;
-	padding:15px 0;
+	padding:10px 0;
 
 }
 

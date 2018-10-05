@@ -3,7 +3,7 @@
 		element-loading-text="Calculating ..."
         
 	>
-        <h3>Confimr Order</h3>
+        <h3>Confirm Order</h3>
         <div class="col-sm-8" style='padding:0;'>
             <div>
                 <table class="table table-striped table-justified">
@@ -49,6 +49,7 @@
 
                     <div class='col-xs-12'  style='margin-top:20px;'>
                         <h4>Shipping To another address</h4>
+                        <div style='display:flex; justify-content:space-between'> 
                         <el-select v-model="selectAdd" placeholder="Shipping To ...">
                             <el-option
                             v-for="item in addressBook"
@@ -57,6 +58,11 @@
                             :value="item.id">
                             </el-option>
                         </el-select>
+                        <button class="btn btn-success" @click='showNewAddress=!showNewAddress'>
+                            <span v-if="!showNewAddress">Add new address</span>
+                            <span v-if="showNewAddress">Hide new address form</span>
+                        </button>
+                        </div>
                     </div>
                 <div class='addressBook col-xs-12' >
                     <div class='address' v-for="address in addressBook" :key="address.id" v-if="address.id==selectAdd">
@@ -78,7 +84,7 @@
 
                 
                 
-                <div class="newShipping col-xs-12" @keyup.enter='submitForm(newAdd)'>
+                <div class="newShipping col-xs-12" @keyup.enter='submitForm(newAdd)' v-if="showNewAddress==true">
                     <h4 >New Shipping Address</h4>
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
@@ -195,7 +201,7 @@ export default {
     data(){
         return {
             items:[],
-            
+            showNewAddress:false,
             qtys:[],
             otherAddress:false,
             storage:window.localStorage,
@@ -310,6 +316,12 @@ export default {
                     this.expressDay = response.data.expressDay;
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
+
+                    if (this.carts.length<1) {
+                        this.$router.push({name:'ShoppingCart'});
+                    }else{
+                        
+                    }
                 });
 
 			}else{

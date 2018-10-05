@@ -517,6 +517,7 @@
                             this.hasInfo = true;
 
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                            this.$router.push({name:'CustomerInfo'});
                         
                         });
 

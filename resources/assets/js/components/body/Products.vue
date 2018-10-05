@@ -11,7 +11,7 @@
 					<!-- <img :src="make.path" alt="123 " draggable='false'> -->
 				</div>
 
-				<div class="car_img" v-if=' make.path == "default"' :style="{ backgroundImage: 'url(/images/makes/default.jpg)' }">
+				<div class="car_img" v-if=' make.path == "default"' :style="{ backgroundImage: 'url(/images/makes/default.png)' }">
 					<!-- <img src="/images/makes/default.jpg" alt="2"> -->
 				</div>
 
