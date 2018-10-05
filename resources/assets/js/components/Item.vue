@@ -1,7 +1,7 @@
 <template>
 	<div class='item'>
 		
-		<div class="img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">	
+		<div class="img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click='goToItem(item.item)'>	
 			
 		</div>
 		<div class="words">
@@ -33,6 +33,16 @@
 
 	export default{
 		props: ['item'],
+		methods:{
+			goToItem($item){
+				this.$router.push({
+					name:'ItemDetails',
+					params:{
+						id:$item,
+					}
+				});
+			}
+		}
 		
 	}
 </script>
@@ -47,6 +57,7 @@
 		background-size: 100%;
 		background-repeat: no-repeat;
 		height: 250px;
+		cursor: pointer;
 	}
 	.words{
 		display: flex;

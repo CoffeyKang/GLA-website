@@ -14,7 +14,7 @@
 			<div class='car_make' v-for='item in lists' :key='item.item'>
 			
 				<div class='item'>
-					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
+					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click='goToItem(item.item)'>
 					</div>
 					
 					<div class="car_make_name text-center">
@@ -181,6 +181,7 @@
 		background-size: 100%;
 		background-repeat: no-repeat;
 		background-position: 50%;
+		cursor: pointer;
 
 
 

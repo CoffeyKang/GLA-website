@@ -66560,7 +66560,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.item[data-v-2fa65a4a]{\n\tmargin:20px 0;\n\twidth: 260px;\n}\n.img[data-v-2fa65a4a]{\n\tbackground-position: center;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\theight: 250px;\n}\n.words[data-v-2fa65a4a]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\nbutton[data-v-2fa65a4a]{\n\twidth:150px;\n}\n.price[data-v-2fa65a4a]{\n\tcolor: red;\n\tfont-size: 2em;\n\tfont-weight: bold;\n\tpadding: 10px 0 ;\n}\n.description[data-v-2fa65a4a]{\n\tcolor: black;\n\tfont-weight: bold;\n\ttext-transform: uppercase;\n}\n", ""]);
+exports.push([module.i, "\n.item[data-v-2fa65a4a]{\n\tmargin:20px 0;\n\twidth: 260px;\n}\n.img[data-v-2fa65a4a]{\n\tbackground-position: center;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\theight: 250px;\n\tcursor: pointer;\n}\n.words[data-v-2fa65a4a]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\nbutton[data-v-2fa65a4a]{\n\twidth:150px;\n}\n.price[data-v-2fa65a4a]{\n\tcolor: red;\n\tfont-size: 2em;\n\tfont-weight: bold;\n\tpadding: 10px 0 ;\n}\n.description[data-v-2fa65a4a]{\n\tcolor: black;\n\tfont-weight: bold;\n\ttext-transform: uppercase;\n}\n", ""]);
 
 // exports
 
@@ -66605,7 +66605,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['item']
+	props: ['item'],
+	methods: {
+		goToItem: function goToItem($item) {
+			this.$router.push({
+				name: 'ItemDetails',
+				params: {
+					id: $item
+				}
+			});
+		}
+	}
 
 });
 
@@ -66620,7 +66630,12 @@ var render = function() {
   return _c("div", { staticClass: "item" }, [
     _c("div", {
       staticClass: "img",
-      style: { backgroundImage: "url(" + _vm.item.img_path + ")" }
+      style: { backgroundImage: "url(" + _vm.item.img_path + ")" },
+      on: {
+        click: function($event) {
+          _vm.goToItem(_vm.item.item)
+        }
+      }
     }),
     _vm._v(" "),
     _c(
@@ -68532,7 +68547,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.item[data-v-33c656d4]{\n\tmargin: 0px 50px;\n}\n.title[data-v-33c656d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-33c656d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n#car_makes[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.car_make[data-v-33c656d4]{\n\tmargin-top: 30px;\n\twidth: 280px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.car_make_name[data-v-33c656d4]{\n\tmargin-top: 10px;\n}\n.car_img[data-v-33c656d4]{\n\tpadding: 30px;\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n}\n.paginate_btn[data-v-33c656d4]{\n\tmargin-top: 20px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\tmargin-bottom: 20px;\n}\n.paginate_btn .btn[data-v-33c656d4]{\n\tmin-width: 115px;\n}\n.price_label[data-v-33c656d4]{color: red;\n}\n.price[data-v-33c656d4]{\n\tcolor:#800000;\n}\n.add_details[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\tpadding: 10px;\n}\n.add_to_cart[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: end;\n\t    -ms-flex-align: end;\n\t        align-items: flex-end;\n}\n.description[data-v-33c656d4]{\n\tmin-height: 70px;\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item[data-v-33c656d4]{\n\tmargin: 0px 50px;\n}\n.title[data-v-33c656d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-33c656d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n#car_makes[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.car_make[data-v-33c656d4]{\n\tmargin-top: 30px;\n\twidth: 280px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.car_make_name[data-v-33c656d4]{\n\tmargin-top: 10px;\n}\n.car_img[data-v-33c656d4]{\n\tpadding: 30px;\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n\tcursor: pointer;\n}\n.paginate_btn[data-v-33c656d4]{\n\tmargin-top: 20px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\tmargin-bottom: 20px;\n}\n.paginate_btn .btn[data-v-33c656d4]{\n\tmin-width: 115px;\n}\n.price_label[data-v-33c656d4]{color: red;\n}\n.price[data-v-33c656d4]{\n\tcolor:#800000;\n}\n.add_details[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\tpadding: 10px;\n}\n.add_to_cart[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: end;\n\t    -ms-flex-align: end;\n\t        align-items: flex-end;\n}\n.description[data-v-33c656d4]{\n\tmin-height: 70px;\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -68724,7 +68739,12 @@ var render = function() {
               _c("div", { staticClass: "item" }, [
                 _c("div", {
                   staticClass: "car_img",
-                  style: { backgroundImage: "url(" + item.img_path + ")" }
+                  style: { backgroundImage: "url(" + item.img_path + ")" },
+                  on: {
+                    click: function($event) {
+                      _vm.goToItem(item.item)
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "car_make_name text-center" }, [
@@ -68939,7 +68959,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.backToSearch[data-v-28b4188e]{\n\tfont-size: 12px;\n\tcursor: pointer;\n}\n.ItemDetails[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.item[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n}\n.itemImages[data-v-28b4188e]{\n\t\n\tborder-radius: 12px 12px 0 0;\n    background-position: 50%;\n    background-repeat: no-repeat;\n    background-size: 100%;\n    height: 600px;\n}\n.words[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n\t\n\tpadding: 50px;\n}\nli[data-v-28b4188e]{\n\tlist-style-type: none;\n\tfont-size: 1em;\n\tpadding:2px 0px;\n}\n.descrip[data-v-28b4188e], .details[data-v-28b4188e], .priceDiv[data-v-28b4188e]{\n\tpadding-bottom: 20px;\n\tpadding-top: 20px;\n\tborder-bottom: 1px black solid;\n}\n.descrip span[data-v-28b4188e]{\n\tfont-size: 1.8em;\n\tline-height: 30px;\n\tfont-weight: bold;\n}\n.price[data-v-28b4188e]{\n\tfont-size: 3em;\n\tfont-weight: bold;\n\tcolor: red;\n}\n.action[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n}\n.inStock[data-v-28b4188e]{\n\tcolor: green;\n\tfont-size: 1.2em;\n\tpadding-bottom: 5px;\n}\n.wish[data-v-28b4188e]{\n\tcolor: red;\n\tfont-size: 1.4em;\n\tcursor: pointer;\n}\n.addToCart[data-v-28b4188e]{\n\tfont-size: 1.6em;\n}\n.nav[data-v-28b4188e]{\n\tfont-size: 1.4em;\n\tpadding: 20px 0;\n}\n.related[data-v-28b4188e]{\n\tbackground-color: yellow;\n\tfont-size: 1.6em;\n\tpadding: 10px 20px;\n\tfont-weight: bold;\n}\n.related_products[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack:justify;\n\t    -ms-flex-pack:justify;\n\t        justify-content:space-between;\n}\n.car_img[data-v-28b4188e]{\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n}\n.related_item[data-v-28b4188e]{\n\twidth: 260px;\n\tpadding: 20px;\n}\n.related_details li[data-v-28b4188e]{\n\tpadding: 0;\n\twhite-space: nowrap;\n  \toverflow: hidden;\n  \ttext-overflow: ellipsis;\n  \tmax-width: 220px;\n}\n.realted_priceDiv[data-v-28b4188e]{\n\tcolor: red;\n\tfont-size: 1.8em;\n\tfont-weight: bold;\n}\n.action_right[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: end;\n\t    -ms-flex-align: end;\n\t        align-items: flex-end;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n.backToSearch[data-v-28b4188e]{\n\tfont-size: 12px;\n\tcursor: pointer;\n}\n.ItemDetails[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.item[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n}\n.itemImages[data-v-28b4188e]{\n\t\n\tborder-radius: 12px 12px 0 0;\n    background-position: 50%;\n    background-repeat: no-repeat;\n    background-size: 100%;\n    height: 600px;\n}\n.words[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n\t\n\tpadding: 50px;\n}\nli[data-v-28b4188e]{\n\tlist-style-type: none;\n\tfont-size: 1em;\n\tpadding:2px 0px;\n}\n.descrip[data-v-28b4188e], .details[data-v-28b4188e], .priceDiv[data-v-28b4188e]{\n\tpadding-bottom: 20px;\n\tpadding-top: 20px;\n\tborder-bottom: 1px black solid;\n}\n.descrip span[data-v-28b4188e]{\n\tfont-size: 1.8em;\n\tline-height: 30px;\n\tfont-weight: bold;\n}\n.price[data-v-28b4188e]{\n\tfont-size: 3em;\n\tfont-weight: bold;\n\tcolor: red;\n}\n.action[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n}\n.inStock[data-v-28b4188e]{\n\tcolor: green;\n\tfont-size: 1.2em;\n\tpadding-bottom: 5px;\n}\n.wish[data-v-28b4188e]{\n\tcolor: red;\n\tfont-size: 1.4em;\n\tcursor: pointer;\n}\n.addToCart[data-v-28b4188e]{\n\tfont-size: 1.6em;\n}\n.nav[data-v-28b4188e]{\n\tfont-size: 1.4em;\n\tpadding: 20px 0;\n}\n.related[data-v-28b4188e]{\n\tbackground-color: yellow;\n\tfont-size: 1.6em;\n\tpadding: 10px 20px;\n\tfont-weight: bold;\n}\n.related_products[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack:justify;\n\t    -ms-flex-pack:justify;\n\t        justify-content:space-between;\n}\n.car_img[data-v-28b4188e]{\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n\tcursor: pointer;\n}\n.related_item[data-v-28b4188e]{\n\twidth: 260px;\n\tpadding: 20px;\n}\n.related_details li[data-v-28b4188e]{\n\tpadding: 0;\n\twhite-space: nowrap;\n  \toverflow: hidden;\n  \ttext-overflow: ellipsis;\n  \tmax-width: 220px;\n}\n.realted_priceDiv[data-v-28b4188e]{\n\tcolor: red;\n\tfont-size: 1.8em;\n\tfont-weight: bold;\n}\n.action_right[data-v-28b4188e]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: end;\n\t    -ms-flex-align: end;\n\t        align-items: flex-end;\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -69340,7 +69360,12 @@ var render = function() {
           _c("div", { staticClass: "related_item" }, [
             _c("div", {
               staticClass: "car_img",
-              style: { backgroundImage: "url(" + r.img_path + ")" }
+              style: { backgroundImage: "url(" + r.img_path + ")" },
+              on: {
+                click: function($event) {
+                  _vm.goTo(r.item)
+                }
+              }
             }),
             _vm._v(" "),
             _c("div", { staticClass: "related_details text-left" }, [

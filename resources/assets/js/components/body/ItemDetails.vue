@@ -60,7 +60,7 @@
 		<div class="related_products container">
 			<div v-for='r in related' :key='r.item'>
 				<div class='related_item'>
-					<div class="car_img" :style="{ backgroundImage: 'url(' + r.img_path + ')' }">
+					<div class="car_img" :style="{ backgroundImage: 'url(' + r.img_path + ')' }" @click="goTo(r.item)"> 
 					</div>
 
 					<div class="related_details text-left">
@@ -304,6 +304,7 @@
 		background-size: 100%;
 		background-repeat: no-repeat;
 		background-position: 50%;
+		cursor: pointer;
 
 	}
 	
