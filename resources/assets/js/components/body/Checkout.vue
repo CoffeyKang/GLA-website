@@ -685,13 +685,13 @@ export default {
                         
 
                     }else{
-                        this.$message({
-                            showClose:true,
-                            message:"Error Submit",
-                            type:"error",
-                            duration:5000,
-                        });
-                        return false;
+                        // this.$message({
+                        //     showClose:true,
+                        //     message:"Error Submit",
+                        //     type:"error",
+                        //     duration:5000,
+                        // });
+                        // return false;
                     }
                 });
             },

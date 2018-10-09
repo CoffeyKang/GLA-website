@@ -102,6 +102,50 @@ export default {
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
+                    if (this.storage.getItem('user')) {
+                        this.user = JSON.parse(this.storage.getItem('user'));
+                        let cust_id = this.user.id;
+
+                        this.$http.get('/api/getShortlist/'+cust_id).then((response)=>{
+                            console.log(response.data);
+                            let oldShortlist = response.data.oldShortlist;
+                            
+                            oldShortlist.forEach(element => {
+                                let item = element.item;
+                                let quantity = element.qty;
+                                if (window.localStorage.getItem(item)) {
+                                    // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                                    // window.localStorage.setItem(item,qty);
+                                }else{
+                                    window.localStorage.setItem(item,quantity);
+                                    
+                                    var newNumber = this.carts_number+1;
+                                    
+                                    this.$store.commit('carts_number',newNumber);
+
+                                }
+
+
+                            });
+
+                            
+                            
+
+                            
+                        });
+
+                        this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
+                            // console.log('called');
+                            if (response.data.deleteOldShortlist=='deletedOld') {
+                                // console.log('shortlist has been delete');
+                            }else{
+
+                            }
+                        }));
+                    }else{
+                        console.log('not login');
+                    }
+
                     this.$store.commit('changeLoginStatus',true);
                     
                     this.$router.push(this.loginDirect);

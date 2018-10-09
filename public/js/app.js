@@ -71043,11 +71043,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         loginTo: function loginTo() {
             this.$http.post('/api/loginCustomer', { email: this.email, password: this.password }).then(function (response) {
+                var _this = this;
+
                 var myStorage = localStorage;
 
                 myStorage.setItem('user', JSON.stringify(response.data.user));
 
                 myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
+
+                if (this.storage.getItem('user')) {
+                    this.user = JSON.parse(this.storage.getItem('user'));
+                    var cust_id = this.user.id;
+
+                    this.$http.get('/api/getShortlist/' + cust_id).then(function (response) {
+                        console.log(response.data);
+                        var oldShortlist = response.data.oldShortlist;
+
+                        oldShortlist.forEach(function (element) {
+                            var item = element.item;
+                            var quantity = element.qty;
+                            if (window.localStorage.getItem(item)) {
+                                // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                                // window.localStorage.setItem(item,qty);
+                            } else {
+                                window.localStorage.setItem(item, quantity);
+
+                                var newNumber = _this.carts_number + 1;
+
+                                _this.$store.commit('carts_number', newNumber);
+                            }
+                        });
+                    });
+
+                    this.$http.get('/api/deleteShortlist/' + cust_id).then(function (response) {
+                        // console.log('called');
+                        if (response.data.deleteOldShortlist == 'deletedOld') {
+                            // console.log('shortlist has been delete');
+                        } else {}
+                    });
+                } else {
+                    console.log('not login');
+                }
 
                 this.$store.commit('changeLoginStatus', true);
 
@@ -76083,8 +76119,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     var item = element.item;
                     var quantity = element.qty;
                     if (window.localStorage.getItem(item)) {
-                        var qty = parseInt(window.localStorage.getItem(item)) + quantity;
-                        window.localStorage.setItem(item, qty);
+                        // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                        // window.localStorage.setItem(item,qty);
                     } else {
                         window.localStorage.setItem(item, quantity);
 
@@ -77174,13 +77210,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         window.scrollTo(0, 0);
                     });
                 } else {
-                    _this2.$message({
-                        showClose: true,
-                        message: "Error Submit",
-                        type: "error",
-                        duration: 5000
-                    });
-                    return false;
+                    // this.$message({
+                    //     showClose:true,
+                    //     message:"Error Submit",
+                    //     type:"error",
+                    //     duration:5000,
+                    // });
+                    // return false;
                 }
             });
         },

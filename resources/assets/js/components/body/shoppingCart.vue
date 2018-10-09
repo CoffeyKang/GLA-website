@@ -139,8 +139,8 @@ export default {
                         let item = element.item;
                         let quantity = element.qty;
                         if (window.localStorage.getItem(item)) {
-                            var qty = parseInt(window.localStorage.getItem(item)) + quantity;
-                            window.localStorage.setItem(item,qty);
+                            // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                            // window.localStorage.setItem(item,qty);
                         }else{
                             window.localStorage.setItem(item,quantity);
                             
@@ -171,6 +171,7 @@ export default {
                 console.log('not login');
             }
             // this.$http.get('/api/getShortlist/'+)
+            
             },
             
         methods:{
