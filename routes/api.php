@@ -74,7 +74,7 @@ Route::post('/checkout','InventoryController@checkout');
 Route::get('/shortlist','InventoryController@shortlist');
 
 /** get shortlist items and total no shipping estimationg */
-// Route::get('/getShortlist','InventoryController@getShortlist');
+
 
 /** add new shipping address */
 Route::post('/newShippingAdd','InventoryController@newShippingAdd');
@@ -107,6 +107,10 @@ Route::get('/address/{id}','InventoryController@address');
 Route::post('/confirmOrder','InventoryController@confirmOrder');
 
 Route::get('/oneOrder/{sono}','InventoryController@aOrder');
+
+Route::get('/getShortlist/{id}','InventoryController@getShortlist');
+
+Route::get('/deleteShortlist/{id}','InventoryController@deleteShortlist');
 
 
 

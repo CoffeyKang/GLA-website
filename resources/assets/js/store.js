@@ -43,6 +43,16 @@ export const store = new Vuex.Store({
       state.loginDirect = direction;
     }
   },
+
+  // filters: {
+  //   decimal: function (value) {
+  //     if (!isNaN(value)) {
+  //       return value.toFixed(2);
+  //     }else {
+  //       return value;
+  //     }
+  //   }
+  // },
   modules: {
     search: searchModule
   }

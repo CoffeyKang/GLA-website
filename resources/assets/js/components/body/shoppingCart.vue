@@ -41,10 +41,10 @@
                         </div>
                         <div class="price">
                             <span>
-                                PRICE: $ {{item.pricel}}
+                                PRICE: $ {{item.pricel |decimal }}
                             </span>
                             <span>
-                                TOTAL: $ {{(item.pricel) * parseInt(storage.getItem(item.item))}}
+                                TOTAL: $ {{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}
                             </span>
                         </div>
                     </div>
@@ -63,17 +63,17 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ subtotal }}</span>
+                            <span>SUBTOTAL:</span><span>${{ subtotal|decimal }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span>${{ shipping }}</span>
+                            <span>SHIPPING:</span><span>${{ shipping|decimal }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst }}</span>
+                            <span>HST:</span><span>${{ hst|decimal }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -104,17 +104,73 @@ export default {
             subtotal:0,
             shipping:"-",
             hst:"-",
+            user:{},
             // total:this.subtotal,
             
             }
         },
         computed:{
             total:function(){
-                return this.subtotal;
+                return this.subtotal.toFixed(2);
+            }
+        },
+
+        filters:{
+            decimal:function(value){
+                if (!isNaN(value)) {
+                    return value.toFixed(2)
+                }else{
+                    return value;
+                }
             }
         },
         mounted(){
             this.reloadElement();
+
+            if (this.storage.getItem('user')) {
+                this.user = JSON.parse(this.storage.getItem('user'));
+                let cust_id = this.user.id;
+
+                this.$http.get('/api/getShortlist/'+cust_id).then((response)=>{
+                    console.log(response.data);
+                    let oldShortlist = response.data.oldShortlist;
+                    
+                    oldShortlist.forEach(element => {
+                        let item = element.item;
+                        let quantity = element.qty;
+                        if (window.localStorage.getItem(item)) {
+                            var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                            window.localStorage.setItem(item,qty);
+                        }else{
+                            window.localStorage.setItem(item,quantity);
+                            
+                            var newNumber = this.carts_number+1;
+                            
+                            this.$store.commit('carts_number',newNumber);
+
+                        }
+
+
+                    });
+
+                    
+                    
+
+                    
+                });
+
+                this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
+                    // console.log('called');
+                    if (response.data.deleteOldShortlist=='deletedOld') {
+                        // console.log('shortlist has been delete');
+                    }else{
+
+                    }
+                }));
+            }else{
+                console.log('not login');
+            }
+            // this.$http.get('/api/getShortlist/'+)
             },
             
         methods:{
@@ -129,6 +185,11 @@ export default {
                     this.$store.commit('carts_number',this.carts.length);
                     this.subtotal = 0;                
                     this.carts.forEach(element => {
+                        console.log(element);
+                        let short_num = parseInt(this.storage.getItem(element.item));
+                        if ( short_num >element.onhand) {
+                            this.storage.setItem(element.item, element.onhand);
+                        }
                         this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
                     });
                         
@@ -227,6 +288,8 @@ export default {
                 
                 
             },
+
+            
         },
         watch:{
             

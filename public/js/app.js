@@ -71380,7 +71380,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n#registerForm[data-v-f88ac34c]{\n    margin:50px auto;\n}\n.title-span[data-v-f88ac34c]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    text-align: left;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.title[data-v-f88ac34c]{\n    font-size: 28px;\n    line-height: 40px;\n}\n.haveAccount[data-v-f88ac34c]{\n    font-size: 18px;\n    line-height: 40px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n#registerForm[data-v-f88ac34c]{\n    margin:50px auto;\n}\n.title-span[data-v-f88ac34c]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    text-align: left;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.title[data-v-f88ac34c]{\n    font-size: 28px;\n    line-height: 40px;\n}\n.haveAccount[data-v-f88ac34c]{\n    font-size: 18px;\n    line-height: 40px;\n}\n.inRow[data-v-f88ac34c]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.col-xs-6[data-v-f88ac34c], .col-xs-12 [data-v-f88ac34c],.col-xs-5[data-v-f88ac34c] {\n    padding:0;\n}\n.checkboxDiv[data-v-f88ac34c]{\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -71448,9 +71448,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+
         return {
             errors: [],
             username: null,
@@ -71461,7 +71523,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             confirm: null,
             receiveEmail: true,
             summary: false,
-            storage: window.localStorage
+            storage: window.localStorage,
+            details: {
+                firstname: '',
+                lastname: '',
+                email: '',
+                password: '',
+                confirm: '',
+                checked: true
+
+            },
+            rules: {
+                firstname: [{ required: true, message: 'FIrst name is required.', trigger: 'blur', max: 99 }],
+                lastname: [{ required: true, message: 'Last name is required.', trigger: 'blur', max: 99 }],
+
+                email: [{ required: true, message: 'Email is required.', trigger: 'blur', max: 99 }, { type: 'email', message: 'invaldate email.', trigger: 'blur', max: 99 }],
+
+                password: [{ required: true, message: 'Password is required.', trigger: 'blur', max: 99 }, { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max: 99 }],
+
+                confirm: [{ required: true, message: 'Confirm password is required.', trigger: 'blur', max: 99 }, { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max: 99 }]
+            }
         };
     },
 
@@ -71481,74 +71562,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return "ok";
         },
         register: function register() {
+            var _this = this;
 
-            if (this.password != this.confirm) {
-                this.$message({
-                    message: 'Password Confirmation does not match Password',
-                    type: 'error'
-                });
-                return false;
-            }
+            this.$refs["details"].validate(function (valid) {
+                if (valid) {
+                    if (_this.password != _this.confirm) {
+                        _this.$message({
+                            message: 'Password Confirmation does not match Password',
+                            type: 'error'
+                        });
+                        return false;
+                    }
 
-            if (this.checkPwd(this.password) != "ok") {
-                this.$message({
-                    message: this.checkPwd(this.password),
-                    type: 'error'
-                });
-                return false;
-            }
+                    if (_this.checkPwd(_this.details.password) != "ok") {
+                        _this.$message({
+                            message: _this.checkPwd(_this.details.password),
+                            type: 'error'
+                        });
+                        $('.password').css('border-color', 'red');
+                        return false;
+                    }
 
-            this.$http.post('/api/newCustomer', {
-                'lastname': this.lastname,
-                'firstname': this.firstname,
-                'email': this.email,
-                'password': this.password,
-                'receiveEmail': this.receiveEmail
-            }).then(function (response) {
-                var _this = this;
+                    _this.$http.post('/api/newCustomer', {
+                        'lastname': _this.details.lastname,
+                        'firstname': _this.details.firstname,
+                        'email': _this.details.email,
+                        'password': _this.details.password,
+                        'receiveEmail': _this.details.receiveEmail
+                    }).then(function (response) {
 
-                if (response.data.status == "userExists") {
-                    this.$message({
-                        message: 'The Email has been used.',
-                        type: 'error'
+                        if (response.data.status == "userExists") {
+                            _this.$message({
+                                message: 'The Email has been used.',
+                                type: 'error'
+                            });
+                            // $().ready(function(){
+                            // $('#email').css('background-color','#f56c6c !important');
+
+                            // });
+                            return false;
+                        }
+
+                        console.log(response);
+                        console.log(response.data.user);
+                        _this.storage.setItem('user', JSON.stringify(response.data.user));
+                        _this.storage.setItem('userInfo', JSON.stringify(response.data.userInfo));
+                        _this.$store.commit('changeLoginStatus', true);
+
+                        _this.$confirm('', 'Congratulation', {
+                            confirmButtonText: 'Fill in Details',
+                            cancelButtonText: 'Start Shopping',
+                            type: 'success',
+                            center: true
+                        }).then(function () {
+                            _this.$router.push({ name: 'userHome' });
+                        }).catch(function () {
+                            console.log(123);
+                            _this.$router.push({ path: '/' });
+                        });
                     });
-                    return false;
+                } else {
+                    // this.$message({
+                    //     showClose:true,
+                    //     message:"Error Submit",
+                    //     type:"error",
+                    //     duration:5000,
+                    // });
+                    // return false;
                 }
-                console.log(response);
-                console.log(response.data.user);
-                this.storage.setItem('user', JSON.stringify(response.data.user));
-                this.storage.setItem('userInfo', JSON.stringify(response.data.userInfo));
-                this.$store.commit('changeLoginStatus', true);
-
-                this.$confirm('', 'Congratulation', {
-                    confirmButtonText: 'Fill in Details',
-                    cancelButtonText: 'Start Shopping',
-                    type: 'success',
-                    center: true
-                }).then(function () {
-                    _this.$router.push({ name: 'userHome' });
-                }).catch(function () {
-                    console.log(123);
-                    _this.$router.push({ path: '/' });
-                });
-
-                // this.$confirm('', 'Congratulation', {
-                //     confirmButtonText: 'Start Shopping',
-                //     cancelButtonText: 'Fill in Details',
-                //     type: 'success',
-                //     center: true
-                //     }).then(() => {
-                //         this.$router.push({name:''});
-                //     }).catch(() => {
-                //         console.log(123);
-                //         this.$router.push({name:'userHome'});
-                // });
-
-            }, function (response) {
-                this.$message({
-                    message: 'Please Check Your Input.',
-                    type: 'error'
-                });
             });
         }
     }
@@ -71606,232 +71687,259 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-xs-4 col-xs-offset-2 form-group" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.firstname,
-                  expression: "firstname"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", placeholder: "First Name", required: "" },
-              domProps: { value: _vm.firstname },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.firstname = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-4  form-group" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.lastname,
-                  expression: "lastname"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Last Name", required: "" },
-              domProps: { value: _vm.lastname },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.lastname = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-8 col-xs-offset-2 form-group" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.email,
-                  expression: "email"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                type: "email",
-                placeholder: "Email Address",
-                required: ""
-              },
-              domProps: { value: _vm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.email = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-8 col-xs-offset-2 form-group" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.password,
-                  expression: "password"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                type: "password",
-                id: "password",
-                placeholder: "Password",
-                required: ""
-              },
-              domProps: { value: _vm.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.password = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-8 col-xs-offset-2 form-group" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.confirm,
-                  expression: "confirm"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                type: "password",
-                placeholder: "Confirm Password",
-                required: ""
-              },
-              domProps: { value: _vm.confirm },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.confirm = $event.target.value
-                }
-              }
-            })
-          ]),
+          _c("div", { staticClass: "col-xs-2" }),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-xs-8 col-xs-offset-2 form-group remeber" },
+            { staticClass: "col-xs-8 col-xs-offset-2" },
             [
-              _c("div", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.receiveEmail,
-                      expression: "receiveEmail"
-                    }
-                  ],
+              _c(
+                "el-form",
+                {
+                  ref: "details",
                   attrs: {
-                    type: "checkbox",
-                    value: "RemeberPassword",
-                    placeholder: "remeber"
-                  },
-                  domProps: {
-                    checked: Array.isArray(_vm.receiveEmail)
-                      ? _vm._i(_vm.receiveEmail, "RemeberPassword") > -1
-                      : _vm.receiveEmail
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.receiveEmail,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = "RemeberPassword",
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.receiveEmail = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.receiveEmail = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
+                    rules: _vm.rules,
+                    model: _vm.details,
+                    size: "medium"
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "inRow" },
+                    [
+                      _c(
+                        "el-form-item",
+                        {
+                          staticClass: "col-xs-6",
+                          staticStyle: { "padding-right": "5px !important" },
+                          attrs: { prop: "firstname" }
+                        },
+                        [
+                          _c("el-input", {
+                            attrs: { placeholder: "Last Name" },
+                            model: {
+                              value: _vm.details.firstname,
+                              callback: function($$v) {
+                                _vm.$set(_vm.details, "firstname", $$v)
+                              },
+                              expression: "details.firstname"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-form-item",
+                        {
+                          staticClass: "col-xs-6",
+                          staticStyle: { "padding-left": "5px !important" },
+                          attrs: { prop: "lastname" }
+                        },
+                        [
+                          _c("el-input", {
+                            attrs: { placeholder: "First Name" },
+                            model: {
+                              value: _vm.details.lastname,
+                              callback: function($$v) {
+                                _vm.$set(_vm.details, "lastname", $$v)
+                              },
+                              expression: "details.lastname"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { prop: "email" } },
+                          [
+                            _c("el-input", {
+                              attrs: {
+                                id: "email",
+                                type: "email",
+                                placeholder: "Email Address"
+                              },
+                              model: {
+                                value: _vm.details.email,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "email", $$v)
+                                },
+                                expression: "details.email"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { prop: "password" } },
+                          [
+                            _c("el-input", {
+                              staticClass: "password",
+                              attrs: {
+                                type: "password",
+                                placeholder: "Password"
+                              },
+                              model: {
+                                value: _vm.details.password,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "password", $$v)
+                                },
+                                expression: "details.password"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { prop: "confirm" } },
+                          [
+                            _c("el-input", {
+                              staticClass: "password",
+                              attrs: {
+                                type: "password",
+                                placeholder: "Confirm Password"
+                              },
+                              model: {
+                                value: _vm.details.confirm,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "confirm", $$v)
+                                },
+                                expression: "details.confirm"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c("div", { staticClass: "col-xs-6" }, [
+                      _c(
+                        "div",
+                        [
+                          _c("el-checkbox", {
+                            model: {
+                              value: _vm.details.checked,
+                              callback: function($$v) {
+                                _vm.$set(_vm.details, "checked", $$v)
+                              },
+                              expression: "details.checked"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass: "checkboxDiv",
+                              on: {
+                                click: function($event) {
+                                  _vm.details.checked = !_vm.details.checked
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "Click here to disagree to allow Golden Leaf Automotive to send you \n                                        exclusive email offers and discounts. You can unsubscribe at any time."
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xs-1" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xs-5" }, [
+                      _c("div", {
+                        staticClass: "g-recaptcha",
+                        attrs: {
+                          "data-sitekey":
+                            "6LdLbFAUAAAAAOb3lPOguHez8kEIYIq89-q2TPMU\n"
                         }
-                      } else {
-                        _vm.receiveEmail = $$c
-                      }
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "forgetPassword" }, [
-                  _vm._v(
-                    "Click here to disagree to allow Golden Leaf Automotive to send you \n                        exclusive email offers and discounts. You can unsubscribe at any time."
-                  )
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-xs-8 col-xs-offset-2 form-group" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success col-xs-12",
-                attrs: { id: "loginBtn" },
-                on: {
-                  click: function($event) {
-                    _vm.register()
-                  }
-                }
-              },
-              [_vm._v("Register")]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _vm.summary
-        ? _c("div", { staticClass: "col-xs-10 col-xs-offset-1" }, [
-            _c("div", { staticClass: "col-xs-8 col-xs-offset-2" }, [
-              _vm._v("\n                First Name : " + _vm._s(_vm.frstname)),
-              _c("br"),
-              _vm._v("\n                Last Name : " + _vm._s(_vm.lastname)),
-              _c("br"),
-              _vm._v("\n                Email : " + _vm._s(_vm.email)),
-              _c("br"),
-              _vm._v("\n                Password: " + _vm._s(_vm.password)),
-              _c("br"),
-              _vm._v(
-                "\n                receiveEmail: " +
-                  _vm._s(_vm.receiveEmail) +
-                  "\n            "
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c("div", { staticClass: "col-xs-12" }, [_c("br")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          [
+                            _c(
+                              "el-button",
+                              {
+                                staticStyle: {
+                                  width: "100%",
+                                  "font-size": "24px",
+                                  padding: "5px"
+                                },
+                                attrs: { type: "success" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.register()
+                                  }
+                                }
+                              },
+                              [_vm._v("Register ")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
               )
-            ])
-          ])
-        : _vm._e()
+            ],
+            1
+          )
+        ]
+      )
     ]
   )
 }
@@ -72340,6 +72448,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
 
         this.user = JSON.parse(this.storage.getItem('user'));
+
+        if (this.user) {
+            console.log('login');
+        } else {
+            this.$router.push({ name: 'Login' });
+            console.log('not');
+
+            return false;
+        }
         this.details.surname = this.user.lastname;
         this.details.forename = this.user.firstname;
         this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
@@ -72376,7 +72493,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this.hasInfo = true;
 
                         _this.userInfo = JSON.parse(_this.storage.getItem('userInfo'));
-                        _this.$router.push({ name: 'CustomerInfo' });
+                        _this.$router.push({ path: '/CustomerInfo/HomePage' });
                     });
                 } else {
                     _this.$message({
@@ -75900,7 +76017,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             carts: [],
             subtotal: 0,
             shipping: "-",
-            hst: "-"
+            hst: "-",
+            user: {}
             // total:this.subtotal,
 
         };
@@ -75908,17 +76026,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         total: function total() {
-            return this.subtotal;
+            return this.subtotal.toFixed(2);
+        }
+    },
+
+    filters: {
+        decimal: function decimal(value) {
+            if (!isNaN(value)) {
+                return value.toFixed(2);
+            } else {
+                return value;
+            }
         }
     },
     mounted: function mounted() {
+        var _this = this;
+
         this.reloadElement();
+
+        if (this.storage.getItem('user')) {
+            this.user = JSON.parse(this.storage.getItem('user'));
+            var cust_id = this.user.id;
+
+            this.$http.get('/api/getShortlist/' + cust_id).then(function (response) {
+                console.log(response.data);
+                var oldShortlist = response.data.oldShortlist;
+
+                oldShortlist.forEach(function (element) {
+                    var item = element.item;
+                    var quantity = element.qty;
+                    if (window.localStorage.getItem(item)) {
+                        var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                        window.localStorage.setItem(item, qty);
+                    } else {
+                        window.localStorage.setItem(item, quantity);
+
+                        var newNumber = _this.carts_number + 1;
+
+                        _this.$store.commit('carts_number', newNumber);
+                    }
+                });
+            });
+
+            this.$http.get('/api/deleteShortlist/' + cust_id).then(function (response) {
+                // console.log('called');
+                if (response.data.deleteOldShortlist == 'deletedOld') {
+                    // console.log('shortlist has been delete');
+                } else {}
+            });
+        } else {
+            console.log('not login');
+        }
+        // this.$http.get('/api/getShortlist/'+)
     },
 
 
     methods: {
         reloadElement: function reloadElement() {
-            var _this = this;
+            var _this2 = this;
 
             // get items # from localstorage 
             for (var i = 0; i < this.storage.length; i++) {
@@ -75928,11 +76093,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post('api/getItems_carts', { data: d }, [function (method) {
                 return "POST";
             }]).then(function (response) {
-                _this.carts = response.data.carts;
-                _this.$store.commit('carts_number', _this.carts.length);
-                _this.subtotal = 0;
-                _this.carts.forEach(function (element) {
-                    _this.subtotal += element.pricel * parseInt(_this.storage.getItem(element.item));
+                _this2.carts = response.data.carts;
+                _this2.$store.commit('carts_number', _this2.carts.length);
+                _this2.subtotal = 0;
+                _this2.carts.forEach(function (element) {
+                    console.log(element);
+                    var short_num = parseInt(_this2.storage.getItem(element.item));
+                    if (short_num > element.onhand) {
+                        _this2.storage.setItem(element.item, element.onhand);
+                    }
+                    _this2.subtotal += element.pricel * parseInt(_this2.storage.getItem(element.item));
                 });
             }, function (response) {
                 // error 
@@ -75940,22 +76110,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         removeFromCart: function removeFromCart(item) {
-            var _this2 = this;
+            var _this3 = this;
 
             this.$confirm('Are you sure to delete the item from shopping cart.', 'Warning', {
                 confirmButtonText: 'Delete',
                 cancelButtonText: 'Cancel',
                 type: 'warning'
             }).then(function () {
-                _this2.items = [];
-                _this2.storage.removeItem(item.item);
-                _this2.reloadElement();
-                _this2.$message({
+                _this3.items = [];
+                _this3.storage.removeItem(item.item);
+                _this3.reloadElement();
+                _this3.$message({
                     type: 'success',
                     message: 'Scuccessfully delete!'
                 });
             }).catch(function () {
-                _this2.$message({
+                _this3.$message({
                     type: 'info',
                     message: 'Canceled'
                 });
@@ -75991,7 +76161,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.addToWishlist(item.item);
         },
         checkOut: function checkOut() {
-            var _this3 = this;
+            var _this4 = this;
 
             /** check if the client has logged in or not. if not, checkout requirs to login. */
             var user = JSON.parse(this.storage.getItem("user"));
@@ -76006,9 +76176,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(response);
 
                     if (response.data.status == "Success") {
-                        _this3.$router.push('/checkout');
+                        _this4.$router.push('/checkout');
                     } else if (response.data.status == 'noDetails') {
-                        _this3.$router.push({ path: 'customerInfo' });
+                        _this4.$router.push({ path: 'customerInfo' });
                     }
                 }, function (response) {
                     // error 
@@ -76178,7 +76348,7 @@ var render = function() {
                         _c("span", [
                           _vm._v(
                             "\n                            PRICE: $ " +
-                              _vm._s(item.pricel) +
+                              _vm._s(_vm._f("decimal")(item.pricel)) +
                               "\n                        "
                           )
                         ]),
@@ -76187,8 +76357,10 @@ var render = function() {
                           _vm._v(
                             "\n                            TOTAL: $ " +
                               _vm._s(
-                                item.pricel *
-                                  parseInt(_vm.storage.getItem(item.item))
+                                _vm._f("decimal")(
+                                  item.pricel *
+                                    parseInt(_vm.storage.getItem(item.item))
+                                )
                               ) +
                               "\n                        "
                           )
@@ -76235,21 +76407,25 @@ var render = function() {
             _c("div", { staticClass: "summary_list" }, [
               _c("div", { staticClass: "summary_amount" }, [
                 _c("span", [_vm._v("SUBTOTAL:")]),
-                _c("span", [_vm._v("$" + _vm._s(_vm.subtotal))])
+                _c("span", [
+                  _vm._v("$" + _vm._s(_vm._f("decimal")(_vm.subtotal)))
+                ])
               ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "summary_list" }, [
               _c("div", { staticClass: "summary_amount" }, [
                 _c("span", [_vm._v("SHIPPING:")]),
-                _c("span", [_vm._v("$" + _vm._s(_vm.shipping))])
+                _c("span", [
+                  _vm._v("$" + _vm._s(_vm._f("decimal")(_vm.shipping)))
+                ])
               ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "summary_list" }, [
               _c("div", { staticClass: "summary_amount" }, [
                 _c("span", [_vm._v("HST:")]),
-                _c("span", [_vm._v("$" + _vm._s(_vm.hst))])
+                _c("span", [_vm._v("$" + _vm._s(_vm._f("decimal")(_vm.hst)))])
               ])
             ]),
             _vm._v(" "),
@@ -78313,6 +78489,16 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       state.loginDirect = direction;
     }
   },
+
+  // filters: {
+  //   decimal: function (value) {
+  //     if (!isNaN(value)) {
+  //       return value.toFixed(2);
+  //     }else {
+  //       return value;
+  //     }
+  //   }
+  // },
   modules: {
     search: searchModule
   }

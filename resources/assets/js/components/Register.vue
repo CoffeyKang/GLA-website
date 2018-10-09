@@ -5,8 +5,78 @@
                     <span class='title'>NEW CUSTOMER<br>EXPRESS REGISTRATION</span>
                     <span class='haveAccount'>Already have an account? <router-link tag='a' to='/login'>Sign in</router-link></span>
                 </div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8 col-xs-offset-2">
+                    
+                
+                    <el-form :rules="rules" :model="details" ref="details" size="medium">
+                        <div class="inRow" >
+                            <el-form-item prop='firstname' class='col-xs-6' style='padding-right:5px !important'>
+                                <el-input v-model="details.firstname" placeholder="Last Name" ></el-input>
+                            </el-form-item>
 
-                <div class="col-xs-4 col-xs-offset-2 form-group">
+                            <el-form-item  prop='lastname' class='col-xs-6' style='padding-left:5px !important'>
+                                <el-input v-model="details.lastname" placeholder="First Name"  ></el-input>
+                            </el-form-item>
+                        </div>
+
+                        <div class="inRow" >
+                            <div class="col-xs-12">
+                                <el-form-item  prop='email' > 
+                                    <el-input id='email' type="email" placeholder="Email Address"  v-model='details.email'></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+
+                        <div class="inRow" >
+                            <div class="col-xs-12">
+                                <el-form-item  prop='password'>
+                                    <el-input type="password" class='password' placeholder="Password"  v-model='details.password'></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+
+                        <div class="inRow" >
+                            <div class="col-xs-12">
+                                <el-form-item  prop='confirm'>
+                                    <el-input type="password" class='password' placeholder="Confirm Password"  v-model='details.confirm'></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+                        <div class="inRow">
+                            <div class="col-xs-6">
+                                <div>
+                                    <!-- <el-input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'></el-input>
+                                    -->
+                                    <el-checkbox v-model="details.checked"></el-checkbox>
+                                    <span class='checkboxDiv' @click='details.checked = !details.checked'>Click here to disagree to allow Golden Leaf Automotive to send you 
+                                        exclusive email offers and discounts. You can unsubscribe at any time.</span>
+                                </div>
+                                
+                            </div>
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-5">
+                                <div class="g-recaptcha" data-sitekey="6LdLbFAUAAAAAOb3lPOguHez8kEIYIq89-q2TPMU
+"></div>
+                            </div>
+                        </div>
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="inRow">
+
+                            <div class="col-xs-12">
+                                <el-form-item>
+                                    <el-button type="success"  style="width: 100%; font-size:24px; padding:5px;" @click="register()">Register </el-button>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+                    </el-form>
+                </div>
+                <!-- <div class="col-xs-4 col-xs-offset-2 form-group">
                     <input type="text" placeholder="First Name" class="form-control" v-model='firstname' required>
                 </div>
 
@@ -37,19 +107,10 @@
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 form-group">
                     <button class="btn btn-success col-xs-12" id='loginBtn' @click="register()">Register</button>
-                </div>
+                </div> -->
             </div>
             
-            <div class="col-xs-10 col-xs-offset-1" v-if="summary">
-                <div class="col-xs-8 col-xs-offset-2">
-                    First Name : {{ frstname }}<br>
-                    Last Name : {{ lastname }}<br>
-                    Email : {{ email}}<br>
-                    Password: {{ password}}<br>
-                    receiveEmail: {{ receiveEmail}}
-                </div>
-                
-            </div>
+           
         
     </div>
 </template>
@@ -58,6 +119,7 @@
 <script>
     export default{
         data(){
+            
             return {
                 errors:[],
                 username:null,
@@ -69,6 +131,38 @@
                 receiveEmail:true,
                 summary:false,
                 storage:window.localStorage,
+                details:{
+                    firstname:'',
+                    lastname:'',
+                    email:'',
+                    password:'',
+                    confirm:'',
+                    checked:true,
+                    
+                },
+                rules:{
+                    firstname:[
+                        { required: true, message: 'FIrst name is required.', trigger: 'blur', max:99 }
+                    ],
+                    lastname:[
+                        { required: true, message: 'Last name is required.', trigger: 'blur', max:99 },
+                    ],
+
+                    email:[
+                        { required: true,  message: 'Email is required.', trigger: 'blur', max:99 },
+                        { type: 'email',  message: 'invaldate email.', trigger: 'blur', max:99 },
+                    ],
+
+                    password:[
+                        { required: true, message: 'Password is required.', trigger: 'blur', max:99 },
+                        { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max:99 },
+                    ],
+
+                    confirm:[
+                        { required: true, message: 'Confirm password is required.', trigger: 'blur', max:99 },
+                        { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max:99 },
+                    ],
+                }
             }
         },
         methods:{
@@ -87,88 +181,86 @@
                 return("ok");
             },
             register(){
-
-                if (this.password!=this.confirm) {
-                    this.$message(
-                        {
-                            message:'Password Confirmation does not match Password',
-                            type:'error', 
-                        }
-                    );
-                    return false;
-                }
-
-                if (this.checkPwd(this.password)!="ok") {
-                    this.$message(
-                        {
-                            message:this.checkPwd(this.password),
-                            type:'error', 
-                        }
-                    );
-                    return false;
-                }
-
-                
-                this.$http.post('/api/newCustomer',{
-                    'lastname':this.lastname,
-                    'firstname':this.firstname,
-                    'email':this.email,
-                    'password':this.password,
-                    'receiveEmail':this.receiveEmail, 
-                    }).then(
-                    function(response){
-                        
-                        if (response.data.status=="userExists") {
+                this.$refs["details"].validate((valid)=>{
+                    if(valid){
+                        if (this.password!=this.confirm) {
                             this.$message(
                                 {
-                                    message:'The Email has been used.',
+                                    message:'Password Confirmation does not match Password',
                                     type:'error', 
                                 }
                             );
                             return false;
                         }
-                        console.log(response);
-                        console.log(response.data.user);
-                        this.storage.setItem('user',JSON.stringify(response.data.user));
-                        this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
-                        this.$store.commit('changeLoginStatus',true);
 
-                        this.$confirm('', 'Congratulation', {
-                            confirmButtonText: 'Fill in Details',
-                            cancelButtonText: 'Start Shopping',
-                            type: 'success',
-                            center: true
-                            }).then(() => {
-                                this.$router.push({name:'userHome'});
-                            }).catch(() => {
-                                console.log(123);
-                                this.$router.push({path:'/'});
-                                
-                        });
-
-                        // this.$confirm('', 'Congratulation', {
-                        //     confirmButtonText: 'Start Shopping',
-                        //     cancelButtonText: 'Fill in Details',
-                        //     type: 'success',
-                        //     center: true
-                        //     }).then(() => {
-                        //         this.$router.push({name:''});
-                        //     }).catch(() => {
-                        //         console.log(123);
-                        //         this.$router.push({name:'userHome'});
-                        // });
-
-                        
-                        
-                    },function(response){
-                        this.$message(
+                        if (this.checkPwd(this.details.password)!="ok") {
+                            this.$message(
                                 {
-                                    message:'Please Check Your Input.',
-                                    type:'error',
+                                    message:this.checkPwd(this.details.password),
+                                    type:'error', 
                                 }
                             );
-                    });
-            },
+                            $('.password').css('border-color','red');
+                            return false;
+                        }
+                            
+
+                        this.$http.post('/api/newCustomer',{
+                            'lastname':this.details.lastname,
+                            'firstname':this.details.firstname,
+                            'email':this.details.email,
+                            'password':this.details.password,
+                            'receiveEmail':this.details.receiveEmail, 
+                            }).then((response)=>{
+                                
+                                if (response.data.status=="userExists") {
+                                    this.$message(
+                                        {
+                                            message:'The Email has been used.',
+                                            type:'error', 
+                                        }
+                                    );
+                                    // $().ready(function(){
+                                    // $('#email').css('background-color','#f56c6c !important');
+                                        
+                                    // });
+                                    return false;
+                                }
+
+                                console.log(response);
+                                console.log(response.data.user);
+                                this.storage.setItem('user',JSON.stringify(response.data.user));
+                                this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
+                                this.$store.commit('changeLoginStatus',true);
+
+                                this.$confirm('', 'Congratulation', {
+                                    confirmButtonText: 'Fill in Details',
+                                    cancelButtonText: 'Start Shopping',
+                                    type: 'success',
+                                    center: true
+                                    }).then(() => {
+                                        this.$router.push({name:'userHome'});
+                                    }).catch(() => {
+                                        console.log(123);
+                                        this.$router.push({path:'/'});
+                                        
+                                });
+                            });
+                            
+                        
+                    
+                    }else{
+                        // this.$message({
+                        //     showClose:true,
+                        //     message:"Error Submit",
+                        //     type:"error",
+                        //     duration:5000,
+                        // });
+                        // return false;
+                    }
+                });
+            }
+
         }
     }
 </script>
@@ -192,7 +284,16 @@
         font-size: 18px;
         line-height: 40px;
     }
+    .inRow{
+        display: flex;
+        justify-content: space-between;
+    }
+    .col-xs-6, .col-xs-12 ,.col-xs-5 {
+        padding:0;
+    }
 
-    
+    .checkboxDiv{
+        cursor: pointer;
+    }
 </style>
 

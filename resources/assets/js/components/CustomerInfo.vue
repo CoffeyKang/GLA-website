@@ -483,6 +483,15 @@
             // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
             
             this.user = JSON.parse(this.storage.getItem('user'));
+
+            if (this.user) {
+                console.log('login');
+            }else{
+                this.$router.push({name:'Login'});
+                console.log('not');
+
+                return false;
+            }
             this.details.surname = this.user.lastname;
             this.details.forename = this.user.firstname;
             this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
@@ -517,7 +526,7 @@
                             this.hasInfo = true;
 
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
-                            this.$router.push({name:'CustomerInfo'});
+                            this.$router.push({path:'/CustomerInfo/HomePage'});
                         
                         });
 

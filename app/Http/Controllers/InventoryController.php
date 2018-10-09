@@ -1329,5 +1329,24 @@ class InventoryController extends Controller
 
         return response()->json(['somast'=>$somast,'sotran'=>$sotran,'address'=>$address],200);
     }
+
+
+    /** get short list to shopping carts */
+
+    public function getShortlist($id){
+        
+        $OldShortlist = TEMP_SO::where('cust_id',$id)->get();
+        
+        return response()->json(['oldShortlist'=>$OldShortlist],200);
+    }
+
+    /**  delete short list when the shortlist finish to convert to shipping cart */
+    
+    public function deleteShortlist($id){
+
+        $deleteOldShortlist = TEMP_SO::where('cust_id',$id)->delete();
+        
+        return response()->json(['deleteOldShortlist'=>"deletedOld"],200);
+    }
     
 }
