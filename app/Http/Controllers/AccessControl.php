@@ -58,6 +58,8 @@ class AccessControl extends Controller
             'password'=>'required|min:8',
         ]);
         
+        $captcha = $request->captcha;
+        
 
         $checkEmail = User::where('email',$request->email)->first();
 
@@ -96,6 +98,7 @@ class AccessControl extends Controller
 
     public function userDetails(Request $request){
 
+        
         
          //check the userInfo exsits or not
 

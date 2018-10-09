@@ -58,10 +58,13 @@
                             :value="item.id">
                             </el-option>
                         </el-select>
-                        <button class="btn btn-success" @click='showNewAddress=!showNewAddress'>
-                            <span v-if="!showNewAddress">Add new address</span>
-                            <span v-if="showNewAddress">Hide new address form</span>
-                        </button>
+                        <div>
+                            <button class="btn btn-primray" @click='defaultShipping()' v-if="otherAddress">Ship To Default Address</button>
+                            <button class="btn btn-success" @click='showNewAddress=!showNewAddress'>
+                                <span v-if="!showNewAddress">Add new address</span>
+                                <span v-if="showNewAddress">Hide new address form</span>
+                            </button>
+                        </div>
                         </div>
                     </div>
                 <div class='addressBook col-xs-12' >
@@ -158,13 +161,14 @@
                                     <el-select v-model="newAdd.state" placeholder="Province">
                                         <el-option
                                         v-for="item in US_states"
-                                        :key="item.name"
+                                        :key="item.abbreviation"
                                         :label="item.name"
                                         :value="item.abbreviation" >
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>
+                            
                             <el-form-item label="Telphone" prop='tel'>
                                 <el-input type='number' v-model="newAdd.tel"></el-input>
                             </el-form-item>
@@ -613,10 +617,50 @@ export default {
             }
         },
         methods:{
+
+            defaultShipping(){
+               location.reload();
+            },
+            
+            isAlphaOrParen(a) {
+                return /^[a-zA-Z()]+$/.test(a);
+            },
             submitForm(newAdd){
                 console.log('submit form');
                 this.$refs["newAdd"].validate((valid)=>{
                     if (valid){
+
+                        if (this.newAdd.country=='USA') {
+                            let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.newAdd.zipcode);
+
+                            if (!isValidZip) {
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid USA Zipcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }else{
+                            
+
+                            }
+                        }else{
+                            let str = this.newAdd.zipcode.replace(' ','');
+
+                            if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                            }else{
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid Canada postalcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }
+                        }
+
+
                         // submit userDetails info        
                         var userId = this.userInfo.m_id;
                         console.log(userId);

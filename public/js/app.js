@@ -71506,9 +71506,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71523,6 +71521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             confirm: null,
             receiveEmail: true,
             summary: false,
+            myCaptcha: '',
             storage: window.localStorage,
             details: {
                 firstname: '',
@@ -71545,6 +71544,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
+    mounted: function mounted() {},
 
     methods: {
         checkPwd: function checkPwd(str) {
@@ -71588,7 +71588,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         'firstname': _this.details.firstname,
                         'email': _this.details.email,
                         'password': _this.details.password,
-                        'receiveEmail': _this.details.receiveEmail
+                        'receiveEmail': _this.details.receiveEmail,
+                        'myCaptcha': _this.myCaptcha,
+                        'captcha': grecaptcha.getResponse()
+
                     }).then(function (response) {
 
                         if (response.data.status == "userExists") {
@@ -71875,7 +71878,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "Click here to disagree to allow Golden Leaf Automotive to send you \n                                        exclusive email offers and discounts. You can unsubscribe at any time."
+                                "Click here to disagree to allow Golden Leaf Automotive to send you \n                                    exclusive email offers and discounts. You can unsubscribe at any time."
                               )
                             ]
                           )
@@ -71887,13 +71890,7 @@ var render = function() {
                     _c("div", { staticClass: "col-xs-1" }),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-xs-5" }, [
-                      _c("div", {
-                        staticClass: "g-recaptcha",
-                        attrs: {
-                          "data-sitekey":
-                            "6LdLbFAUAAAAAOb3lPOguHez8kEIYIq89-q2TPMU\n"
-                        }
-                      })
+                      _c("div", { attrs: { id: "html_element" } })
                     ])
                   ]),
                   _vm._v(" "),
@@ -72435,7 +72432,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 forename: [{ required: true, message: 'Forename is required.', trigger: 'blur', max: 99 }],
                 city: [{ required: true, message: 'City is required.', trigger: 'blur', max: 99 }],
                 state: [{ required: true, message: 'State is required.', trigger: 'blur', max: 99 }],
-                zipcode: [{ required: true, message: 'Zip Code is required.', trigger: 'blur', max: 99 }],
+                zipcode: [{ required: true, message: 'Zip Code is required.', trigger: 'blur' }, { min: 5, max: 7, message: 'Please input valid postalcode.', trigger: 'blur' }],
                 address: [{ required: true, message: 'Address is required.', trigger: 'blur', max: 99 }],
                 country: [{ required: true, message: 'Country is required.', trigger: 'blur', max: 99 }],
                 tel: [{ required: true, message: 'Invalid telephone number.', trigger: 'blur', max: 10, min: 10 }],
@@ -72447,6 +72444,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
 
+        // console.log(isValidZip);
         this.user = JSON.parse(this.storage.getItem('user'));
 
         if (this.user) {
@@ -72471,12 +72469,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        isAlphaOrParen: function isAlphaOrParen(a) {
+            return (/^[a-zA-Z()]+$/.test(a)
+            );
+        },
         submitForm: function submitForm(details) {
             var _this = this;
 
-            console.log('submit form');
             this.$refs["details"].validate(function (valid) {
                 if (valid) {
+                    if (_this.details.country == 'USA') {
+                        var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(_this.details.zipcode);
+
+                        if (!isValidZip) {
+                            _this.$message({
+                                showClose: true,
+                                message: "Please inter valid USA Zipcode",
+                                type: "error",
+                                duration: 5000
+                            });
+                            return false;
+                        } else {}
+                    } else {
+                        var str = _this.details.zipcode.replace(' ', '');
+
+                        if ($.isNumeric(str[1] + str[3] + str[5]) && _this.isAlphaOrParen(str[0]) && _this.isAlphaOrParen(str[2]) && _this.isAlphaOrParen(str[0])) {} else {
+                            _this.$message({
+                                showClose: true,
+                                message: "Please inter valid Canada postalcode",
+                                type: "error",
+                                duration: 5000
+                            });
+                            return false;
+                        }
+                    }
+
                     // submit userDetails info        
                     var userId = _this.user.id;
                     _this.userID = userId;
@@ -76803,6 +76830,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -77085,12 +77116,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        defaultShipping: function defaultShipping() {
+            location.reload();
+        },
+        isAlphaOrParen: function isAlphaOrParen(a) {
+            return (/^[a-zA-Z()]+$/.test(a)
+            );
+        },
         submitForm: function submitForm(newAdd) {
             var _this2 = this;
 
             console.log('submit form');
             this.$refs["newAdd"].validate(function (valid) {
                 if (valid) {
+
+                    if (_this2.newAdd.country == 'USA') {
+                        var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(_this2.newAdd.zipcode);
+
+                        if (!isValidZip) {
+                            _this2.$message({
+                                showClose: true,
+                                message: "Please inter valid USA Zipcode",
+                                type: "error",
+                                duration: 5000
+                            });
+                            return false;
+                        } else {}
+                    } else {
+                        var str = _this2.newAdd.zipcode.replace(' ', '');
+
+                        if ($.isNumeric(str[1] + str[3] + str[5]) && _this2.isAlphaOrParen(str[0]) && _this2.isAlphaOrParen(str[2]) && _this2.isAlphaOrParen(str[0])) {} else {
+                            _this2.$message({
+                                showClose: true,
+                                message: "Please inter valid Canada postalcode",
+                                type: "error",
+                                duration: 5000
+                            });
+                            return false;
+                        }
+                    }
+
                     // submit userDetails info        
                     var userId = _this2.userInfo.m_id;
                     console.log(userId);
@@ -77377,26 +77442,43 @@ var render = function() {
                     })
                   ),
                   _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      on: {
-                        click: function($event) {
-                          _vm.showNewAddress = !_vm.showNewAddress
+                  _c("div", [
+                    _vm.otherAddress
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primray",
+                            on: {
+                              click: function($event) {
+                                _vm.defaultShipping()
+                              }
+                            }
+                          },
+                          [_vm._v("Ship To Default Address")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        on: {
+                          click: function($event) {
+                            _vm.showNewAddress = !_vm.showNewAddress
+                          }
                         }
-                      }
-                    },
-                    [
-                      !_vm.showNewAddress
-                        ? _c("span", [_vm._v("Add new address")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.showNewAddress
-                        ? _c("span", [_vm._v("Hide new address form")])
-                        : _vm._e()
-                    ]
-                  )
+                      },
+                      [
+                        !_vm.showNewAddress
+                          ? _c("span", [_vm._v("Add new address")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showNewAddress
+                          ? _c("span", [_vm._v("Hide new address form")])
+                          : _vm._e()
+                      ]
+                    )
+                  ])
                 ],
                 1
               )
@@ -77748,7 +77830,7 @@ var render = function() {
                                         },
                                         _vm._l(_vm.US_states, function(item) {
                                           return _c("el-option", {
-                                            key: item.name,
+                                            key: item.abbreviation,
                                             attrs: {
                                               label: item.name,
                                               value: item.abbreviation

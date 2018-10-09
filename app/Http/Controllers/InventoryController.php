@@ -437,7 +437,7 @@ class InventoryController extends Controller
         $subtotal = 0;
 
                     
-        switch ($user->state)
+        switch ($userInfo->m_state)
         {
             case "AB":
                 $tax = 5;
@@ -477,12 +477,14 @@ class InventoryController extends Controller
                 break;  
             case "YT":
                 $tax = 5;
-            break;
+                break;
             
             default:
-                $tax = 13;
+                $tax = 0;
         }
-        
+        // Log::useFiles(storage_path('/logs/GLAlog.log'));
+
+        // Log::info(" $user created." );
 
         foreach ($shortlist as $item) {
             $info = $item->itemInfo()->first();
@@ -877,7 +879,7 @@ class InventoryController extends Controller
 
             $oversize = 1;
 
-            switch ($user->state)
+            switch ($userInfo->state)
             {
                 case "AB":
                     $tax = 5;
@@ -920,7 +922,7 @@ class InventoryController extends Controller
                 break;
                 
                 default:
-                    $tax = 13;
+                    $tax = 0;
             }
 
 

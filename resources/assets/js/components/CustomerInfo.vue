@@ -459,7 +459,8 @@
                         { required: true, message: 'State is required.', trigger: 'blur', max:99 },
                     ],
                     zipcode:[
-                        { required: true, message: 'Zip Code is required.', trigger: 'blur', max:99 },
+                        { required: true, message: 'Zip Code is required.', trigger: 'blur' },
+                        { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
                     ],
                     address:[
                         { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
@@ -482,6 +483,7 @@
 		mounted(){
             // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
             
+            // console.log(isValidZip);
             this.user = JSON.parse(this.storage.getItem('user'));
 
             if (this.user) {
@@ -506,10 +508,44 @@
             
 		},
 		methods:{
+            isAlphaOrParen(a) {
+                return /^[a-zA-Z()]+$/.test(a);
+            },
             submitForm(details){
-                console.log('submit form');
+                
+               
                 this.$refs["details"].validate((valid)=>{
                     if (valid){
+                        if (this.details.country=='USA') {
+                    let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
+
+                    if (!isValidZip) {
+                        this.$message({
+                            showClose:true,
+                            message:"Please inter valid USA Zipcode",
+                            type:"error",
+                            duration:5000,
+                        });
+                        return false;
+                    }else{
+                       
+
+                    }
+                }else{
+                    let str = this.details.zipcode.replace(' ','');
+
+                    if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                    }else{
+                        this.$message({
+                            showClose:true,
+                            message:"Please inter valid Canada postalcode",
+                            type:"error",
+                            duration:5000,
+                        });
+                        return false;
+                    }
+                }
+
                         // submit userDetails info        
                         var userId = this.user.id;
                         this.userID = userId;
@@ -540,7 +576,7 @@
                         return false;
                     }
                 });
-            } ,
+            },
             resetForm(details){
                 this.$refs["details"].resetFields();
             },

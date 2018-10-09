@@ -7,7 +7,6 @@
                 </div>
                 <div class="col-xs-2"></div>
                 <div class="col-xs-8 col-xs-offset-2">
-                    
                 
                     <el-form :rules="rules" :model="details" ref="details" size="medium">
                         <div class="inRow" >
@@ -52,12 +51,10 @@
                                     <span class='checkboxDiv' @click='details.checked = !details.checked'>Click here to disagree to allow Golden Leaf Automotive to send you 
                                         exclusive email offers and discounts. You can unsubscribe at any time.</span>
                                 </div>
-                                
                             </div>
                             <div class="col-xs-1"></div>
                             <div class="col-xs-5">
-                                <div class="g-recaptcha" data-sitekey="6LdLbFAUAAAAAOb3lPOguHez8kEIYIq89-q2TPMU
-"></div>
+                                <div id="html_element"></div>
                             </div>
                         </div>
                         <div class="inRow">
@@ -117,6 +114,7 @@
 
 
 <script>
+
     export default{
         data(){
             
@@ -130,6 +128,7 @@
                 confirm:null,
                 receiveEmail:true,
                 summary:false,
+                myCaptcha:'',
                 storage:window.localStorage,
                 details:{
                     firstname:'',
@@ -165,6 +164,10 @@
                 }
             }
         },
+
+        mounted(){
+            
+        },
         methods:{
             checkPwd(str) {
                 if (str.length < 8) {
@@ -180,7 +183,10 @@
                 }
                 return("ok");
             },
+
+            
             register(){
+               
                 this.$refs["details"].validate((valid)=>{
                     if(valid){
                         if (this.password!=this.confirm) {
@@ -210,7 +216,10 @@
                             'firstname':this.details.firstname,
                             'email':this.details.email,
                             'password':this.details.password,
-                            'receiveEmail':this.details.receiveEmail, 
+                            'receiveEmail':this.details.receiveEmail,
+                            'myCaptcha':this.myCaptcha, 
+                             'captcha': grecaptcha.getResponse()
+
                             }).then((response)=>{
                                 
                                 if (response.data.status=="userExists") {

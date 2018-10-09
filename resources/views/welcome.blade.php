@@ -13,6 +13,7 @@
         <title>{{ config('app.name')}}</title>
         <link rel="stylesheet" href="{{asset('/css/app.css')}}">
         {{-- google captcha --}}
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -21,6 +22,14 @@
                 font-family: 'Roboto', sans-serif;
             }
         </style>
+        <script>
+        var onloadCallback = function() {
+            grecaptcha.render('html_element', {
+            'sitekey' : '6LfNO3QUAAAAANDNGpUMsEachCebsRdXCF76NtBl',
+            'callback' : correctCaptcha
+            });
+        var correctCaptcha = function(response) { alert(response); };
+  };</script>
     </head>
     <body>
         <div id="app"> 
@@ -29,6 +38,7 @@
         
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         
 </html>
 
