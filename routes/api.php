@@ -115,7 +115,7 @@ Route::get('/getShortlist/{id}','InventoryController@getShortlist');
 Route::get('/deleteShortlist/{id}','InventoryController@deleteShortlist');
 
 
-
+Route::post('/checkCaptcha','InventoryController@checkCaptcha');
 
 
 

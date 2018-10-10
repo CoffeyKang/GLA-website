@@ -517,34 +517,34 @@
                 this.$refs["details"].validate((valid)=>{
                     if (valid){
                         if (this.details.country=='USA') {
-                    let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
+                            let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
 
-                    if (!isValidZip) {
-                        this.$message({
-                            showClose:true,
-                            message:"Please inter valid USA Zipcode",
-                            type:"error",
-                            duration:5000,
-                        });
-                        return false;
-                    }else{
-                       
+                            if (!isValidZip) {
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid USA Zipcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }else{
+                            
 
-                    }
-                }else{
-                    let str = this.details.zipcode.replace(' ','');
+                            }
+                        }else{
+                            let str = this.details.zipcode.replace(' ','');
 
-                    if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
-                    }else{
-                        this.$message({
-                            showClose:true,
-                            message:"Please inter valid Canada postalcode",
-                            type:"error",
-                            duration:5000,
-                        });
-                        return false;
-                    }
-                }
+                            if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                            }else{
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid Canada postalcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }
+                        }
 
                         // submit userDetails info        
                         var userId = this.user.id;

@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
     carts_total: 0,
     loginStatus: false,
     loginDirect: '/',
-    confirm: false
+    confirm: false,
+    captcha: ''
   },
 
   mutations: {
@@ -46,6 +47,9 @@ export const store = new Vuex.Store({
     confirm(state, ifConfirm) {
       state.confirm = ifConfirm;
     },
+    captcha(state, captcha) {
+      state.captcha = captcha;
+    }
   },
 
   // filters: {

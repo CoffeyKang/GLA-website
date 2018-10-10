@@ -13,23 +13,34 @@
         <title>{{ config('app.name')}}</title>
         <link rel="stylesheet" href="{{asset('/css/app.css')}}">
         {{-- google captcha --}}
-        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+        
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <style>
             *{
-                font-family: 'Roboto', sans-serif;
+                font-family: Arial, Helvetica, sans-serif;
+                
             }
+            /* .el-step__head.is-success{ color: yellow !important; border-color: yellow !important; }
+            .el-step__title.is-success{ color: yellow !important } */
         </style>
+
         <script>
-        var onloadCallback = function() {
-            grecaptcha.render('html_element', {
-            'sitekey' : '6LfNO3QUAAAAANDNGpUMsEachCebsRdXCF76NtBl',
-            'callback' : correctCaptcha
+        var captchaContainer = 'myCaptcha';
+        var loadCaptcha = function() {   
+            captchaContainer = grecaptcha.render(captchaContainer, {
+                'sitekey' : '{{env("CAPTCHA_SITE_KEY")}}',
+                // 'sitekey' : '6LfNO3QUAAAAANDNGpUMsEachCebsRdXCF76NtBl',
+                'theme':'dark',
+                'callback' : function(response) { 
+                    console.log(response); 
+                    window.localStorage.setItem('captcha',response);
+                    
+                },
             });
-        var correctCaptcha = function(response) { alert(response); };
-  };</script>
+        }; 
+        </script>
     </head>
     <body>
         <div id="app"> 
@@ -38,7 +49,7 @@
         
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit" async defer></script>
         
 </html>
 

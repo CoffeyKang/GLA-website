@@ -1408,5 +1408,37 @@ class InventoryController extends Controller
         
         return response()->json(['deleteOldShortlist'=>"deletedOld"],200);
     }
+
+
+    public function checkCaptcha(Request $request){
+        
+        $res = $request->response;
+        $secret = env("6LfNO3QUAAAAADC9Wh6_gdkI9DBvAdkTfRmeEAb5");
+        
+        // $client = new \GuzzleHttp\Client([]);
+        
+        // $response = $client->request('POST',
+        //     'https://www.google.com/recaptcha/api/siteverify',
+        //     [
+        //         'secret'=>$secret,
+        //         'response'=>$res,
+        //     ]
+        
+        // );
+        
+        // $resp = json_decode($response->getBody()->getContents(),true);
+        
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$res);
+        
+        $responseData = json_decode($verifyResponse);
+        
+
+        
+
+        
+
+        return response()->json(['resp'=>$responseData],200);
+
+    }
     
 }

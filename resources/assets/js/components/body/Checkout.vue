@@ -126,9 +126,8 @@
                                 
                             </div>
 
-                            
                             <div class="inRow">
-                                <el-form-item label="Postal Code" prop='zipcode'>
+                                <el-form-item label="Postal Code"  label-width="120px" prop='zipcode'>
                                     <el-input v-model="newAdd.zipcode"></el-input>
                                 </el-form-item>
                                 <el-form-item label="City" prop='city'>

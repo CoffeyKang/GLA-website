@@ -71542,6 +71542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -71580,7 +71581,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
-    mounted: function mounted() {},
+    mounted: function mounted() {
+        console.log(this.$store.captcha);
+    },
 
     methods: {
         checkPwd: function checkPwd(str) {
@@ -71602,6 +71605,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs["details"].validate(function (valid) {
                 if (valid) {
+
+                    /** check captcha */
+
+                    _this.$http.post('/api/checkCaptcha', {
+                        'response': window.localStorage.getItem('captcha')
+                    }, { emulateJSON: true }).then(function (response) {
+                        if (response.data.resp.success) {
+                            window.localStorage.removeItem('captcha');
+                        } else {
+                            _this.$message.error('Please check the Captcha.');
+                            return false;
+                        }
+                    });
+
                     if (_this.password != _this.confirm) {
                         _this.$message({
                             message: 'Password Confirmation does not match Password',
@@ -71926,7 +71943,7 @@ var render = function() {
                     _c("div", { staticClass: "col-xs-1" }),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-xs-5" }, [
-                      _c("div", { attrs: { id: "html_element" } })
+                      _c("div", { attrs: { id: "myCaptcha" } })
                     ])
                   ]),
                   _vm._v(" "),
@@ -76903,7 +76920,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -77796,6 +77812,7 @@ var render = function() {
                                 {
                                   attrs: {
                                     label: "Postal Code",
+                                    "label-width": "120px",
                                     prop: "zipcode"
                                   }
                                 },
@@ -78730,7 +78747,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     carts_total: 0,
     loginStatus: false,
     loginDirect: '/',
-    confirm: false
+    confirm: false,
+    captcha: ''
   },
 
   mutations: {
@@ -78745,6 +78763,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     confirm: function confirm(state, ifConfirm) {
       state.confirm = ifConfirm;
+    },
+    captcha: function captcha(state, _captcha) {
+      state.captcha = _captcha;
     }
   },
 

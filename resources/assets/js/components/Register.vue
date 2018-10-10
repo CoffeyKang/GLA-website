@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-xs-1"></div>
                             <div class="col-xs-5">
-                                <div id="html_element"></div>
+                                <div id="myCaptcha"></div>
                             </div>
                         </div>
                         <div class="inRow">
@@ -113,9 +113,14 @@
 </template>
 
 
+
 <script>
+    
+  
 
     export default{
+
+        
         data(){
             
             return {
@@ -166,9 +171,11 @@
         },
 
         mounted(){
+            console.log(this.$store.captcha)
             
         },
         methods:{
+            
             checkPwd(str) {
                 if (str.length < 8) {
                     return("Password minimal length is 8.");
@@ -185,10 +192,30 @@
             },
 
             
+
+            
             register(){
-               
+                
                 this.$refs["details"].validate((valid)=>{
                     if(valid){
+
+                        /** check captcha */
+
+                        this.$http.post('/api/checkCaptcha',{
+                            'response':window.localStorage.getItem('captcha'),
+                        },{emulateJSON: true}).then((response)=>{
+                            if (response.data.resp.success) {
+                                 window.localStorage.removeItem('captcha');
+                            }else{
+                                this.$message.error('Please check the Captcha.');
+                                return false;
+                            }
+                           
+                        });
+
+                        
+
+
                         if (this.password!=this.confirm) {
                             this.$message(
                                 {
