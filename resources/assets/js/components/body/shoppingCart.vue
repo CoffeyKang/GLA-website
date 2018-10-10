@@ -1,6 +1,12 @@
 <template>
     <div class="container">
         <h3>Shopping Carts</h3>
+        <el-steps :active="1" finish-status="success">
+            <el-step title="Step 1"></el-step>
+            <el-step title="Step 2"></el-step>
+            <el-step title="Step 3"></el-step>
+            <el-step title="Step 4"></el-step>
+        </el-steps>
         <div class="col-sm-8" style='padding:0;'>
             <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
                 <div class='singleItem'>

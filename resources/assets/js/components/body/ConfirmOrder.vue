@@ -4,6 +4,12 @@
         
 	>
         <h3>Payment</h3>
+        <el-steps :active="3" finish-status="success">
+            <el-step title="Step 1"></el-step>
+            <el-step title="Step 2"></el-step>
+            <el-step title="Step 3"></el-step>
+            <el-step title="Step 4"></el-step>
+        </el-steps>
         <div class="col-sm-8" style='padding:0;'>
             <div>
                 <table class="table table-striped table-justified">
@@ -74,7 +80,7 @@
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <h5>Estimate Shipping Date : {{ shippingdays }} Days</h5>
+                        <h5>Estimate Shipping Date : {{ shippingDays }} Days</h5>
                     </div>
 
                     <div class=' summary_list text-center'>
