@@ -17,7 +17,9 @@ class SOMAST extends Model
 	// case 7:
 	// 	$status = "Under Process";
 	// case 9:
-	// 	$status = "Shipped";
+    // 	$status = "Shipped";
+    
+    public $primaryKey = 'sales_serial';
     
 
     protected $table = 'somast';

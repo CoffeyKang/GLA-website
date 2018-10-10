@@ -30,19 +30,19 @@
             <div class='shipingTo'>
                     <div class='col-xs-12' >
                         <h4>Shipping To</h4>
-                        <el-card class="box-card" >
+                        <el-card class="box-card" v-if="addressID!=0">
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
                                 {{address.address}}, {{address.city}}, {{address.zipcode}}<br>
                                 {{address.state}}, {{address.country}}</h5>
                         </el-card>
+                        <el-card class="box-card" v-if="addressID==0">
+                                <h5><b>{{userInfo.m_forename}} {{userInfo.m_surname}}</b> <br> <br>
+                                {{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>
+                                {{userInfo.m_state}}, {{userInfo.m_country}}</h5>
+                        </el-card>
                     </div>
             </div>
 
-            
-
-
-            
-            
         </div>
         <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
             <div class="summary" >
@@ -52,18 +52,18 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ parseFloat(somast.subtotal).toFixed(2) }}</span>
+                            <span>SUBTOTAL:</span><span>${{ parseFloat(subtotal).toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span>${{ parseFloat(somast.shipping).toFixed(2) }}</span>
+                            <span>SHIPPING:</span><span>${{ parseFloat(shipping).toFixed(2) }}</span>
                             
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ parseFloat(somast.tax).toFixed(2) }}</span>
+                            <span>HST:</span><span>${{ parseFloat(hst).toFixed(2) }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <h5>Estimate Shipping Date : {{ somast.shippingdays }} Days</h5>
+                        <h5>Estimate Shipping Date : {{ shippingdays }} Days</h5>
                     </div>
 
                     <div class=' summary_list text-center'>
@@ -94,39 +94,61 @@
 export default {
     data(){
         return {
-            sono:this.$route.params.sono,
-            somast:[],
-            carts:[],
+            carts:this.$route.params.carts,
+            addressID:this.$route.params.addressID,
+            subtotal:this.$route.params.subtotal,
+            hst:this.$route.params.hst,
+            total:this.$route.params.total,
+            subtotal:this.$route.params.subtotal,
+            shippingDays:this.$route.params.shippingDays,
+            shipping:this.$route.params.shipping,
+            loading:0,
+            userInfo:[],
             address:[],
-            loading:1,
         }
     },
         computed:{
-            total(){
-                return this.somast.tax + this.somast.subtotal +this.somast.shipping; 
-            }
+            
             
         },
         mounted(){
             // determin if user has login
-			if(this.storage.getItem('user')){
+			if(this.storage.getItem('user')&&this.storage.getItem('userInfo')){
 				// have to validate the user name and password once more here
                 var userData = JSON.parse(this.storage.getItem('user'));
+                 this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
                 /** check again */
                 
 			}else{
 				this.$store.commit('changeLoginDirect','home');
-				this.$router.push('Login');
+				this.$route.push('Login');
             };
+            if (isNaN(this.subtotal)) {
+                this.$store.commit('confirm',true);
+                this.$router.push({name:'checkout'});
+            }else{
 
-            this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
-                this.somast = response.data.somast;
-                this.carts = response.data.sotran;
-                this.address = response.data.address;
+            }
+            if (this.addressID!=0) {
+                this.$http.get('/api/address/'+this.addressID).then((response)=>{
+                    if (response.data.address=='notFound') {
+                        
+                    }else{
+                        this.address = response.data.address;
+
+                    }
+
+                });
+            }
+            /** after payment should display an order */
+            // this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
+            //     this.somast = response.data.somast;
+            //     this.carts = response.data.sotran;
+            //     this.address = response.data.address;
                 
-                this.loading = 0;
-                console.log(response);
-            })
+            //     this.loading = 0;
+            //     console.log(response);
+            // })
         },
         methods:{
             

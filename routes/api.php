@@ -106,6 +106,8 @@ Route::get('/address/{id}','InventoryController@address');
 
 Route::post('/confirmOrder','InventoryController@confirmOrder');
 
+Route::post('/payment','InventoryController@payment');
+
 Route::get('/oneOrder/{sono}','InventoryController@aOrder');
 
 Route::get('/getShortlist/{id}','InventoryController@getShortlist');

@@ -161,7 +161,7 @@
                                     <el-select v-model="newAdd.state" placeholder="Province">
                                         <el-option
                                         v-for="item in US_states"
-                                        :key="item.abbreviation"
+                                        :key="item.name"
                                         :label="item.name"
                                         :value="item.abbreviation" >
                                         </el-option>
@@ -550,7 +550,7 @@ export default {
                     tel:[
                         {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                     ],
-            }
+            },
         }
     },
         computed:{
@@ -615,9 +615,27 @@ export default {
 				this.$store.commit('changeLoginDirect','home');
 				this.$router.push('Login');
             }
+
+            // if (this.$store.state.confirm) {
+            //     this.loading = 0;
+
+            //     this.$router.push({name:"ConfirmOrder", 
+            //         params:{
+            //             carts:this.carts,
+            //             addressID:this.addressID,
+            //             subtotal:this.subtotal,
+            //             hst:this.hst,
+            //             total:this.total,
+            //             shippingDays:this.shippingDays,
+            //             shipping:this.shipping,
+            //         }
+            //     });
+            // }
         },
         methods:{
-
+            myalert(value){
+                alert(value);
+            },
             defaultShipping(){
                location.reload();
             },
@@ -742,34 +760,38 @@ export default {
             },
 
             confirm(){
-                /** store to database */
                 this.loading = 0;
 
-                /** remove item from shopping cart */
-                // this.carts.forEach(element => {
-                //     this.storage.removeItem(element.item);
-                // });
-                // this.$store.commit('carts_number',0);
-
-
-                this.$http.post('/api/confirmOrder',{
-                        userId:this.userInfo.m_id,
-                        shippingOPT:this.shippingOPT,
-                        shippingFee:this.shipping,
-                        shippingDays:this.shippingDays,
-                        hst:this.hst,
-                        subtotal:this.subtotal,
+                this.$router.push({name:"ConfirmOrder", 
+                    params:{
+                        carts:this.carts,
                         addressID:this.addressID,
+                        subtotal:this.subtotal,
+                        hst:this.hst,
+                        total:this.total,
+                        shippingDays:this.shippingDays,
+                        shipping:this.shipping,
+                    }
+                });
 
-                    }).then(response=>{
+                // this.$http.post('/api/confirmOrder',{
+                //         userId:this.userInfo.m_id,
+                //         shippingOPT:this.shippingOPT,
+                //         shippingFee:this.shipping,
+                //         shippingDays:this.shippingDays,
+                //         hst:this.hst,
+                //         subtotal:this.subtotal,
+                //         addressID:this.addressID,
+
+                //     }).then(response=>{
                         
-                        this.$router.push({name:"ConfirmOrder", 
-                            params:{
-                                sono:response.data.sono,
-                                userId:this.userInfo.m_id,
-                            }
-                        });
-                })
+                //         this.$router.push({name:"ConfirmOrder", 
+                //             params:{
+                //                 sono:response.data.sono,
+                //                 userId:this.userInfo.m_id,
+                //             }
+                //         });
+                // })
                 
             },
         },

@@ -77149,9 +77149,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.commit('changeLoginDirect', 'home');
             this.$router.push('Login');
         }
+
+        // if (this.$store.state.confirm) {
+        //     this.loading = 0;
+
+        //     this.$router.push({name:"ConfirmOrder", 
+        //         params:{
+        //             carts:this.carts,
+        //             addressID:this.addressID,
+        //             subtotal:this.subtotal,
+        //             hst:this.hst,
+        //             total:this.total,
+        //             shippingDays:this.shippingDays,
+        //             shipping:this.shipping,
+        //         }
+        //     });
+        // }
     },
 
     methods: {
+        myalert: function myalert(value) {
+            alert(value);
+        },
         defaultShipping: function defaultShipping() {
             location.reload();
         },
@@ -77266,36 +77285,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         confirm: function confirm() {
-            var _this5 = this;
-
-            /** store to database */
             this.loading = 0;
 
-            /** remove item from shopping cart */
-            // this.carts.forEach(element => {
-            //     this.storage.removeItem(element.item);
-            // });
-            // this.$store.commit('carts_number',0);
-
-
-            this.$http.post('/api/confirmOrder', {
-                userId: this.userInfo.m_id,
-                shippingOPT: this.shippingOPT,
-                shippingFee: this.shipping,
-                shippingDays: this.shippingDays,
-                hst: this.hst,
-                subtotal: this.subtotal,
-                addressID: this.addressID
-
-            }).then(function (response) {
-
-                _this5.$router.push({ name: "ConfirmOrder",
-                    params: {
-                        sono: response.data.sono,
-                        userId: _this5.userInfo.m_id
-                    }
-                });
+            this.$router.push({ name: "ConfirmOrder",
+                params: {
+                    carts: this.carts,
+                    addressID: this.addressID,
+                    subtotal: this.subtotal,
+                    hst: this.hst,
+                    total: this.total,
+                    shippingDays: this.shippingDays,
+                    shipping: this.shipping
+                }
             });
+
+            // this.$http.post('/api/confirmOrder',{
+            //         userId:this.userInfo.m_id,
+            //         shippingOPT:this.shippingOPT,
+            //         shippingFee:this.shipping,
+            //         shippingDays:this.shippingDays,
+            //         hst:this.hst,
+            //         subtotal:this.subtotal,
+            //         addressID:this.addressID,
+
+            //     }).then(response=>{
+
+            //         this.$router.push({name:"ConfirmOrder", 
+            //             params:{
+            //                 sono:response.data.sono,
+            //                 userId:this.userInfo.m_id,
+            //             }
+            //         });
+            // })
         }
     },
     watch: {}
@@ -77866,7 +77887,7 @@ var render = function() {
                                         },
                                         _vm._l(_vm.US_states, function(item) {
                                           return _c("el-option", {
-                                            key: item.abbreviation,
+                                            key: item.name,
                                             attrs: {
                                               label: item.name,
                                               value: item.abbreviation
@@ -78206,6 +78227,8 @@ exports.push([module.i, "\n.oneItem[data-v-6685a554]{\n    border: 1px solid bla
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -78301,41 +78324,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            sono: this.$route.params.sono,
-            somast: [],
-            carts: [],
-            address: [],
-            loading: 1
-        };
+        var _ref;
+
+        return _ref = {
+            carts: this.$route.params.carts,
+            addressID: this.$route.params.addressID,
+            subtotal: this.$route.params.subtotal,
+            hst: this.$route.params.hst,
+            total: this.$route.params.total
+        }, _defineProperty(_ref, 'subtotal', this.$route.params.subtotal), _defineProperty(_ref, 'shippingDays', this.$route.params.shippingDays), _defineProperty(_ref, 'shipping', this.$route.params.shipping), _defineProperty(_ref, 'loading', 0), _defineProperty(_ref, 'userInfo', []), _defineProperty(_ref, 'address', []), _ref;
     },
 
-    computed: {
-        total: function total() {
-            return this.somast.tax + this.somast.subtotal + this.somast.shipping;
-        }
-    },
+    computed: {},
     mounted: function mounted() {
         var _this = this;
 
         // determin if user has login
-        if (this.storage.getItem('user')) {
+        if (this.storage.getItem('user') && this.storage.getItem('userInfo')) {
             // have to validate the user name and password once more here
             var userData = JSON.parse(this.storage.getItem('user'));
+            this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
             /** check again */
         } else {
             this.$store.commit('changeLoginDirect', 'home');
-            this.$router.push('Login');
+            this.$route.push('Login');
         };
+        if (isNaN(this.subtotal)) {
+            this.$store.commit('confirm', true);
+            this.$router.push({ name: 'checkout' });
+        } else {}
+        if (this.addressID != 0) {
+            this.$http.get('/api/address/' + this.addressID).then(function (response) {
+                if (response.data.address == 'notFound') {} else {
+                    _this.address = response.data.address;
+                }
+            });
+        }
+        /** after payment should display an order */
+        // this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
+        //     this.somast = response.data.somast;
+        //     this.carts = response.data.sotran;
+        //     this.address = response.data.address;
 
-        this.$http.get('/api/oneOrder/' + this.sono).then(function (response) {
-            _this.somast = response.data.somast;
-            _this.carts = response.data.sotran;
-            _this.address = response.data.address;
-
-            _this.loading = 0;
-            console.log(response);
-        });
+        //     this.loading = 0;
+        //     console.log(response);
+        // })
     },
 
     methods: {},
@@ -78403,36 +78436,71 @@ var render = function() {
             [
               _c("h4", [_vm._v("Shipping To")]),
               _vm._v(" "),
-              _c("el-card", { staticClass: "box-card" }, [
-                _c("h5", [
-                  _c("b", [
-                    _vm._v(
-                      _vm._s(_vm.address.forename) +
-                        " " +
-                        _vm._s(_vm.address.surname)
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(
-                    "\n                                " +
-                      _vm._s(_vm.address.address) +
-                      ", " +
-                      _vm._s(_vm.address.city) +
-                      ", " +
-                      _vm._s(_vm.address.zipcode)
-                  ),
-                  _c("br"),
-                  _vm._v(
-                    "\n                                " +
-                      _vm._s(_vm.address.state) +
-                      ", " +
-                      _vm._s(_vm.address.country)
-                  )
-                ])
-              ])
+              _vm.addressID != 0
+                ? _c("el-card", { staticClass: "box-card" }, [
+                    _c("h5", [
+                      _c("b", [
+                        _vm._v(
+                          _vm._s(_vm.address.forename) +
+                            " " +
+                            _vm._s(_vm.address.surname)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.address.address) +
+                          ", " +
+                          _vm._s(_vm.address.city) +
+                          ", " +
+                          _vm._s(_vm.address.zipcode)
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.address.state) +
+                          ", " +
+                          _vm._s(_vm.address.country)
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.addressID == 0
+                ? _c("el-card", { staticClass: "box-card" }, [
+                    _c("h5", [
+                      _c("b", [
+                        _vm._v(
+                          _vm._s(_vm.userInfo.m_forename) +
+                            " " +
+                            _vm._s(_vm.userInfo.m_surname)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.userInfo.m_address) +
+                          ",  " +
+                          _vm._s(_vm.userInfo.m_city) +
+                          ", " +
+                          _vm._s(_vm.userInfo.m_zipcode)
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.userInfo.m_state) +
+                          ", " +
+                          _vm._s(_vm.userInfo.m_country)
+                      )
+                    ])
+                  ])
+                : _vm._e()
             ],
             1
           )
@@ -78460,9 +78528,7 @@ var render = function() {
                 _c("div", { staticClass: "summary_amount" }, [
                   _c("span", [_vm._v("SUBTOTAL:")]),
                   _c("span", [
-                    _vm._v(
-                      "$" + _vm._s(parseFloat(_vm.somast.subtotal).toFixed(2))
-                    )
+                    _vm._v("$" + _vm._s(parseFloat(_vm.subtotal).toFixed(2)))
                   ])
                 ])
               ]),
@@ -78471,9 +78537,7 @@ var render = function() {
                 _c("div", { staticClass: "summary_amount" }, [
                   _c("span", [_vm._v("SHIPPING:")]),
                   _c("span", [
-                    _vm._v(
-                      "$" + _vm._s(parseFloat(_vm.somast.shipping).toFixed(2))
-                    )
+                    _vm._v("$" + _vm._s(parseFloat(_vm.shipping).toFixed(2)))
                   ])
                 ])
               ]),
@@ -78482,7 +78546,7 @@ var render = function() {
                 _c("div", { staticClass: "summary_amount" }, [
                   _c("span", [_vm._v("HST:")]),
                   _c("span", [
-                    _vm._v("$" + _vm._s(parseFloat(_vm.somast.tax).toFixed(2)))
+                    _vm._v("$" + _vm._s(parseFloat(_vm.hst).toFixed(2)))
                   ])
                 ])
               ]),
@@ -78500,7 +78564,7 @@ var render = function() {
                 _c("h5", [
                   _vm._v(
                     "Estimate Shipping Date : " +
-                      _vm._s(_vm.somast.shippingdays) +
+                      _vm._s(_vm.shippingdays) +
                       " Days"
                   )
                 ])
@@ -78593,7 +78657,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   state: {
     carts_total: 0,
     loginStatus: false,
-    loginDirect: '/'
+    loginDirect: '/',
+    confirm: false
   },
 
   mutations: {
@@ -78605,15 +78670,18 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     changeLoginDirect: function changeLoginDirect(state, direction) {
       state.loginDirect = direction;
+    },
+    confirm: function confirm(state, ifConfirm) {
+      state.confirm = ifConfirm;
     }
   },
 
   // filters: {
   //   decimal: function (value) {
   //     if (!isNaN(value)) {
-  //       return value.toFixed(2);
+  //       return value.toFixed(2)
   //     }else {
-  //       return value;
+  //       return value
   //     }
   //   }
   // },

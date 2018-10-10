@@ -29,7 +29,8 @@ export const store = new Vuex.Store({
   state: {
     carts_total: 0,
     loginStatus: false,
-    loginDirect: '/'
+    loginDirect: '/',
+    confirm: false
   },
 
   mutations: {
@@ -41,15 +42,18 @@ export const store = new Vuex.Store({
     },
     changeLoginDirect(state, direction) {
       state.loginDirect = direction;
-    }
+    },
+    confirm(state, ifConfirm) {
+      state.confirm = ifConfirm;
+    },
   },
 
   // filters: {
   //   decimal: function (value) {
   //     if (!isNaN(value)) {
-  //       return value.toFixed(2);
+  //       return value.toFixed(2)
   //     }else {
-  //       return value;
+  //       return value
   //     }
   //   }
   // },

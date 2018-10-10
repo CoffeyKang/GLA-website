@@ -857,8 +857,6 @@ class InventoryController extends Controller
 
         $oneAdd = AddressBook::find($id);
 
-        
-
         if ($oneAdd) {
 
             $userID = $oneAdd->cust_id;
@@ -1181,6 +1179,9 @@ class InventoryController extends Controller
 
     public function confirmOrder(Request $request){
         
+    }
+    public function payment(Request $request){
+        
         $id = $request->userId;
         
         $user = User::find($id);
@@ -1195,64 +1196,121 @@ class InventoryController extends Controller
 
         $subtotal = $request->subtotal;
 
-        $sonum = SOMAST::get()->max('order_num')+1;
+        $appendingOrder = SOMAST::where('m_id',$id)->where('sales_status',0)->first();
 
-        $somast = new SOMAST;
-
-        $somast->order_num = $sonum;
-
-        $somast->m_id = $id;
-
-        $somast->subtotal = $subtotal;
-
-        $somast->tax = $hst;
-
-        $somast->currency = "CAD";
-
-        $somast->shipping = $request->shippingFee;
-
-        $somast->shippingDays = $request->shippingDays;
-
-        $somast->date_order = date('Y-m-d');
-
-        $somast->sales_status = 0;
-        
-        $somast->address = $request->addressID;
-
-        $somast->courier = '';
-
-        $somast->track_num = '';
-
-        $somast->discount =0.0;
-
-        $somast->notes = '';
-
-        $somast->save();
-
-        foreach ($shortlist as $item) {
+        if (!$appendingOrder) {
             
-            $sotran = new SOTRAN;
+            $sonum = SOMAST::get()->max('order_num')+1;
 
-            $sotran->order_num = $somast->order_num;
+            $somast = new SOMAST;
 
-            $sotran->m_id = $id;
+            $somast->order_num = $sonum;
 
-            $sotran->item = $item->item;
+            $somast->m_id = $id;
 
-            $sotran->qty = $item->qty;
+            $somast->subtotal = $subtotal;
 
-            $sotran->price = $item->itemInfo->pricel;
+            $somast->tax = $hst;
 
-            $sotran->make = $item->itemInfo->make;
+            $somast->currency = "CAD";
 
-            $sotran->date_sold = date("Y-m-d");
+            $somast->shipping = $request->shippingFee;
 
-            $sotran->sale = 0;
+            $somast->shippingDays = $request->shippingDays;
 
-            $sotran->save();
+            $somast->date_order = date('Y-m-d');
 
-            $item->delete();
+            $somast->sales_status = 0;
+            
+            $somast->address = $request->addressID;
+
+            $somast->courier = '';
+
+            $somast->track_num = '';
+
+            $somast->discount =0.0;
+
+            $somast->notes = '';
+
+            $somast->save();
+
+            /** store to sotran  */
+            foreach ($shortlist as $item) {
+            
+                $sotran = new SOTRAN;
+
+                $sotran->order_num = $somast->order_num;
+
+                $sotran->m_id = $id;
+
+                $sotran->item = $item->item;
+
+                $sotran->qty = $item->qty;
+
+                $sotran->price = $item->itemInfo->pricel;
+
+                $sotran->make = $item->itemInfo->make;
+
+                $sotran->date_sold = date("Y-m-d");
+
+                $sotran->sale = 0;
+
+                $sotran->save();
+
+                $item->delete();
+            }
+            
+        }else{
+
+            /**  youwen ti  ruhe qu jie jue zhege wenti ne  */
+
+
+            $appendingOrder->subtotal =+ $subtotal;
+
+            $appendingOrder->tax =+ $hst;
+
+            $appendingOrder->shipping =+ $request->shippingFee;
+
+            $appendingOrder->shippingDays = $request->shippingDays;
+            
+            $appendingOrder->address = $request->addressID;
+
+            $appendingOrder->save();
+
+            $somast = $appendingOrder;
+
+            /** store to sotran  */
+            foreach ($shortlist as $item) {
+            
+                $sotran = new SOTRAN;
+
+                $sotran->order_num = $appendingOrder->order_num;
+
+                $sotran->m_id = $id;
+
+                $sotran->item = $item->item;
+
+                $sotran->qty = $item->qty;
+
+                $sotran->price = $item->itemInfo->pricel;
+
+                $sotran->make = $item->itemInfo->make;
+
+                $sotran->date_sold = date("Y-m-d");
+
+                $sotran->sale = 0;
+
+                $sotran->save();
+
+                $item->delete();
+            }
         }
+
+        
+
+        
+
+        
 
         
 
