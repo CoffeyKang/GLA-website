@@ -169,14 +169,9 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <el-form-item label-width='0px' >
-                                        <el-select v-model="details.year" placeholder="Year">
-                                            <el-option
-                                                v-for="item in myRange(1950)"
-                                                :key="item"
-                                                :label="item"
-                                                :value="item" >
-                                            </el-option>
-                                        </el-select>
+                                        <select v-model="details.year" class='form-control'>
+                                            <option v-for="item in myRange(1949)" :key="item">{{ item }}</option>
+                                        </select>
                                     </el-form-item>
                                 </div>
                                 <div class="col-xs-4">
@@ -194,7 +189,7 @@
             </div>
             <div class="part text-right">
                 <el-form-item>
-                    <el-button type='default' class='myB' @click="resetForm(details)">Cancel</el-button>
+                    <el-button type='default' class='myB' @click="resetForm(details)">Reset</el-button>
                     <el-button type="success" class='myB' @click="submitForm(details)">Update</el-button>
                 </el-form-item>
             </div>
@@ -297,86 +292,94 @@ export default {
     },
 
     methods:{
-            submitForm(details){
-                this.$refs["details"].validate((valid)=>{
-                    if (valid){
-                        if (this.details.country=='USA') {
-                            let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
+        changeYear(a){
+            console.log(a);
+            this.details.year = a;
+            
+        },
+        
+        submitForm(details){
+            this.$refs["details"].validate((valid)=>{
+                if (valid){
+                    if (this.details.country=='USA') {
+                        let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
 
-                            if (!isValidZip) {
-                                this.$message({
-                                    showClose:true,
-                                    message:"Please inter valid USA Zipcode",
-                                    type:"error",
-                                    duration:5000,
-                                });
-                                return false;
-                            }else{
-                            
-
-                            }
-                        }else{
-                            let str = this.details.zipcode.replace(' ','');
-
-                            if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
-                            }else{
-                                this.$message({
-                                    showClose:true,
-                                    message:"Please inter valid Canada postalcode",
-                                    type:"error",
-                                    duration:5000,
-                                });
-                                return false;
-                            }
-                        }
-
-                        
-                        // submit userDetails info        
-                        var userId = this.user.id;
-                        this.userID = userId;
-                        this.$http.post('/api/updateUserInfo',{
-                            data:this.details,
-                            userID:this.userID,
-                        }).then((response)=>{   
-                            var info = response.data.userinfo;
-                            this.storage.setItem('userInfo',JSON.stringify(info));
-                            this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                        if (!isValidZip) {
                             this.$message({
-                            showClose:true,
-                            message:"Edit Successfully",
-                            type:"success",
-                            duration:5000,
-                        });
-                        window.scrollTo(0,0);
-                        });
+                                showClose:true,
+                                message:"Please inter valid USA Zipcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }else{
+                        
+
+                        }
                     }else{
-                        // this.$message({
-                        //     showClose:true,
-                        //     message:"Error Submit",
-                        //     type:"error",
-                        //     duration:5000,
-                        // });
-                        // return false;
+                        let str = this.details.zipcode.replace(' ','');
+
+                        if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                        }else{
+                            this.$message({
+                                showClose:true,
+                                message:"Please inter valid Canada postalcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }
                     }
-                });
-            } ,
-            resetForm(details){
-                this.details.surname = this.userInfo.m_surname;
-                this.details.forename = this.userInfo.m_forename;
-                this.details.gender = this.getGender(this.userInfo.m_gender);
-                this.details.brithday = this.userInfo.m_birth;
-                this.details.address = this.userInfo.m_address;
-                this.details.city = this.userInfo.m_city;
-                this.details.state = this.userInfo.m_state;
-                this.details.zipcode = this.userInfo.m_zipcode;
-                this.details.country = (this.userInfo.m_country=="USA"?"USA":"CA");
-                this.details.tel = this.userInfo.m_tel;
-                this.details.mobile = this.userInfo.m_mobile;
-                this.details.model = this.userInfo.m_make;
-                this.details.year = (this.userInfo.m_year<1950?1950:this.userInfo.m_year);
-                this.details.car = this.userInfo.m_car;
-            },
+
+                    
+                    // submit userDetails info        
+                    var userId = this.user.id;
+                    this.userID = userId;
+                    this.$http.post('/api/updateUserInfo',{
+                        data:this.details,
+                        userID:this.userID,
+                    }).then((response)=>{   
+                        var info = response.data.userinfo;
+                        this.storage.setItem('userInfo',JSON.stringify(info));
+                        this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                        this.$message({
+                        showClose:true,
+                        message:"Edit Successfully",
+                        type:"success",
+                        duration:5000,
+                    });
+                    window.scrollTo(0,0);
+                    });
+                }else{
+                    // this.$message({
+                    //     showClose:true,
+                    //     message:"Error Submit",
+                    //     type:"error",
+                    //     duration:5000,
+                    // });
+                    // return false;
+                }
+            });
+        } ,
+        resetForm(details){
+            this.details.surname = this.userInfo.m_surname;
+            this.details.forename = this.userInfo.m_forename;
+            this.details.gender = this.getGender(this.userInfo.m_gender);
+            this.details.brithday = this.userInfo.m_birth;
+            this.details.address = this.userInfo.m_address;
+            this.details.city = this.userInfo.m_city;
+            this.details.state = this.userInfo.m_state;
+            this.details.zipcode = this.userInfo.m_zipcode;
+            this.details.country = (this.userInfo.m_country=="USA"?"USA":"CA");
+            this.details.tel = this.userInfo.m_tel;
+            this.details.mobile = this.userInfo.m_mobile;
+            this.details.model = this.userInfo.m_make;
+            this.details.year = (this.userInfo.m_year<1950?1950:this.userInfo.m_year);
+            this.details.car = this.userInfo.m_car;
+        },
     },
+
+    
 
 }
 </script>
@@ -404,5 +407,9 @@ export default {
         font-size: 20px;
     }
     
+    select{
+        height: 40px !important;
+        border: 1px solid #dcdfe6 !important;
+    }
 
 </style>    
