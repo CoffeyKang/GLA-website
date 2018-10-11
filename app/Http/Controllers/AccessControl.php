@@ -131,13 +131,13 @@ class AccessControl extends Controller
              $tel = $data["tel"];
 
              $tel = preg_replace('/[^0-9]/','',$tel);
-             if ( strlen($tel)>=10 ){
-                $tel = substr_replace($tel,'(',0,0);
-                $tel = substr_replace($tel,') ',4,0);
-                $tel = substr_replace($tel,'-',9,0);
-             }else{
+            //  if ( strlen($tel)>=10 ){
+            //     $tel = substr_replace($tel,'(',0,0);
+            //     $tel = substr_replace($tel,') ',4,0);
+            //     $tel = substr_replace($tel,'-',9,0);
+            //  }else{
                 
-             }
+            //  }
 
              $mobile = $data["mobile"];
 
@@ -198,8 +198,10 @@ class AccessControl extends Controller
              $userInfo->m_forename = $data["forename"];
               if ($data["gender"]=='Female') {
                  $userInfo->m_gender = 2;
-             }else{
+             }else if($data["gender"]=='Male') {
                  $userInfo->m_gender = 1;
+             }else{
+                 $userInfo->m_gender = 3;
              }
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
@@ -209,11 +211,11 @@ class AccessControl extends Controller
              $userInfo->m_country = "ca";
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
-             $userInfo->m_edu = $data["edu"];
-             $userInfo->m_job = $data["job"];
-             $userInfo->m_title = $data["tit"];
+             $userInfo->m_year = $data["year"];
+             $userInfo->m_make = $data["model"];
              $userInfo->m_car = $data["car"];
 
+            
              $userInfo->save();
 
          }

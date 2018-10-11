@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { country } from './country';
 Vue.use(Vuex);
 
 const searchModule = {
@@ -31,7 +32,10 @@ export const store = new Vuex.Store({
     loginStatus: false,
     loginDirect: '/',
     confirm: false,
-    captcha: ''
+    captcha: '',
+    country: country.country,
+    privince: country.privince,
+    US_states: country.US_states,
   },
 
   mutations: {
@@ -51,16 +55,6 @@ export const store = new Vuex.Store({
       state.captcha = captcha;
     }
   },
-
-  // filters: {
-  //   decimal: function (value) {
-  //     if (!isNaN(value)) {
-  //       return value.toFixed(2)
-  //     }else {
-  //       return value
-  //     }
-  //   }
-  // },
   modules: {
     search: searchModule
   }

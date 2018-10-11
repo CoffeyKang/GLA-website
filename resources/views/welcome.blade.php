@@ -12,6 +12,7 @@
         <META NAME="keywords" CONTENT="GLA,Golden Leaf Automotive,DII,Dynacorn International Inc.,classic car parts,muscle cars parts,parts developer and manufacturer,car parts and molding,canadian based" />
         <title>{{ config('app.name')}}</title>
         <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('/css/main.css')}}">
         {{-- google captcha --}}
         
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -27,19 +28,17 @@
         </style>
 
         <script>
-        var captchaContainer = 'myCaptcha';
-        var loadCaptcha = function() {   
-            captchaContainer = grecaptcha.render(captchaContainer, {
-                'sitekey' : '{{env("CAPTCHA_SITE_KEY")}}',
-                // 'sitekey' : '6LfNO3QUAAAAANDNGpUMsEachCebsRdXCF76NtBl',
-                'theme':'dark',
-                'callback' : function(response) { 
-                    console.log(response); 
-                    window.localStorage.setItem('captcha',response);
-                    
-                },
-            });
-        }; 
+            var loadCaptcha = function() {   
+                captchaContainer = grecaptcha.render('myCaptcha', {
+                    'sitekey' : '{{env("CAPTCHA_SITE_KEY")}}',
+                    // 'sitekey' : '6LfNO3QUAAAAANDNGpUMsEachCebsRdXCF76NtBl',
+                    'theme':'dark',
+                    'callback' : function(response) { 
+                        console.log(response); 
+                        window.localStorage.setItem('captcha',response);
+                    },
+                });
+            };
         </script>
     </head>
     <body>
@@ -48,8 +47,9 @@
         </div>
         
     </body>
+    
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit" async defer></script>
+    
         
 </html>
 

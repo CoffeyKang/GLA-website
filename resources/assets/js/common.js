@@ -6,6 +6,9 @@ export const myMixin = {
   },
   mounted() {},
   methods: {
+    testMixin() {
+      return alert('Mixin is called.');
+    },
     addToCart: function () {
       console.log('this is test add to cart function');
     },
@@ -82,9 +85,56 @@ export const myMixin = {
       });
     },
 
+    oneOrderDetails: function (so, id) {},
 
+    myRange(start) {
+      let end = (new Date()).getFullYear();
+      let ar = [];
+      let l = parseInt(end) - parseInt(start);
+      for (let i = 0; i <= l; i++) {
+        ar[i] = start;
+        start++;
+      }
+      return ar;
+    },
 
-    oneOrderDetails: function (so, id) {}
+    isAlphaOrParen(a) {
+      return /^[a-zA-Z()]+$/.test(a);
+    },
+
+    getGender(gender) {
+      switch (gender) {
+        case 1:
+          return 'Male';
+          break;
+        case 2:
+          return 'Famale';
+          break;
+        case 3:
+          return 'I do not want to tell.';
+          break;
+        default: return 'Male';
+          break;
+      }
+    },
+
+    checkPwd(str) {
+      if (str.length < 8) {
+        return ('Password minimal length is 8.');
+      } else if (str.length > 50) {
+        return ('Password too long.');
+      } else if (str.search(/\d/) == -1) {
+        console.log('alphabet reqiured');
+        return ('Password must contain number and alphabet.');
+      } else if (str.search(/[a-zA-Z]/) == -1) {
+        console.log('alphabet reqiured');
+        return ('Password must contain number and alphabet.');
+      } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+        console.log('alphabet reqiured');
+        return ('Password must contain number and alphabet.');
+      }
+      return ('ok');
+    }
 
   },
   computed: {

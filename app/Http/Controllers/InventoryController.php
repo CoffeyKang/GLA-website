@@ -1413,7 +1413,7 @@ class InventoryController extends Controller
     public function checkCaptcha(Request $request){
         
         $res = $request->response;
-        $secret = env("6LfNO3QUAAAAADC9Wh6_gdkI9DBvAdkTfRmeEAb5");
+        $secret = env("CAPTCHA_SITE_SECRET");
         
         // $client = new \GuzzleHttp\Client([]);
         

@@ -125,6 +125,7 @@
             
             return {
                 errors:[],
+                reload:false,
                 username:null,
                 firstname:null,
                 lastname:null,
@@ -134,6 +135,7 @@
                 receiveEmail:true,
                 summary:false,
                 myCaptcha:'',
+                myCap:false,
                 storage:window.localStorage,
                 details:{
                     firstname:'',
@@ -171,8 +173,9 @@
         },
 
         mounted(){
-            console.log(this.$store.captcha)
-            
+            let recaptchaScript = document.createElement('script')
+                recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit" async defer')
+                document.head.appendChild(recaptchaScript)
         },
         methods:{
             
@@ -192,29 +195,11 @@
             },
 
             
-
+            
             
             register(){
-                
                 this.$refs["details"].validate((valid)=>{
                     if(valid){
-
-                        /** check captcha */
-
-                        this.$http.post('/api/checkCaptcha',{
-                            'response':window.localStorage.getItem('captcha'),
-                        },{emulateJSON: true}).then((response)=>{
-                            if (response.data.resp.success) {
-                                 window.localStorage.removeItem('captcha');
-                            }else{
-                                this.$message.error('Please check the Captcha.');
-                                return false;
-                            }
-                           
-                        });
-
-                        
-
 
                         if (this.password!=this.confirm) {
                             this.$message(
@@ -236,52 +221,82 @@
                             $('.password').css('border-color','red');
                             return false;
                         }
-                            
 
-                        this.$http.post('/api/newCustomer',{
-                            'lastname':this.details.lastname,
-                            'firstname':this.details.firstname,
-                            'email':this.details.email,
-                            'password':this.details.password,
-                            'receiveEmail':this.details.receiveEmail,
-                            'myCaptcha':this.myCaptcha, 
-                             'captcha': grecaptcha.getResponse()
-
-                            }).then((response)=>{
-                                
-                                if (response.data.status=="userExists") {
-                                    this.$message(
-                                        {
-                                            message:'The Email has been used.',
-                                            type:'error', 
-                                        }
-                                    );
-                                    // $().ready(function(){
-                                    // $('#email').css('background-color','#f56c6c !important');
-                                        
-                                    // });
-                                    return false;
+                        if (this.details.password!= this.details.confirm) {
+                            this.$message(
+                                {
+                                    message:'confirm password not match',
+                                    type:'error', 
                                 }
+                            );
+                            $('.password').css('border-color','red');
+                            return false;
+                        }
+                        /** check captcha */
+                        this.$http.post('/api/checkCaptcha',{
+                            'response':window.localStorage.getItem('captcha'),
+                        },{emulateJSON: true}).then((response)=>{
+                            
+                            if (response.data.resp.success==true||this.myCap==true) {
+                                 window.localStorage.removeItem('captcha');
+                                this.myCap = true;
 
-                                console.log(response);
-                                console.log(response.data.user);
-                                this.storage.setItem('user',JSON.stringify(response.data.user));
-                                this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
-                                this.$store.commit('changeLoginStatus',true);
+                                this.$http.post('/api/newCustomer',{
+                                    'lastname':this.details.lastname,
+                                    'firstname':this.details.firstname,
+                                    'email':this.details.email,
+                                    'password':this.details.password,
+                                    'receiveEmail':this.details.receiveEmail,
+                                    'myCaptcha':this.myCaptcha, 
+                                    'captcha': grecaptcha.getResponse()
 
-                                this.$confirm('', 'Congratulation', {
-                                    confirmButtonText: 'Fill in Details',
-                                    cancelButtonText: 'Start Shopping',
-                                    type: 'success',
-                                    center: true
-                                    }).then(() => {
-                                        this.$router.push({name:'userHome'});
-                                    }).catch(() => {
-                                        console.log(123);
-                                        this.$router.push({path:'/'});
+                                    }).then((response)=>{
                                         
-                                });
-                            });
+                                        if (response.data.status=="userExists") {
+                                            this.$message(
+                                                {
+                                                    message:'The Email has been used.',
+                                                    type:'error', 
+                                                }
+                                            );
+                                            // $().ready(function(){
+                                            // $('#email').css('background-color','#f56c6c !important');
+                                                
+                                            // });
+                                            return false;
+                                        }
+
+                                        console.log(response);
+                                        console.log(response.data.user);
+                                        this.storage.setItem('user',JSON.stringify(response.data.user));
+                                        this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
+                                        this.$store.commit('changeLoginStatus',true);
+
+                                        this.$confirm('', 'Congratulation', {
+                                            confirmButtonText: 'Fill in Details',
+                                            cancelButtonText: 'Start Shopping',
+                                            type: 'success',
+                                            center: true
+                                            }).then(() => {
+                                                this.$router.push({name:'userHome'});
+                                            }).catch(() => {
+                                                console.log(123);
+                                                this.$router.push({path:'/'});
+                                                
+                                        });
+                                    });
+                            }else{
+                                this.$message.error('Please check the Captcha box.');
+                                
+                                return false;
+                            }
+                           
+                        });
+
+                        
+
+
+                        
                             
                         
                     
