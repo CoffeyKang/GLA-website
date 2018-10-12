@@ -14,7 +14,7 @@
 			
 			<small>Make: {{ item.make}} </small>
 			
-			<span class='price'>${{ item.pricel.toFixed(2)}}</span>
+			<span class='price'>${{ price.toFixed(2) }}</span>
 			
 			<router-link :to="{
 				name:'ItemDetails',	
@@ -33,6 +33,63 @@
 
 	export default{
 		props: ['item'],
+		data(){
+			return {
+				storage:window.localStorage,
+				userInfo:[],
+				
+			}
+		},
+		mounted(){
+			let userInfo = JSON.parse(this.storage.getItem('userInfo'));
+			let user = JSON.parse(this.storage.getItem('user'));
+			if (user.level==2) {
+				
+				switch (userInfo.pricecode) {
+					case 4:
+						this.item.pricel = item.price1;
+						break;
+				
+					default:
+						break;
+				}
+
+			}
+		},
+
+		computed:{
+			price(){
+				let userInfo = JSON.parse(this.storage.getItem('userInfo'));
+				let user = JSON.parse(this.storage.getItem('user'));
+				let myPrice=this.item.pricel;
+				if (user.level==2) {
+					switch(userInfo.pricecode) {
+						case '4':
+							myPrice = this.item.price4;
+							break;
+						case '3':
+							myPrice = this.item.price3;
+							break;
+						case '2':
+							myPrice = this.item.price2;
+							break;
+						case '1':
+							myPrice = this.item.price;
+							break;
+						default:
+							myPrice = this.item.pricel;
+							break;
+					
+					}
+
+				}else{
+
+				}
+				
+				return myPrice;
+			}
+		},
+
 		methods:{
 			goToItem($item){
 				this.$router.push({

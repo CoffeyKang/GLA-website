@@ -66332,7 +66332,7 @@ var myMixin = {
 
 
 var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }, { path: '/SearchResualt', component: __WEBPACK_IMPORTED_MODULE_8__components_body_SearchResualt_vue___default.a, name: 'SearchResualt' }, { path: '/Item/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_body_ItemDetails_vue___default.a, name: 'ItemDetails' }, { path: '/wishlist', component: __WEBPACK_IMPORTED_MODULE_10__components_body_Wishlist_vue___default.a, name: 'Wishlist' }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_12__components_Login_vue___default.a, name: 'Login' }, { path: '/Dealer', component: __WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue___default.a, name: 'Dealer',
-  children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
+  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
 }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_14__components_Register_vue___default.a, name: 'Register' }, {
   path: '/customerinfo', component: __WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue___default.a, name: 'CustomerInfo',
   children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue___default.a, name: 'PendingOrder' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
@@ -66677,6 +66677,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['item'],
+	data: function data() {
+		return {
+			storage: window.localStorage,
+			userInfo: []
+
+		};
+	},
+	mounted: function mounted() {
+		var userInfo = JSON.parse(this.storage.getItem('userInfo'));
+		var user = JSON.parse(this.storage.getItem('user'));
+		if (user.level == 2) {
+
+			switch (userInfo.pricecode) {
+				case 4:
+					this.item.pricel = item.price1;
+					break;
+
+				default:
+					break;
+			}
+		}
+	},
+
+
+	computed: {
+		price: function price() {
+			var userInfo = JSON.parse(this.storage.getItem('userInfo'));
+			var user = JSON.parse(this.storage.getItem('user'));
+			var myPrice = this.item.pricel;
+			if (user.level == 2) {
+				switch (userInfo.pricecode) {
+					case '4':
+						myPrice = this.item.price4;
+						break;
+					case '3':
+						myPrice = this.item.price3;
+						break;
+					case '2':
+						myPrice = this.item.price2;
+						break;
+					case '1':
+						myPrice = this.item.price;
+						break;
+					default:
+						myPrice = this.item.pricel;
+						break;
+
+				}
+			} else {}
+
+			return myPrice;
+		}
+	},
+
 	methods: {
 		goToItem: function goToItem($item) {
 			this.$router.push({
@@ -66731,7 +66785,7 @@ var render = function() {
         _c("small", [_vm._v("Make: " + _vm._s(_vm.item.make) + " ")]),
         _vm._v(" "),
         _c("span", { staticClass: "price" }, [
-          _vm._v("$" + _vm._s(_vm.item.pricel.toFixed(2)))
+          _vm._v("$" + _vm._s(_vm.price.toFixed(2)))
         ]),
         _vm._v(" "),
         _c(
@@ -111161,7 +111215,6 @@ exports.push([module.i, "\n.title[data-v-19c302e0]{\n    font-size: 28px;\n    f
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
