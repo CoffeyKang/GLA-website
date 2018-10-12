@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div class="edit_title">
+        <div class="edit_title" v-if="user.level!=2">
             User Homepage
+        </div>
+
+        <div class="edit_title" v-if="user.level==2">
+            Dealer Arae
         </div>
         <div style='margin-top:20px;'>
             <el-card class="box-card">

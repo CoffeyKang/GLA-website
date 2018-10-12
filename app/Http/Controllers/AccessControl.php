@@ -18,7 +18,8 @@ use App\AddressBook;
 use App\SOMAST;
 use App\SOTRAN;
 use App\Catalog;
-
+use App\Inventory;
+use DB;
 
 
 class AccessControl extends Controller
@@ -208,7 +209,7 @@ class AccessControl extends Controller
              $userInfo->m_city = $data["city"];
              $userInfo->m_state = $data["state"];
              $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = "ca";
+             $userInfo->m_country = $data["country"];;
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
              $userInfo->m_year = $data["year"];
@@ -250,7 +251,22 @@ class AccessControl extends Controller
     /** test page */
     public function kang(){
 
-       Log::info(123);
+        // $someModel = new Inventory;
+        
+        // /** remote database */
+        // $someModel->setConnection('mysql2');
+        
+
+        $something = DB::connection('mysql2')->select("SELECT * FROM `inventory` WHERE `item` LIKE '100' ORDER BY `item` ASC");
+
+        $something1 = Inventory::where('item',100)->first();
+        
+        
+        var_dump($something );
+        echo "<br>";
+        var_dump($something1);
+
+         Log::info(123);
         
     }
 

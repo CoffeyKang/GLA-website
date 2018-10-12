@@ -1,6 +1,5 @@
 <template>
 	<div class='adminPage'>
-        
 		<div v-if="hasInfo" class='container adminMain' >
             <div class="userNav">
                 <div class="list-group">
@@ -493,6 +492,13 @@
                 console.log('not');
 
                 return false;
+            }
+
+            if (this.user.level==2) {
+                this.$router.push({path:'/Dealer'});
+                return false;
+            }else{
+
             }
             this.details.surname = this.user.lastname;
             this.details.forename = this.user.firstname;

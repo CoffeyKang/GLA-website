@@ -43,7 +43,7 @@
 					<router-link to='/classicBody' tag='li' active-class='active' ><a>Classic Body</a></router-link>
 					<router-link to='/contact' tag='li' active-class='active' ><a>Contact</a></router-link>
 					<router-link to='/special' tag='li' active-class='active' ><a><b>Special</b></a></router-link>
-					<router-link to='/dealers' tag='li' active-class='active' ><a>Dealers Area</a></router-link>
+					<router-link to='/Dealer' tag='li' active-class='active' ><a>Dealers Area</a></router-link>
 				</ul>
 			</div>
 		</div>

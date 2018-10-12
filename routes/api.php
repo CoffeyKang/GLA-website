@@ -117,6 +117,13 @@ Route::get('/deleteShortlist/{id}','InventoryController@deleteShortlist');
 
 Route::post('/checkCaptcha','InventoryController@checkCaptcha');
 
+/** dealer panel */
+Route::post('/loginDealer','DealerController@login');
+
+Route::get('/dealerInfo/{id}',"DealerController@dealerInfo");
+
+Route::post('/changePass','DealerController@changePass');
+
 
 
 

@@ -128,7 +128,7 @@
 			  	// error 
 			    console.log("error_related");
 			  });
-
+	
 			this.viewed(this.id);
 
 			

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
+    // protected $connection = 'mysql2';
+
     protected $table='inventory';
     
     public $timestamps = false;
@@ -37,7 +39,7 @@ class Inventory extends Model
      * get item information with img_path and viewed
      */
     public function itemFullInfo(){
-        $this->img_path = $this->itemImg()->first()->img_path;
+        $this->img_path = $this->itemImg->img_path;
 
         if (file_exists(public_path().$this->img_path)) {
                 

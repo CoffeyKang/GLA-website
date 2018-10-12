@@ -5,8 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class DealerInfo extends Model
-{
-    protected $table ='dealer_info';
+{   
+    protected $connection = 'mysql2';
+
+    protected $table ='customers';
     
     public $timestamps = false;
 
@@ -16,6 +18,7 @@ class DealerInfo extends Model
 ];
 
     public function dealerMain(){
-        return $this->hasOne('App\Dealer','account','account');
+
+        return $this->hasOne('App\Dealer','account','custno');
     }
 }

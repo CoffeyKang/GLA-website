@@ -44,6 +44,7 @@ class User extends Authenticatable
         return $this->hasMany('App\SOTRAN','m_id');
     }
 
+    /** 1 admin 2 dealer 3 customer */
     public function level(){
         if ($this->level==1) {
             return "Admin";

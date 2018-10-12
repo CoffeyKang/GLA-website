@@ -5,13 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Dealer extends Model
-{
+{   
+
+    protected $connection = 'mysql';
+
     protected $table ='dealer_main';
     
     public $timestamps = false;
 
     public function dealerInfo(){
-        return $this->hasOne('App\DealerInfo','account','account');
+        return $this->hasOne('App\DealerInfo','custno','account');
     }
 
     public function orderHis(){
