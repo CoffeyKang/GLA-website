@@ -111229,13 +111229,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             account: '',
             password: '',
-            storage: window.localStorage
+            storage: window.localStorage,
+            customerLogin: false
 
         };
     },
     mounted: function mounted() {
 
         console.log(this.$store.state.loginStatus);
+        var user = JSON.parse(this.storage.getItem('user'));
+
+        if (user.level != 2) {
+
+            this.$message({
+                showClose: true,
+                message: 'Dealer Area.',
+                type: 'error',
+                duration: 5000
+            });
+
+            this.customerLogin = true;
+        } else {}
     },
 
 
@@ -111305,7 +111319,7 @@ var render = function() {
       }
     },
     [
-      !_vm.loginStatus
+      !_vm.loginStatus || _vm.customerLogin
         ? _c("div", [
             _c(
               "div",
@@ -111408,7 +111422,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.loginStatus
+      _vm.loginStatus && !_vm.customerLogin
         ? _c("div", [
             _c("div", { staticClass: "containe adminMain adminPage" }, [
               _c("div", { staticClass: "userNav" }, [
