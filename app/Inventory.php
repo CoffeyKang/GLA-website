@@ -42,7 +42,7 @@ class Inventory extends Model
     public function itemFullInfo(){
         $this->img_path = $this->itemImg->img_path;
 
-        if (file_exists(public_path().$this->img_path)) {
+        if (file_exists('.'.$this->img_path)) {
                 
             }else{
                 $this->img_path = "/images/default_bg.jpg";
@@ -68,7 +68,7 @@ class Inventory extends Model
 
 
     public function checkImgExists(){
-        if (file_exists(public_path().$this->img_path)) {
+        if (file_exists('.'.$this->img_path)) {
             
         }else{
             $this->img_path = '/images/default_bg.jpg';

@@ -109,12 +109,14 @@ class InventoryController extends Controller
 
         // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($product_list as $item) {
-           	$item->img_path = $item->itemImg->img_path;
-           	
-            if (file_exists($item->img_path)) {
+               
+            $item->img_path = $item->itemImg->img_path;
+            
+            
+            if (file_exists('.'.$item->img_path)) {
                  
             }else{
-            	$item->img_exists = false;
+            	$item->img_path = '/images/default_sm.jpg';
             }
             
         }
@@ -194,7 +196,7 @@ class InventoryController extends Controller
         foreach ($resault as $r) {
             $item = $r->itemImg()->first();
 
-            if ($item&&file_exists(public_path().$item->img_path)) {
+            if ($item&&file_exists('.'.$item->img_path)) {
                 $r->img_path = $item->img_path;
             }else{
                 $r->img_path = "/images/default_bg.jpg";
