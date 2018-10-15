@@ -12,12 +12,14 @@ use App\Wishlist;
 use App\Wishlist_dealer;
 use App\Temp_SO;
 use App\User;
+use App\Dealer;
 use App\UserInfo;
 use App\AddressBook;
 use App\SOMAST;
 use App\DealerHistory;
 use App\SOTRAN;
 use App\Catalog;
+use App\Temp_SO_dealer;
 /** use LOG */
 use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
@@ -1547,6 +1549,141 @@ class InventoryController extends Controller
 
             return response()->json(['status'=>'invalid']);
         }
+    }
+
+    public function checkoutDealer(Request $request){
+
+
+        $items = $request->storage;
+
+        $userID = $request->userID;
+
+        $inventory = Inventory::select('item')->get()->pluck('item')->toArray();
+        
+        $deleteTheOldItem = Temp_SO_dealer::where('cust_id',$userID)->delete();
+
+        foreach ($items as $key => $value) {
+            if (in_array($key,$inventory)) {
+                $so = new Temp_SO_dealer;
+                $so->cust_id = $userID;
+                $so->item = $key;
+                $so->qty = $value;
+                $so->date = date('Y-m-d');
+                $so->save();
+            }else{
+
+            }
+        }
+
+        return response()->json(['status'=>"Success"],200);
+
+        
+    }
+
+
+    public function DealerShortlist(Request $request){
+        
+        $userid = $request->userid;
+
+        $shortlist = Temp_SO_dealer::where('cust_id',$userid)->get();
+
+        $dealer = Dealer::find($userid);
+
+        $dealerInfo = $dealer->dealerInfo;
+
+        
+
+        $subtotal = 0;
+
+        $tax_total = 0;
+
+        switch ($dealerInfo->terr)
+        {
+            case "AB":
+                $tax = 5;
+                break;  
+            case "BC":
+                $tax = 12;
+                break;
+            case "MB":
+                $tax = 13;
+                break;  
+            case "NB":
+                $tax = 15;
+                break;
+            case "NL":
+                $tax = 5;
+                break; 
+            case "NT":
+                $tax = 5;
+                break; 
+            case "NS":
+                $tax = 15;
+                break;
+            case "NU":
+                $tax = 5;
+                break;
+            case "ON":
+                $tax = 13;
+                break;  
+            case "PE":
+                $tax = 15;
+                break;
+            case "QC":
+                $tax = 14.975;
+                break;
+            case "SK":
+                $tax = 11;
+                break;  
+            case "YT":
+                $tax = 5;
+                break;
+            
+            default:
+                $tax = 0;
+        }
+        // Log::useFiles(storage_path('/logs/GLAlog.log'));
+
+        // Log::info(" $user created." );
+
+        foreach ($shortlist as $item) {
+            $info = $item->itemInfo;
+            $info->itemFullInfo();
+            // different level determin different price level
+            switch ($dealerInfo->pplan) {
+                case '4':
+                    $item->price = $info->price4;
+                break;
+                case '3':
+                    $item->price = $info->price3;
+                break;
+                case '2':
+                    $item->price = $info->price2;
+                break;
+                case '1':
+                    $item->price = $info->price;
+                break;
+                default:
+                    $item->price = $info->pricel;
+                break;
+            }
+            $item->descrip=$info->descrip;
+            $item->img_path=$info->img_path;
+            $item->year_from=$info->year_from;
+            $item->year_end=$info->year_end;
+            $item->make=$info->make;
+            $subtotal += $item->price * $item->qty;
+
+            
+        }
+
+        $tax_total = $subtotal * $tax / 100;
+
+        $addressBook = $dealerInfo->addressBooks;
+
+        return response()->json(['carts'=>$shortlist,'dealerInfo'=>$dealerInfo,'subtotal'=>$subtotal, 'tax_total'=>$tax_total,
+        'addressBook'=>$addressBook
+    ],200);
     }
     
 }

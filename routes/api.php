@@ -77,6 +77,8 @@ Route::post('/clearWishlist_dealer','InventoryController@clearWishlist_dealer');
  */
 Route::post('/checkout','InventoryController@checkout');
 
+Route::post('/checkoutDealer','InventoryController@checkoutDealer');
+
 Route::get('/shortlist','InventoryController@shortlist');
 
 /** get shortlist items and total no shipping estimationg */
@@ -139,6 +141,7 @@ Route::post('/addToWishlist_dealer','InventoryController@addToWishlist_dealer');
 // oneOrder
 Route::get('/oneOrder_dealer','InventoryController@Order_dealer');
 
+Route::get('/DealerShortlist','InventoryController@DealerShortlist');
 
 
 

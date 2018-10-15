@@ -21,4 +21,8 @@ class DealerInfo extends Model
 
         return $this->hasOne('App\Dealer','account','custno');
     }
+
+    public function addressBooks(){
+        return $this->hasMany('App\DealerAddressBook','custno','custno');
+    }
 }

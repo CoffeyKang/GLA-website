@@ -238,6 +238,7 @@
 
                 <div class=" text-center" v-if="shippingRate!='quotable'">
                     <button class='mybtn btn btn-success' >Get a Quote</button>
+                    <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
                 
             </div>

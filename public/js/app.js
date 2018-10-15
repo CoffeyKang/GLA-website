@@ -66333,18 +66333,21 @@ var myMixin = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_ConfirmOrder_vue__ = __webpack_require__(330);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_ConfirmOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__components_body_ConfirmOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue__ = __webpack_require__(340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue__ = __webpack_require__(345);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue__ = __webpack_require__(350);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue__ = __webpack_require__(394);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_ChangePass_vue__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_ChangePass_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_ChangePass_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_OrderHistory_vue__ = __webpack_require__(340);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_OrderHistory_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_PendingOrder_vue__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_PendingOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OneOrder_vue__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OneOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_dealerHome_vue__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_dealerHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_dealerHome_vue__);
+
 
 
 
@@ -66379,11 +66382,13 @@ var myMixin = {
 
 
 var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }, { path: '/SearchResualt', component: __WEBPACK_IMPORTED_MODULE_8__components_body_SearchResualt_vue___default.a, name: 'SearchResualt' }, { path: '/Item/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_body_ItemDetails_vue___default.a, name: 'ItemDetails' }, { path: '/wishlist', component: __WEBPACK_IMPORTED_MODULE_10__components_body_Wishlist_vue___default.a, name: 'Wishlist' }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_12__components_Login_vue___default.a, name: 'Login' }, { path: '/Dealer', component: __WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue___default.a, name: 'Dealer',
-  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HistoryOrder', component: __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
+  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HistoryOrder', component: __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
 }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_14__components_Register_vue___default.a, name: 'Register' }, {
   path: '/customerinfo', component: __WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue___default.a, name: 'CustomerInfo',
   children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue___default.a, name: 'PendingOrder' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
-}, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '/ConfirmOrder', component: __WEBPACK_IMPORTED_MODULE_24__components_body_ConfirmOrder_vue___default.a, name: 'ConfirmOrder' }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__components_body_PageNotFound_vue___default.a }];
+}, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '/ConfirmOrder', component: __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue___default.a, name: 'ConfirmOrder' }, {
+  path: '/dealer_checkout', component: __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue___default.a, name: 'DealerCheckout'
+}, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__components_body_PageNotFound_vue___default.a }];
 
 /***/ }),
 /* 195 */
@@ -77001,6 +77006,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -77013,7 +77023,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             subtotal: 0,
             shipping: "-",
             hst: "-",
-            user: {}
+            user: {},
+            isDealer: false
+
             // total:this.subtotal,
 
         };
@@ -77042,6 +77054,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.storage.getItem('user')) {
             this.user = JSON.parse(this.storage.getItem('user'));
             var cust_id = this.user.id;
+
+            if (this.user.level == 2) {
+                this.isDealer = true;
+            } else {
+                this.isDealer = false;
+            }
 
             this.$http.get('/api/getShortlist/' + cust_id).then(function (response) {
                 console.log(response.data);
@@ -77156,8 +77174,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.reloadElement();
             this.addToWishlist(item.item);
         },
-        checkOut: function checkOut() {
+        dealerCheckOut: function dealerCheckOut() {
             var _this4 = this;
+
+            var user = JSON.parse(this.storage.getItem("user"));
+            var userInfo = JSON.parse(this.storage.getItem("userInfo"));
+
+            if (user && userInfo) {
+
+                this.$http.post('api/checkoutDealer', { storage: this.storage, userID: user.id }, [function (method) {
+                    return "POST";
+                }]).then(function (response) {
+
+                    console.log(response);
+
+                    if (response.data.status == "Success") {
+                        _this4.$router.push('/dealer_checkout');
+                    } else if (response.data.status == 'noDetails') {
+                        _this4.$router.push({ path: 'customerInfo' });
+                    }
+                }, function (response) {
+                    // error 
+                    console.log("reloadElement error");
+                });
+            } else {
+
+                /** require to login and then turn back to shoppingg cart */
+                this.$store.commit('changeLoginDirect', 'shoppingCart');
+                this.$router.push({ path: 'customerInfo' });
+            }
+
+            return false;
+        },
+        checkOut: function checkOut() {
+            var _this5 = this;
 
             /** check if the client has logged in or not. if not, checkout requirs to login. */
             var user = JSON.parse(this.storage.getItem("user"));
@@ -77172,9 +77222,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(response);
 
                     if (response.data.status == "Success") {
-                        _this4.$router.push('/checkout');
+                        _this5.$router.push('/checkout');
                     } else if (response.data.status == 'noDetails') {
-                        _this4.$router.push({ path: 'customerInfo' });
+                        _this5.$router.push({ path: 'customerInfo' });
                     }
                 }, function (response) {
                     // error 
@@ -77454,7 +77504,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "processBTN text-center" }, [
-              _vm.carts.length >= 1
+              _vm.carts.length >= 1 && !_vm.isDealer
                 ? _c(
                     "button",
                     {
@@ -77462,6 +77512,23 @@ var render = function() {
                       on: {
                         click: function($event) {
                           _vm.checkOut()
+                        }
+                      }
+                    },
+                    [_vm._v("Proceed To\n                Check Out")]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "processBTN text-center" }, [
+              _vm.carts.length >= 1 && _vm.isDealer
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "mybtn btn btn-success",
+                      on: {
+                        click: function($event) {
+                          _vm.dealerCheckOut()
                         }
                       }
                     },
@@ -77583,6 +77650,7 @@ exports.push([module.i, "\n.oneItem[data-v-f52895a8]{\n    border: 1px solid bla
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -79068,7 +79136,20 @@ var render = function() {
               ? _c("div", { staticClass: " text-center" }, [
                   _c("button", { staticClass: "mybtn btn btn-success" }, [
                     _vm._v("Get a Quote")
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "mybtn btn btn-warning",
+                      on: {
+                        click: function($event) {
+                          _vm.$router.push("shoppingCart")
+                        }
+                      }
+                    },
+                    [_vm._v("Edit Order")]
+                  )
                 ])
               : _vm._e()
           ])
@@ -113547,6 +113628,713 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(395)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(397)
+/* template */
+var __vue_template__ = __webpack_require__(398)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-2d975765"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/body/DealerCheckout.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2d975765", Component.options)
+  } else {
+    hotAPI.reload("data-v-2d975765", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(396);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("c7db791c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2d975765\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DealerCheckout.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2d975765\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DealerCheckout.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.oneItem[data-v-2d975765]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-2d975765]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-2d975765]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-2d975765]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-2d975765]{\n    width: 30%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-2d975765]{  \n    display: -webkit-box;  \n    display: -ms-flexbox;  \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-2d975765]{ \n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-2d975765]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack:end;\n        -ms-flex-pack:end;\n            justify-content:flex-end;\n}\n.toWish[data-v-2d975765]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-2d975765]{\n    cursor: pointer;\n}\n.summary[data-v-2d975765]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-2d975765]{\n    padding: 15px;\n}\n.summary_details div[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-2d975765]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 60px;\n}\n.summary_title[data-v-2d975765]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n}\n.mybtn[data-v-2d975765]{\n    border: none;\n    color: white;\n    font-weight: bold;\n    margin-bottom: 10px;\n}\n.fakeLink[data-v-2d975765]{\n    cursor: pointer;\n}\n.shippingOPT[data-v-2d975765]{\n    padding: 20px;\n}\n.shipToAddress[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n.address[data-v-2d975765]{\n    min-width: 350px;\n    margin-top:20px;\n}\n.addressBook[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.newShipping[data-v-2d975765]{\n    margin-top: 20px;\n    margin-bottom:20px;\n}\n.inRow[data-v-2d975765]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 397 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            items: [],
+            qtys: [],
+            storage: window.localStorage,
+            carts: [],
+            subtotal: 0,
+            hst: 0,
+            addressID: 0,
+            quotes: [],
+            shippingOPT: 1,
+            expressDay: 1,
+            groundDay: 1,
+            shippingRate: '',
+            dealerInfo: [],
+            loading: 1,
+            addressBook: [],
+            selectAdd: ''
+        };
+    },
+
+    computed: {
+        total: function total() {
+
+            return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
+        }
+
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        // determin if user has login
+        if (this.storage.getItem('user')) {
+            // have to validate the user name and password once more here
+            var userData = JSON.parse(this.storage.getItem('user'));
+            /** check again */
+            this.$http.get('/api/DealerShortlist', { params: { userid: userData.id } }).then(function (response) {
+
+                _this.carts = response.data.carts;
+                _this.subtotal = response.data.subtotal.toFixed(2);
+                _this.hst = response.data.tax_total.toFixed(2);
+                _this.dealerInfo = response.data.dealerInfo;
+                _this.loading = 0;
+                _this.addressBook = response.data.addressBook;
+                if (_this.carts.length < 1) {
+                    _this.$router.push({ name: 'ShoppingCart' });
+                } else {}
+            });
+        } else {
+            this.$store.commit('changeLoginDirect', 'home');
+            this.$router.push('Login');
+        }
+    },
+
+    methods: {
+        changeAddress: function changeAddress(address) {
+
+            // <h5><b>{{dealerInfo.company}} </b> <br> <br>
+            //                 {{dealerInfo.address1}},  {{dealerInfo.city}}, {{dealerInfo.zip}}<br>
+            //                 {{dealerInfo.terr}}, {{dealerInfo.country}}<br>{{dealerInfo.phone}}</h5>
+
+            this.dealerInfo.company = address.company;
+            this.dealerInfo.address = address.address1;
+            this.dealerInfo.city = address.city;
+            this.dealerInfo.zip = address.zip;
+            this.dealerInfo.terr = address.terr;
+            this.dealerInfo.country = address.country;
+            this.dealerInfo.phone = address.phone;
+
+            $('.addressBox').css("border", 'none');
+            $("#box" + address.cshipno).css("border", '3px solid green');
+        },
+        defaultAddress: function defaultAddress() {
+            var _this2 = this;
+
+            var userData = JSON.parse(this.storage.getItem('user'));
+            this.$http.get('/api/DealerShortlist', { params: { userid: userData.id } }).then(function (response) {
+
+                _this2.carts = response.data.carts;
+                _this2.subtotal = response.data.subtotal.toFixed(2);
+                _this2.hst = response.data.tax_total.toFixed(2);
+                _this2.dealerInfo = response.data.dealerInfo;
+                _this2.loading = 0;
+                _this2.addressBook = response.data.addressBook;
+                _this2.selectAdd = '';
+                if (_this2.carts.length < 1) {
+                    _this2.$router.push({ name: 'ShoppingCart' });
+                } else {}
+            });
+        },
+        confirm: function confirm() {
+            this.loading = 0;
+        }
+    },
+    watch: {}
+
+});
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "loading",
+          rawName: "v-loading",
+          value: _vm.loading,
+          expression: "loading"
+        }
+      ],
+      staticClass: "container",
+      staticStyle: { "margin-bottom": "30px" },
+      attrs: { "element-loading-text": "Calculating ..." }
+    },
+    [
+      _c("h3", [_vm._v("Confirm Order")]),
+      _vm._v(" "),
+      _c(
+        "el-steps",
+        { attrs: { active: 2, "finish-status": "success" } },
+        [
+          _c("el-step", { attrs: { title: "Step 1" } }),
+          _vm._v(" "),
+          _c("el-step", { attrs: { title: "Step 2" } }),
+          _vm._v(" "),
+          _c("el-step", { attrs: { title: "Step 3" } }),
+          _vm._v(" "),
+          _c("el-step", { attrs: { title: "Step 4" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8", staticStyle: { padding: "0" } }, [
+        _c("div", [
+          _c("table", { staticClass: "table table-striped table-justified" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.carts, function(item) {
+                return _vm.carts.length >= 1
+                  ? _c("tr", { key: item.item, staticClass: "text-left" }, [
+                      _c("td", [_vm._v(_vm._s(item.descrip))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.item) + " ")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.make))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.qty))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v("$" + _vm._s((item.price * item.qty).toFixed(2)))
+                      ])
+                    ])
+                  : _vm._e()
+              })
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "shipingTo" }, [
+          _c(
+            "div",
+            { staticClass: "col-xs-12" },
+            [
+              _c("h4", [_vm._v("Shipping To")]),
+              _vm._v(" "),
+              _c("el-card", { staticClass: "box-card" }, [
+                _c("h5", [
+                  _c("b", [_vm._v(_vm._s(_vm.dealerInfo.company) + " ")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.dealerInfo.address1) +
+                      ",  " +
+                      _vm._s(_vm.dealerInfo.city) +
+                      ", " +
+                      _vm._s(_vm.dealerInfo.zip)
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.dealerInfo.terr) +
+                      ", " +
+                      _vm._s(_vm.dealerInfo.country)
+                  ),
+                  _c("br"),
+                  _vm._v(_vm._s(_vm.dealerInfo.phone))
+                ])
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-xs-12", staticStyle: { "margin-top": "20px" } },
+            [
+              _c("h4", [_vm._v("Shipping To another address")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticStyle: {
+                    display: "flex",
+                    "justify-content": "space-between"
+                  }
+                },
+                [
+                  _c(
+                    "el-select",
+                    {
+                      attrs: { placeholder: "To default address." },
+                      model: {
+                        value: _vm.selectAdd,
+                        callback: function($$v) {
+                          _vm.selectAdd = $$v
+                        },
+                        expression: "selectAdd"
+                      }
+                    },
+                    _vm._l(_vm.addressBook, function(item) {
+                      return _c("el-option", {
+                        key: item.cshipno,
+                        attrs: { label: item.cshipno, value: item.cshipno }
+                      })
+                    })
+                  )
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "addressBook col-xs-12" },
+            _vm._l(_vm.addressBook, function(address) {
+              return address.cshipno == _vm.selectAdd
+                ? _c(
+                    "div",
+                    { key: address.cshipno, staticClass: "address" },
+                    [
+                      _c(
+                        "el-card",
+                        {
+                          staticClass: "box-card addressBox",
+                          attrs: { id: "box" + address.cshipno }
+                        },
+                        [
+                          _c("h5", [
+                            _c("b", [
+                              _vm._v(_vm._s(_vm.dealerInfo.company) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.dealerInfo.address1) +
+                                ",  " +
+                                _vm._s(_vm.dealerInfo.city) +
+                                ", " +
+                                _vm._s(_vm.dealerInfo.zip)
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.dealerInfo.terr) +
+                                ", " +
+                                _vm._s(_vm.dealerInfo.country)
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              _vm._s(_vm.dealerInfo.phone) +
+                                "\n                                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "shipToAddress" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: " btn btn-success text-center",
+                                on: {
+                                  click: function($event) {
+                                    _vm.changeAddress(address)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Deliver to address\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: " btn btn-default text-center",
+                                on: {
+                                  click: function($event) {
+                                    _vm.defaultAddress()
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Default Address\n                                    "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            })
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-sm-4",
+          staticStyle: {
+            "padding-right": "0",
+            "padding-top": "15px",
+            "padding-left": "30px"
+          }
+        },
+        [
+          _c("div", { staticClass: "summary" }, [
+            _c("div", { staticClass: "summary_title" }, [
+              _vm._v("\n                    ORDER SUMMARY\n                ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "summary_details" }, [
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("SUBTOTAL:")]),
+                  _c("span", [
+                    _vm._v("$" + _vm._s(parseFloat(_vm.subtotal).toFixed(2)))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("SHIPPING:")]),
+                  _vm.shippingRate == "quotable"
+                    ? _c("span", [
+                        _vm._v(
+                          "$" + _vm._s(parseFloat(_vm.shipping).toFixed(2))
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.shippingRate != "quotable"
+                    ? _c("span", [_vm._v("TBD")])
+                    : _vm._e()
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("HST:")]),
+                  _c("span", [_vm._v("$" + _vm._s(_vm.hst))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "summary_list" }, [
+                _c("div", { staticClass: "summary_amount" }, [
+                  _c("span", [_vm._v("TOTAL:")]),
+                  _vm.shippingRate == "quotable"
+                    ? _c("span", [_vm._v("$" + _vm._s(_vm.total.toFixed(2)))])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.shippingRate != "quotable"
+                    ? _c("span", [_vm._v("TBD")])
+                    : _vm._e()
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: " text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "mybtn btn btn-success",
+                  on: {
+                    click: function($event) {
+                      _vm.confirm()
+                    }
+                  }
+                },
+                [_vm._v("Get a Quote")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "mybtn btn btn-warning",
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push("shoppingCart")
+                    }
+                  }
+                },
+                [_vm._v("Edit Order")]
+              )
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Item")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Make")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("QTY")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Price")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2d975765", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

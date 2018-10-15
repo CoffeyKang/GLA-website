@@ -90,7 +90,12 @@
                 </div>
 
                 <div class="processBTN text-center">
-                    <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1">Proceed To
+                    <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1&& !isDealer">Proceed To
+                    Check Out</button>
+                </div>
+
+                <div class="processBTN text-center">
+                    <button class='mybtn btn btn-success' @click='dealerCheckOut()' v-if="carts.length>=1&& isDealer">Proceed To
                     Check Out</button>
                 </div>
             </div>
@@ -111,6 +116,8 @@ export default {
             shipping:"-",
             hst:"-",
             user:{},
+            isDealer:false,
+
             // total:this.subtotal,
             
             }
@@ -133,9 +140,17 @@ export default {
         mounted(){
             this.reloadElement();
 
+
+
             if (this.storage.getItem('user')) {
                 this.user = JSON.parse(this.storage.getItem('user'));
                 let cust_id = this.user.id;
+
+                if (this.user.level==2) {
+                    this.isDealer = true;
+                }else{
+                    this.isDealer = false;
+                }
 
                 this.$http.get('/api/getShortlist/'+cust_id).then((response)=>{
                     console.log(response.data);
@@ -261,8 +276,37 @@ export default {
                 this.reloadElement();
                 this.addToWishlist(item.item);
             },
-            checkOut(){
+            
+            dealerCheckOut(){
+                var user = JSON.parse(this.storage.getItem("user"));
+                var userInfo = JSON.parse(this.storage.getItem("userInfo"));
 
+                if (user&&userInfo) {
+                    
+                    this.$http.post('api/checkoutDealer',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
+
+                        console.log(response);
+                        
+                        if (response.data.status=="Success") {
+                        this.$router.push('/dealer_checkout');
+                        }else if (response.data.status=='noDetails') {
+                            this.$router.push({path:'customerInfo'});
+                        } 
+                    }, response => {
+                        // error 
+                        console.log("reloadElement error");
+                    });
+                }else{
+
+                    /** require to login and then turn back to shoppingg cart */
+                    this.$store.commit('changeLoginDirect','shoppingCart');
+				    this.$router.push({path:'customerInfo'});
+                    
+                }
+
+                return false;    
+            },
+            checkOut(){
                 
                 /** check if the client has logged in or not. if not, checkout requirs to login. */
                 var user = JSON.parse(this.storage.getItem("user"));
