@@ -23,7 +23,7 @@ export const myMixin = {
 
         var user = JSON.parse(this.storage.getItem('user')).id;
 
-        this.$http.post('/api/'+url, {user: user, item: item}).then(response => {
+        this.$http.post('/api/' + url, {user: user, item: item}).then(response => {
           if (response.data.status == 'saved') {
             const h = this.$createElement;
             this.$notify({
@@ -82,6 +82,15 @@ export const myMixin = {
       this.$http.get('/api/customerOrderHistory', { params: { 'id': id } }).then(response => {
         this.orderHistory = response.data.history;
         this.pending = response.data.pending;
+      });
+    },
+
+    dealerOrderHistory: function () {
+      var account = JSON.parse(this.storage.getItem('user')).account;
+      this.$http.get('/api/dealerOrderHistory', { params: { 'account': account } }).then(response => {
+        this.orderHistory = response.data.history;
+        this.pending = response.data.pending;
+        console.log(response.data);
       });
     },
 

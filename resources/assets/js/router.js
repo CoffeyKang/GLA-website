@@ -47,7 +47,7 @@ export const routes = [
     children: [
       { path: '', component: dealHome, name: 'dealHome' },
       { path: 'HomePage', component: dealHome, name: 'dealHome' },
-      { path: 'OrderHistory', component: OrderHistory_dealer, name: 'OrderHistory_dealer' },
+      { path: 'HistoryOrder', component: OrderHistory_dealer, name: 'OrderHistory_dealer' },
       { path: 'PendingOrder', component: PendingOrder_dealer, name: 'PendingOrder_dealer' },
       { path: 'oneOrder/:order_num', component: OneOrder_dealer, name: 'OneOrder_dealer' },
       { path: 'ChangePassword', component: ChangePass, name: 'ChangePass' }

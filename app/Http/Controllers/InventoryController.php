@@ -15,6 +15,7 @@ use App\User;
 use App\UserInfo;
 use App\AddressBook;
 use App\SOMAST;
+use App\DealerHistory;
 use App\SOTRAN;
 use App\Catalog;
 /** use LOG */
@@ -1208,6 +1209,18 @@ class InventoryController extends Controller
         return response()->json(['history'=>$history,'pending'=>$pending],200);
     }
 
+    // get dealer order history
+    public function dealerOrderHistory(Request $request){
+
+        $account = $request->account;
+
+        $history = DealerHistory::where('account',$account)->orderBy('order_num','desc')->get();
+
+        $pending = DealerHistory::where('account',$account)->whereIn('sales_status',[0,1,3,5])->orderBy('order_num','desc')->get();
+        
+        return response()->json(['history'=>$history,'pending'=>$pending],200);
+    }
+
     public function oneOrder(Request $request){
 
         $so = $request->so;
@@ -1233,6 +1246,8 @@ class InventoryController extends Controller
         }
         
     }
+
+    
 
     public function catalogs(Request $request){
         
@@ -1503,6 +1518,35 @@ class InventoryController extends Controller
 
         return response()->json(['resp'=>$responseData],200);
 
+    }
+
+
+
+
+    public function Order_dealer(Request $request){
+        $so = $request->so;
+
+        $account = $request->account;
+
+        $history = Dealerhistory::where('order_num',$so)->where('account',$account)->first();
+        
+        
+
+        if ($history) {
+            
+            $oneOrder = $history->dealerDetails()->get();
+
+            foreach ($oneOrder as $item) {
+                $iteminfo = $item->itemInfo()->first()->allMakes();
+                $item->make = $iteminfo->all_makes;
+            }
+
+            return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid'],200);
+        
+        }else{
+
+            return response()->json(['status'=>'invalid']);
+        }
     }
     
 }

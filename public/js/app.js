@@ -66175,6 +66175,17 @@ var myMixin = {
       });
     },
 
+    dealerOrderHistory: function dealerOrderHistory() {
+      var _this3 = this;
+
+      var account = JSON.parse(this.storage.getItem('user')).account;
+      this.$http.get('/api/dealerOrderHistory', { params: { 'account': account } }).then(function (response) {
+        _this3.orderHistory = response.data.history;
+        _this3.pending = response.data.pending;
+        console.log(response.data);
+      });
+    },
+
     viewed: function viewed(item) {
       this.$http.post('/api/viewed', { 'item': item }).then(function (response) {
         console.log(response);
@@ -66368,7 +66379,7 @@ var myMixin = {
 
 
 var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }, { path: '/SearchResualt', component: __WEBPACK_IMPORTED_MODULE_8__components_body_SearchResualt_vue___default.a, name: 'SearchResualt' }, { path: '/Item/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_body_ItemDetails_vue___default.a, name: 'ItemDetails' }, { path: '/wishlist', component: __WEBPACK_IMPORTED_MODULE_10__components_body_Wishlist_vue___default.a, name: 'Wishlist' }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_12__components_Login_vue___default.a, name: 'Login' }, { path: '/Dealer', component: __WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue___default.a, name: 'Dealer',
-  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
+  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HistoryOrder', component: __WEBPACK_IMPORTED_MODULE_26__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_27__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_25__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
 }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_14__components_Register_vue___default.a, name: 'Register' }, {
   path: '/customerinfo', component: __WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue___default.a, name: 'CustomerInfo',
   children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue___default.a, name: 'PendingOrder' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
@@ -71653,6 +71664,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71660,8 +71672,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             account: '',
             password: '',
             storage: window.localStorage,
-            customerLogin: false
-
+            customerLogin: false,
+            orderHistory: [],
+            pending: []
         };
     },
     mounted: function mounted() {
@@ -71679,7 +71692,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
 
                 this.customerLogin = true;
-            } else {}
+            } else {
+                this.dealerOrderHistory();
+            }
         } else {}
     },
 
@@ -71874,9 +71889,34 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "list-group-item",
-                        attrs: { to: "/Dealer/HomePage", tag: "a" }
+                        attrs: { to: "/Dealer/HistoryOrder", tag: "a" }
                       },
-                      [_vm._v("Track My Order")]
+                      [
+                        _vm._v("History Order"),
+                        _vm.orderHistory
+                          ? _c("span", { staticClass: "num" }, [
+                              _vm._v(
+                                " (" + _vm._s(_vm.orderHistory.length) + ")"
+                              )
+                            ])
+                          : _vm._e()
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "list-group-item",
+                        attrs: { to: "/Dealer/PendingOrder", tag: "a" }
+                      },
+                      [
+                        _vm._v("Pending Order"),
+                        _vm.orderHistory
+                          ? _c("span", { staticClass: "num" }, [
+                              _vm._v(" (" + _vm._s(_vm.pending.length) + ")")
+                            ])
+                          : _vm._e()
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
@@ -80170,6 +80210,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80180,13 +80223,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        this.customerOrderHistory();
+        this.dealerOrderHistory();
+        console.log(this.orderHistory);
     },
 
     methods: {
         HistoryDetails: function HistoryDetails(order_num) {
             console.log(order_num);
-            this.$router.push({ name: 'OneOrder', params: { order_num: order_num } });
+            this.$router.push({ name: 'OneOrder_dealer', params: { order_num: order_num } });
         },
         previousPage: function previousPage() {
             this.current -= 1;
@@ -80245,8 +80289,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(item.order_num))]),
                 _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(item.currency))]),
-                _vm._v(" "),
                 _c("th", [
                   item.sales_status == 0
                     ? _c("span", [_vm._v("Unpaid\n                    ")])
@@ -80284,17 +80326,15 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(item.track_num))]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-right" }, [
-                  _vm._v(
-                    "$ " +
-                      _vm._s(
-                        (
-                          parseFloat(item.subtotal) +
-                          parseFloat(item.tax) +
-                          parseFloat(item.shipping)
-                        ).toFixed(2)
-                      ) +
-                      "\n                "
-                  )
+                  _vm._v("$ " + _vm._s(parseFloat(item.shipping).toFixed(2)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v("$ " + _vm._s(parseFloat(item.tax).toFixed(2)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v("$ " + _vm._s(parseFloat(item.subtotal).toFixed(2)))
                 ])
               ]
             )
@@ -80346,11 +80386,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Order Number")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Currency")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Order Status")]),
         _vm._v(" "),
         _c("th", { staticStyle: { width: "100px" } }, [_vm._v("track_num")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Shipping")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Tax")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-right" }, [_vm._v("Subtotal")])
       ])
@@ -80514,6 +80556,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80525,13 +80570,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        this.customerOrderHistory();
+        this.dealerOrderHistory();
     },
 
     methods: {
         HistoryDetails: function HistoryDetails(order_num) {
             console.log(order_num);
-            this.$router.push({ name: 'OneOrder', params: { order_num: order_num } });
+            this.$router.push({ name: 'OneOrder_dealer', params: { order_num: order_num } });
         },
         previousPage: function previousPage() {
             this.current -= 1;
@@ -80629,17 +80674,15 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(item.track_num))]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-right" }, [
-                  _vm._v(
-                    "$ " +
-                      _vm._s(
-                        (
-                          parseFloat(item.subtotal) +
-                          parseFloat(item.tax) +
-                          parseFloat(item.shipping)
-                        ).toFixed(2)
-                      ) +
-                      "\n                "
-                  )
+                  _vm._v("$ " + _vm._s(parseFloat(item.shipping).toFixed(2)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v("$ " + _vm._s(parseFloat(item.tax).toFixed(2)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _vm._v("$ " + _vm._s(parseFloat(item.subtotal).toFixed(2)))
                 ])
               ]
             )
@@ -80696,6 +80739,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("Order Status")]),
         _vm._v(" "),
         _c("th", { staticStyle: { width: "100px" } }, [_vm._v("track_num")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Shipping")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Tax")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-right" }, [_vm._v("Subtotal")])
       ])
@@ -80853,7 +80900,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             so: this.$route.params.order_num,
             storage: window.localStorage,
-            id: 0,
+            account: 0,
             oneOrder: [],
             somast: [],
             empty: false,
@@ -80864,8 +80911,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        this.id = JSON.parse(this.storage.getItem('user')).id;
-        this.$http.get('/api/oneOrder', { params: { 'so': this.so, 'id': this.id } }).then(function (response) {
+        this.account = JSON.parse(this.storage.getItem('user')).account;
+        this.$http.get('/api/oneOrder_dealer', { params: { 'so': this.so, 'account': this.account } }).then(function (response) {
             if (response.data.status == 'invalid') {
                 _this.empty = true;
                 _this.$message({
@@ -80948,7 +80995,7 @@ var render = function() {
                   attrs: { type: "primary" },
                   on: {
                     click: function($event) {
-                      _vm.$router.push({ name: "OrderHistory" })
+                      _vm.$router.push({ name: "OrderHistory_dealer" })
                     }
                   }
                 },
@@ -81182,9 +81229,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.user = JSON.parse(this.storage.getItem('user'));
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
-        this.$http.get('/api/dealerInfo/A0001').then(function (response) {
+        this.$http.get('/api/dealerInfo/' + this.user.account).then(function (response) {
             console.log(response.data.dealerInfo);
         });
+
+        this.dealerOrderHistory();
     },
 
 
