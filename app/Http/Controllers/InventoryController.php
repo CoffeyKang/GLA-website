@@ -102,23 +102,22 @@ class InventoryController extends Controller
      * @return [type]       [description]
      */
     public function product_list($make,$mycurrentPage){
-        
         Paginator::currentPageResolver(function () use ($mycurrentPage) {
             return $mycurrentPage;
         });
-        $product_list = Inventory::
-        join('inventory_img','inventory.item','inventory_img.item')->
-        where('make',$make)->paginate(20) ;
+        $product_list = Inventory::where('make',$make)->paginate(20) ;
 
+        // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($product_list as $item) {
-            if (file_exists(public_path().$item->img_path)) {
-                
+           	$item->img_path = $item->itemImg->img_path;
+           	
+            if (file_exists($item->img_path)) {
+                 
             }else{
-                $item->img_path = "/images/default_sm.jpg";
+            	$item->img_exists = false;
             }
             
         }
-        
         return $product_list;
     }
 

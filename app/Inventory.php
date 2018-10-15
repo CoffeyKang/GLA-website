@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
-    // protected $connection = 'mysql2';
+    protected $connection = 'mysql2';
 
     protected $table='inventory';
     
@@ -20,6 +20,7 @@ class Inventory extends Model
      * @return [type] [description]
      */
     public function itemImg(){
+        
     	return $this->belongsTo('App\Inventory_img','item','item');
     }
 

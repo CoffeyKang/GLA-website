@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Wishlist;
-use App\WIshlist_dealer;
+use App\Wishlist_dealer;
 use App\Inventory;
 use App\User;
 
@@ -14,7 +14,7 @@ class ShoppingController extends Controller
 		$userId = $request->userid;
 		
 		
-    	$wishlist = WIshlist::where('cust_id',$userId)->get();
+    	$wishlist = Wishlist::where('cust_id',$userId)->get();
 
     	$result = collect();
     	foreach ($wishlist as $w) {
@@ -32,7 +32,7 @@ class ShoppingController extends Controller
 		$userId = $request->userid;
 		
 		
-    	$wishlist = WIshlist_dealer::where('cust_id',$userId)->get();
+    	$wishlist = Wishlist_dealer::where('cust_id',$userId)->get();
 
     	$result = collect();
     	foreach ($wishlist as $w) {
