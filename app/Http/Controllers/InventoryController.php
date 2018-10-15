@@ -9,6 +9,7 @@ use App\Inventory_img;
 use App\Item_make;
 use App\FeatureProduct;
 use App\Wishlist;
+use App\Wishlist_dealer;
 use App\Temp_SO;
 use App\User;
 use App\UserInfo;
@@ -337,6 +338,26 @@ class InventoryController extends Controller
         
     }
 
+    // removeFromWishlist
+    public function removeFromWishlist_dealer(Request $request){
+        
+        $user = $request->user;
+        
+        $item = $request->item;
+
+        
+        
+        $items = Wishlist_dealer::where('cust_id',$user)->where('item',$item)->first();
+
+        if ($items) {
+            $items->delete();
+            return 1;
+        }else{
+            return 0;
+        }
+        
+    }
+
     // add to wish list
     public function addToWishlist(Request $request){
         
@@ -363,11 +384,53 @@ class InventoryController extends Controller
 
     }
 
+
+    // add to wish list -- dealer
+    public function addToWishlist_dealer(Request $request){
+        
+        $user = $request->user;
+
+        $item = $request->item;
+
+        $checkExist = Wishlist_dealer::where('cust_id',$user)->where('item',$item)->first();
+
+        if ($checkExist) {
+            return response()->json(['status'=>'exist'],200);
+        }else{
+
+            $wishlist = new Wishlist_dealer;
+
+            $wishlist->cust_id = $user;
+
+            $wishlist->item = $item;
+
+            $wishlist->save();
+
+            return response()->json(['status'=>'saved'],200);
+        }
+
+    }
+
+
+
     // clearWishlist
     public function clearWishlist(Request $request){
         $user = $request->user;
         
         $wishlist = Wishlist::where('cust_id',$user)->get();
+
+        foreach ($wishlist as $w) {
+            $w->delete();
+        }
+        return response()->json(['status'=>'deleted'],200);
+        
+    }
+
+    // clearWishlist
+    public function clearWishlist_dealer(Request $request){
+        $user = $request->user;
+        
+        $wishlist = Wishlist_dealer::where('cust_id',$user)->get();
 
         foreach ($wishlist as $w) {
             $w->delete();

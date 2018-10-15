@@ -77,7 +77,12 @@
 			    // get body data
 			    // 
 			    this.data = response.body;
-			    this.lists = response.body.data;
+				this.lists = response.body.data;
+				
+				this.lists.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});	
+							
 			    this.page = this.data.current_page;
 
 			    // finish ladding screen
@@ -93,7 +98,12 @@
 				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
 			    this.data = response.body;
-			    this.lists = response.body.data;
+				this.lists = response.body.data;
+				
+				this.lists.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
+
 			    this.page = this.data.current_page;
 			    
 
@@ -107,7 +117,12 @@
 				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
 			    this.data = response.body;
-			    this.lists = response.body.data;
+				this.lists = response.body.data;
+				
+				this.lists.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
+				
 			    this.page = this.data.current_page;
 
 			  }, response => {

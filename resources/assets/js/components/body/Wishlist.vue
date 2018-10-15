@@ -69,7 +69,6 @@
 		mounted(){
 			// check if user is login
 			if(this.storage.getItem('user')){
-				
 				let userData = JSON.parse(this.storage.getItem('user'));
 			}else{
 				this.$store.commit('changeLoginDirect','wishlist');
@@ -88,8 +87,13 @@
 		},
 		methods:{
 			clearWish(){
-				  this.$http.post('/api/clearWishlist',{user:JSON.parse(this.storage.getItem("user")).id}).then(response=>{
-
+					if (JSON.parse(this.storage.getItem('user')).level == 2) {
+						var url = 'clearWishlist_dealer';
+						}else {
+						var url = 'clearWishlist';
+					}
+				
+				  this.$http.post('/api/'+url,{user:JSON.parse(this.storage.getItem("user")).id}).then(response=>{
 						const h = this.$createElement;
 						this.$notify({
 							title: 'Succsesfully Clear.',
@@ -102,7 +106,14 @@
 			},
 			removeFromWhishlist(item){
 				var user = JSON.parse(this.storage.getItem("user")).id;
-				this.$http.post('/api/removeFromWishlist',{user:user,item:item.item})
+
+				if (JSON.parse(this.storage.getItem('user')).level == 2) {
+					var url = 'removeFromWishlist_dealer';
+					}else {
+					var url = 'removeFromWishlist';
+				}
+
+				this.$http.post('/api/'+url,{user:user,item:item.item})
 					.then(response=>{
 						const h = this.$createElement;
 						if (response.data==1) {
@@ -153,9 +164,18 @@
 			getWishlist(){
 				console.log("gegtWishlist called");
 				var userID = JSON.parse(this.storage.getItem("user")).id;
-				this.$http.get('/api/wishlist', {params:{userid:userID}}).then(response=>{
+				if (JSON.parse(this.storage.getItem('user')).level == 2) {
+					var url = 'wishlist_dealer';
+					}else {
+					var url = 'wishlist';
+				}
+				this.$http.get('/api/'+url, {params:{userid:userID}}).then(response=>{
 					console.log("call get wishlist api");
 					this.items = response.data.items;
+
+					this.items.forEach(element => {
+						element.pricel = this.Dealerprice(element);
+					});
 					console.log(this.items);
 				}, response=>{
 					console.log('wishlist error');

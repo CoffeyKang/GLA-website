@@ -107,6 +107,8 @@
 			    // get body data
 			    
 				this.item = response.body.singleItem;
+
+				this.item.pricel = this.Dealerprice(this.item);
 				
 				this.item_makes = response.body.item_makes;
 
@@ -123,7 +125,9 @@
 			this.$http.get('/api/related/'+ this.id).then(response => {
 			    // get body data
 				this.related = response.data;
-				console.log(this.related);
+				this.related.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
 			  }, response => {
 			  	// error 
 			    console.log("error_related");

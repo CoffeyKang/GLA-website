@@ -102,6 +102,11 @@
 						console.log(response);
 				// get body data
 				this.list = response.body.items.data;
+
+				this.list.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
+
 				this.data = response.body.items;
 				this.page = this.data.current_page;
 				this.makes = response.body.item_makes;

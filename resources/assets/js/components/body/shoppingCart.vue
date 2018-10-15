@@ -193,6 +193,7 @@ export default {
                     this.subtotal = 0;                
                     this.carts.forEach(element => {
                         console.log(element);
+                        element.pricel = this.Dealerprice(element);
                         let short_num = parseInt(this.storage.getItem(element.item));
                         if ( short_num >element.onhand) {
                             this.storage.setItem(element.item, element.onhand);

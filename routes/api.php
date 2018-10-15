@@ -38,6 +38,8 @@ Route::get('/searchResualt', 'InventoryController@searchResualt');
 
 Route::get('/wishlist','ShoppingController@wishlist');
 
+Route::get('/wishlist_dealer','ShoppingController@wishlist_dealer');
+
 Route::post('/getItems_carts','InventoryController@getItems_carts');
 
 /**
@@ -53,12 +55,16 @@ Route::post('/userDetails','AccessControl@userDetails');
 
 // remove from wishlist
 Route::post('/removeFromWishlist','InventoryController@removeFromWishlist');
+Route::post('/removeFromWishlist_dealer','InventoryController@removeFromWishlist_dealer');
 
 // add To wishlist
 Route::post('/addToWishlist','InventoryController@addToWishlist');
 
 //delete all wishlist
 Route::post('/clearWishlist','InventoryController@clearWishlist');
+
+//delete all wishlist
+Route::post('/clearWishlist_dealer','InventoryController@clearWishlist_dealer');
 
 /** start checkout,
  * process steps
@@ -123,6 +129,9 @@ Route::post('/loginDealer','DealerController@login');
 Route::get('/dealerInfo/{id}',"DealerController@dealerInfo");
 
 Route::post('/changePass','DealerController@changePass');
+
+
+Route::post('/addToWishlist_dealer','InventoryController@addToWishlist_dealer');
 
 
 

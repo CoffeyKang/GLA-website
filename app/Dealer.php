@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dealer extends Model
 {   
-
-    protected $connection = 'mysql';
-
+    // I set protected attribute $connection in Model File. Set $connection = sql1
     protected $table ='dealer_main';
     
     public $timestamps = false;

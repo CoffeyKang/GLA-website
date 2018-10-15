@@ -15,9 +15,15 @@ export const myMixin = {
 
     addToWishlist: function (item) {
       if (this.storage.getItem('user')) {
+        if (JSON.parse(this.storage.getItem('user')).level == 2) {
+          var url = 'addToWishlist_dealer';
+        }else {
+          var url = 'addToWishlist';
+        }
+
         var user = JSON.parse(this.storage.getItem('user')).id;
 
-        this.$http.post('/api/addToWishlist', {user: user, item: item}).then(response => {
+        this.$http.post('/api/'+url, {user: user, item: item}).then(response => {
           if (response.data.status == 'saved') {
             const h = this.$createElement;
             this.$notify({
@@ -134,6 +140,39 @@ export const myMixin = {
         return ('Password must contain number and alphabet.');
       }
       return ('ok');
+    },
+
+    Dealerprice(item) {
+      let userInfo = JSON.parse(this.storage.getItem('userInfo'));
+      let user = JSON.parse(this.storage.getItem('user'));
+      let Dealerprice = item.pricel;
+
+      if (user) {
+        if (user.level == 2) {
+          switch (userInfo.pricecode) {
+            case '4':
+              Dealerprice = item.price4;
+              break;
+            case '3':
+              Dealerprice = item.price3;
+              break;
+            case '2':
+              Dealerprice = item.price2;
+              break;
+            case '1':
+              Dealerprice = item.price;
+              break;
+            default:
+              Dealerprice = item.pricel;
+              break;
+
+          }
+        } else {
+        }
+      }else {
+      }
+
+      return Dealerprice;
     }
 
   },
