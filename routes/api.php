@@ -143,6 +143,8 @@ Route::get('/oneOrder_dealer','InventoryController@Order_dealer');
 
 Route::get('/DealerShortlist','InventoryController@DealerShortlist');
 
+Route::get('/getShortlist_dealer/{id}','InventoryController@getShortlist_dealer');
+
 
 
 

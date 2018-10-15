@@ -148,11 +148,13 @@ export default {
 
                 if (this.user.level==2) {
                     this.isDealer = true;
+                    var url = 'getShortlist_dealer';
                 }else{
                     this.isDealer = false;
+                    var url = 'getShortlist';
                 }
 
-                this.$http.get('/api/getShortlist/'+cust_id).then((response)=>{
+                this.$http.get('/api/'+url +'/'+cust_id).then((response)=>{
                     console.log(response.data);
                     let oldShortlist = response.data.oldShortlist;
                     
@@ -280,7 +282,6 @@ export default {
             dealerCheckOut(){
                 var user = JSON.parse(this.storage.getItem("user"));
                 var userInfo = JSON.parse(this.storage.getItem("userInfo"));
-
                 if (user&&userInfo) {
                     
                     this.$http.post('api/checkoutDealer',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {

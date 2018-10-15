@@ -70152,7 +70152,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -70313,11 +70312,11 @@ var render = function() {
                       staticStyle: {
                         padding: "5px",
                         height: "80px",
-                        "background-image": 'url("/images/default.jpg")',
                         "background-size": "contain",
                         "background-repeat": "no-repeat",
                         "background-position": "center"
-                      }
+                      },
+                      style: { backgroundImage: "url(" + thing.img_path + ")" }
                     }),
                     _vm._v(" "),
                     _c(
@@ -71728,6 +71727,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var userData = JSON.parse(_this.storage.getItem('user'));
 
                 _this.$store.commit('changeLoginStatus', true);
+
+                if (_this.storage.getItem('user')) {
+                    _this.user = JSON.parse(_this.storage.getItem('user'));
+                    var cust_id = _this.user.id;
+
+                    _this.$http.get('/api/getShortlist_dealer/' + cust_id).then(function (response) {
+                        console.log(response.data);
+                        var oldShortlist = response.data.oldShortlist;
+
+                        oldShortlist.forEach(function (element) {
+                            var item = element.item;
+                            var quantity = element.qty;
+                            if (window.localStorage.getItem(item)) {
+                                // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                                // window.localStorage.setItem(item,qty);
+                            } else {
+                                window.localStorage.setItem(item, quantity);
+
+                                var newNumber = _this.carts_number + 1;
+
+                                _this.$store.commit('carts_number', newNumber);
+                            }
+                        });
+                    });
+
+                    _this.$http.get('/api/deleteShortlist/' + cust_id).then(function (response) {
+                        // console.log('called');
+                        if (response.data.deleteOldShortlist == 'deletedOld') {
+                            // console.log('shortlist has been delete');
+                        } else {}
+                    });
+                } else {
+                    console.log('not login');
+                }
 
                 _this.$router.push({ path: '/' });
             }).catch(function (response) {
@@ -77057,11 +77090,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.user.level == 2) {
                 this.isDealer = true;
+                var url = 'getShortlist_dealer';
             } else {
                 this.isDealer = false;
+                var url = 'getShortlist';
             }
 
-            this.$http.get('/api/getShortlist/' + cust_id).then(function (response) {
+            this.$http.get('/api/' + url + '/' + cust_id).then(function (response) {
                 console.log(response.data);
                 var oldShortlist = response.data.oldShortlist;
 
@@ -77179,7 +77214,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var user = JSON.parse(this.storage.getItem("user"));
             var userInfo = JSON.parse(this.storage.getItem("userInfo"));
-
             if (user && userInfo) {
 
                 this.$http.post('api/checkoutDealer', { storage: this.storage, userID: user.id }, [function (method) {

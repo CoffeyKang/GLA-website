@@ -293,8 +293,19 @@ class InventoryController extends Controller
 
         $items = $items->paginate(10);
 
-       
-
+        foreach ($items as $item) {
+                
+                $item->img_path = $item->itemImg->img_path;
+                
+                
+                if (file_exists('.'.$item->img_path)) {
+                    
+                }else{
+                    $item->img_path = '/images/default_sm.jpg';
+                }
+                
+            }
+        
         
 
         return response()->json(['items'=>$items,'item_makes'=>$item_makes],200);
@@ -1682,8 +1693,18 @@ class InventoryController extends Controller
         $addressBook = $dealerInfo->addressBooks;
 
         return response()->json(['carts'=>$shortlist,'dealerInfo'=>$dealerInfo,'subtotal'=>$subtotal, 'tax_total'=>$tax_total,
-        'addressBook'=>$addressBook
-    ],200);
+            'addressBook'=>$addressBook
+        ],200);
+    }
+
+
+    /** get short list to shopping carts */
+
+    public function getShortlist_dealer($id){
+        
+        $OldShortlist = TEMP_SO_dealer::where('cust_id',$id)->get();
+        
+        return response()->json(['oldShortlist'=>$OldShortlist],200);
     }
     
 }

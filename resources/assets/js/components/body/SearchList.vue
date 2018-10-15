@@ -17,11 +17,10 @@
                 <tr v-for="thing in list" :key="thing.item">
                     <td  style='height:80px; vertical-align:middle !important'>{{thing.item}}</td>
                     <td>{{thing.descrip}}</td>
-					<td 
+					<td :style="{ backgroundImage: 'url(' + thing.img_path + ')' }"
 						style='
 							padding:5px;
 							height:80px; 
-							background-image:url("/images/default.jpg");
 							background-size:contain;
 							background-repeat:no-repeat;
 							background-position:center'
