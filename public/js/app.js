@@ -80593,6 +80593,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         page: function page() {
+            if (this.num > this.total) {
+                console.log(this.num);
+                this.num = 1;
+            } else {}
+
+            if (isNaN(this.num)) {
+                console.log('is not a number');
+                this.num = 1;
+                $('#numInput').val(1);
+            } else {}
+
             var n = this.pic_array[this.num - 1];
             // var pageNum = '/images/catalog/'+this.make+'/2018 GLA '+this.make+'Catalog_Page_'+n+'.jpg';
             return n;
@@ -80682,6 +80693,7 @@ var render = function() {
         [
           _c("el-input", {
             staticStyle: { width: "50px" },
+            attrs: { id: "numInput" },
             model: {
               value: _vm.num,
               callback: function($$v) {

@@ -12,7 +12,7 @@
         <div class="btnBar">
             <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
             <span>
-                <el-input v-model='num' style='width:50px;'></el-input> / <el-input :value='total' style='width:50px;' readonly="readonly"></el-input>
+                <el-input v-model='num' id='numInput' style='width:50px;'></el-input> / <el-input :value='total' style='width:50px;' readonly="readonly"></el-input>
             </span>
             <span><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
         </div>
@@ -32,6 +32,21 @@
         },
         computed:{
             page(){
+                if (this.num>this.total ) {
+                    console.log(this.num);
+                    this.num =1;
+                }else{
+
+                }
+
+                if (isNaN(this.num) ) {
+                    console.log('is not a number')
+                    this.num =1;
+                    $('#numInput').val(1);
+                }else{
+
+                }
+
                 var n = this.pic_array[this.num-1];
                 // var pageNum = '/images/catalog/'+this.make+'/2018 GLA '+this.make+'Catalog_Page_'+n+'.jpg';
                 return n;
