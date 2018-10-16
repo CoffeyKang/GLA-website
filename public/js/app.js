@@ -16730,7 +16730,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.$store.commit('carts_number', _this.carts.length);
 		}, function (response) {
 			// error 
-			console.log("error4");
 		});
 
 		// check if the use log in
@@ -16741,7 +16740,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	watch: {
 		'$route': function $route(to, from) {
-			console.log('url changed');
 			window.scrollTo(0, 0);
 		}
 	},
@@ -17129,6 +17127,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -17137,7 +17136,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			makes: {},
 			sr: {},
 			currentYear: new Date().getFullYear(),
-			checkInput: false
+			checkInput: false,
+			catalogs: [],
+			cat_make: ''
 		};
 	},
 	mounted: function mounted() {
@@ -17149,6 +17150,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}, function (response) {
 			// error 
 			console.log("error");
+		});
+
+		this.$http.get('/api/catalogs').then(function (response) {
+			_this.catalogs = response.body.catalogs;
+			console.log(_this.catalogs);
+		}, function (response) {
+			// error log
 		});
 	},
 
@@ -17166,12 +17174,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return this.search = {};
 		},
 		searchItem_cat: function searchItem_cat() {
-			alert(123);
+			var name = this.cat_make;
+			window.localStorage.setItem('pdf_make', name);
+			this.$router.push({ name: 'Booklet', params: { make: name } });
+			this.$emit('closeSearchLayer', false);
 		}
-	},
-
-	watch: {}
-
+	}
 });
 
 /***/ }),
@@ -17351,7 +17359,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "searchCatalog" }, [
         _c("span", { staticClass: "searchTitle" }, [
-          _vm._v("Search by Catalog 1:")
+          _vm._v("Search by Catalog:")
         ]),
         _vm._v(" "),
         _vm._m(0),
@@ -17376,17 +17384,17 @@ var render = function() {
                         staticStyle: { width: "350px" },
                         attrs: { placeholder: "Make" },
                         model: {
-                          value: _vm.search.make,
+                          value: _vm.cat_make,
                           callback: function($$v) {
-                            _vm.$set(_vm.search, "make", $$v)
+                            _vm.cat_make = $$v
                           },
-                          expression: "search.make"
+                          expression: "cat_make"
                         }
                       },
-                      _vm._l(_vm.makes, function(item) {
+                      _vm._l(_vm.catalogs, function(item) {
                         return _c("el-option", {
                           key: item.id,
-                          attrs: { label: item.make, value: item.make }
+                          attrs: { label: item.name, value: item.name }
                         })
                       })
                     )
@@ -66404,7 +66412,7 @@ var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_bo
 }, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '/ConfirmOrder', component: __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue___default.a, name: 'ConfirmOrder' }, {
   path: '/dealer_checkout', component: __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue___default.a, name: 'DealerCheckout'
 }, {
-  path: '/booklet', component: __WEBPACK_IMPORTED_MODULE_26__components_body_parts_Booklet_vue___default.a, name: 'Booklet'
+  path: '/booklet/:make', component: __WEBPACK_IMPORTED_MODULE_26__components_body_parts_Booklet_vue___default.a, name: 'Booklet'
 }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__components_body_PageNotFound_vue___default.a }];
 
 /***/ }),
@@ -67000,9 +67008,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		this.$http.get('/api/makes').then(function (response) {
 			_this.makes = response.body;
-		}, function (response) {
-			console.log("error");
-		});
+		}, function (response) {});
 	},
 
 
@@ -68151,11 +68157,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		download: function download(name) {
-			window.open('/images/PDF/' + name + '.PDF');
+			window.open('/images/PDF/' + name + '.pdf');
 		},
 		viewPDF: function viewPDF(name) {
 			window.localStorage.setItem('pdf_make', name);
-			this.$router.push({ name: 'Booklet' });
+			this.$router.push({ name: 'Booklet', params: { make: name } });
 		}
 	}
 });
@@ -69240,9 +69246,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		};
 	},
-	created: function created() {
-		console.log(this.$route.params.id);
-	},
+	created: function created() {},
 	mounted: function mounted() {
 		var _this = this;
 
@@ -69258,19 +69262,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.showItem = true;
 		}, function (response) {
 			// error 
-			console.log("error");
 		});
 
 		// get related item
 		this.$http.get('/api/related/' + this.id).then(function (response) {
 			// get body data
+
 			_this.related = response.data;
 			_this.related.forEach(function (element) {
 				element.pricel = _this.Dealerprice(element);
 			});
 		}, function (response) {
 			// error 
-			console.log("error_related");
 		});
 
 		this.viewed(this.id);
@@ -69280,7 +69283,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		goTo: function goTo(item) {
 			var _this2 = this;
 
-			console.log(item);
 			this.$http.get('/api/item/' + item).then(function (response) {
 				// get body data
 				_this2.item = response.body;
@@ -69288,7 +69290,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				window.scrollTo(0, 0);
 			}, function (response) {
 				// error 
-				console.log("error");
 			});
 		},
 
@@ -78219,7 +78220,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var userData = JSON.parse(this.storage.getItem('user'));
             /** check again */
             this.$http.get('/api/shortlist', { params: { userid: userData.id } }).then(function (response) {
-                console.log(response);
                 _this.carts = response.data.carts;
                 _this.subtotal = response.data.subtotal.toFixed(2);
                 _this.hst = response.data.tax_total.toFixed(2);
@@ -78273,7 +78273,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(newAdd) {
             var _this2 = this;
 
-            console.log('submit form');
             this.$refs["newAdd"].validate(function (valid) {
                 if (valid) {
 
@@ -78305,7 +78304,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     // submit userDetails info        
                     var userId = _this2.userInfo.m_id;
-                    console.log(userId);
                     _this2.$http.post('/api/newShippingAdd', {
                         'userID': userId,
                         'data': _this2.newAdd
@@ -78340,7 +78338,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 type: 'warning'
             }).then(function () {
                 _this3.$http.post('/api/deleteAddress', { 'id': id }).then(function (response) {
-                    console.log(response);
                     _this3.$message({
                         type: 'success',
                         message: 'Scuccessfully delete!'
@@ -80604,6 +80601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         appSearch: __WEBPACK_IMPORTED_MODULE_0__SearchBar_vue___default.a
     },
+    watch: {},
     methods: {
         nextPage: function nextPage() {
             if (this.num < this.total) {
@@ -82665,7 +82663,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     country: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].country,
     privince: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].privince,
     US_states: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].US_states
-
   },
 
   mutations: {

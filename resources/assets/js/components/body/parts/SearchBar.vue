@@ -55,7 +55,6 @@
 			    this.makes = response.body;
 			    
 			  }, response => {
-			    console.log("error");
 			  });
 		},
 

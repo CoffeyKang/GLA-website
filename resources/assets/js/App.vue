@@ -46,7 +46,6 @@
                         
                 }, response => {
                         // error 
-                    console.log("error4");
 				});
 				
 			// check if the use log in
@@ -56,7 +55,6 @@
 		},
 		watch: {
 	    '$route' (to, from) {
-			console.log('url changed');
 				window.scrollTo(0,0);
 			}
 		},

@@ -47,7 +47,7 @@
 			</el-form>
 		</div>
 		<div class='searchCatalog'>
-			<span class="searchTitle">Search by Catalog 1:</span>
+			<span class="searchTitle">Search by Catalog:</span>
 			<span class='searchTitle_D'>
 				If you don't know the particular <b>Part Name</b> or <b>Item Number</b>, you may search by browsing our online catalogue.
 				Please select your desired <b>Make</b> from the menu selection below:
@@ -60,12 +60,12 @@
 				
 					<el-form-item label="Make" >
 						
-						<el-select v-model="search.make" placeholder="Make" style='width:350px;'>
+						<el-select v-model="cat_make" placeholder="Make" style='width:350px;'>
 							<el-option
-							v-for="item in makes"
+							v-for="item in catalogs"
 							:key="item.id"
-							:label="item.make"
-							:value="item.make">
+							:label="item.name"
+							:value="item.name">
 							</el-option>
 
 						</el-select >		    
@@ -78,12 +78,13 @@
 				</el-form>
 			</div>
 		</div>
+		
     </div>
 </template>
 
 <script>
 	export default{
-
+		
 		data(){
 			return {
 				search:{},
@@ -91,9 +92,12 @@
 				sr:{},
 				currentYear:new Date().getFullYear(),
 				checkInput:false,
+				catalogs:[],
+				cat_make:'',
 			}
 		},
 		mounted(){
+			
 			this.$http.get('/api/makes').then(response => {
 			    // get body data
 			    this.makes = response.body;
@@ -102,6 +106,13 @@
 			  	// error 
 			    console.log("error");
 			  });
+
+			this.$http.get('/api/catalogs').then(response=>{
+				this.catalogs = response.body.catalogs;
+				console.log(this.catalogs);
+			}, response=>{
+				// error log
+			});
 		},
 		methods:{
 			searchItem(){
@@ -118,16 +129,12 @@
 			},
 
 			searchItem_cat(){
-				alert(123);
+				var name = this.cat_make;	
+				window.localStorage.setItem('pdf_make',name);
+				this.$router.push({name:'Booklet',params:{make:name}});
+				this.$emit('closeSearchLayer',false);
 			},
 		},
-
-		
-		watch: {
-			
-				
-		}
-
 	}
 </script>
 

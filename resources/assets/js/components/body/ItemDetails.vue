@@ -99,7 +99,6 @@
 			}
 		},
 		created(){
-			console.log(this.$route.params.id);
 			
 		},
 		mounted(){
@@ -115,34 +114,27 @@
 				
 
 			    this.showItem = true;
-
+				
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 
 			// get related item
 			this.$http.get('/api/related/'+ this.id).then(response => {
-			    // get body data
+				// get body data
+				
 				this.related = response.data;
 				this.related.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});
 			  }, response => {
 			  	// error 
-			    console.log("error_related");
 			  });
 	
 			this.viewed(this.id);
-
-			
-			  
-			
-
 		},
 		methods:{
 			goTo(item){
-				console.log(item);
 				this.$http.get('/api/item/'+ item).then(response => {
 			    // get body data
 				this.item = response.body;
@@ -150,7 +142,6 @@
 			    window.scrollTo(0,0);
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 
 			},
@@ -183,7 +174,6 @@
 						this.$store.commit('carts_number',newNumber);
 
 					}
-
 					
 					const h = this.$createElement;
 					this.$notify({
@@ -208,7 +198,6 @@
 			getYear(){
 				return this.$store.state.search.year;
 			},
-
 			carts_number(){
 				return this.$store.state.carts_total;
 			}

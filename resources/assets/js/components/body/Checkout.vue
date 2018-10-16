@@ -596,7 +596,6 @@ export default {
                 var userData = JSON.parse(this.storage.getItem('user'));
                 /** check again */
                 this.$http.get('/api/shortlist',{params:{userid:userData.id}}).then(response=>{
-                    console.log(response);
                     this.carts = response.data.carts;
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
@@ -650,7 +649,6 @@ export default {
                 return /^[a-zA-Z()]+$/.test(a);
             },
             submitForm(newAdd){
-                console.log('submit form');
                 this.$refs["newAdd"].validate((valid)=>{
                     if (valid){
 
@@ -687,7 +685,6 @@ export default {
 
                         // submit userDetails info        
                         var userId = this.userInfo.m_id;
-                        console.log(userId);
                         this.$http.post('/api/newShippingAdd',
                             {
                                 'userID':userId,
@@ -727,7 +724,6 @@ export default {
                     type: 'warning'
                     }).then(() => {
                         this.$http.post('/api/deleteAddress',{'id':id}).then(response=>{
-                            console.log(response);
                             this.$message({
                                 type: 'success',
                                 message: 'Scuccessfully delete!',

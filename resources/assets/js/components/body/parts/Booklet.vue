@@ -1,13 +1,13 @@
 <template>
 	<div class='container'>
         <div class='searchBar'>
-            <app-search></app-search>
+            <app-search ></app-search>
         </div>
         <div class="viewOnline">
             <img :src="page" alt="" style='width:100%' @click='nextPage()'>
         </div>
         <div class='searchBar'>
-            <app-search></app-search>
+            <app-search ></app-search>
         </div>
         <div class="btnBar">
             <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
@@ -40,6 +40,9 @@
         components:{
           appSearch:SearchBar
         },
+        watch: {
+            
+        },
         methods:{
             nextPage(){
                 if (this.num<this.total) {
@@ -62,8 +65,10 @@
                     })
                 }
             },
-        },
 
+           
+        },
+       
         mounted(){
             this.make = window.localStorage.getItem('pdf_make');
             this.$http.get('/api/getFileNumbers/'+this.make).then((response)=>{

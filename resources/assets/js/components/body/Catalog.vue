@@ -43,12 +43,12 @@
 		},
 		methods:{
 			download(name){
-				window.open('/images/PDF/'+name+'.PDF');
+				window.open('/images/PDF/'+name+'.pdf');
 			},
 			
 			viewPDF(name){
 				window.localStorage.setItem('pdf_make',name);
-				this.$router.push({name:'Booklet'});
+				this.$router.push({name:'Booklet',params:{make:name}});
 			}
 		}
 }

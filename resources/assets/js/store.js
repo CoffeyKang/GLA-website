@@ -36,7 +36,6 @@ export const store = new Vuex.Store({
     country: country.country,
     privince: country.privince,
     US_states: country.US_states,
-    
   },
 
   mutations: {
@@ -55,7 +54,9 @@ export const store = new Vuex.Store({
     captcha(state, captcha) {
       state.captcha = captcha;
     },
-    
+
+   
+
   },
   modules: {
     search: searchModule

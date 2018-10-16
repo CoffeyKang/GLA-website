@@ -75,7 +75,7 @@ export const routes = [
     path: '/dealer_checkout', component: DealerCheckout, name: 'DealerCheckout'
   },
   {
-    path: '/booklet', component: Booklet, name: 'Booklet'
+    path: '/booklet/:make', component: Booklet, name: 'Booklet'
   },
   {path: '*', component: PageNotFound }
 
