@@ -1711,7 +1711,8 @@ class InventoryController extends Controller
         // $fi = new FilesystemIterator('./images/catalog/Carmaro', FilesystemIterator::SKIP_DOTS);
         $directory = "./images/catalog/".$make.'/';
         $pic_num = count(glob($directory."*.jpg"));
-        return response()->json(['pageNum'=>$pic_num],200);
+        $pic_array = glob($directory."*.jpg");
+        return response()->json(['pageNum'=>$pic_num, 'pic_array'=>$pic_array],200);
        
     }
     

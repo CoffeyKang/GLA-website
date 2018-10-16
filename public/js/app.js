@@ -80589,15 +80589,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             num: 1,
             make: '',
-            total: 1
+            total: 1,
+            pic_array: []
         };
     },
 
     computed: {
         page: function page() {
-            var n = String(this.num);
-            var pageNum = '/images/catalog/' + this.make + '/2018 GLA CamaroCatalog_Page_' + n + '.jpg';
-            return pageNum;
+            var n = this.pic_array[this.num - 1];
+            // var pageNum = '/images/catalog/'+this.make+'/2018 GLA '+this.make+'Catalog_Page_'+n+'.jpg';
+            return n;
         }
     },
     components: {
@@ -80632,6 +80633,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.make = window.localStorage.getItem('pdf_make');
         this.$http.get('/api/getFileNumbers/' + this.make).then(function (response) {
             _this.total = response.data.pageNum;
+            _this.pic_array = response.data.pic_array;
         });
     }
 });
