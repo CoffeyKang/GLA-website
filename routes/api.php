@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/getFileNumbers/{make}','InventoryController@getFileNumbers');
 // get inventory
 Route::get('/inventory', 'InventoryController@index')->middleware('auth:api');
 // make list
@@ -41,6 +42,8 @@ Route::get('/wishlist','ShoppingController@wishlist');
 Route::get('/wishlist_dealer','ShoppingController@wishlist_dealer');
 
 Route::post('/getItems_carts','InventoryController@getItems_carts');
+
+
 
 /**
  * login

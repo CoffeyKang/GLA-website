@@ -8,7 +8,7 @@
 
                     <div class="inputSearch">
                     
-	                  <el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
+	                  <el-input v-model="search.item" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
 
 										</el-input>
 						<div class='mySelect'>

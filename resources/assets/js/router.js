@@ -24,6 +24,7 @@ import ShoppingCart from './components/body/shoppingCart.vue';
 import Checkout from './components/body/Checkout.vue';
 import DealerCheckout from './components/body/DealerCheckout.vue';
 import ConfirmOrder from './components/body/ConfirmOrder.vue';
+import Booklet from './components/body/parts/Booklet.vue';
 
 // dealer admin
 import ChangePass from './components/dealerAdmin/ChangePass.vue';
@@ -72,6 +73,9 @@ export const routes = [
   { path: '/ConfirmOrder', component: ConfirmOrder, name: 'ConfirmOrder' },
   {
     path: '/dealer_checkout', component: DealerCheckout, name: 'DealerCheckout'
+  },
+  {
+    path: '/booklet', component: Booklet, name: 'Booklet'
   },
   {path: '*', component: PageNotFound }
 

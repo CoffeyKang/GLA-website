@@ -8,10 +8,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // vue resourece
 import VueResource from 'vue-resource';
+import Booklet from 'vue-booklet';
 
-import {myMixin} from './common.js';
+import { myMixin } from './common.js';
 Vue.mixin(myMixin);
-
 
 // vuex
 /**
@@ -23,6 +23,7 @@ Vue.use(ElementUI);
 // use vue resource 
 Vue.use(VueResource);
 
+Vue.use(Booklet);
 
 import { routes } from './router.js';
 

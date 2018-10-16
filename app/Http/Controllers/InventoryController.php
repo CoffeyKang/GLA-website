@@ -1706,5 +1706,13 @@ class InventoryController extends Controller
         
         return response()->json(['oldShortlist'=>$OldShortlist],200);
     }
+
+    public function getFileNumbers($make){
+        // $fi = new FilesystemIterator('./images/catalog/Carmaro', FilesystemIterator::SKIP_DOTS);
+        $directory = "./images/catalog/".$make.'/';
+        $pic_num = count(glob($directory."*.jpg"));
+        return response()->json(['pageNum'=>$pic_num],200);
+       
+    }
     
 }

@@ -9,7 +9,7 @@
 			</div>
 			<div class="cat_btn">
 				<h3 class='text-center'>{{catalog.name}}</h3>
-				<button class="btn btn-block viewOnline">
+				<button class="btn btn-block viewOnline" @click="viewPDF(catalog.name)">
 					View Online
 				</button>
 				<button class="btn btn-block download" @click="download(catalog.name)" >
@@ -44,7 +44,12 @@
 		methods:{
 			download(name){
 				window.open('/images/PDF/'+name+'.PDF');
-			}	
+			},
+			
+			viewPDF(name){
+				window.localStorage.setItem('pdf_make',name);
+				this.$router.push({name:'Booklet'});
+			}
 		}
 }
 </script>
