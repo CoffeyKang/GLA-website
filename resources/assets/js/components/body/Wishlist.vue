@@ -147,9 +147,21 @@
 					}
 
 					const h = this.$createElement;
-					this.$notify({
-						title: 'Succsesfully.',
-						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+					// this.$notify({
+					// 	title: 'Succsesfully.',
+					// 	message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart<button>123<button>')
+					// });
+
+					this.$confirm('', 'Congratulation', {
+						confirmButtonText: 'Continue Shopping',
+						cancelButtonText: 'Go to Shopping Cart',
+						type: 'success',
+						center: true
+						}).then(() => {
+							this.$router.push({path:'/allProducts'});
+						}).catch(() => {
+							this.$router.push({name:'ShoppingCart'});
+							
 					});
 
 					this.removeFromWhishlist(item);
@@ -213,7 +225,7 @@
         justify-content: space-between;
     }
     .item_action{
-        width: 30%;
+        width: 40%;
         padding: 30px;
         height: 250px;
     }

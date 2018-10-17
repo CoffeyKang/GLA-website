@@ -66,9 +66,21 @@ export const myMixin = {
           this.$store.commit('carts_number', newNumber);
         }
         const h = this.$createElement;
-        this.$notify({
-          title: 'Succsesfully.',
-          message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+        // this.$notify({
+        //   title: 'Succsesfully.',
+        //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+        // });
+
+        this.$confirm('', 'Congratulation', {
+          confirmButtonText: 'Continue Shopping',
+          cancelButtonText: 'Go to Shopping Cart',
+          type: 'success',
+          center: true
+        }).then(() => {
+          this.$router.push({ path: '/allProducts' });
+        }).catch(() => {
+          this.$router.push({ name: 'ShoppingCart' });
+
         });
       }
     },

@@ -38,7 +38,7 @@
 						<button class="btn btn-primary" @click='goToItem(item.item)'>
 							Details
 						</button>
-						<button class='add_to_cart btn btn-link' @click='addToCart_common(item)'>
+						<button class='add_to_cart btn btn-link' @click='addToCart_common_list(item)'>
 							Add To Cart  
 						</button>
 					</div>
@@ -64,6 +64,7 @@
 		
 </template>
 <script>
+
 	export default {
 		data (){
 			return {
@@ -93,6 +94,8 @@
 			  	// error 
 			    console.log("error");
 			  });
+
+			 
 		},
 		methods:{
 			nextPage(){
@@ -149,7 +152,44 @@
 						id:$item,
 					}
 				});
-			}
+			},
+			
+
+			addToCart_common_list(item) {
+				if (item.onhand < 1) {
+					this.$alert('Out of stock', 'Warning', {
+					confirmButtonText: 'OK'
+					});
+				} else {
+					if (window.localStorage.getItem(item.item)) {
+					var qty = parseInt(window.localStorage.getItem(item.item)) + 1;
+					window.localStorage.setItem(item.item, qty);
+					} else {
+					window.localStorage.setItem(item.item, 1);
+
+					var newNumber = this.carts_number + 1;
+
+					this.$store.commit('carts_number', newNumber);
+					}
+					const h = this.$createElement;
+					
+
+					// this.$confirm('', 'Congratulation', {
+					//   confirmButtonText: 'Continue Shopping',
+					//   cancelButtonText: 'Go to Shopping Cart',
+					//   type: 'success',
+					//   center: true
+					// }).then(() => {
+					//   this.$router.push({ path: '/allProducts' });
+					// }).catch(() => {
+					//   this.$router.push({ name: 'ShoppingCart' });
+
+					// });
+				}
+			},
+			gotoShoppingCart(){
+				alert(123);
+			},
 		},
 		computed:{
 			
@@ -164,6 +204,10 @@
 <style scoped>
 	.item{
 		margin: 0px 50px;
+	}
+	.shoppingCart{
+		color: yellow;
+		cursor: pointer;
 	}
 	.title{
 		margin-top: 10px;

@@ -66211,6 +66211,8 @@ var myMixin = {
 
     // addToCart
     addToCart_common: function addToCart_common(item) {
+      var _this2 = this;
+
       if (item.onhand < 1) {
         this.$alert('Out of stock', 'Warning', {
           confirmButtonText: 'OK'
@@ -66227,9 +66229,20 @@ var myMixin = {
           this.$store.commit('carts_number', newNumber);
         }
         var h = this.$createElement;
-        this.$notify({
-          title: 'Succsesfully.',
-          message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+        // this.$notify({
+        //   title: 'Succsesfully.',
+        //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+        // });
+
+        this.$confirm('', 'Congratulation', {
+          confirmButtonText: 'Continue Shopping',
+          cancelButtonText: 'Go to Shopping Cart',
+          type: 'success',
+          center: true
+        }).then(function () {
+          _this2.$router.push({ path: '/allProducts' });
+        }).catch(function () {
+          _this2.$router.push({ name: 'ShoppingCart' });
         });
       }
     },
@@ -66240,22 +66253,22 @@ var myMixin = {
     },
 
     customerOrderHistory: function customerOrderHistory() {
-      var _this2 = this;
+      var _this3 = this;
 
       var id = JSON.parse(this.storage.getItem('user')).id;
       this.$http.get('/api/customerOrderHistory', { params: { 'id': id } }).then(function (response) {
-        _this2.orderHistory = response.data.history;
-        _this2.pending = response.data.pending;
+        _this3.orderHistory = response.data.history;
+        _this3.pending = response.data.pending;
       });
     },
 
     dealerOrderHistory: function dealerOrderHistory() {
-      var _this3 = this;
+      var _this4 = this;
 
       var account = JSON.parse(this.storage.getItem('user')).account;
       this.$http.get('/api/dealerOrderHistory', { params: { 'account': account } }).then(function (response) {
-        _this3.orderHistory = response.data.history;
-        _this3.pending = response.data.pending;
+        _this4.orderHistory = response.data.history;
+        _this4.pending = response.data.pending;
         console.log(response.data);
       });
     },
@@ -68726,7 +68739,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.item[data-v-33c656d4]{\n\tmargin: 0px 50px;\n}\n.title[data-v-33c656d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-33c656d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n#car_makes[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.car_make[data-v-33c656d4]{\n\tmargin-top: 30px;\n\twidth: 280px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.car_make_name[data-v-33c656d4]{\n\tmargin-top: 10px;\n}\n.car_img[data-v-33c656d4]{\n\tpadding: 30px;\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n\tcursor: pointer;\n}\n.paginate_btn[data-v-33c656d4]{\n\tmargin-top: 20px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\tmargin-bottom: 20px;\n}\n.paginate_btn .btn[data-v-33c656d4]{\n\tmin-width: 115px;\n}\n.price_label[data-v-33c656d4]{color: red;\n}\n.price[data-v-33c656d4]{\n\tcolor:#800000;\n}\n.add_details[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\tpadding: 10px;\n}\n.add_to_cart[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: end;\n\t    -ms-flex-align: end;\n\t        align-items: flex-end;\n}\n.description[data-v-33c656d4]{\n\tmin-height: 70px;\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item[data-v-33c656d4]{\n\tmargin: 0px 50px;\n}\n.shoppingCart[data-v-33c656d4]{\n\tcolor: yellow;\n\tcursor: pointer;\n}\n.title[data-v-33c656d4]{\n\tmargin-top: 10px;\n\tbackground-color: black;\n\tpadding: 5px 20px;\n}\n.title span[data-v-33c656d4]{\n\tfont-size: 1.5em;\n\tcolor: white;\n\tfont-weight: bold;\n}\n#car_makes[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.car_make[data-v-33c656d4]{\n\tmargin-top: 30px;\n\twidth: 280px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n.car_make_name[data-v-33c656d4]{\n\tmargin-top: 10px;\n}\n.car_img[data-v-33c656d4]{\n\tpadding: 30px;\n\theight: 200px;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n\tcursor: pointer;\n}\n.paginate_btn[data-v-33c656d4]{\n\tmargin-top: 20px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\tmargin-bottom: 20px;\n}\n.paginate_btn .btn[data-v-33c656d4]{\n\tmin-width: 115px;\n}\n.price_label[data-v-33c656d4]{color: red;\n}\n.price[data-v-33c656d4]{\n\tcolor:#800000;\n}\n.add_details[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\tpadding: 10px;\n}\n.add_to_cart[data-v-33c656d4]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: end;\n\t    -ms-flex-align: end;\n\t        align-items: flex-end;\n}\n.description[data-v-33c656d4]{\n\tmin-height: 70px;\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -68802,6 +68815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -68892,6 +68906,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					id: $item
 				}
 			});
+		},
+		addToCart_common_list: function addToCart_common_list(item) {
+			if (item.onhand < 1) {
+				this.$alert('Out of stock', 'Warning', {
+					confirmButtonText: 'OK'
+				});
+			} else {
+				if (window.localStorage.getItem(item.item)) {
+					var qty = parseInt(window.localStorage.getItem(item.item)) + 1;
+					window.localStorage.setItem(item.item, qty);
+				} else {
+					window.localStorage.setItem(item.item, 1);
+
+					var newNumber = this.carts_number + 1;
+
+					this.$store.commit('carts_number', newNumber);
+				}
+				var h = this.$createElement;
+
+				// this.$confirm('', 'Congratulation', {
+				//   confirmButtonText: 'Continue Shopping',
+				//   cancelButtonText: 'Go to Shopping Cart',
+				//   type: 'success',
+				//   center: true
+				// }).then(() => {
+				//   this.$router.push({ path: '/allProducts' });
+				// }).catch(() => {
+				//   this.$router.push({ name: 'ShoppingCart' });
+
+				// });
+			}
+		},
+		gotoShoppingCart: function gotoShoppingCart() {
+			alert(123);
 		}
 	},
 	computed: {},
@@ -69007,7 +69055,7 @@ var render = function() {
                       staticClass: "add_to_cart btn btn-link",
                       on: {
                         click: function($event) {
-                          _vm.addToCart_common(item)
+                          _vm.addToCart_common_list(item)
                         }
                       }
                     },
@@ -70656,7 +70704,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.oneItem[data-v-1c9dc62b]{\n        border: 1px solid black;\n        margin: 15px 0;\n}\n.itemImg[data-v-1c9dc62b]{\n        width: 30%;\n        height: 250px;\n}\n#itemImg[data-v-1c9dc62b]{\n        margin-top: 30px;\n        background-size: contain;\n        background-repeat: no-repeat;\n        background-position: center;\n        height: 80px;\n}\n.itemDetails[data-v-1c9dc62b]{\n        width: 40%;\n        padding: 30px;\n        height: 250px;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.item_action[data-v-1c9dc62b]{\n        width: 30%;\n        padding: 30px;\n        height: 250px;\n}\n.singleItem[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.desc[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n}\n.info[data-v-1c9dc62b]{\n        color: gray;\n        font-size: 12px;\n}\n.qty[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.update_link[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-align: end;\n            -ms-flex-align: end;\n                align-items: flex-end;\n        -webkit-box-pack: end;\n            -ms-flex-pack: end;\n                justify-content: flex-end;\n}\n.instock[data-v-1c9dc62b]{\n        font-size: 18px;\n        font-weight: bold;\n        color: #009456;\n}\n.item_action[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.toWish[data-v-1c9dc62b]{\n        font-size: 16px;\n        color: red;\n}\n.price[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        font-size: 18px;\n        font-weight: bold;\n}\n.glyphicon[data-v-1c9dc62b]{\n        cursor: pointer;\n}\n.action-title[data-v-1c9dc62b]{\n\t\tfont-size: 1.6em;\n\t\tpadding: 10px\n}\n.action-info[data-v-1c9dc62b]{\n\t\tfont-size: 1.2em;\n\t\tpadding: 10px;\n\t\tcursor: pointer;\n}\n\t\n", ""]);
+exports.push([module.i, "\n.oneItem[data-v-1c9dc62b]{\n        border: 1px solid black;\n        margin: 15px 0;\n}\n.itemImg[data-v-1c9dc62b]{\n        width: 30%;\n        height: 250px;\n}\n#itemImg[data-v-1c9dc62b]{\n        margin-top: 30px;\n        background-size: contain;\n        background-repeat: no-repeat;\n        background-position: center;\n        height: 80px;\n}\n.itemDetails[data-v-1c9dc62b]{\n        width: 40%;\n        padding: 30px;\n        height: 250px;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.item_action[data-v-1c9dc62b]{\n        width: 40%;\n        padding: 30px;\n        height: 250px;\n}\n.singleItem[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.desc[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n}\n.info[data-v-1c9dc62b]{\n        color: gray;\n        font-size: 12px;\n}\n.qty[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.update_link[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-align: end;\n            -ms-flex-align: end;\n                align-items: flex-end;\n        -webkit-box-pack: end;\n            -ms-flex-pack: end;\n                justify-content: flex-end;\n}\n.instock[data-v-1c9dc62b]{\n        font-size: 18px;\n        font-weight: bold;\n        color: #009456;\n}\n.item_action[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n.toWish[data-v-1c9dc62b]{\n        font-size: 16px;\n        color: red;\n}\n.price[data-v-1c9dc62b]{\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        font-size: 18px;\n        font-weight: bold;\n}\n.glyphicon[data-v-1c9dc62b]{\n        cursor: pointer;\n}\n.action-title[data-v-1c9dc62b]{\n\t\tfont-size: 1.6em;\n\t\tpadding: 10px\n}\n.action-info[data-v-1c9dc62b]{\n\t\tfont-size: 1.2em;\n\t\tpadding: 10px;\n\t\tcursor: pointer;\n}\n\t\n", ""]);
 
 // exports
 
@@ -70799,6 +70847,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		// addToCart
 		addToCart: function addToCart(item) {
+			var _this3 = this;
+
 			if (item.onhand < 1) {
 				this.$alert('Out of stock', 'Warning', {
 					confirmButtonText: 'OK'
@@ -70814,9 +70864,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}
 
 				var h = this.$createElement;
-				this.$notify({
-					title: 'Succsesfully.',
-					message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+				// this.$notify({
+				// 	title: 'Succsesfully.',
+				// 	message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart<button>123<button>')
+				// });
+
+				this.$confirm('', 'Congratulation', {
+					confirmButtonText: 'Continue Shopping',
+					cancelButtonText: 'Go to Shopping Cart',
+					type: 'success',
+					center: true
+				}).then(function () {
+					_this3.$router.push({ path: '/allProducts' });
+				}).catch(function () {
+					_this3.$router.push({ name: 'ShoppingCart' });
 				});
 
 				this.removeFromWhishlist(item);
@@ -70825,7 +70886,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		getWishlist: function getWishlist() {
-			var _this3 = this;
+			var _this4 = this;
 
 			console.log("gegtWishlist called");
 			var userID = JSON.parse(this.storage.getItem("user")).id;
@@ -70836,12 +70897,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 			this.$http.get('/api/' + url, { params: { userid: userID } }).then(function (response) {
 				console.log("call get wishlist api");
-				_this3.items = response.data.items;
+				_this4.items = response.data.items;
 
-				_this3.items.forEach(function (element) {
-					element.pricel = _this3.Dealerprice(element);
+				_this4.items.forEach(function (element) {
+					element.pricel = _this4.Dealerprice(element);
 				});
-				console.log(_this3.items);
+				console.log(_this4.items);
 			}, function (response) {
 				console.log('wishlist error');
 			});
