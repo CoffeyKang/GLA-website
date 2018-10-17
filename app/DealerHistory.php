@@ -9,7 +9,7 @@ class DealerHistory extends Model
     protected $table = 'dsales_history';
 
     public $timestamps = false;
-
+    
     // belongs to this customer
     public function dealer(){
         return $this->belongsTo('App\Dealer',"account","account");

@@ -144,9 +144,13 @@ Route::post('/addToWishlist_dealer','InventoryController@addToWishlist_dealer');
 // oneOrder
 Route::get('/oneOrder_dealer','InventoryController@Order_dealer');
 
+Route::get('/oneOrder_dealer_finish','DealerController@oneOrder_dealer_finish');
+
 Route::get('/DealerShortlist','InventoryController@DealerShortlist');
 
 Route::get('/getShortlist_dealer/{id}','InventoryController@getShortlist_dealer');
+
+Route::post('/dealerConfirm','DealerController@dealerConfirm');
 
 
 

@@ -12,7 +12,7 @@
         <div class="btnBar">
             <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
             <span>
-                <el-input v-model='num' id='numInput' style='width:50px;'></el-input> / <el-input :value='total' style='width:50px;' readonly="readonly"></el-input>
+                <el-input v-model='num' id='numInput' style='width:60px;'></el-input> / <el-input :value='total' style='width:60px; ' readonly="readonly"></el-input>
             </span>
             <span><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
         </div>

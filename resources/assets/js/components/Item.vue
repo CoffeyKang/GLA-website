@@ -14,7 +14,9 @@
 			
 			<small>Make: {{ item.make}} </small>
 			
-			<span class='price'>${{ item.pricel.toFixed(2) }}</span>
+			<span class='price'>CAD ${{ item.pricel.toFixed(2) }}<br>
+				<span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+			</span>
 			
 			<router-link :to="{
 				name:'ItemDetails',	

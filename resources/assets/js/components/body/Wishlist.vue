@@ -30,7 +30,8 @@
                         
                         <div class="price">
                             <span>
-                                PRICE: $ {{item.pricel}}
+                                PRICE: CAD $ {{item.pricel}}<br>
+								<span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                             <span>
                                 <button class="btn btn-success" @click="addToCart(item)" v-if="item.onhand>=1">Add To Cart</button>

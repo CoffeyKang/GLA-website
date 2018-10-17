@@ -19,6 +19,10 @@ class Dealer extends Model
         return $this->hasMany('App\DealerHistory','account','account');
     }
 
+    public function shortlist(){
+        return $this->hasMany('App\Temp_SO_dealer','cust_id','id');
+    }
+
     public function orderNum(){
         return count($this->orderHis()->get());
     }

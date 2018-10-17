@@ -6,3 +6,9 @@
         padding: 10px 0 10px 30px;
         border-radius: 10px;
     }
+
+.usdPrice{
+    font-size: 90%;
+    color: gray;
+    text-align:right;
+}

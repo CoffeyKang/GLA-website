@@ -36,6 +36,7 @@ export const store = new Vuex.Store({
     country: country.country,
     privince: country.privince,
     US_states: country.US_states,
+    exchange:window.localStorage.getItem('exchange'),
   },
 
   mutations: {

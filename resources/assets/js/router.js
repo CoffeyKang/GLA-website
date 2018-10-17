@@ -31,6 +31,7 @@ import ChangePass from './components/dealerAdmin/ChangePass.vue';
 import OrderHistory_dealer from './components/dealerAdmin/OrderHistory.vue';
 import PendingOrder_dealer from './components/dealerAdmin/PendingOrder.vue';
 import OneOrder_dealer from './components/dealerAdmin/OneOrder.vue';
+import Dealer_one_order from './components/dealerAdmin/Dealer_one_order.vue';
 import dealHome from './components/dealerAdmin/dealerHome.vue';
 
 export const routes = [
@@ -45,6 +46,7 @@ export const routes = [
   {path: '/Item/:id',component: ItemDetails, name: 'ItemDetails'},
   {path: '/wishlist',component: Wishlist, name: 'Wishlist'},
   {path: '/login',component: Login, name: 'Login'},
+  { path: '/orderComplate/:sono', component: Dealer_one_order, name: 'Dealer_one_order' },
   {path: '/Dealer', component: Dealer, name: 'Dealer',
     children: [
       { path: '', component: dealHome, name: 'dealHome' },
@@ -55,9 +57,11 @@ export const routes = [
       { path: 'ChangePassword', component: ChangePass, name: 'ChangePass' }
     ]
   },
+
   {path: '/register', component: Register, name: 'Register'},
   {
     path: '/customerinfo', component: CustomerInfo, name: 'CustomerInfo',
+
     children: [
       { path: 'HomePage', component: UserHome, name: 'userHome' },
       { path: 'OrderHistory', component: OrderHistory, name: 'OrderHistory' },

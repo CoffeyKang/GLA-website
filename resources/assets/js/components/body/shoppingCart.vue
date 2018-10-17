@@ -47,10 +47,12 @@
                         </div>
                         <div class="price">
                             <span>
-                                PRICE: $ {{item.pricel |decimal }}
+                                PRICE: CAD ${{item.pricel |decimal }}<br>
+                                <span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                             <span>
-                                TOTAL: $ {{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}
+                                TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}<br>
+                                 <span class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                         </div>
                     </div>
@@ -69,7 +71,9 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ subtotal|decimal }}</span>
+                            <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ subtotal|decimal }}<br>
+                                <span class='usdPrice '>USD ${{ (subtotal/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -83,8 +87,10 @@
                         </div>
                     </div>
                     <div class="summary_list">
-                        <div class='summary_amount'>
-                            <span>TOTAL:</span><span>${{ total }}</span>
+                        <div class='summary_amount text-right'>
+                            <span>TOTAL:</span><span class='text-right'>CAD ${{ total }}<br>
+                            <span class='usdPrice'>USD ${{ (total/$store.state.exchange).toFixed(2) }}</span></span>
+                            
                         </div>
                     </div>
                 </div>
@@ -369,7 +375,7 @@ export default {
         height: 80px;
     }
     .itemDetails{
-        width: 40%;
+        width: 50%;
         padding: 30px;
         height: 250px;
         display: flex;
@@ -377,7 +383,7 @@ export default {
         justify-content: space-between;
     }
     .item_action{
-        width: 30%;
+        width: 40%;
         padding: 30px;
         height: 250px;
     }

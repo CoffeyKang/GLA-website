@@ -200,11 +200,7 @@ export default {
         methods:{
             
             changeAddress(address){
-
-                // <h5><b>{{dealerInfo.company}} </b> <br> <br>
-                //                 {{dealerInfo.address1}},  {{dealerInfo.city}}, {{dealerInfo.zip}}<br>
-                //                 {{dealerInfo.terr}}, {{dealerInfo.country}}<br>{{dealerInfo.phone}}</h5>
-
+                
                 this.dealerInfo.company = address.company;
                 this.dealerInfo.address = address.address1;
                 this.dealerInfo.city = address.city;
@@ -213,14 +209,12 @@ export default {
                 this.dealerInfo.country = address.country;
                 this.dealerInfo.phone = address.phone;
 
-                $('.addressBox').css("border",'none');
-                $("#box"+address.cshipno).css("border",'3px solid green');
+                
 
         
 
 
             },
-
             defaultAddress(){
                 var userData = JSON.parse(this.storage.getItem('user'));
                 this.$http.get('/api/DealerShortlist',{params:{userid:userData.id}}).then(response=>{
@@ -246,7 +240,22 @@ export default {
            
 
             confirm(){
-                this.loading = 0;
+                var dealerData = JSON.parse(this.storage.getItem('user'));
+                
+                if (dealerData && dealerData.level ==2) {
+                
+                    var dealerId = dealerData.id;
+                    this.$http.post('/api/dealerConfirm', 
+                        {
+                            dealerId:dealerId,
+                            selectAdd:this.selectAdd,
+                        }).then((response)=>{
+                        if (response.data.status=='ok') {
+                            this.$router.push({name:'Dealer_one_order',params:{sono:response.data.sono}});
+                        }
+                    })
+                    
+                }
                 
                
 

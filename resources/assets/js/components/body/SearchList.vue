@@ -6,9 +6,9 @@
                 <tr>
                     <th>Item</th>
                     <th>Description</th>
-					<th>Thumbnail</th>
+					<th style='min-width:120px;'>Thumbnail</th>
                     <th>Compatible Make</th>
-                    <th class='text-right'>Price</th>
+                    <th class='text-right' style='min-width:120px;'>Price</th>
                     <th class='text-center'>Action</th>
                 </tr>
             </thead>
@@ -30,7 +30,8 @@
 							{{item_make.make}} &nbsp; 
 						</span>
 					</td>
-                    <td class='text-right'>${{thing.pricel.toFixed(2)}}</td>
+                    <td class='text-right'>CAD ${{thing.pricel.toFixed(2)}}<br>
+						<span class='usdPrice'>USD ${{ ((thing.pricel)/$store.state.exchange).toFixed(2) }}</span></td>
                     <td class='text-center'>
                         <button class="btn btn-primary" @click="goToItem(thing.item)">Item Details</button>
                     </td>

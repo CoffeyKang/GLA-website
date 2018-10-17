@@ -25,7 +25,9 @@
 					</div>
 
 					<div class="car_make_name text-center">
-						<span class='price_label'>Sale Price: <b class='price'>$ {{ item.pricel.toFixed(2) }}</b> </span>
+						<span class='price_label'>CAD: <b class='price'>  ${{ item.pricel.toFixed(2) }}</b><br>
+							<span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+						</span>
 					</div>
 
 					<div class="car_make_name text-center description">

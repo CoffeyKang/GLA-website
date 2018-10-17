@@ -76,7 +76,7 @@
 			}
 		},
 		mounted(){
-
+			this.storage.setItem('exchange',1.35);
 			if (this.storage.getItem("user")) {
 				
 				this.userID = JSON.parse(this.storage.getItem("user")).id;

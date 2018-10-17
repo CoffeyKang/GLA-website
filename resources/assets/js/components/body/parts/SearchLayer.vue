@@ -129,9 +129,14 @@
 			},
 
 			searchItem_cat(){
-				var name = this.cat_make;	
-				window.localStorage.setItem('pdf_make',name);
-				this.$router.push({name:'Booklet',params:{make:name}});
+				var name = this.cat_make;
+				if (name!='') {
+					window.localStorage.setItem('pdf_make',name);
+					this.$router.push({name:'Booklet',params:{make:name}});
+				}else{
+					
+				}	
+				
 				this.$emit('closeSearchLayer',false);
 			},
 		},

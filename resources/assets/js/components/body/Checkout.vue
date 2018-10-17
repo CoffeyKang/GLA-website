@@ -19,7 +19,7 @@
                             <th>Item</th>
                             <th>Make</th>
                             <th>QTY</th>
-                            <th>Price</th>
+                            <th style='min-width:120px;'>Price</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +28,9 @@
                             <td>{{item.item}} </td>
                             <td>{{item.make}}</td>
                             <td>{{item.qty}}</td>
-                            <td>${{(item.price * item.qty).toFixed(2)}}</td>
+                            <td>CAD ${{(item.price * item.qty).toFixed(2)}}<br>
+                                <span class='usdPrice'>USD ${{ ((item.price * item.qty)/$store.state.exchange).toFixed(2) }}</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,20 +111,7 @@
                                 <el-input v-model="newAdd.address"></el-input>
                             </el-form-item>
                             <div class="inRow">
-                                <!-- <el-form-item label="City" prop='city'>
-                                    <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
-                                </el-form-item> -->
-
-                                <!-- <el-form-item label="State" prop='state'>
-                                    <el-select v-model="newAdd.state" placeholder="State">
-                                        <el-option
-                                        v-for="item in privince"
-                                        :key="item.name"
-                                        :label="item.name"
-                                        :value="item.Code">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item> -->
+                                
                                 
                             </div>
 
@@ -202,23 +191,35 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ parseFloat(subtotal).toFixed(2) }}</span>
+                            <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ parseFloat(subtotal).toFixed(2) }}<br>
+                             <span class='usdPrice'>USD ${{ ((parseFloat(subtotal))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span v-if="shippingRate=='quotable'">${{ parseFloat(shipping).toFixed(2) }}</span>
+                            <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ parseFloat(shipping).toFixed(2) }}
+                                <br>
+                             <span class='usdPrice'>USD ${{ ((parseFloat(shipping))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst }}</span>
+                            <span>HST:</span><span class='text-right'>CAD ${{ hst }}
+                                <br>
+                             <span class='usdPrice'>USD ${{ ((parseFloat(hst))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>TOTAL:</span><span v-if="shippingRate=='quotable'">${{ total.toFixed(2) }}</span>
+                            <span>TOTAL:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ total.toFixed(2) }}
+                                <br>
+                             <span class='usdPrice'>USD ${{ ((parseFloat(total))/$store.state.exchange).toFixed(2) }}</span>
+
+                            </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
                     </div>
