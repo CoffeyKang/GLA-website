@@ -16977,7 +16977,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 	},
 	mounted: function mounted() {
-		this.storage.setItem('exchange', 1.35);
+		var _this = this;
+
+		//get exchange rate
+		this.$http.get('/api/exchangeRate').then(function (response) {
+			if (response.data.exchangeRate != 1) {
+
+				_this.$store.commit('exchange', response.data.exchangeRate);
+			} else {
+				_this.$store.commit('exchange', 1.35);
+			}
+		}), function () {
+			_this.$store.commit('exchange', 1.35);
+		};
+
+		/**	call api to get exchange rate */
 		if (this.storage.getItem("user")) {
 
 			this.userID = JSON.parse(this.storage.getItem("user")).id;
@@ -68924,6 +68938,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					this.$store.commit('carts_number', newNumber);
 				}
 				var h = this.$createElement;
+				this.$notify({
+					title: 'Succsesfully.',
+					message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
+				});
 
 				// this.$confirm('', 'Congratulation', {
 				//   confirmButtonText: 'Continue Shopping',
@@ -69598,7 +69616,7 @@ var render = function() {
                       attrs: { id: "addToCart" },
                       on: {
                         click: function($event) {
-                          _vm.addToCart(_vm.item.item)
+                          _vm.addToCart_common(_vm.item.item)
                         }
                       }
                     },
@@ -77095,7 +77113,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.oneItem[data-v-acbc8f24]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-acbc8f24]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-acbc8f24]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-acbc8f24]{\n    width: 50%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-acbc8f24]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-acbc8f24]{\n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-acbc8f24]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.toWish[data-v-acbc8f24]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-acbc8f24]{\n    cursor: pointer;\n}\n.summary[data-v-acbc8f24]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-acbc8f24]{\n    padding: 15px;\n}\n.summary_details div[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-acbc8f24]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    height: 60px;\n}\n.summary_title[data-v-acbc8f24]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n}\n.mybtn[data-v-acbc8f24]{\n   font-size: 16px;\n}\n.fakeLink[data-v-acbc8f24]{\n    cursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.oneItem[data-v-acbc8f24]{\n    border: 1px solid black;\n    margin: 15px 0;\n}\n.itemImg[data-v-acbc8f24]{\n    width: 30%;\n    height: 250px;\n}\n#itemImg[data-v-acbc8f24]{\n    margin-top: 30px;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    height: 80px;\n}\n.itemDetails[data-v-acbc8f24]{\n    width: 50%;\n    padding: 30px;\n    height: 250px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.item_action[data-v-acbc8f24]{\n    width: 40%;\n    padding: 30px;\n    height: 250px;\n}\n.singleItem[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.desc[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.info[data-v-acbc8f24]{\n    color: gray;\n    font-size: 12px;\n}\n.qty[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.update_link[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: end;\n        -ms-flex-align: end;\n            align-items: flex-end;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.instock[data-v-acbc8f24]{\n    font-size: 18px;\n    font-weight: bold;\n    color: #009456;\n}\n.item_action[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.toWish[data-v-acbc8f24]{\n    font-size: 16px;\n    color: red;\n}\n.price[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    font-size: 18px;\n    font-weight: bold;\n}\n.glyphicon[data-v-acbc8f24]{\n    cursor: pointer;\n}\n.summary[data-v-acbc8f24]{\n    border:1px solid black;\n    height: 500px;\n}\n.summary_details[data-v-acbc8f24]{\n    padding: 15px;\n}\n.summary_details div[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.summary_list[data-v-acbc8f24]{ \n    display: -webkit-box; \n    display: -ms-flexbox; \n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    min-height: 70px;\n}\n.summary_title[data-v-acbc8f24]{\n    font-size: 28px;\n    font-weight: bold; \n    padding: 15px;\n    border-bottom: 1px solid black;\n}\n.summary_amount[data-v-acbc8f24]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    font-size: 20px;\n    font-weight: bold;\n    border-bottom: 1px solid black;\n    min-height: 70px;\n}\n.mybtn[data-v-acbc8f24]{\n   font-size: 16px;\n   width: 190px;\n}\n.fakeLink[data-v-acbc8f24]{\n    cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -77106,6 +77124,20 @@ exports.push([module.i, "\n.oneItem[data-v-acbc8f24]{\n    border: 1px solid bla
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -77445,6 +77477,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             return false;
+        },
+        continueShopping: function continueShopping() {
+            this.$router.push({ path: 'allProducts' });
         }
     },
     watch: {}
@@ -77727,16 +77762,14 @@ var render = function() {
               _c("div", { staticClass: "summary_list" }, [
                 _c("div", { staticClass: "summary_amount" }, [
                   _c("span", [_vm._v("SHIPPING:")]),
-                  _c("span", [
-                    _vm._v("$" + _vm._s(_vm._f("decimal")(_vm.shipping)))
-                  ])
+                  _c("span", [_vm._v("$" + _vm._s(_vm.shipping))])
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "summary_list" }, [
                 _c("div", { staticClass: "summary_amount" }, [
                   _c("span", [_vm._v("HST:")]),
-                  _c("span", [_vm._v("$" + _vm._s(_vm._f("decimal")(_vm.hst)))])
+                  _c("span", [_vm._v("$" + _vm._s(_vm.hst))])
                 ])
               ]),
               _vm._v(" "),
@@ -77777,7 +77810,31 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "processBTN text-center" }, [
+            _c(
+              "div",
+              {
+                staticClass: "processBTN text-center",
+                staticStyle: { "margin-top": "10px" }
+              },
+              [
+                _vm.carts.length >= 1 && !_vm.isDealer
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "mybtn btn btn-warning",
+                        on: {
+                          click: function($event) {
+                            _vm.continueShopping()
+                          }
+                        }
+                      },
+                      [_vm._v("Continue Shopping")]
+                    )
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "processBTN text-center " }, [
               _vm.carts.length >= 1 && _vm.isDealer
                 ? _c(
                     "button",
@@ -77792,7 +77849,31 @@ var render = function() {
                     [_vm._v("Proceed To\n                Check Out")]
                   )
                 : _vm._e()
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "processBTN text-center",
+                staticStyle: { "margin-top": "10px" }
+              },
+              [
+                _vm.carts.length >= 1 && _vm.isDealer
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "mybtn btn btn-warning",
+                        on: {
+                          click: function($event) {
+                            _vm.continueShopping()
+                          }
+                        }
+                      },
+                      [_vm._v("Continue Shopping")]
+                    )
+                  : _vm._e()
+              ]
+            )
           ])
         ]
       )
@@ -79858,6 +79939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     selectAdd: this.selectAdd
                 }).then(function (response) {
                     if (response.data.status == 'ok') {
+                        _this3.$store.commit('carts_number', 0);
                         _this3.$router.push({ name: 'Dealer_one_order', params: { sono: response.data.sono } });
                     }
                 });
@@ -82722,6 +82804,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.show = true;
                 _this.address = response.data.address;
                 _this.dealerInfo = response.data.dealerInfo;
+
+                _this.oneOrder.forEach(function (element) {
+                    _this.storage.removeItem(element.item);
+                });
             }
         }, function () {
             this.empty = true;
@@ -83573,7 +83659,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     country: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].country,
     privince: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].privince,
     US_states: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].US_states,
-    exchange: window.localStorage.getItem('exchange')
+    exchange: 1.35
   },
 
   mutations: {
@@ -83591,6 +83677,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     captcha: function captcha(state, _captcha) {
       state.captcha = _captcha;
+    },
+    exchange: function exchange(state, _exchange) {
+      state.exchange = _exchange;
     }
   },
   modules: {

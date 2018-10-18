@@ -251,6 +251,7 @@ export default {
                             selectAdd:this.selectAdd,
                         }).then((response)=>{
                         if (response.data.status=='ok') {
+                            this.$store.commit('carts_number',0);
                             this.$router.push({name:'Dealer_one_order',params:{sono:response.data.sono}});
                         }
                     })

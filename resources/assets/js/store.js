@@ -36,7 +36,7 @@ export const store = new Vuex.Store({
     country: country.country,
     privince: country.privince,
     US_states: country.US_states,
-    exchange:window.localStorage.getItem('exchange'),
+    exchange: 1.35
   },
 
   mutations: {
@@ -55,8 +55,9 @@ export const store = new Vuex.Store({
     captcha(state, captcha) {
       state.captcha = captcha;
     },
-
-   
+    exchange(state, exchange) {
+      state.exchange = exchange;
+    }
 
   },
   modules: {

@@ -42,9 +42,6 @@ Route::get('/wishlist','ShoppingController@wishlist');
 Route::get('/wishlist_dealer','ShoppingController@wishlist_dealer');
 
 Route::post('/getItems_carts','InventoryController@getItems_carts');
-
-
-
 /**
  * login
  */
@@ -58,8 +55,8 @@ Route::post('/userDetails','AccessControl@userDetails');
 
 // remove from wishlist
 Route::post('/removeFromWishlist','InventoryController@removeFromWishlist');
-Route::post('/removeFromWishlist_dealer','InventoryController@removeFromWishlist_dealer');
 
+Route::post('/removeFromWishlist_dealer','InventoryController@removeFromWishlist_dealer');
 // add To wishlist
 Route::post('/addToWishlist','InventoryController@addToWishlist');
 
@@ -151,6 +148,8 @@ Route::get('/DealerShortlist','InventoryController@DealerShortlist');
 Route::get('/getShortlist_dealer/{id}','InventoryController@getShortlist_dealer');
 
 Route::post('/dealerConfirm','DealerController@dealerConfirm');
+
+Route::get('/exchangeRate','InventoryController@exchangeRate');
 
 
 

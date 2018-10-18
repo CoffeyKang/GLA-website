@@ -172,7 +172,10 @@
 					this.$store.commit('carts_number', newNumber);
 					}
 					const h = this.$createElement;
-					
+					this.$notify({
+						title: 'Succsesfully.',
+						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+					});
 
 					// this.$confirm('', 'Congratulation', {
 					//   confirmButtonText: 'Continue Shopping',

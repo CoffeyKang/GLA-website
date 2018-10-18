@@ -78,12 +78,12 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span>${{ shipping|decimal }}</span>
+                            <span>SHIPPING:</span><span>${{ shipping }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst|decimal }}</span>
+                            <span>HST:</span><span>${{ hst }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -98,11 +98,25 @@
                 <div class="processBTN text-center">
                     <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1&& !isDealer">Proceed To
                     Check Out</button>
+                
+                </div>
+                    
+
+                <div class="processBTN text-center" style='margin-top:10px'>
+                    
+                    <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& !isDealer">Continue Shopping</button>
                 </div>
 
-                <div class="processBTN text-center">
+                <div class="processBTN text-center ">
                     <button class='mybtn btn btn-success' @click='dealerCheckOut()' v-if="carts.length>=1&& isDealer">Proceed To
                     Check Out</button>
+                    
+                </div>
+
+                <div class="processBTN text-center" style='margin-top:10px'>
+                    
+                    <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& isDealer">Continue Shopping</button>
+                    
                 </div>
             </div>
         </div>
@@ -348,6 +362,11 @@ export default {
                 
             },
 
+            continueShopping(){
+                this.$router.push({path:'allProducts'});
+               
+            }
+
             
         },
         watch:{
@@ -444,7 +463,7 @@ export default {
     .summary_list{ 
         display: flex;
         flex-direction: column;
-        height: 60px;
+        min-height: 70px;
 
     }
     .summary_title{
@@ -460,9 +479,11 @@ export default {
         font-size: 20px;
         font-weight: bold;
         border-bottom: 1px solid black;
+        min-height: 70px;
     }
     .mybtn{
        font-size: 16px;
+       width: 190px;
     }
     .fakeLink{
         cursor: pointer;

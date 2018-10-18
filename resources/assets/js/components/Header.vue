@@ -76,7 +76,19 @@
 			}
 		},
 		mounted(){
-			this.storage.setItem('exchange',1.35);
+			//get exchange rate
+			this.$http.get('/api/exchangeRate').then(response=>{
+				if (response.data.exchangeRate!=1) {
+					
+					this.$store.commit('exchange',response.data.exchangeRate);
+				}else{
+					this.$store.commit('exchange',1.35);
+				}
+			}), ()=>{
+				this.$store.commit('exchange',1.35);
+			};
+
+			/**	call api to get exchange rate */
 			if (this.storage.getItem("user")) {
 				
 				this.userID = JSON.parse(this.storage.getItem("user")).id;

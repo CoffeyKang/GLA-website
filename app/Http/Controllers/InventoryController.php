@@ -20,6 +20,7 @@ use App\DealerHistory;
 use App\SOTRAN;
 use App\Catalog;
 use App\Temp_SO_dealer;
+use App\ExchangeRate;
 /** use LOG */
 use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
@@ -1714,6 +1715,20 @@ class InventoryController extends Controller
         $pic_array = glob($directory."*.jpg");
         return response()->json(['pageNum'=>$pic_num, 'pic_array'=>$pic_array],200);
        
+    }
+
+    public function exchangeRate(){
+        
+        $exchange = ExchangeRate::first();
+
+        if ($exchange) {
+            $exchangeRate = $exchange->exchangeRate;
+        }else{
+            $exchangeRate = 1.35;
+        }
+
+
+        return response()->json(['exchangeRate'=>$exchangeRate],200); 
     }
     
 }
