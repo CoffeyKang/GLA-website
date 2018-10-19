@@ -124,6 +124,8 @@ export default {
                 
                 this.$store.commit('changeLoginStatus',true);
 
+                this.$store.commit('usdPrice',false);
+
                 
 
 

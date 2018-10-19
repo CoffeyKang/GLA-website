@@ -209,7 +209,7 @@ class AccessControl extends Controller
              $userInfo->m_city = $data["city"];
              $userInfo->m_state = $data["state"];
              $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = $data["country"];;
+             $userInfo->m_country = $data["country"];
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
              $userInfo->m_year = $data["year"];

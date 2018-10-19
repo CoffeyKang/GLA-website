@@ -59,6 +59,7 @@
 				labelPosition: 'left',
 				storage:window.localStorage,
 				userID:0,
+				usdPrice:this.$store.state.usdPrice,
 			}
 		},
 		components:{
@@ -92,9 +93,21 @@
 			if (this.storage.getItem("user")) {
 				
 				this.userID = JSON.parse(this.storage.getItem("user")).id;
+
+				
 					
 			}else{
 				console.log('not login');
+			}
+
+			if (this.storage.getItem("userInfo")) {
+				if (JSON.parse(this.storage.getItem("userInfo")).m_country=='US'){
+					this.$store.commit('usdPrice',true);
+					console.log(this.$store.state.usdPrice);
+					
+				}else{
+					this.$store.commit('usdPrice',false);
+				}
 			}
 			
 

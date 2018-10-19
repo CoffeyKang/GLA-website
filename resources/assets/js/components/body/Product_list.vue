@@ -26,7 +26,7 @@
 
 					<div class="car_make_name text-center">
 						<span class='price_label'>CAD: <b class='price'>  ${{ item.pricel.toFixed(2) }}</b><br>
-							<span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+							<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 						</span>
 					</div>
 
@@ -73,6 +73,7 @@
 				data:{},
 				page:1,
 				loading:1,
+				usdPrice:this.$store.state.usdPrice,
 			}
 		},
 		mounted(){

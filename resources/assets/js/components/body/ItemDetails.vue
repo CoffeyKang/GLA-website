@@ -20,7 +20,7 @@
 				<div class="priceDiv">
 					<div class="price">
 						CAD ${{ item.pricel.toFixed(2) }}<br>
-						<span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 					</div>
 					<div class="action">
 						<div class='action_left'>
@@ -71,7 +71,7 @@
 						<li><span class='related_colum all_make'>Make: {{r.all_makes}}</span></li>
 						<div class="realted_priceDiv">
 							CAD ${{r.pricel.toFixed(2)}}<br>
-							<span class='usdPrice'>USD ${{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span>
+							<span v-if='usdPrice' class='usdPrice'>USD ${{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span>
 						</div>
 						
 						<button class="btn btn-primary" @click="goTo(r.item)">
@@ -91,6 +91,7 @@
 	export default {
 		data(){
 			return {
+				usdPrice:this.$store.state.usdPrice,
 				id:this.$route.params.id,
 				item:{},
 				related:{},

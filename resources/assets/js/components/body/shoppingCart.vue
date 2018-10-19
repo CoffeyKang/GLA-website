@@ -48,11 +48,11 @@
                         <div class="price">
                             <span>
                                 PRICE: CAD ${{item.pricel |decimal }}<br>
-                                <span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                             <span>
                                 TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}<br>
-                                 <span class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
+                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                     <div class="summary_list">
                         <div class='summary_amount'>
                             <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ subtotal|decimal }}<br>
-                                <span class='usdPrice '>USD ${{ (subtotal/$store.state.exchange).toFixed(2) }}</span>
+                                <span v-if='usdPrice' class='usdPrice '>USD ${{ (subtotal/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                     <div class="summary_list">
                         <div class='summary_amount text-right'>
                             <span>TOTAL:</span><span class='text-right'>CAD ${{ total }}<br>
-                            <span class='usdPrice'>USD ${{ (total/$store.state.exchange).toFixed(2) }}</span></span>
+                            <span v-if='usdPrice' class='usdPrice'>USD ${{ (total/$store.state.exchange).toFixed(2) }}</span></span>
                             
                         </div>
                     </div>
@@ -137,6 +137,7 @@ export default {
             hst:"-",
             user:{},
             isDealer:false,
+            usdPrice:this.$store.state.usdPrice,
 
             // total:this.subtotal,
             

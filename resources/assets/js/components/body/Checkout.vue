@@ -29,7 +29,7 @@
                             <td>{{item.make}}</td>
                             <td>{{item.qty}}</td>
                             <td>CAD ${{(item.price * item.qty).toFixed(2)}}<br>
-                                <span class='usdPrice'>USD ${{ ((item.price * item.qty)/$store.state.exchange).toFixed(2) }}</span>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.price * item.qty)/$store.state.exchange).toFixed(2) }}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -151,7 +151,7 @@
                                     </el-select>
                                 </el-form-item>
 
-                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='USA'">
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='US'">
                                     <el-select v-model="newAdd.state" placeholder="Province">
                                         <el-option
                                         v-for="item in US_states"
@@ -192,7 +192,7 @@
                     <div class="summary_list">
                         <div class='summary_amount'>
                             <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ parseFloat(subtotal).toFixed(2) }}<br>
-                             <span class='usdPrice'>USD ${{ ((parseFloat(subtotal))/$store.state.exchange).toFixed(2) }}</span>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(subtotal))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                         <div class='summary_amount'>
                             <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ parseFloat(shipping).toFixed(2) }}
                                 <br>
-                             <span class='usdPrice'>USD ${{ ((parseFloat(shipping))/$store.state.exchange).toFixed(2) }}</span>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(shipping))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
@@ -209,7 +209,7 @@
                         <div class='summary_amount'>
                             <span>HST:</span><span class='text-right'>CAD ${{ hst }}
                                 <br>
-                             <span class='usdPrice'>USD ${{ ((parseFloat(hst))/$store.state.exchange).toFixed(2) }}</span>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(hst))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                         <div class='summary_amount'>
                             <span>TOTAL:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ total.toFixed(2) }}
                                 <br>
-                             <span class='usdPrice'>USD ${{ ((parseFloat(total))/$store.state.exchange).toFixed(2) }}</span>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(total))/$store.state.exchange).toFixed(2) }}</span>
 
                             </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
@@ -252,6 +252,7 @@
 export default {
     data(){
         return {
+            usdPrice:this.$store.state.usdPrice,
             items:[],
             showNewAddress:false,
             qtys:[],
@@ -269,7 +270,7 @@ export default {
             // shipping:0,
             country:[
                         {name:'Canada',Code:"CA"},
-                        {name:'USA',Code:"USA"},
+                        {name:'USA',Code:"US"},
                 ],
             privince:[
                     {name:'Alberta',Code:"AB"},
@@ -653,7 +654,7 @@ export default {
                 this.$refs["newAdd"].validate((valid)=>{
                     if (valid){
 
-                        if (this.newAdd.country=='USA') {
+                        if (this.newAdd.country=='US') {
                             let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.newAdd.zipcode);
 
                             if (!isValidZip) {

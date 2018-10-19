@@ -114,7 +114,7 @@
                                     </el-select>
                                 </el-form-item>
 
-                                <el-form-item label="Province" prop='state' v-if="details.country=='USA'">
+                                <el-form-item label="Province" prop='state' v-if="details.country=='US'">
                                     <el-select v-model="details.state" placeholder="Province">
                                         <el-option
                                         v-for="item in US_states"
@@ -278,7 +278,7 @@ export default {
         this.details.city = this.userInfo.m_city;
         this.details.state = this.userInfo.m_state;
         this.details.zipcode = this.userInfo.m_zipcode;
-        this.details.country =(this.userInfo.m_country=="USA"?"USA":"CA");
+        this.details.country =(this.userInfo.m_country=="US"?"US":"CA");
         this.details.tel = this.userInfo.m_tel;
         this.details.mobile = this.userInfo.m_mobile;
         
@@ -301,7 +301,7 @@ export default {
         submitForm(details){
             this.$refs["details"].validate((valid)=>{
                 if (valid){
-                    if (this.details.country=='USA') {
+                    if (this.details.country=='US') {
                         let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
 
                         if (!isValidZip) {
@@ -370,7 +370,7 @@ export default {
             this.details.city = this.userInfo.m_city;
             this.details.state = this.userInfo.m_state;
             this.details.zipcode = this.userInfo.m_zipcode;
-            this.details.country = (this.userInfo.m_country=="USA"?"USA":"CA");
+            this.details.country = (this.userInfo.m_country=="US"?"US":"CA");
             this.details.tel = this.userInfo.m_tel;
             this.details.mobile = this.userInfo.m_mobile;
             this.details.model = this.userInfo.m_make;

@@ -16756,7 +16756,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			carts: [],
 			storage: window.localStorage,
-			items: []
+			items: [],
+			usdPrice: this.$store.state.usdPrice
 		};
 	},
 
@@ -16787,6 +16788,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.storage.getItem("user")) {
 			this.$store.commit('changeLoginStatus', true);
 		}
+
+		//check usd price
 	},
 
 	watch: {
@@ -16958,7 +16961,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			centerDialogVisible: false,
 			labelPosition: 'left',
 			storage: window.localStorage,
-			userID: 0
+			userID: 0,
+			usdPrice: this.$store.state.usdPrice
 		};
 	},
 
@@ -16997,6 +17001,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.userID = JSON.parse(this.storage.getItem("user")).id;
 		} else {
 			console.log('not login');
+		}
+
+		if (this.storage.getItem("userInfo")) {
+			if (JSON.parse(this.storage.getItem("userInfo")).m_country == 'US') {
+				this.$store.commit('usdPrice', true);
+				console.log(this.$store.state.usdPrice);
+			} else {
+				this.$store.commit('usdPrice', false);
+			}
 		}
 	},
 
@@ -66844,7 +66857,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			storage: window.localStorage,
-			userInfo: []
+			userInfo: [],
+			usdPrice: this.$store.state.usdPrice
 
 		};
 	},
@@ -66912,12 +66926,16 @@ var render = function() {
           _vm._v("CAD $" + _vm._s(_vm.item.pricel.toFixed(2))),
           _c("br"),
           _vm._v(" "),
-          _c("span", { staticClass: "usdPrice" }, [
-            _vm._v(
-              "USD $" +
-                _vm._s((_vm.item.pricel / _vm.$store.state.exchange).toFixed(2))
-            )
-          ])
+          _vm.usdPrice
+            ? _c("span", { staticClass: "usdPrice" }, [
+                _vm._v(
+                  "USD $" +
+                    _vm._s(
+                      (_vm.item.pricel / _vm.$store.state.exchange).toFixed(2)
+                    )
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c(
@@ -68838,7 +68856,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			lists: {},
 			data: {},
 			page: 1,
-			loading: 1
+			loading: 1,
+			usdPrice: this.$store.state.usdPrice
 		};
 	},
 	mounted: function mounted() {
@@ -69032,14 +69051,18 @@ var render = function() {
                     ]),
                     _c("br"),
                     _vm._v(" "),
-                    _c("span", { staticClass: "usdPrice" }, [
-                      _vm._v(
-                        "USD $" +
-                          _vm._s(
-                            (item.pricel / _vm.$store.state.exchange).toFixed(2)
+                    _vm.usdPrice
+                      ? _c("span", { staticClass: "usdPrice" }, [
+                          _vm._v(
+                            "USD $" +
+                              _vm._s(
+                                (
+                                  item.pricel / _vm.$store.state.exchange
+                                ).toFixed(2)
+                              )
                           )
-                      )
-                    ])
+                        ])
+                      : _vm._e()
                   ])
                 ]),
                 _vm._v(" "),
@@ -69335,6 +69358,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			usdPrice: this.$store.state.usdPrice,
 			id: this.$route.params.id,
 			item: {},
 			related: {},
@@ -69535,14 +69559,18 @@ var render = function() {
                 ),
                 _c("br"),
                 _vm._v(" "),
-                _c("span", { staticClass: "usdPrice" }, [
-                  _vm._v(
-                    "USD $" +
-                      _vm._s(
-                        (_vm.item.pricel / _vm.$store.state.exchange).toFixed(2)
+                _vm.usdPrice
+                  ? _c("span", { staticClass: "usdPrice" }, [
+                      _vm._v(
+                        "USD $" +
+                          _vm._s(
+                            (
+                              _vm.item.pricel / _vm.$store.state.exchange
+                            ).toFixed(2)
+                          )
                       )
-                  )
-                ])
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "action" }, [
@@ -69679,12 +69707,16 @@ var render = function() {
                 _vm._v("\n\t\t\t\t\t\tCAD $" + _vm._s(r.pricel.toFixed(2))),
                 _c("br"),
                 _vm._v(" "),
-                _c("span", { staticClass: "usdPrice" }, [
-                  _vm._v(
-                    "USD $" +
-                      _vm._s((r.pricel / _vm.$store.state.exchange).toFixed(2))
-                  )
-                ])
+                _vm.usdPrice
+                  ? _c("span", { staticClass: "usdPrice" }, [
+                      _vm._v(
+                        "USD $" +
+                          _vm._s(
+                            (r.pricel / _vm.$store.state.exchange).toFixed(2)
+                          )
+                      )
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c(
@@ -70308,7 +70340,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			page: this.$route.query.page,
 			result: false,
 			empty: false,
-			loading: 1
+			loading: 1,
+			usdPrice: this.$store.state.usdPrice
 		};
 	},
 	mounted: function mounted() {
@@ -70480,16 +70513,18 @@ var render = function() {
                       _vm._v("CAD $" + _vm._s(thing.pricel.toFixed(2))),
                       _c("br"),
                       _vm._v(" "),
-                      _c("span", { staticClass: "usdPrice" }, [
-                        _vm._v(
-                          "USD $" +
-                            _vm._s(
-                              (
-                                thing.pricel / _vm.$store.state.exchange
-                              ).toFixed(2)
+                      _vm.usdPrice
+                        ? _c("span", { staticClass: "usdPrice" }, [
+                            _vm._v(
+                              "USD $" +
+                                _vm._s(
+                                  (
+                                    thing.pricel / _vm.$store.state.exchange
+                                  ).toFixed(2)
+                                )
                             )
-                        )
-                      ])
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
@@ -70798,7 +70833,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			items: {},
-			storage: window.localStorage
+			storage: window.localStorage,
+			usdPrice: this.$store.state.usdPrice
 
 		};
 	},
@@ -71008,16 +71044,18 @@ var render = function() {
                       ),
                       _c("br"),
                       _vm._v(" "),
-                      _c("span", { staticClass: "usdPrice" }, [
-                        _vm._v(
-                          "USD $" +
-                            _vm._s(
-                              (item.pricel / _vm.$store.state.exchange).toFixed(
-                                2
-                              )
+                      _vm.usdPrice
+                        ? _c("span", { staticClass: "usdPrice" }, [
+                            _vm._v(
+                              "USD $" +
+                                _vm._s(
+                                  (
+                                    item.pricel / _vm.$store.state.exchange
+                                  ).toFixed(2)
+                                )
                             )
-                        )
-                      ])
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("span", [
@@ -71415,6 +71453,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 myStorage.setItem('user', JSON.stringify(response.data.user));
 
                 myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
+
+                if (response.data.userInfo) {
+                    if (response.data.userInfo.m_country == 'US') {
+                        this.$store.commit('usdPrice', true);
+                        console.log(this.$store.state.usdPrice);
+                    } else {
+                        this.$store.commit('usdPrice', false);
+                    }
+                }
 
                 if (this.storage.getItem('user')) {
                     this.user = JSON.parse(this.storage.getItem('user'));
@@ -71912,6 +71959,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var userData = JSON.parse(_this.storage.getItem('user'));
 
                 _this.$store.commit('changeLoginStatus', true);
+
+                _this.$store.commit('usdPrice', false);
 
                 if (_this.storage.getItem('user')) {
                     _this.user = JSON.parse(_this.storage.getItem('user'));
@@ -73370,7 +73419,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             userInfo: {},
             orderHistory: [],
             pending: [],
-            country: [{ name: 'Canada', Code: "CA" }, { name: 'USA', Code: "USA" }],
+            country: [{ name: 'Canada', Code: "CA" }, { name: 'USA', Code: "US" }],
             details: {
                 surname: '',
                 forename: '',
@@ -73443,7 +73492,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs["details"].validate(function (valid) {
                 if (valid) {
-                    if (_this.details.country == 'USA') {
+                    if (_this.details.country == 'US') {
                         var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(_this.details.zipcode);
 
                         if (!isValidZip) {
@@ -73485,6 +73534,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this.hasInfo = true;
 
                         _this.userInfo = JSON.parse(_this.storage.getItem('userInfo'));
+
+                        if (_this.userInfo.m_country == 'US') {
+                            _this.$store.commit('usdPrice', true);
+                        } else {
+                            _this.$store.commit('usdPrice', false);
+                        }
                         _this.$router.push({ path: '/CustomerInfo/HomePage' });
                     });
                 } else {
@@ -73887,7 +73942,7 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.details.country == "USA"
+                        _vm.details.country == "US"
                           ? _c(
                               "el-form-item",
                               { attrs: { label: "Province", prop: "state" } },
@@ -75860,7 +75915,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.details.city = this.userInfo.m_city;
         this.details.state = this.userInfo.m_state;
         this.details.zipcode = this.userInfo.m_zipcode;
-        this.details.country = this.userInfo.m_country == "USA" ? "USA" : "CA";
+        this.details.country = this.userInfo.m_country == "US" ? "US" : "CA";
         this.details.tel = this.userInfo.m_tel;
         this.details.mobile = this.userInfo.m_mobile;
 
@@ -75882,7 +75937,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs["details"].validate(function (valid) {
                 if (valid) {
-                    if (_this.details.country == 'USA') {
+                    if (_this.details.country == 'US') {
                         var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(_this.details.zipcode);
 
                         if (!isValidZip) {
@@ -75946,7 +76001,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.details.city = this.userInfo.m_city;
             this.details.state = this.userInfo.m_state;
             this.details.zipcode = this.userInfo.m_zipcode;
-            this.details.country = this.userInfo.m_country == "USA" ? "USA" : "CA";
+            this.details.country = this.userInfo.m_country == "US" ? "US" : "CA";
             this.details.tel = this.userInfo.m_tel;
             this.details.mobile = this.userInfo.m_mobile;
             this.details.model = this.userInfo.m_make;
@@ -76303,7 +76358,7 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.details.country == "USA"
+                        _vm.details.country == "US"
                           ? _c(
                               "el-form-item",
                               { attrs: { label: "Province", prop: "state" } },
@@ -77262,7 +77317,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             shipping: "-",
             hst: "-",
             user: {},
-            isDealer: false
+            isDealer: false,
+            usdPrice: this.$store.state.usdPrice
 
             // total:this.subtotal,
 
@@ -77660,16 +77716,19 @@ var render = function() {
                             ),
                             _c("br"),
                             _vm._v(" "),
-                            _c("span", { staticClass: "usdPrice" }, [
-                              _vm._v(
-                                "USD $" +
-                                  _vm._s(
-                                    (
-                                      item.pricel / _vm.$store.state.exchange
-                                    ).toFixed(2)
+                            _vm.usdPrice
+                              ? _c("span", { staticClass: "usdPrice" }, [
+                                  _vm._v(
+                                    "USD $" +
+                                      _vm._s(
+                                        (
+                                          item.pricel /
+                                          _vm.$store.state.exchange
+                                        ).toFixed(2)
+                                      )
                                   )
-                              )
-                            ])
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("span", [
@@ -77684,20 +77743,22 @@ var render = function() {
                             ),
                             _c("br"),
                             _vm._v(" "),
-                            _c("span", { staticClass: "usdPrice" }, [
-                              _vm._v(
-                                "USD $" +
-                                  _vm._s(
-                                    (
-                                      (item.pricel *
-                                        parseInt(
-                                          _vm.storage.getItem(item.item)
-                                        )) /
-                                      _vm.$store.state.exchange
-                                    ).toFixed(2)
+                            _vm.usdPrice
+                              ? _c("span", { staticClass: "usdPrice" }, [
+                                  _vm._v(
+                                    "USD $" +
+                                      _vm._s(
+                                        (
+                                          (item.pricel *
+                                            parseInt(
+                                              _vm.storage.getItem(item.item)
+                                            )) /
+                                          _vm.$store.state.exchange
+                                        ).toFixed(2)
+                                      )
                                   )
-                              )
-                            ])
+                                ])
+                              : _vm._e()
                           ])
                         ])
                       ])
@@ -77745,16 +77806,18 @@ var render = function() {
                     _vm._v("CAD $" + _vm._s(_vm._f("decimal")(_vm.subtotal))),
                     _c("br"),
                     _vm._v(" "),
-                    _c("span", { staticClass: "usdPrice " }, [
-                      _vm._v(
-                        "USD $" +
-                          _vm._s(
-                            (_vm.subtotal / _vm.$store.state.exchange).toFixed(
-                              2
-                            )
+                    _vm.usdPrice
+                      ? _c("span", { staticClass: "usdPrice " }, [
+                          _vm._v(
+                            "USD $" +
+                              _vm._s(
+                                (
+                                  _vm.subtotal / _vm.$store.state.exchange
+                                ).toFixed(2)
+                              )
                           )
-                      )
-                    ])
+                        ])
+                      : _vm._e()
                   ])
                 ])
               ]),
@@ -77780,14 +77843,18 @@ var render = function() {
                     _vm._v("CAD $" + _vm._s(_vm.total)),
                     _c("br"),
                     _vm._v(" "),
-                    _c("span", { staticClass: "usdPrice" }, [
-                      _vm._v(
-                        "USD $" +
-                          _vm._s(
-                            (_vm.total / _vm.$store.state.exchange).toFixed(2)
+                    _vm.usdPrice
+                      ? _c("span", { staticClass: "usdPrice" }, [
+                          _vm._v(
+                            "USD $" +
+                              _vm._s(
+                                (_vm.total / _vm.$store.state.exchange).toFixed(
+                                  2
+                                )
+                              )
                           )
-                      )
-                    ])
+                        ])
+                      : _vm._e()
                   ])
                 ])
               ])
@@ -78242,6 +78309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            usdPrice: this.$store.state.usdPrice,
             items: [],
             showNewAddress: false,
             qtys: [],
@@ -78257,7 +78325,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             groundDay: 1,
             shippingRate: '',
             // shipping:0,
-            country: [{ name: 'Canada', Code: "CA" }, { name: 'USA', Code: "USA" }],
+            country: [{ name: 'Canada', Code: "CA" }, { name: 'USA', Code: "US" }],
             privince: [{ name: 'Alberta', Code: "AB" }, { name: 'British-Coloumbia', Code: "BC" }, { name: 'Manitoba', Code: "MB" }, { name: 'New-Brunswick', Code: "NB" }, { name: 'Newfoundland and Labrador', Code: "NL" }, { name: 'Northwest Territories', Code: "NT" }, { name: 'Nova-Scotia', Code: "NS" }, { name: 'Nunavut', Code: "NU" }, { name: 'Ontario', Code: "ON" }, { name: 'Prince-Edward Island', Code: "PE" }, { name: 'Quebec', Code: "QC" }, { name: 'Saskatchewan', Code: "SK" }, { name: 'Yukon', Code: "YT" }],
             userInfo: [],
             loading: 1,
@@ -78550,7 +78618,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs["newAdd"].validate(function (valid) {
                 if (valid) {
 
-                    if (_this2.newAdd.country == 'USA') {
+                    if (_this2.newAdd.country == 'US') {
                         var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(_this2.newAdd.zipcode);
 
                         if (!isValidZip) {
@@ -78750,17 +78818,19 @@ var render = function() {
                         ),
                         _c("br"),
                         _vm._v(" "),
-                        _c("span", { staticClass: "usdPrice" }, [
-                          _vm._v(
-                            "USD $" +
-                              _vm._s(
-                                (
-                                  (item.price * item.qty) /
-                                  _vm.$store.state.exchange
-                                ).toFixed(2)
+                        _vm.usdPrice
+                          ? _c("span", { staticClass: "usdPrice" }, [
+                              _vm._v(
+                                "USD $" +
+                                  _vm._s(
+                                    (
+                                      (item.price * item.qty) /
+                                      _vm.$store.state.exchange
+                                    ).toFixed(2)
+                                  )
                               )
-                          )
-                        ])
+                            ])
+                          : _vm._e()
                       ])
                     ])
                   : _vm._e()
@@ -79257,7 +79327,7 @@ var render = function() {
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
-                              _vm.newAdd.country == "USA"
+                              _vm.newAdd.country == "US"
                                 ? _c(
                                     "el-form-item",
                                     {
@@ -79373,17 +79443,19 @@ var render = function() {
                     ),
                     _c("br"),
                     _vm._v(" "),
-                    _c("span", { staticClass: "usdPrice" }, [
-                      _vm._v(
-                        "USD $" +
-                          _vm._s(
-                            (
-                              parseFloat(_vm.subtotal) /
-                              _vm.$store.state.exchange
-                            ).toFixed(2)
+                    _vm.usdPrice
+                      ? _c("span", { staticClass: "usdPrice" }, [
+                          _vm._v(
+                            "USD $" +
+                              _vm._s(
+                                (
+                                  parseFloat(_vm.subtotal) /
+                                  _vm.$store.state.exchange
+                                ).toFixed(2)
+                              )
                           )
-                      )
-                    ])
+                        ])
+                      : _vm._e()
                   ])
                 ])
               ]),
@@ -79400,17 +79472,19 @@ var render = function() {
                         ),
                         _c("br"),
                         _vm._v(" "),
-                        _c("span", { staticClass: "usdPrice" }, [
-                          _vm._v(
-                            "USD $" +
-                              _vm._s(
-                                (
-                                  parseFloat(_vm.shipping) /
-                                  _vm.$store.state.exchange
-                                ).toFixed(2)
+                        _vm.usdPrice
+                          ? _c("span", { staticClass: "usdPrice" }, [
+                              _vm._v(
+                                "USD $" +
+                                  _vm._s(
+                                    (
+                                      parseFloat(_vm.shipping) /
+                                      _vm.$store.state.exchange
+                                    ).toFixed(2)
+                                  )
                               )
-                          )
-                        ])
+                            ])
+                          : _vm._e()
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -79431,16 +79505,19 @@ var render = function() {
                     ),
                     _c("br"),
                     _vm._v(" "),
-                    _c("span", { staticClass: "usdPrice" }, [
-                      _vm._v(
-                        "USD $" +
-                          _vm._s(
-                            (
-                              parseFloat(_vm.hst) / _vm.$store.state.exchange
-                            ).toFixed(2)
+                    _vm.usdPrice
+                      ? _c("span", { staticClass: "usdPrice" }, [
+                          _vm._v(
+                            "USD $" +
+                              _vm._s(
+                                (
+                                  parseFloat(_vm.hst) /
+                                  _vm.$store.state.exchange
+                                ).toFixed(2)
+                              )
                           )
-                      )
-                    ])
+                        ])
+                      : _vm._e()
                   ])
                 ])
               ]),
@@ -79457,17 +79534,19 @@ var render = function() {
                         ),
                         _c("br"),
                         _vm._v(" "),
-                        _c("span", { staticClass: "usdPrice" }, [
-                          _vm._v(
-                            "USD $" +
-                              _vm._s(
-                                (
-                                  parseFloat(_vm.total) /
-                                  _vm.$store.state.exchange
-                                ).toFixed(2)
+                        _vm.usdPrice
+                          ? _c("span", { staticClass: "usdPrice" }, [
+                              _vm._v(
+                                "USD $" +
+                                  _vm._s(
+                                    (
+                                      parseFloat(_vm.total) /
+                                      _vm.$store.state.exchange
+                                    ).toFixed(2)
+                                  )
                               )
-                          )
-                        ])
+                            ])
+                          : _vm._e()
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -83659,7 +83738,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     country: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].country,
     privince: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].privince,
     US_states: __WEBPACK_IMPORTED_MODULE_2__country__["a" /* country */].US_states,
-    exchange: 1.35
+    exchange: 1.35,
+    usdPrice: false
   },
 
   mutations: {
@@ -83680,6 +83760,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     exchange: function exchange(state, _exchange) {
       state.exchange = _exchange;
+    },
+    usdPrice: function usdPrice(state, _usdPrice) {
+      state.usdPrice = _usdPrice;
     }
   },
   modules: {
@@ -84641,7 +84724,7 @@ var index_esm = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return country; });
 var country = {
 
-  country: [{ name: 'Canada', Code: 'CA' }, { name: 'USA', Code: 'USA' }],
+  country: [{ name: 'Canada', Code: 'CA' }, { name: 'USA', Code: 'US' }],
   privince: [{ name: 'Alberta', Code: 'AB' }, { name: 'British-Coloumbia', Code: 'BC' }, { name: 'Manitoba', Code: 'MB' }, { name: 'New-Brunswick', Code: 'NB' }, { name: 'Newfoundland and Labrador', Code: 'NL' }, { name: 'Northwest Territories', Code: 'NT' }, { name: 'Nova-Scotia', Code: 'NS' }, { name: 'Nunavut', Code: 'NU' }, { name: 'Ontario', Code: 'ON' }, { name: 'Prince-Edward Island', Code: 'PE' }, { name: 'Quebec', Code: 'QC' }, { name: 'Saskatchewan', Code: 'SK' }, { name: 'Yukon', Code: 'YT' }],
   US_states: [{
     'name': 'Alabama',

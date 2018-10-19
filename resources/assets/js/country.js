@@ -2,7 +2,7 @@ export const country = {
  
       country: [
         { name: 'Canada', Code: 'CA' },
-        { name: 'USA', Code: 'USA' }
+        { name: 'USA', Code: 'US' }
       ],
       privince: [
         { name: 'Alberta', Code: 'AB' },

@@ -26,6 +26,7 @@
 				carts:[],
 				storage:window.localStorage,
 				items:[],
+				usdPrice:this.$store.state.usdPrice,
 			}
 		},
 		components:{
@@ -52,6 +53,9 @@
 			if (this.storage.getItem("user")) {
 				this.$store.commit('changeLoginStatus',true);
 			}
+
+			//check usd price
+			
 		},
 		watch: {
 	    '$route' (to, from) {

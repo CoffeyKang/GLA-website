@@ -15,7 +15,7 @@
 			<small>Make: {{ item.make}} </small>
 			
 			<span class='price'>CAD ${{ item.pricel.toFixed(2) }}<br>
-				<span class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+				<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 			</span>
 			
 			<router-link :to="{
@@ -39,6 +39,7 @@
 			return {
 				storage:window.localStorage,
 				userInfo:[],
+				usdPrice:this.$store.state.usdPrice,
 				
 			}
 		},

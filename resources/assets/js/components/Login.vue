@@ -102,6 +102,15 @@ export default {
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
+                    if (response.data.userInfo) {
+                        if (response.data.userInfo.m_country=='US'){
+                            this.$store.commit('usdPrice',true);
+                            console.log(this.$store.state.usdPrice);
+                        }else{
+                            this.$store.commit('usdPrice',false);
+                        }
+                    }
+
                     if (this.storage.getItem('user')) {
                         this.user = JSON.parse(this.storage.getItem('user'));
                         let cust_id = this.user.id;
@@ -163,6 +172,7 @@ export default {
                     }
                 
                 });
+        
 
         },
         toRegister(){

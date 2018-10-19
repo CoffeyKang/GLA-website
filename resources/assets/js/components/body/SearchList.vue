@@ -31,7 +31,7 @@
 						</span>
 					</td>
                     <td class='text-right'>CAD ${{thing.pricel.toFixed(2)}}<br>
-						<span class='usdPrice'>USD ${{ ((thing.pricel)/$store.state.exchange).toFixed(2) }}</span></td>
+						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((thing.pricel)/$store.state.exchange).toFixed(2) }}</span></td>
                     <td class='text-center'>
                         <button class="btn btn-primary" @click="goToItem(thing.item)">Item Details</button>
                     </td>
@@ -83,6 +83,7 @@
 				result:false,
 				empty:false,
 				loading:1,
+				usdPrice:this.$store.state.usdPrice,
 			}
 		},
 

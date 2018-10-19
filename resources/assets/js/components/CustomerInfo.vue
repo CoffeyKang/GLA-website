@@ -95,7 +95,7 @@
                             </el-select>
                         </el-form-item>
 
-                        <el-form-item label="Province" prop='state' v-if="details.country=='USA'">
+                        <el-form-item label="Province" prop='state' v-if="details.country=='US'">
                             <el-select v-model="details.state" placeholder="Province">
                                 <el-option
                                 v-for="item in US_states"
@@ -426,7 +426,7 @@
                 pending:[],
                 country:[
                         {name:'Canada',Code:"CA"},
-                        {name:'USA',Code:"USA"},
+                        {name:'USA',Code:"US"},
                 ],
                 details:{
                     surname:'',
@@ -522,7 +522,7 @@
                
                 this.$refs["details"].validate((valid)=>{
                     if (valid){
-                        if (this.details.country=='USA') {
+                        if (this.details.country=='US') {
                             let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
 
                             if (!isValidZip) {
@@ -568,6 +568,12 @@
                             this.hasInfo = true;
 
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+
+                            if (this.userInfo.m_country=='US') {
+                                this.$store.commit('usdPrice',true);
+                            }else{
+                                this.$store.commit('usdPrice',false);
+                            }
                             this.$router.push({path:'/CustomerInfo/HomePage'});
                         
                         });
