@@ -518,11 +518,20 @@ export default {
                         userID:this.userID,
                     }).then((response)=>{   
                         var info = response.data.userinfo;
+                        
                         var b = response.data.billing;
                         this.storage.setItem('userInfo',JSON.stringify(info));
                         this.storage.setItem('billing', JSON.stringify(response.data.billing));
                         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
                         this.billing = JSON.parse(this.storage.getItem('billing'));
+
+
+                        if (this.userInfo.m_country=="US") {         
+                            this.$store.commit('usdPrice',true);
+                        }else{
+                            this.$store.commit('usdPrice',false);
+                        }
+
                         this.$message({
                         showClose:true,
                         message:"Edit Successfully",
