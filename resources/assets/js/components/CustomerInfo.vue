@@ -27,124 +27,217 @@
                 </div>
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                 <el-form  label-position="left" label-width="120px" :rules="rules" :model="details" ref="details" size="medium">
-                    
-                    <el-form-item label="Last Name" prop='surname'>
-                        <el-input v-model="details.surname" placeholder="Last Name" ></el-input>
-                    </el-form-item>
+                    <el-card class="box-card">
+                        <div class="clearfix" slot="header">
+                            Personal Information
+                        </div>
+                        <div class="text">
+                            <el-form-item label="Last Name" prop='surname'>
+                                <el-input v-model="details.surname" placeholder="Last Name" ></el-input>
+                            </el-form-item>
 
-                    <el-form-item label="First Name" prop='forename'>
-                        <el-input v-model="details.forename" placeholder="First Name"  ></el-input>
-                    </el-form-item>
+                            <el-form-item label="First Name" prop='forename'>
+                                <el-input v-model="details.forename" placeholder="First Name"  ></el-input>
+                            </el-form-item>
 
-                    <div class="inRow">
-                        <el-form-item label="Gender" prop='gender' >
-                            <el-select v-model="details.gender" placeholder="Gender">
-                                <el-option
-                                v-for="gender in ['Male','Female','I do not want to tell']"
-                                :key="gender"
-                                :label="gender"
-                                :value="gender">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
+                            <div class="inRow">
+                                <el-form-item label="Gender" prop='gender' >
+                                    <el-select v-model="details.gender" placeholder="Gender">
+                                        <el-option
+                                        v-for="gender in ['Male','Female','I do not want to tell']"
+                                        :key="gender"
+                                        :label="gender"
+                                        :value="gender">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
 
-                        <el-form-item label="Date of Birth" prop='brithday' >
-                            <el-input type='date' v-model="details.brithday"   ></el-input>
-                        </el-form-item>
-                    </div>
+                                <el-form-item label="Date of Birth" prop='brithday' >
+                                    <el-input type='date' v-model="details.brithday"></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+                    </el-card>
 
-                    <el-form-item label="Address" prop='address'>
-                        <el-input v-model="details.address" placeholder="Address"  ></el-input>
-                    </el-form-item>
-                    
-                    <div class="inRow">
-                        <el-form-item label="City" prop='city'>
-                            <el-input v-model="details.city" placeholder="City"  ></el-input>
-                        </el-form-item>
+                    <el-card class="box-card">
+                        <div class="clearfix " slot="header">
+                            <span>Shipping Information</span>
+                            
+                        </div>
+                                <div class="text">
+                            <el-form-item label="Address" prop='address'>
+                                <el-input v-model="details.address" placeholder="Address"  ></el-input>
+                            </el-form-item>
+                            
+                            <div class="inRow">
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="details.city" placeholder="City"  ></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Postal Code"  prop='zipcode'>
-                            <el-input v-model="details.zipcode" placeholder="Postal Code" ></el-input>
-                        </el-form-item>
+                                <el-form-item label="Postal Code"  prop='zipcode'>
+                                    <el-input v-model="details.zipcode" placeholder="Postal Code" ></el-input>
+                                </el-form-item>
+                                
+                            </div>
+
+                            <div class="inRow">
+                                
+
+                                <el-form-item label="Country" prop='country'>
+                                    <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
+                                    <el-select v-model="details.country" placeholder="Country" @change='details.state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                
+                                <el-form-item label="Province" prop='state' v-if="details.country=='CA'">
+                                    <el-select v-model="details.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="Province" prop='state' v-if="details.country=='US'">
+                                    <el-select v-model="details.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+
+                            
+
+                            <el-form-item label="Tel" prop='tel'>
+                                <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
+                            </el-form-item>
                         
-                    </div>
+                            <el-form-item label="Mobile" prop='mobile'>
+                                <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-card>
+    
+                    <el-card class="box-card" >
+                        <div class="shipping" slot="header">
+                            <span>Billing Information</span>
+                            <span><el-checkbox v-model="details.sameAsBilling">Same as Billing Address</el-checkbox></span>
+                        </div>
+                                <div class="text" v-if="!details.sameAsBilling">
+                            <el-form-item label="Address1" prop='address'>
+                                <el-input v-model="details.b_address1" placeholder="Address1"  ></el-input>
+                            </el-form-item>
 
-                    <div class="inRow">
+                            <el-form-item label="Address2" prop='address'>
+                                <el-input v-model="details.b_address2" placeholder="Address2"  ></el-input>
+                            </el-form-item>
+                            
+                            <div class="inRow">
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="details.b_city" placeholder="City"  ></el-input>
+                                </el-form-item>
+
+                                <el-form-item label="Postal Code"  prop='zipcode'>
+                                    <el-input v-model="details.b_zipcode" placeholder="Postal Code" ></el-input>
+                                </el-form-item>
+                            </div>
+
+                            <div class="inRow">
+                                
+
+                                <el-form-item label="Country" prop='country'>
+                                    <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
+                                    <el-select v-model="details.b_country" placeholder="Country" @change='details.b_state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                
+                                <el-form-item label="Province" prop='state' v-if="details.b_country=='CA'">
+                                    <el-select v-model="details.b_state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="Province" prop='state' v-if="details.b_country=='US'">
+                                    <el-select v-model="details.b_state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+
+                            
+
+                            <el-form-item label="Tel" prop='tel'>
+                                <el-input type='number' v-model="details.b_tel" placeholder="Tel"></el-input>
+                            </el-form-item>
                         
+                            
+                        </div>
+                    </el-card>
 
-                        <el-form-item label="Country" prop='country'>
-                            <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
-                            <el-select v-model="details.country" placeholder="Country" @change='details.state=""'>
-                                <el-option
-                                v-for="item in country"
-                                :key="item.name"
-                                :label="item.name"
-                                :value="item.Code">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
 
-                        
-                        <el-form-item label="Province" prop='state' v-if="details.country=='CA'">
-                            <el-select v-model="details.state" placeholder="Province">
-                                <el-option
-                                v-for="item in privince"
-                                :key="item.name"
-                                :label="item.name"
-                                :value="item.Code" >
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
+                    <el-card class="box-card">
+                        <div class="clearfix" slot="header">
+                            Vehical Information
+                        </div>
+                                <div class="text">
+                            <div class="inRow" >
 
-                        <el-form-item label="Province" prop='state' v-if="details.country=='US'">
-                            <el-select v-model="details.state" placeholder="Province">
-                                <el-option
-                                v-for="item in US_states"
-                                :key="item.name"
-                                :label="item.name"
-                                :value="item.abbreviation" >
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </div>
+                                <el-form-item label="Car" prop='car' label-width="120px">
+                                    <el-input v-model="details.car" placeholder="Make" ></el-input>
+                                </el-form-item>
+                                
+                                <el-form-item  prop='education' label-width="10px" >
+                                    <el-select v-model="details.year" placeholder="Year">
+                                        <el-option
+                                        v-for="item in myRange(1949, year)"
+                                        :key="item"
+                                        :label="item"
+                                        :value="item" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            
+                                <el-form-item   prop='job'  label-width="10px" >
+                                    <el-input v-model="details.make" placeholder="Model" ></el-input>
+                                </el-form-item>
+                                <!-- <el-form-item   prop='tit'  label-width="10px" >
+                                    <el-input v-model="details.tit" placeholder="Model"  ></el-input>
+                                </el-form-item> -->
 
-                    
-
-                    <el-form-item label="Tel" prop='tel'>
-                        <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
-                    </el-form-item>
-                
-                    <el-form-item label="Mobile" prop='mobile'>
-                        <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
-                    </el-form-item>
-
-                    <div class="inRow" >
-
-                        <el-form-item label="Car" prop='car' label-width="120px">
-                            <el-input v-model="details.car" placeholder="Make" ></el-input>
-                        </el-form-item>
-                        
-                        <el-form-item  prop='education' label-width="10px" >
-                            <el-select v-model="details.year" placeholder="Year">
-                                <el-option
-                                v-for="item in myRange(1949, year)"
-                                :key="item"
-                                :label="item"
-                                :value="item" >
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    
-                        <el-form-item   prop='job'  label-width="10px" >
-                            <el-input v-model="details.make" placeholder="Model" ></el-input>
-                        </el-form-item>
-                        <!-- <el-form-item   prop='tit'  label-width="10px" >
-                            <el-input v-model="details.tit" placeholder="Model"  ></el-input>
-                        </el-form-item> -->
-
-                    </div>
-
-                    
-                    <el-form-item>
+                            </div>
+                                </div>
+                    </el-card>
+                    <el-form-item style='margin-top:30px;'>
                         <el-button type='default' @click="resetForm(details)">Reset</el-button>
                         <el-button type="success" @click="submitForm(details)">Complate </el-button>
                     </el-form-item>
@@ -429,6 +522,7 @@
                         {name:'USA',Code:"US"},
                 ],
                 details:{
+                    sameAsBilling:false,
                     surname:'',
                     forename:'',
                     gender:'',
@@ -443,6 +537,13 @@
                     car:'',
                     year:'',
                     make:'',
+                    b_address1:'',
+                    b_address2:'',
+                    b_city:'',
+                    b_province:'',
+                    b_country:'CA',
+                    b_phone:'',
+                    b_zipcode:'',
                 },
                 rules:{
                     surname:[
@@ -456,6 +557,10 @@
                     ],
                     state:[
                         { required: true, message: 'State is required.', trigger: 'blur', max:99 },
+                    ],
+                    b_zipcode:[
+                        { required: true, message: 'Postal Code is required.', trigger: 'blur' },
+                        { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
                     ],
                     zipcode:[
                         { required: true, message: 'Zip Code is required.', trigger: 'blur' },
@@ -551,6 +656,38 @@
                                 return false;
                             }
                         }
+                        if (!this.details.sameAsBilling) {
+                            if (this.details.b_country=='US') {
+                                let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.b_zipcode);
+
+                                if (!isValidZip) {
+                                    this.$message({
+                                        showClose:true,
+                                        message:"Please inter valid USA Zipcode",
+                                        type:"error",
+                                        duration:5000,
+                                    });
+                                    return false;
+                                }else{
+                                
+
+                                }
+                            }else{
+                                let str = this.details.b_zipcode.replace(' ','');
+
+                                if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                                }else{
+                                    this.$message({
+                                        showClose:true,
+                                        message:"Please inter valid Canada1 postalcode",
+                                        type:"error",
+                                        duration:5000,
+                                    });
+                                    return false;
+                                }
+                            }
+                        }
+                        
 
                         // submit userDetails info        
                         var userId = this.user.id;
@@ -562,12 +699,13 @@
                             console.log(response.data);
 
                             var info = response.data.userinfo;
-
+                            var b = response.data.billing;
                             this.storage.setItem('userInfo',JSON.stringify(info));
-
+                            this.storage.setItem('billing',JSON.stringify(b));
                             this.hasInfo = true;
 
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                            this.billing = JSON.parse(this.storage.getItem('billing'));
 
                             if (this.userInfo.m_country=='US') {
                                 this.$store.commit('usdPrice',true);
@@ -656,6 +794,17 @@
     .num{
         font-weight: bold;
         color: red;
+    }
+
+    .clearfix{
+        font-size: 20px;
+        text-align: left;
+    }
+    .shipping{
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        
     }
 
     

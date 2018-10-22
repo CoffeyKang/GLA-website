@@ -19,6 +19,7 @@ use App\SOMAST;
 use App\SOTRAN;
 use App\Catalog;
 use App\Inventory;
+use App\Billing;
 use DB;
 
 
@@ -38,7 +39,8 @@ class AccessControl extends Controller
         if(Auth::attempt(['email'=>$email,'password'=>$password])){
             $user = Auth::user();
             $userInfo = UserInfo::where('m_id',$user->id)->first();
-            return response()->json(['user'=>$user, 'userInfo'=>$userInfo],200);
+            $userBilling = Billing::where('cust_id',$user->id)->first();
+            return response()->json(['user'=>$user, 'userInfo'=>$userInfo,'billing'=>$userBilling],200);
         }else{
             return response()->json([], 401);
         };
@@ -125,7 +127,7 @@ class AccessControl extends Controller
              }else{
                  $userInfo->m_gender = 3;
              }
-
+            
 
              //check tel format 
 
@@ -166,11 +168,36 @@ class AccessControl extends Controller
              $userInfo->save();
 
 
+             $billing = new Billing;
+
+             $billing->cust_id = $userID;
+             $billing->lastname = $data["surname"];
+             $billing->firstname = $data["forename"];
+             if ($data["sameAsBilling"]) {
+                $billing->address1 = $data["address"];
+                $billing->city = strtoupper($data["city"]);
+                $billing->province = strtoupper($data["state"]);
+                $billing->postalcode = strtoupper($data["zipcode"]);
+                $billing->country = $data["country"];
+                $billing->phone = $tel;
+             }else{
+                $billing->address1 = $data["b_address1"];
+                $billing->address2 = $data["b_address2"];
+                $billing->city = strtoupper($data["b_city"]);
+                $billing->province = strtoupper($data["b_state"]);
+                $billing->postalcode = strtoupper($data["b_zipcode"]);
+                $billing->country = $data["b_country"];
+                $billing->phone = $data["b_tel"];
+             }
+
+             $billing->save();
+
+
 
 
          }
 
-         return response()->json(['userinfo'=>$userInfo],200);
+         return response()->json(['userinfo'=>$userInfo,'billing'=>$billing],200);
     }
 
     /** double check the user info */
@@ -221,7 +248,20 @@ class AccessControl extends Controller
 
          }
 
-         return response()->json(['userinfo'=>$userInfo],200);
+        $billing = Billing::where('cust_id',$userID)->first();
+
+        $billing->firstname = $data["b_firstname"];
+        $billing->lastname = $data["b_lastname"];
+        $billing->address1 = $data["b_address1"];
+        $billing->address2 = $data["b_address2"];
+        $billing->city = $data["b_city"];
+        $billing->province = $data["b_state"];
+        $billing->postalcode = $data["b_zipcode"];
+        $billing->country = $data["b_country"];
+        $billing->phone = $data["b_tel"];
+        $billing->save();
+
+        return response()->json(['userinfo'=>$userInfo,'billing'=>$billing],200);
     }
 
     public function changePassword(Request $request){

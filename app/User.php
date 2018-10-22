@@ -32,6 +32,10 @@ class User extends Authenticatable
         return $this->hasOne('App\UserInfo','m_id');
     }
 
+    public function BillingAddress(){
+        return $this->hasOne('App\Billing','cust_id','id');
+    }
+
     public function addressBook(){
         return $this->hasMany('App\AddressBook','cust_id');
     }

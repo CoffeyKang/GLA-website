@@ -271,19 +271,20 @@
                                         this.storage.setItem('user',JSON.stringify(response.data.user));
                                         this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
                                         this.$store.commit('changeLoginStatus',true);
-
-                                        this.$confirm('', 'Congratulation', {
-                                            confirmButtonText: 'Fill in Details',
-                                            cancelButtonText: 'Start Shopping',
-                                            type: 'success',
-                                            center: true
-                                            }).then(() => {
-                                                this.$router.push({name:'userHome'});
-                                            }).catch(() => {
-                                                console.log(123);
-                                                this.$router.push({path:'/'});
+                                        this.$router.push({name:'userHome'});
+                                        
+                                        // this.$confirm('', 'Congratulation', {
+                                        //     confirmButtonText: 'Fill in Details',
+                                        //     cancelButtonText: 'Start Shopping',
+                                        //     type: 'success',
+                                        //     center: true
+                                        //     }).then(() => {
+                                        //         this.$router.push({name:'userHome'});
+                                        //     }).catch(() => {
+                                        //         console.log(123);
+                                        //         this.$router.push({path:'/'});
                                                 
-                                        });
+                                        // });
                                     });
                             }else{
                                 this.$message.error('Please check the Captcha box.');

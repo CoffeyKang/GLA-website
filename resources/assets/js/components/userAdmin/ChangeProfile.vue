@@ -151,6 +151,121 @@
                 </el-card>
                 
             </div>
+
+            <div class='part'>
+                <el-card class="box-card">
+                    <div class="clearfix" slot="header">
+                        Billing Information
+                    </div>
+                    <div class="text">
+                        <div class="inRow">
+                            <div class="col-xs-6">
+                                <el-form-item label="Last Name" prop='surname'>
+                                    <el-input v-model="details.b_lastname" placeholder="Last Name" ></el-input>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="First Names" prop='forename'>
+                                    <el-input v-model="details.b_firstname" placeholder="First Names"></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <el-form-item label="address1" prop='address'>
+                                    <el-input v-model="details.b_address1" placeholder="address1" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <el-form-item label="address2" prop='address'>
+                                    <el-input v-model="details.b_address2" placeholder="address2" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+
+                        <div class="inRow">
+
+                            <div class="col-xs-6">
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="details.b_city" placeholder="City"  ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                            <div class="col-xs-6">
+                                <el-form-item label="Postal Code"  prop='b_zipcode'>
+                                    <el-input v-model="details.b_zipcode" placeholder="Postal Code" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="inRow">
+                            <div class="col-xs-6">
+                                <el-form-item label="Country" prop='country'>
+                                    <el-select v-model="details.b_country" placeholder="Country" @change='details.b_state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="Province" prop='state' v-if="details.b_country=='CA'">
+                                    <!-- <select v-model="billing.province" class='form-control'>
+                                        <option v-for="item in privince" :key="item.name" :value="item.Code">{{ item. name}}</option>
+                                    </select> -->
+                                    <el-select v-model="details.b_state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="State" prop='state' v-if="details.b_country=='US'">
+                                    <el-select v-model="details.b_state" placeholder="Province">
+                                        <!-- <select v-model="billing.province" class='form-control'>
+                                            <option v-for="item in US_states" :key="item.name" :value="item.abbreviation">{{ item. name}}</option>
+                                        </select> -->
+                                        <el-option
+                                            v-for="item in US_states"
+                                            :key="item.name"
+                                            :label="item.name"
+                                            :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            
+
+                            
+                        </div>
+
+                        
+
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <el-form-item label="Tel" prop='tel'>
+                                    <el-input type='number' v-model="details.b_tel" placeholder="Tel"></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </el-card>
+                
+            </div>
             
             <!-- other information -->
             <div class='part'>
@@ -223,7 +338,18 @@ export default {
                 job:'',
                 tit:'',
                 car:'',
+                b_firstname:'',
+                b_lastname:'',
+                b_address1:'',
+                b_address2:'',
+                b_city:'',
+                b_province:'',
+                b_country:'',
+                b_phone:'',
+                b_zipcode:'',
+               
             },
+            billing:{},
             rules:{
                 surname:[
                     { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
@@ -234,25 +360,31 @@ export default {
                 city:[
                         { required: true, message: 'City is required.', trigger: 'blur', max:99 },
                     ],
-                    state:[
-                        { required: true, message: 'State is required.', trigger: 'blur', max:99 },
-                    ],
-                    zipcode:[
-                        { required: true, message: 'Zip Code is required.', trigger: 'blur' },
-                        { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
-                    ],
-                    address:[
-                        { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
-                    ],
-                    country:[
-                        { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
-                    ],
-                    tel:[
-                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
-                    ],
-                    mobile:[
-                        {message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
-                    ],
+                state:[
+                    { required: true, message: 'State is required.', trigger: 'blur', max:99 },
+                ],
+                zipcode:[
+                    { required: true, message: 'Postal Code is required.', trigger: 'blur' },
+                    { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
+                ],
+
+                b_zipcode:[
+                    { required: true, message: 'Postal Code is required.', trigger: 'blur' },
+                    { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
+                ],
+                
+                address:[
+                    { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
+                ],
+                country:[
+                    { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
+                ],
+                tel:[
+                    {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
+                ],
+                mobile:[
+                    {message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
+                ],
             },
 
             edu:[
@@ -270,6 +402,8 @@ export default {
         
         this.user = JSON.parse(this.storage.getItem('user'));
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+        this.billing = JSON.parse(this.storage.getItem('billing'));
+
         this.details.surname = this.userInfo.m_surname;
         this.details.forename = this.userInfo.m_forename;
         this.details.gender = this.getGender(this.userInfo.m_gender);
@@ -285,6 +419,20 @@ export default {
         this.details.model = this.userInfo.m_make;
         this.details.year = (this.userInfo.m_year<1950?1950:this.userInfo.m_year);
         this.details.car = this.userInfo.m_car;
+
+
+        /** billing address */
+        this.details.b_lastname = this.billing.lastname;
+        this.details.b_firstname = this.billing.firstname;
+        this.details.b_address1 = this.billing.address1;
+        this.details.b_address2 = this.billing.address2;
+        this.details.b_city = this.billing.city;
+        this.details.b_state = this.billing.province;
+        this.details.b_zipcode = this.billing.postalcode;
+        this.details.b_country =(this.billing.country=="US"?"US":"CA");
+        this.details.b_tel = this.billing.phone;
+
+        
     },
 
     computed: {
@@ -331,6 +479,36 @@ export default {
                         }
                     }
 
+                    if (this.details.b_country=='US') {
+                        let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.b_zipcode);
+
+                        if (!isValidZip) {
+                            this.$message({
+                                showClose:true,
+                                message:"Please inter valid USA Zipcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }else{
+                        
+
+                        }
+                    }else{
+                        let str = this.details.b_zipcode.replace(' ','');
+
+                        if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                        }else{
+                            this.$message({
+                                showClose:true,
+                                message:"Please inter valid Canada postalcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }
+                    }
+
                     
                     // submit userDetails info        
                     var userId = this.user.id;
@@ -340,8 +518,11 @@ export default {
                         userID:this.userID,
                     }).then((response)=>{   
                         var info = response.data.userinfo;
+                        var b = response.data.billing;
                         this.storage.setItem('userInfo',JSON.stringify(info));
+                        this.storage.setItem('billing', JSON.stringify(response.data.billing));
                         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                        this.billing = JSON.parse(this.storage.getItem('billing'));
                         this.$message({
                         showClose:true,
                         message:"Edit Successfully",
