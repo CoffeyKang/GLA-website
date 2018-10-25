@@ -33,9 +33,24 @@
                     </tbody>
                 </table>
             </div>
-            <div class='shipingTo'>
-                    <div class='col-xs-12' >
-                        <h4>Shipping To</h4>
+
+            <div class='shipingTo col-xs-6'>
+                    <div class='' >
+                        <h4 style='display:flex;justify-content:space-between'><div>Billing Address</div> <div style='font-size:80%;cursor:pointer' @click='$router.push({path:"/CustomerInfo/ChangeProfile"})'>Edit</div></h4>
+                        <el-card class="box-card">
+                                <h5><b>{{billing.firstname}} {{billing.lastname}}</b> <br> <br>
+                                {{billing.address1}},{{billing.address2}}, {{billing.city}}, {{billing.zipcode}}<br>
+                                {{billing.province}}, {{billing.country}}</h5>
+                        </el-card>
+
+                        
+                    </div>
+
+                    
+            </div>
+            <div class='shipingTo col-xs-6'>
+                    <div class='' >
+                        <h4>Shipping Address </h4>
                         <el-card class="box-card" v-if="addressID!=0">
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
                                 {{address.address}}, {{address.city}}, {{address.zipcode}}<br>
@@ -48,6 +63,8 @@
                         </el-card>
                     </div>
             </div>
+
+            
 
         </div>
         <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
@@ -111,6 +128,8 @@ export default {
             loading:0,
             userInfo:[],
             address:[],
+            billing:[],
+            edit:false,
         }
     },
         computed:{
@@ -123,6 +142,7 @@ export default {
 				// have to validate the user name and password once more here
                 var userData = JSON.parse(this.storage.getItem('user'));
                  this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                 this.billing = JSON.parse(this.storage.getItem('billing'));
                 /** check again */
                 
 			}else{

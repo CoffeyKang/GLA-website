@@ -76543,6 +76543,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -76753,6 +76755,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.details.model = this.userInfo.m_make;
             this.details.year = this.userInfo.m_year < 1950 ? 1950 : this.userInfo.m_year;
             this.details.car = this.userInfo.m_car;
+
+            /** billing address */
+            this.details.b_lastname = this.billing.lastname;
+            this.details.b_firstname = this.billing.firstname;
+            this.details.b_address1 = this.billing.address1;
+            this.details.b_address2 = this.billing.address2;
+            this.details.b_city = this.billing.city;
+            this.details.b_state = this.billing.province;
+            this.details.b_zipcode = this.billing.postalcode;
+            this.details.b_country = this.billing.country == "US" ? "US" : "CA";
+            this.details.b_tel = this.billing.phone;
         }
     }
 
@@ -76916,274 +76929,6 @@ var render = function() {
                                 }
                               )
                             )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "part" },
-            [
-              _c("el-card", { staticClass: "box-card" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "clearfix",
-                    attrs: { slot: "header" },
-                    slot: "header"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    Shipping Information\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "text" }, [
-                  _c("div", { staticClass: "inRow" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-12" },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Address", prop: "address" } },
-                          [
-                            _c("el-input", {
-                              attrs: { placeholder: "Address" },
-                              model: {
-                                value: _vm.details.address,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.details, "address", $$v)
-                                },
-                                expression: "details.address"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "inRow" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-6" },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "City", prop: "city" } },
-                          [
-                            _c("el-input", {
-                              attrs: { placeholder: "City" },
-                              model: {
-                                value: _vm.details.city,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.details, "city", $$v)
-                                },
-                                expression: "details.city"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-6" },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Postal Code", prop: "zipcode" } },
-                          [
-                            _c("el-input", {
-                              attrs: { placeholder: "Postal Code" },
-                              model: {
-                                value: _vm.details.zipcode,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.details, "zipcode", $$v)
-                                },
-                                expression: "details.zipcode"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "inRow" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-6" },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Country", prop: "country" } },
-                          [
-                            _c(
-                              "el-select",
-                              {
-                                attrs: { placeholder: "Country" },
-                                on: {
-                                  change: function($event) {
-                                    _vm.details.state = ""
-                                  }
-                                },
-                                model: {
-                                  value: _vm.details.country,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.details, "country", $$v)
-                                  },
-                                  expression: "details.country"
-                                }
-                              },
-                              _vm._l(_vm.country, function(item) {
-                                return _c("el-option", {
-                                  key: item.name,
-                                  attrs: { label: item.name, value: item.Code }
-                                })
-                              })
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-6" },
-                      [
-                        _vm.details.country == "CA"
-                          ? _c(
-                              "el-form-item",
-                              { attrs: { label: "Province", prop: "state" } },
-                              [
-                                _c(
-                                  "el-select",
-                                  {
-                                    attrs: { placeholder: "Province" },
-                                    model: {
-                                      value: _vm.details.state,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.details, "state", $$v)
-                                      },
-                                      expression: "details.state"
-                                    }
-                                  },
-                                  _vm._l(_vm.privince, function(item) {
-                                    return _c("el-option", {
-                                      key: item.name,
-                                      attrs: {
-                                        label: item.name,
-                                        value: item.Code
-                                      }
-                                    })
-                                  })
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.details.country == "US"
-                          ? _c(
-                              "el-form-item",
-                              { attrs: { label: "Province", prop: "state" } },
-                              [
-                                _c(
-                                  "el-select",
-                                  {
-                                    attrs: { placeholder: "Province" },
-                                    model: {
-                                      value: _vm.details.state,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.details, "state", $$v)
-                                      },
-                                      expression: "details.state"
-                                    }
-                                  },
-                                  _vm._l(_vm.US_states, function(item) {
-                                    return _c("el-option", {
-                                      key: item.name,
-                                      attrs: {
-                                        label: item.name,
-                                        value: item.abbreviation
-                                      }
-                                    })
-                                  })
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "inRow" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-6" },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Tel", prop: "tel" } },
-                          [
-                            _c("el-input", {
-                              attrs: { type: "number", placeholder: "Tel" },
-                              model: {
-                                value: _vm.details.tel,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.details, "tel", $$v)
-                                },
-                                expression: "details.tel"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-xs-6" },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Mobile", prop: "mobile" } },
-                          [
-                            _c("el-input", {
-                              attrs: { type: "number", placeholder: "Mobile" },
-                              model: {
-                                value: _vm.details.mobile,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.details, "mobile", $$v)
-                                },
-                                expression: "details.mobile"
-                              }
-                            })
                           ],
                           1
                         )
@@ -77506,6 +77251,274 @@ var render = function() {
                                   _vm.$set(_vm.details, "b_tel", $$v)
                                 },
                                 expression: "details.b_tel"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "part" },
+            [
+              _c("el-card", { staticClass: "box-card" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "clearfix",
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Shipping Information\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "text" }, [
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Address", prop: "address" } },
+                          [
+                            _c("el-input", {
+                              attrs: { placeholder: "Address" },
+                              model: {
+                                value: _vm.details.address,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "address", $$v)
+                                },
+                                expression: "details.address"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-6" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "City", prop: "city" } },
+                          [
+                            _c("el-input", {
+                              attrs: { placeholder: "City" },
+                              model: {
+                                value: _vm.details.city,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "city", $$v)
+                                },
+                                expression: "details.city"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-6" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Postal Code", prop: "zipcode" } },
+                          [
+                            _c("el-input", {
+                              attrs: { placeholder: "Postal Code" },
+                              model: {
+                                value: _vm.details.zipcode,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "zipcode", $$v)
+                                },
+                                expression: "details.zipcode"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-6" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Country", prop: "country" } },
+                          [
+                            _c(
+                              "el-select",
+                              {
+                                attrs: { placeholder: "Country" },
+                                on: {
+                                  change: function($event) {
+                                    _vm.details.state = ""
+                                  }
+                                },
+                                model: {
+                                  value: _vm.details.country,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.details, "country", $$v)
+                                  },
+                                  expression: "details.country"
+                                }
+                              },
+                              _vm._l(_vm.country, function(item) {
+                                return _c("el-option", {
+                                  key: item.name,
+                                  attrs: { label: item.name, value: item.Code }
+                                })
+                              })
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-6" },
+                      [
+                        _vm.details.country == "CA"
+                          ? _c(
+                              "el-form-item",
+                              { attrs: { label: "Province", prop: "state" } },
+                              [
+                                _c(
+                                  "el-select",
+                                  {
+                                    attrs: { placeholder: "Province" },
+                                    model: {
+                                      value: _vm.details.state,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.details, "state", $$v)
+                                      },
+                                      expression: "details.state"
+                                    }
+                                  },
+                                  _vm._l(_vm.privince, function(item) {
+                                    return _c("el-option", {
+                                      key: item.name,
+                                      attrs: {
+                                        label: item.name,
+                                        value: item.Code
+                                      }
+                                    })
+                                  })
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.details.country == "US"
+                          ? _c(
+                              "el-form-item",
+                              { attrs: { label: "Province", prop: "state" } },
+                              [
+                                _c(
+                                  "el-select",
+                                  {
+                                    attrs: { placeholder: "Province" },
+                                    model: {
+                                      value: _vm.details.state,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.details, "state", $$v)
+                                      },
+                                      expression: "details.state"
+                                    }
+                                  },
+                                  _vm._l(_vm.US_states, function(item) {
+                                    return _c("el-option", {
+                                      key: item.name,
+                                      attrs: {
+                                        label: item.name,
+                                        value: item.abbreviation
+                                      }
+                                    })
+                                  })
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-6" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Tel", prop: "tel" } },
+                          [
+                            _c("el-input", {
+                              attrs: { type: "number", placeholder: "Tel" },
+                              model: {
+                                value: _vm.details.tel,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "tel", $$v)
+                                },
+                                expression: "details.tel"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-6" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Mobile", prop: "mobile" } },
+                          [
+                            _c("el-input", {
+                              attrs: { type: "number", placeholder: "Mobile" },
+                              model: {
+                                value: _vm.details.mobile,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "mobile", $$v)
+                                },
+                                expression: "details.mobile"
                               }
                             })
                           ],
@@ -81660,6 +81673,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -81672,7 +81702,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             subtotal: this.$route.params.subtotal,
             hst: this.$route.params.hst,
             total: this.$route.params.total
-        }, _defineProperty(_ref, 'subtotal', this.$route.params.subtotal), _defineProperty(_ref, 'shippingDays', this.$route.params.shippingDays), _defineProperty(_ref, 'shipping', this.$route.params.shipping), _defineProperty(_ref, 'loading', 0), _defineProperty(_ref, 'userInfo', []), _defineProperty(_ref, 'address', []), _ref;
+        }, _defineProperty(_ref, 'subtotal', this.$route.params.subtotal), _defineProperty(_ref, 'shippingDays', this.$route.params.shippingDays), _defineProperty(_ref, 'shipping', this.$route.params.shipping), _defineProperty(_ref, 'loading', 0), _defineProperty(_ref, 'userInfo', []), _defineProperty(_ref, 'address', []), _defineProperty(_ref, 'billing', []), _defineProperty(_ref, 'edit', false), _ref;
     },
 
     computed: {},
@@ -81684,6 +81714,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             // have to validate the user name and password once more here
             var userData = JSON.parse(this.storage.getItem('user'));
             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+            this.billing = JSON.parse(this.storage.getItem('billing'));
             /** check again */
         } else {
             this.$store.commit('changeLoginDirect', 'home');
@@ -81784,12 +81815,82 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "shipingTo" }, [
+        _c("div", { staticClass: "shipingTo col-xs-6" }, [
           _c(
             "div",
-            { staticClass: "col-xs-12" },
+            {},
             [
-              _c("h4", [_vm._v("Shipping To")]),
+              _c(
+                "h4",
+                {
+                  staticStyle: {
+                    display: "flex",
+                    "justify-content": "space-between"
+                  }
+                },
+                [
+                  _c("div", [_vm._v("Billing Address")]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticStyle: { "font-size": "80%", cursor: "pointer" },
+                      on: {
+                        click: function($event) {
+                          _vm.$router.push({
+                            path: "/CustomerInfo/ChangeProfile"
+                          })
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("el-card", { staticClass: "box-card" }, [
+                _c("h5", [
+                  _c("b", [
+                    _vm._v(
+                      _vm._s(_vm.billing.firstname) +
+                        " " +
+                        _vm._s(_vm.billing.lastname)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.billing.address1) +
+                      "," +
+                      _vm._s(_vm.billing.address2) +
+                      ", " +
+                      _vm._s(_vm.billing.city) +
+                      ", " +
+                      _vm._s(_vm.billing.zipcode)
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.billing.province) +
+                      ", " +
+                      _vm._s(_vm.billing.country)
+                  )
+                ])
+              ])
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "shipingTo col-xs-6" }, [
+          _c(
+            "div",
+            {},
+            [
+              _c("h4", [_vm._v("Shipping Address ")]),
               _vm._v(" "),
               _vm.addressID != 0
                 ? _c("el-card", { staticClass: "box-card" }, [
