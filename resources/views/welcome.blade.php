@@ -18,6 +18,14 @@
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+        {{-- checkout payment --}}
+        <script src='https://libs.na.bambora.com/customcheckout/1/customcheckout.js'></script>
+
+        <script src='https://libs.na.bambora.com/customcheckout/1/customcheckout.js'></script>
+        
+        
+
         <style>
             *{
                 font-family: Arial, Helvetica, sans-serif;

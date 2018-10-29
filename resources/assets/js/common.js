@@ -69,7 +69,7 @@ export const myMixin = {
         // this.$notify({
         //   title: 'Succsesfully.',
         //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
-        // });
+        // })
 
         this.$confirm('', 'Congratulation', {
           confirmButtonText: 'Continue Shopping',
@@ -80,7 +80,6 @@ export const myMixin = {
           this.$router.push({ path: '/allProducts' });
         }).catch(() => {
           this.$router.push({ name: 'ShoppingCart' });
-
         });
       }
     },
@@ -116,6 +115,18 @@ export const myMixin = {
 
     myRange(start) {
       let end = (new Date()).getFullYear();
+      let ar = [];
+      let l = parseInt(end) - parseInt(start);
+      for (let i = 0; i <= l; i++) {
+        ar[i] = start;
+        start++;
+      }
+      return ar;
+    },
+
+    myYear() {
+      let start = (new Date()).getFullYear();
+      let end = start + 10;
       let ar = [];
       let l = parseInt(end) - parseInt(start);
       for (let i = 0; i <= l; i++) {

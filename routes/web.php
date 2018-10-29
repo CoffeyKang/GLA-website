@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/kang',"AccessControl@kang");
+Route::get('/kang',"PaymentController@TestPayment");
 
 Route::get('/', function () {
     return view('welcome');

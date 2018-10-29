@@ -293,10 +293,13 @@ class AccessControl extends Controller
 
     /** test page */
     public function kang(){
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, 'localhost:8000/api/makes'); 
         
+        // $output = curl_exec($ch);
     
             
-        InventoryExcelFile();
+        // dd($output);
     
         
 

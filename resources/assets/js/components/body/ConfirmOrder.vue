@@ -1,7 +1,7 @@
 <template>
     <div class="container" v-loading='loading'  
 		element-loading-text="Calculating ..."
-        
+        style='padding-bottom:30px;'
 	>
         <h3>Payment</h3>
         <el-steps :active="3" finish-status="success">
@@ -64,6 +64,69 @@
                     </div>
             </div>
 
+            <div class="col-xs-12 ">
+                <fieldset>
+                    <legend>Card Information</legend>
+                    <div class="control-group col-xs-4">
+                        <label label-default="" class="control-label">Card Holder's Name</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" pattern="\w+ \w+.*" placeholder="Name on card" required v-model='card.name'>
+                        </div>
+                    </div>
+                    <div class="control-group col-xs-8">
+                        <label label-default="" class="control-label">Card Number</label>
+                        <div class="controls">
+                            <div class="row">
+                                <div>
+                                    <input type="text" class="form-control" v-model='card.card' autocomplete="off" maxlength="16" pattern="\d{16}" placeholder="Input your card number" required >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group col-xs-6">
+                        <label label-default="" class="control-label">Card Expiry Date</label>
+                        <div class="controls">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="form-control" name="cc_exp_mo" v-model='card.month'>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    
+                                    <select class="form-control" name="cc_exp_yr" v-model='card.year' >
+                                        <option v-for="year in myYear(2000)" :key="year">{{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group col-xs-6">
+                        <label label-default="" class="control-label">Card CVV</label>
+                        <div class="controls">
+                            <div class="row">
+                                <div>
+                                    <input type="text" v-model='card.cvv' class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" placeholder="Three digits at back of your card">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </fieldset>
+            </div>
+
             
 
         </div>
@@ -101,14 +164,17 @@
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <button class='mybtn btn btn-success'>Place Order</button>
+                        <button class='mybtn btn btn-success' @click="placeOrder()">Place Order</button>
                     </div>
                 </div>
                     
             </div>
-
             
         </div>
+
+
+        
+        
         
     </div>
 </template>
@@ -130,6 +196,11 @@ export default {
             address:[],
             billing:[],
             edit:false,
+            card:{
+               month:(new Date()).getMonth() +1,
+               year:(new Date()).getFullYear(),
+            },
+
         }
     },
         computed:{
@@ -166,6 +237,10 @@ export default {
 
                 });
             }
+
+           if (this.card.month<10) {
+               this.card.month = "0" + toString(this.card.month);
+           }
             /** after payment should display an order */
             // this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
             //     this.somast = response.data.somast;
@@ -177,9 +252,27 @@ export default {
             // })
         },
         methods:{
-            
+            placeOrder(){
+                this.$http.post('/api/finishOrder',
+                    {   
+                        custno:JSON.parse(this.storage.getItem('user')).id,
+                        billing:this.billing,
+                        address:this.address,
+                        hst:this.hst,
+                        total:this.total,
+                        subtotal:this.subtotal,
+                        shippingDays:this.shippingDays,
+                        shipping:this.shipping,
+                        card:this.card,
+                        addressID:this.addressID,
+                    }
+                    ).then(response=>{
+                    console.log(response);
+                });
+            },
         },
         watch:{
+
         }
     
 

@@ -66259,7 +66259,7 @@ var myMixin = {
         // this.$notify({
         //   title: 'Succsesfully.',
         //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
-        // });
+        // })
 
         this.$confirm('', 'Congratulation', {
           confirmButtonText: 'Continue Shopping',
@@ -66310,6 +66310,17 @@ var myMixin = {
 
     myRange: function myRange(start) {
       var end = new Date().getFullYear();
+      var ar = [];
+      var l = parseInt(end) - parseInt(start);
+      for (var i = 0; i <= l; i++) {
+        ar[i] = start;
+        start++;
+      }
+      return ar;
+    },
+    myYear: function myYear() {
+      var start = new Date().getFullYear();
+      var end = start + 10;
       var ar = [];
       var l = parseInt(end) - parseInt(start);
       for (var i = 0; i <= l; i++) {
@@ -81690,6 +81701,72 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -81702,7 +81779,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             subtotal: this.$route.params.subtotal,
             hst: this.$route.params.hst,
             total: this.$route.params.total
-        }, _defineProperty(_ref, 'subtotal', this.$route.params.subtotal), _defineProperty(_ref, 'shippingDays', this.$route.params.shippingDays), _defineProperty(_ref, 'shipping', this.$route.params.shipping), _defineProperty(_ref, 'loading', 0), _defineProperty(_ref, 'userInfo', []), _defineProperty(_ref, 'address', []), _defineProperty(_ref, 'billing', []), _defineProperty(_ref, 'edit', false), _ref;
+        }, _defineProperty(_ref, 'subtotal', this.$route.params.subtotal), _defineProperty(_ref, 'shippingDays', this.$route.params.shippingDays), _defineProperty(_ref, 'shipping', this.$route.params.shipping), _defineProperty(_ref, 'loading', 0), _defineProperty(_ref, 'userInfo', []), _defineProperty(_ref, 'address', []), _defineProperty(_ref, 'billing', []), _defineProperty(_ref, 'edit', false), _defineProperty(_ref, 'card', {
+            month: new Date().getMonth() + 1,
+            year: new Date().getFullYear()
+        }), _ref;
     },
 
     computed: {},
@@ -81731,6 +81811,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
             });
         }
+
+        if (this.card.month < 10) {
+            this.card.month = "0" + toString(this.card.month);
+        }
         /** after payment should display an order */
         // this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
         //     this.somast = response.data.somast;
@@ -81742,7 +81826,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         // })
     },
 
-    methods: {},
+    methods: {
+        placeOrder: function placeOrder() {
+            this.$http.post('/api/finishOrder', {
+                custno: JSON.parse(this.storage.getItem('user')).id,
+                billing: this.billing,
+                address: this.address,
+                hst: this.hst,
+                total: this.total,
+                subtotal: this.subtotal,
+                shippingDays: this.shippingDays,
+                shipping: this.shipping,
+                card: this.card,
+                addressID: this.addressID
+            }).then(function (response) {
+                console.log(response);
+            });
+        }
+    },
     watch: {}
 
 });
@@ -81767,6 +81868,7 @@ var render = function() {
         }
       ],
       staticClass: "container",
+      staticStyle: { "padding-bottom": "30px" },
       attrs: { "element-loading-text": "Calculating ..." }
     },
     [
@@ -81960,6 +82062,286 @@ var render = function() {
             ],
             1
           )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-xs-12 " }, [
+          _c("fieldset", [
+            _c("legend", [_vm._v("Card Information")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group col-xs-4" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "control-label",
+                  attrs: { "label-default": "" }
+                },
+                [_vm._v("Card Holder's Name")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "controls" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.card.name,
+                      expression: "card.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    pattern: "\\w+ \\w+.*",
+                    placeholder: "Name on card",
+                    required: ""
+                  },
+                  domProps: { value: _vm.card.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.card, "name", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group col-xs-8" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "control-label",
+                  attrs: { "label-default": "" }
+                },
+                [_vm._v("Card Number")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "controls" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.card.card,
+                          expression: "card.card"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        autocomplete: "off",
+                        maxlength: "16",
+                        pattern: "\\d{16}",
+                        placeholder: "Input your card number",
+                        required: ""
+                      },
+                      domProps: { value: _vm.card.card },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.card, "card", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group col-xs-6" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "control-label",
+                  attrs: { "label-default": "" }
+                },
+                [_vm._v("Card Expiry Date")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "controls" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.card.month,
+                            expression: "card.month"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "cc_exp_mo" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.card,
+                              "month",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "01" } }, [
+                          _vm._v("January")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "02" } }, [
+                          _vm._v("February")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "03" } }, [
+                          _vm._v("March")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "04" } }, [
+                          _vm._v("April")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "05" } }, [
+                          _vm._v("May")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "06" } }, [
+                          _vm._v("June")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "07" } }, [
+                          _vm._v("July")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "08" } }, [
+                          _vm._v("August")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "09" } }, [
+                          _vm._v("September")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "10" } }, [
+                          _vm._v("October")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "11" } }, [
+                          _vm._v("November")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "12" } }, [
+                          _vm._v("December")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.card.year,
+                            expression: "card.year"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "cc_exp_yr" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.card,
+                              "year",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.myYear(2000), function(year) {
+                        return _c("option", { key: year }, [
+                          _vm._v(_vm._s(year))
+                        ])
+                      })
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group col-xs-6" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "control-label",
+                  attrs: { "label-default": "" }
+                },
+                [_vm._v("Card CVV")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "controls" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.card.cvv,
+                          expression: "card.cvv"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        autocomplete: "off",
+                        maxlength: "3",
+                        pattern: "\\d{3}",
+                        placeholder: "Three digits at back of your card"
+                      },
+                      domProps: { value: _vm.card.cvv },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.card, "cvv", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ])
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -82026,7 +82408,20 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: " summary_list text-center" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "mybtn btn btn-success",
+                    on: {
+                      click: function($event) {
+                        _vm.placeOrder()
+                      }
+                    }
+                  },
+                  [_vm._v("Place Order")]
+                )
+              ])
             ])
           ])
         ]
@@ -82051,16 +82446,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("QTY")]),
         _vm._v(" "),
         _c("th", [_vm._v("Price")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: " summary_list text-center" }, [
-      _c("button", { staticClass: "mybtn btn btn-success" }, [
-        _vm._v("Place Order")
       ])
     ])
   }

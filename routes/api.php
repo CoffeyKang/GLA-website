@@ -152,6 +152,9 @@ Route::post('/dealerConfirm','DealerController@dealerConfirm');
 Route::get('/exchangeRate','InventoryController@exchangeRate');
 
 
+Route::post('/finishOrder','InventoryController@placeOrder');
+
+
 
 
 

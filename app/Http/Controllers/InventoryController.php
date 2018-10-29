@@ -1730,5 +1730,169 @@ class InventoryController extends Controller
 
         return response()->json(['exchangeRate'=>$exchangeRate],200); 
     }
+
+    /** place order */
+    /** get custno , shipping , billing , tax , shipping fee, shipping days  card information*/
+    public function placeOrder(Request $request){
+
+        $customer = User::find($request->custno);
+        
+        $shortlist = Temp_SO::where('cust_id',$request->custno)->get();
+
+        $orderNumber = SOMAST::all()->max('order_num')+6;
+
+        $cardNum = $request->card['card1'] . $request->card['card2'] .$request->card['card3'].$request->card['card4'];
+
+        $month = $request->card['month'];
+
+        $year = substr($request->card['year'],-2);
+
+        $cvv = $request->card['cvv'];
+
+        $name = $request->card['name'];
+
+        /** shipping address */
+
+        
+        if ($request->addressID!=0) {
+            $addr = AddressBook::find($request->addressID);
+            
+            if ($addr) {
+                $shippingArray =  array(
+                    'name' => $addr->forename.' '.$addr->forename,
+                    'phone_number' =>$addr->tel,
+                    'address_line1' => $addr->address,
+                    'city' => $addr->city,
+                    'province' => $addr->state,
+                    'postal_code' =>$addr->zipcode,
+                    'country' => $addr->country,
+            );
+            }else{
+                $addr = $customer->userDetails;
+                $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+                ); 
+            }
+            
+        }else{
+            $addr = $customer->userDetails;
+            $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+            );
+        }
+
+        
+        /** payment api config */
+        $merchant_id = '117686147'; //INSERT MERCHANT ID (must be a 9 digit string)
+        $api_key = 'B452F4E8020a4746aDa2FC5c468Ab17a'; //INSERT API ACCESS PASSCODE
+        $api_version = 'v1'; //default
+        $platform = 'api'; //default
+        //Create Beanstream Gateway
+        $beanstream = new \Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
+        //Example Card Payment Data
+        $payment_data = array(
+                'order_number' => $orderNumber,
+                'amount' => $request->total,
+                'payment_method' => 'card',
+                'card' => array(
+                    'name' => 'Mr. Card Testerson',
+                    'number' => $cardNum,
+                    'expiry_month' => $month,
+                    'expiry_year' => $year,
+                    'cvd' => $cvv 
+                ),
+                'billing' => array(
+                    'name' => $request->billing['firstname'].' '.$request->billing['lastname'],
+                    'phone_number' => $request->billing['phone'],
+                    'address_line1' => $request->billing['address1'],
+                    'city' => $request->billing['city'],
+                    'province' => $request->billing['province'],
+                    'postal_code' => $request->billing['postalcode'],
+                    'country' => $request->billing['country'],
+                ),
+                'shipping' => $shippingArray,
+        );
+        
+        
+        $complete = TRUE; 
+        try {
+            $result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
+
+            $somast = new SOMAST;
+
+            $somast->order_num = $orderNumber;
+
+            $somast->m_id = $customer->id;
+
+            $somast->subtotal = $request->subtotal;
+
+            $somast->tax = $request->hst;
+
+            $somast->currency = "CAD";
+
+            $somast->shipping = $request->shipping;
+
+            $somast->address = $request->addressID;
+
+            $somast->shippingdays = $request->shippingDays;
+
+            $somast->date_order = date('Y-m-d');
+
+            $somast->sales_status = 1;
+
+            $somast->save();
+
+
+            /** store to sotran  */
+            foreach ($shortlist as $item) {
+            
+                $sotran = new SOTRAN;
+
+                $sotran->order_num = $somast->order_num;
+
+                $sotran->m_id = $request->custno;
+
+                $sotran->item = $item->item;
+
+                $sotran->qty = $item->qty;
+
+                $sotran->price = $item->itemInfo->pricel;
+
+                $sotran->make = $item->itemInfo->make;
+
+                $sotran->date_sold = date("Y-m-d");
+
+                $sotran->sale = 0;
+
+                $sotran->save();
+
+                $item->delete();
+            }
+
+            return response()->json(['result',$result],200);
+            
+        } catch (\Beanstream\Exception $e) {
+            /*
+            * Handle transaction error, $e->code can be checked for a
+            * specific error, e.g. 211 corresponds to transaction being
+            * DECLINED, 314 - to missing or invalid payment information
+            * etc.
+            */
+           
+            return response()->json(['result',$e],200);
+        }
+    }
     
 }
