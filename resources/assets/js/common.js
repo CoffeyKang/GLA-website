@@ -50,6 +50,7 @@ export const myMixin = {
 
     // addToCart
     addToCart_common(item) {
+      console.log(item);
       if (item.onhand < 1) {
         this.$alert('Out of stock', 'Warning', {
           confirmButtonText: 'OK'
@@ -65,7 +66,7 @@ export const myMixin = {
 
           this.$store.commit('carts_number', newNumber);
         }
-        const h = this.$createElement;
+        // const h = this.$createElement;
         // this.$notify({
         //   title: 'Succsesfully.',
         //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')

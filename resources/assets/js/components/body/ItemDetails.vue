@@ -49,7 +49,7 @@
 							</div>
 						</div>
 						<div class="action_right">
-							<button class='btn btn-primary addToCart' id='addToCart' @click='addToCart_common(item.item)'>Add To Cart</button>
+							<button class='btn btn-primary addToCart' id='addToCart' @click='addToCart_common(item)'>Add To Cart</button>
 						</div>
 					</div>
 				</div>
