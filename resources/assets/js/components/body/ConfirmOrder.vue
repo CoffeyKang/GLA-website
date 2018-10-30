@@ -70,7 +70,7 @@
                     <div class="control-group col-xs-4">
                         <label label-default="" class="control-label">Card Holder's Name</label>
                         <div class="controls">
-                            <input type="text" class="form-control" pattern="\w+ \w+.*" placeholder="Name on card" required v-model='card.name'>
+                            <input type="text" id='cardName' class="form-control" pattern="\w+ \w+.*" placeholder="Name on card" required v-model='card.name'>
                         </div>
                     </div>
                     <div class="control-group col-xs-8">
@@ -78,7 +78,7 @@
                         <div class="controls">
                             <div class="row">
                                 <div>
-                                    <input type="text" class="form-control" v-model='card.card' autocomplete="off" maxlength="16" pattern="\d{16}" placeholder="Input your card number" required >
+                                    <input type="text" id='cardNumber' class="form-control" v-model='card.card' autocomplete="off" minlength="16" maxlength="16"  placeholder="Input your card number" required >
                                 </div>
                             </div>
                         </div>
@@ -117,10 +117,15 @@
                         <div class="controls">
                             <div class="row">
                                 <div>
-                                    <input type="text" v-model='card.cvv' class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" placeholder="Three digits at back of your card">
+                                    <input type="text" id='cardCVV' v-model='card.cvv' class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" placeholder="Three digits at back of your card">
                                 </div>
-                                
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group col-xs-12 alert alert-danger" style='margin:15px 0;' v-if="paymentError">
+                        <div class="col-xs-12">
+                                {{error}}
                         </div>
                     </div>
                     
@@ -200,6 +205,8 @@ export default {
                month:(new Date()).getMonth() +1,
                year:(new Date()).getFullYear(),
             },
+            paymentError:false,
+            error:'',
 
         }
     },
@@ -241,34 +248,61 @@ export default {
            if (this.card.month<10) {
                this.card.month = "0" + toString(this.card.month);
            }
-            /** after payment should display an order */
-            // this.$http.get('/api/oneOrder/'+this.sono).then((response)=>{
-            //     this.somast = response.data.somast;
-            //     this.carts = response.data.sotran;
-            //     this.address = response.data.address;
-                
-            //     this.loading = 0;
-            //     console.log(response);
-            // })
         },
         methods:{
             placeOrder(){
-                this.$http.post('/api/finishOrder',
-                    {   
-                        custno:JSON.parse(this.storage.getItem('user')).id,
-                        billing:this.billing,
-                        address:this.address,
-                        hst:this.hst,
-                        total:this.total,
-                        subtotal:this.subtotal,
-                        shippingDays:this.shippingDays,
-                        shipping:this.shipping,
-                        card:this.card,
-                        addressID:this.addressID,
+                this.loading = 1;
+                if (!this.card.name || !this.card.card || !this.card.cvv || this.card.card.length<16) {
+                    if (!this.card.name) {
+                        $('#cardName').css('border','1px solid red');
+                    }else{}
+                    
+                    if (!this.card.card || this.card.card.length<16){
+                        $('#cardNumber').css('border','1px solid red');
+                    }else{
                     }
-                    ).then(response=>{
-                    console.log(response);
-                });
+
+                    if (!this.card.cvv){
+                       
+                        $('#cardCVV').css('border','1px solid red');
+                    }else{
+
+                    }
+                    this.loading = 0;
+                    return false;
+                }else{
+                    
+                    this.$http.post('/api/finishOrder',
+                        {   
+                            custno:JSON.parse(this.storage.getItem('user')).id,
+                            billing:this.billing,
+                            address:this.address,
+                            hst:this.hst,
+                            total:this.total,
+                            subtotal:this.subtotal,
+                            shippingDays:this.shippingDays,
+                            shipping:this.shipping,
+                            card:this.card,
+                            addressID:this.addressID,
+                        }
+                        ).then(response=>{
+                        this.loading = 0;
+                        // console.log(response.data);
+                        if (response.data.result) {
+                            this.carts.forEach(element => {
+                                this.storage.removeItem(element.item);
+                                this.$store.commit('carts_number',0);
+                            });
+
+                            this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
+                        }else{
+                            this.paymentError = true;
+
+                            this.error='Declined please try again';
+                        }
+                    });
+                }
+                
             },
         },
         watch:{

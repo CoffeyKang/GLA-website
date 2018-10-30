@@ -18,7 +18,7 @@ class PaymentController extends Controller
 
         //Example Card Payment Data
         $payment_data = array(
-                'order_number' => 'a1b12c31',
+                'order_number' => '0000124',
                 'amount' => 1.00,
                 'payment_method' => 'card',
                 'card' => array(
@@ -26,7 +26,7 @@ class PaymentController extends Controller
                     'number' => '4030000010001234',
                     'expiry_month' => '07',
                     'expiry_year' => '22',
-                    'cvd' => '123'
+                    'cvd' => '321'
                 )
         );
 
@@ -60,7 +60,9 @@ class PaymentController extends Controller
             * DECLINED, 314 - to missing or invalid payment information
             * etc.
             */
-            dd( $e );
+            
+
+            dd($e);
             
         }
     }

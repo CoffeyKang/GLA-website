@@ -1252,7 +1252,15 @@ class InventoryController extends Controller
                 $item->make = $iteminfo->all_makes;
             }
 
-            return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid'],200);
+            $address = $history->address;
+            if ($address==0) {
+                return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid','address'=>0],200);
+            }else{
+                $addressBook = AddressBook::find($address);
+
+                return response()->json(['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid','address'=>$addressBook],200);
+
+            }
         
         }else{
 
@@ -1739,9 +1747,9 @@ class InventoryController extends Controller
         
         $shortlist = Temp_SO::where('cust_id',$request->custno)->get();
 
-        $orderNumber = SOMAST::all()->max('order_num')+6;
+        $orderNumber = SOMAST::all()->max('order_num')+1;
 
-        $cardNum = $request->card['card1'] . $request->card['card2'] .$request->card['card3'].$request->card['card4'];
+        $cardNum = $request->card['card'];
 
         $month = $request->card['month'];
 
@@ -1881,7 +1889,7 @@ class InventoryController extends Controller
                 $item->delete();
             }
 
-            return response()->json(['result',$result],200);
+            return response()->json(['result'=>$result],200);
             
         } catch (\Beanstream\Exception $e) {
             /*
@@ -1889,9 +1897,13 @@ class InventoryController extends Controller
             * specific error, e.g. 211 corresponds to transaction being
             * DECLINED, 314 - to missing or invalid payment information
             * etc.
-            */
-           
-            return response()->json(['result',$e],200);
+            */  
+
+            
+            $errors = $e;
+
+
+            return $errors;
         }
     }
     
