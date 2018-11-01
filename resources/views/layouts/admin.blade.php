@@ -99,7 +99,7 @@
                             <a class="nav-link active" id="home"   href="/home" role="tab">Admin Home | {{Auth::user()->name}} </a>
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Dealer Managenment</b></a>
                             <a class="nav-link" id="dealerList" href="/dealerList" role="tab">Dealer List</a>
-                            <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a>
+                            {{-- <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a> --}}
                             <a class="nav-link" id="dealerHistory" href="/dealerHistory" role="tab">Dealer Order History</a>
                             
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Member Managenment</b></a>
@@ -124,10 +124,10 @@
 
                             <a class="nav-link" id="" href="#v" role="tab">Update Feature Products</a>
                             <a class="nav-link" id="" href="#v" role="tab">Broadcasting Email</a>
-
+                            <a class="nav-link" id="" href="/exchangeRate" role="tab">Change Exchange Rate</a>
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Account Details</a> --}}
                             {{-- <a class="nav-link" id="updateInfo"  href="/updateInfo" role="tab">Edit Profile</a> --}}
-                            <a class="nav-link" id="uploadCatalog" href="/uploadCatalog" role="tab">UploadCatalog</a>
+                            {{-- <a class="nav-link" id="uploadCatalog" href="/uploadCatalog" role="tab">UploadCatalog</a> --}}
                             <a class="nav-link" id="changePassword" href="/changePassword" role="tab">Change Password</a>
                         </div>
                     </div>

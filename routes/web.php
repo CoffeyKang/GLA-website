@@ -63,5 +63,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/updateDealer/{id}','AdminController@updateDealer');
 
-    ROute::get('/uploadCatalog','AdminController@uploadCatalog');
+    Route::get('/uploadCatalog','AdminController@uploadCatalog');
+
+    Route::get('/shippingOrder/{order_num}','AdminController@shippingOrder');
+
+    Route::post('/updateShipping','AdminController@updateShipping');
+
+    Route::get('/exchangeRate','AdminController@exchangeRate');
+    Route::get('/updateExchangeRate','AdminController@updateExchangeRate');
 });

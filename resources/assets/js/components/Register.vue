@@ -247,7 +247,8 @@
                                     'email':this.details.email,
                                     'password':this.details.password,
                                     'receiveEmail':this.details.receiveEmail,
-                                    'myCaptcha':this.myCaptcha, 
+                                    'myCaptcha':this.myCaptcha,
+                                    "checked":this.details.checked, 
                                     'captcha': grecaptcha.getResponse()
 
                                     }).then((response)=>{

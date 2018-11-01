@@ -39,7 +39,7 @@
                         <h4 style='display:flex;justify-content:space-between'><div>Billing Address</div> <div style='font-size:80%;cursor:pointer' @click='$router.push({path:"/CustomerInfo/ChangeProfile"})'>Edit</div></h4>
                         <el-card class="box-card">
                                 <h5><b>{{billing.firstname}} {{billing.lastname}}</b> <br> <br>
-                                {{billing.address1}},{{billing.address2}}, {{billing.city}}, {{billing.zipcode}}<br>
+                                {{billing.address1}},{{billing.address2}}, {{billing.city}}, {{billing.postalcode}}<br>
                                 {{billing.province}}, {{billing.country}}</h5>
                         </el-card>
 

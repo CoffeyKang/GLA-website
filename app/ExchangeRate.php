@@ -8,5 +8,5 @@ class ExchangeRate extends Model
 {
     protected $table = 'exchangerate';
 
-    public $timesstamps = false;
+    public $timestamps = false;
 }

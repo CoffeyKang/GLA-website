@@ -3,6 +3,7 @@
         <div class="edit_title">
             Pending Order
         </div>
+        
         <table class="table table-striped table-hover" style='margin-top:20px;'>
             <thead>
                 <tr>

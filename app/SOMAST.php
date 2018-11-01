@@ -28,7 +28,7 @@ class SOMAST extends Model
 
     // belongs to this customer
     public function customer(){
-        return $this->belongsTo('App\User',"m_id","m_id");
+        return $this->belongsTo('App\User',"m_id","id");
     }
 
     public function customerInfo(){

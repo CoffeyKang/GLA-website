@@ -81,7 +81,7 @@
 
                         <div class="inRow">
                             <div class="col-xs-12">
-                                <el-form-item label="address2" prop='address'>
+                                <el-form-item label="address2" prop='address2'>
                                     <el-input v-model="details.b_address2" placeholder="address2" ></el-input>
                                 </el-form-item>
                             </div>
@@ -343,7 +343,7 @@ export default {
                 b_firstname:'',
                 b_lastname:'',
                 b_address1:'',
-                b_address2:'',
+                b_address2:' ',
                 b_city:'',
                 b_province:'',
                 b_country:'',

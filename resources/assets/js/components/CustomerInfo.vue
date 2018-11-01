@@ -239,7 +239,7 @@
                     </el-card>
                     <el-form-item style='margin-top:30px;'>
                         <el-button type='default' @click="resetForm(details)">Reset</el-button>
-                        <el-button type="success" @click="submitForm(details)">Complate </el-button>
+                        <el-button type="success" @click="submitForm(details)">Complete </el-button>
                     </el-form-item>
                 </el-form>
                 </div>

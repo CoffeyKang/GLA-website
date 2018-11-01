@@ -82,6 +82,8 @@ class AccessControl extends Controller
         
         $email = $request->email;
 
+        $check = $request->checked;
+
         $password = $request->password;
 
         $receiveEmail = $request->receiveEmail;
@@ -90,6 +92,7 @@ class AccessControl extends Controller
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,
+            'receiveEmail'=>$check,
             'password' => bcrypt($password),
         ]);
         
@@ -245,8 +248,6 @@ class AccessControl extends Controller
              $userInfo->m_year = $data["year"];
              $userInfo->m_make = $data["model"];
              $userInfo->m_car = $data["car"];
-
-            
              $userInfo->save();
 
          }
@@ -256,7 +257,12 @@ class AccessControl extends Controller
         $billing->firstname = $data["b_firstname"];
         $billing->lastname = $data["b_lastname"];
         $billing->address1 = $data["b_address1"];
-        $billing->address2 = $data["b_address2"];
+        if (array_key_exists('b_address2',$data)){
+            $billing->address2 = $data["b_address2"];
+            # code...
+        }else{
+
+        }
         $billing->city = $data["b_city"];
         $billing->province = $data["b_state"];
         $billing->postalcode = $data["b_zipcode"];

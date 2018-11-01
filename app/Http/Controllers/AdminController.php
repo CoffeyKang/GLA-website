@@ -21,6 +21,7 @@ use App\DealerInfo;
 use App\DealerHistory;
 use App\DealerDetails;
 use App\Catalog;
+use App\ExchangeRate;
 use Auth;
 
 class AdminController extends Controller
@@ -69,7 +70,7 @@ class AdminController extends Controller
 
     public function pendingQuotes(){
 
-        $pendingQuotes = SOMAST::where('sales_status','!=',9)->get();
+        $pendingQuotes = SOMAST::orderBy('order_num','desc')->where('sales_status','!=',9)->get();
 
         return view('admin.pendingQuotes',compact('pendingQuotes'));
     }
@@ -119,7 +120,7 @@ class AdminController extends Controller
 
     public function dealerHistory(){
 
-        $dealerHistory = DealerHistory::orderBy('id','asc')->paginate(18);
+        $dealerHistory = DealerHistory::orderBy('id','desc')->paginate(18);
 
         return view('admin.dealerHistory',compact('dealerHistory'));
     }
@@ -235,6 +236,100 @@ class AdminController extends Controller
     public function uploadCatalog(){
         $catalogs = Catalog::all();
         return view('admin.uploadCatalog',compact('catalogs'));
+    }
+
+    public function shippingOrder($order_num){
+        
+        $somast = SOMAST::where('order_num',$order_num)->first();
+
+        $sotran = $somast->sotran;
+        
+        $customer = $somast->customer;
+
+        $customerInfo = $somast->customerInfo;
+
+        if ($somast->addressID!=0) {
+            $addr = AddressBook::find($request->addressID);
+            if ($addr) {
+                $shippingArray =  array(
+                    'name' => $addr->forename.' '.$addr->forename,
+                    'phone_number' =>$addr->tel,
+                    'address_line1' => $addr->address,
+                    'city' => $addr->city,
+                    'province' => $addr->state,
+                    'postal_code' =>$addr->zipcode,
+                    'country' => $addr->country,
+            );
+            }else{
+                $addr = $customerInfo;
+                $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+                ); 
+            }
+            
+        }else{
+            $addr = $customerInfo;
+            $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+            );
+        }
+
+        return view('admin.shippingOrder',compact('somast','sotran','customer','customerInfo','shippingArray'));
+    }
+
+    public function updateShipping(Request $request){
+        $this->validate($request,[
+            'courier'=>'required',
+            'track_num'=>'required',
+        ]);
+
+
+        $sono = $request->sono;
+
+        $somast = SOMAST::where('order_num',$sono)->first();
+
+        if ($somast) {
+            $somast->courier = $request->courier;
+            $somast->track_num = $request->track_num;
+            $somast->notes = $request->note;
+            $somast->sales_status = 9;
+            $somast->save();
+        }else{
+
+        }
+        return redirect('/pendingQuotes')->with('status', "Order $sono shipped.");
+    }
+
+    public function exchangeRate(){
+        $exchange = ExchangeRate::find(1);
+        return view('admin.exchangeRate',compact('exchange'));
+    }
+
+    public function updateExchangeRate(Request $request){
+        $this->validate($request, [
+            'exchange'=>'required|numeric|min:0|max:99',
+        ]);
+
+        $exchange = ExchangeRate::find(1);
+
+        $exchange->exchangeRate = $request->exchange;
+
+        $exchange->save();
+
+
+        return redirect()->back()->with('status','Exchange rate update.');
     }
 
 }

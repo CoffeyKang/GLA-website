@@ -12,7 +12,7 @@
                 <th scope="col">Dealer name</th>
                 <th scope="col"># of Orders</th>
                 <th scope='col'>price plan</th>
-                <th scope='col'class='text-center'>Actions</th>
+                <th scope='col'class='text-center'>History</th>
                 
                 
             </tr>
@@ -22,15 +22,15 @@
                 <tr>
                     <td>{{$d->account}}</td>
                     <td>
-                        {{$d->dealerInfo()->first()?$d->dealerInfo()->first()->name:$d->account}}
+                        {{$d->dealerInfo()->first()?$d->dealerInfo()->first()->company:$d->account}}
                     </td>
                     <td>{{$d->orderNum()}}</td>
-                    <td>{{$d->dealerInfo()->first()?$d->dealerInfo()->first()->pplan:"Price4"}}</td>
+                    <td>{{$d->dealerInfo()->first()?"Price".$d->dealerInfo()->first()->pricecode:"Price4"}}</td>
                     <td class='d-flex justify-content-around'>
                     <a class="btn btn-success btn-sm" style='width:71px;' href="/dealerHistory/{{$d->id}}">History</a>
-                        <button class="btn btn-danger btn-sm delete_btn" style='width:71px;' @if($d->orderNum()>0) disabled @endif  
+                        {{-- <button class="btn btn-danger btn-sm delete_btn" style='width:71px;' @if($d->orderNum()>0) disabled @endif  
                             >Delete</button>
-                        <a class="btn btn-warning btn-sm" style='width:71px;' href="/editDealer/{{$d->id}}">Edit</a>
+                        <a class="btn btn-warning btn-sm" style='width:71px;' href="/editDealer/{{$d->id}}">Edit</a> --}}
                     </td>
                 </tr>
             
