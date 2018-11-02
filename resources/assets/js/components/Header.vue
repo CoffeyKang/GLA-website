@@ -10,7 +10,9 @@
 					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
 						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register</router-link>
-						<li v-if="loginStatus" @click="logOut()">Log Out</li>
+						<li v-if="loginStatus" @click="logOut()"> Log Out</li>
+
+						<li v-if="loginStatus" style='cursor:default'>Hello,{{name}}.</li>
 						<li v-if="loginStatus" @click='customerInfo()'>My Account</li>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>
 						<router-link to='/shoppingCart' tag='li'> 
@@ -60,6 +62,8 @@
 				storage:window.localStorage,
 				userID:0,
 				usdPrice:this.$store.state.usdPrice,
+				userInfo:{},
+				username:'',
 			}
 		},
 		components:{
@@ -68,6 +72,7 @@
 		methods:{
 			logOut(){
 				this.storage.clear();
+				this.username='';
 				this.$store.commit('changeLoginStatus',false);
 				this.$store.commit('carts_number',0);
 				this.$router.push('/');
@@ -101,9 +106,11 @@
 			}
 
 			if (this.storage.getItem("userInfo")) {
+				
 				if (JSON.parse(this.storage.getItem("userInfo")).m_country=='US'){
 					this.$store.commit('usdPrice',true);
 					console.log(this.$store.state.usdPrice);
+					
 					
 				}else{
 					this.$store.commit('usdPrice',false);
@@ -121,6 +128,18 @@
 			loginStatus(){
 				return this.$store.state.loginStatus;
 			},
+
+			name(){
+				if (JSON.parse(this.storage.getItem("user")).level!=2) {
+					this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
+					this.username = this.userInfo.m_forename + ' '+ this.userInfo.m_surname;
+				}else{
+					this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
+					this.username = this.userInfo.custno;
+				}
+
+				return this.username;
+			}
 
 
 

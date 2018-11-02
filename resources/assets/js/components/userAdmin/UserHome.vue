@@ -87,12 +87,14 @@ export default {
             userInfo:{},
             user:{},
             orderHistory:[],
+            billing:{},
         }
     },
 
     mounted(){
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.user = JSON.parse(this.storage.getItem('user'));
+        this.billing = JSON.parse(this.storage.getItem('billing'));
         this.customerOrderHistory();
         
     },
@@ -103,8 +105,8 @@ export default {
         },
         
         address:function(){
-             return this.userInfo.m_address + ' ' + this.userInfo.m_city + ' ' +this.userInfo.m_state + ' ' +
-             this.userInfo.m_country + ' ' +this.userInfo.m_zipcode;
+             return this.billing.address1 +' '+ this.billing.address2 + ', ' + this.billing.city + ' ' +this.billing.province + ' ' +
+             this.billing.country + ' ' +this.billing.postalcode;
         }
   }
 

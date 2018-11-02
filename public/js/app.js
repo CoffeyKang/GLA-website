@@ -16953,6 +16953,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16962,7 +16964,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			labelPosition: 'left',
 			storage: window.localStorage,
 			userID: 0,
-			usdPrice: this.$store.state.usdPrice
+			usdPrice: this.$store.state.usdPrice,
+			userInfo: {},
+			username: ''
 		};
 	},
 
@@ -16972,6 +16976,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		logOut: function logOut() {
 			this.storage.clear();
+			this.username = '';
 			this.$store.commit('changeLoginStatus', false);
 			this.$store.commit('carts_number', 0);
 			this.$router.push('/');
@@ -17004,6 +17009,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 
 		if (this.storage.getItem("userInfo")) {
+
 			if (JSON.parse(this.storage.getItem("userInfo")).m_country == 'US') {
 				this.$store.commit('usdPrice', true);
 				console.log(this.$store.state.usdPrice);
@@ -17020,6 +17026,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		loginStatus: function loginStatus() {
 			return this.$store.state.loginStatus;
+		},
+		name: function name() {
+			if (JSON.parse(this.storage.getItem("user")).level != 2) {
+				this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
+				this.username = this.userInfo.m_forename + ' ' + this.userInfo.m_surname;
+			} else {
+				this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
+				this.username = this.userInfo.custno;
+			}
+
+			return this.username;
 		}
 	}
 
@@ -17599,8 +17616,14 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Log Out")]
+                      [_vm._v(" Log Out")]
                     )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.loginStatus
+                  ? _c("li", { staticStyle: { cursor: "default" } }, [
+                      _vm._v("Hello," + _vm._s(_vm.name) + ".")
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.loginStatus
@@ -70371,8 +70394,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				page: this.page
 			}
 		}).then(function (response) {
-
-			console.log(response);
 			// get body data
 			_this.list = response.body.items.data;
 
@@ -70404,13 +70425,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		goToItem: function goToItem(id) {
-			console.log('zhe lifjdalfjdafjdalkf');
-			console.log(id);
 			this.$router.push({ name: 'ItemDetails', params: { id: id } });
 		},
 		nextPage: function nextPage() {
 			this.page += 1;
-			console.log(this.page);
 			this.$router.push({ name: 'SearchList', query: {
 					item: this.item,
 					make: this.make,
@@ -74916,12 +74934,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             storage: window.localStorage,
             userInfo: {},
             user: {},
-            orderHistory: []
+            orderHistory: [],
+            billing: {}
         };
     },
     mounted: function mounted() {
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.user = JSON.parse(this.storage.getItem('user'));
+        this.billing = JSON.parse(this.storage.getItem('billing'));
         this.customerOrderHistory();
     },
 
@@ -74932,7 +74952,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         address: function address() {
-            return this.userInfo.m_address + ' ' + this.userInfo.m_city + ' ' + this.userInfo.m_state + ' ' + this.userInfo.m_country + ' ' + this.userInfo.m_zipcode;
+            return this.billing.address1 + ' ' + this.billing.address2 + ', ' + this.billing.city + ' ' + this.billing.province + ' ' + this.billing.country + ' ' + this.billing.postalcode;
         }
     }
 

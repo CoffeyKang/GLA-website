@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     function TestPayment(){
+
+        // InventoryExcelFile();
+
+        dd(1);
         $merchant_id = '117686147'; //INSERT MERCHANT ID (must be a 9 digit string)
         $api_key = 'B452F4E8020a4746aDa2FC5c468Ab17a'; //INSERT API ACCESS PASSCODE
         $api_version = 'v1'; //default

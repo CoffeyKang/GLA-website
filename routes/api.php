@@ -154,6 +154,8 @@ Route::get('/exchangeRate','InventoryController@exchangeRate');
 
 Route::post('/finishOrder','InventoryController@placeOrder');
 
+Route::get('/special','InventoryController@special');
+
 
 
 

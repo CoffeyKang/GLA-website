@@ -99,8 +99,6 @@
 							page:this.page,
 						}
 					}).then(response => {
-						
-						console.log(response);
 				// get body data
 				this.list = response.body.items.data;
 
@@ -135,14 +133,11 @@
 
         methods:{
             goToItem(id){
-                console.log('zhe lifjdalfjdafjdalkf');
-                console.log(id);
                 this.$router.push({ name: 'ItemDetails', params: { id:id }})
 			},
 			
             nextPage(){
 				this.page +=1;
-				console.log(this.page);
 				this.$router.push({name:'SearchList',query:{
 							item:this.item, 
 							make:this.make,

@@ -14,6 +14,7 @@ class Inventory extends Model
     
     public $timestamps = false;
 
+    
     /**
      * realationship with inventory 
      * one to one ralationship

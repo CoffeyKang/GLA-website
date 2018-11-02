@@ -1907,4 +1907,10 @@ class InventoryController extends Controller
         }
     }
     
+
+    public function special(){
+        $special = Inventory::where('onhand','>','orderpt')->get();
+        
+        return response()->json(['special'=>$special],200);
+    }
 }

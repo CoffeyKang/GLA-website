@@ -70,5 +70,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateShipping','AdminController@updateShipping');
 
     Route::get('/exchangeRate','AdminController@exchangeRate');
+    
     Route::get('/updateExchangeRate','AdminController@updateExchangeRate');
 });

@@ -10,11 +10,10 @@ use App\Inventory;
             $excel->setDescription('Inventory file');
             //sheet
             $excel->sheet("date('Y-m-d')",function($sheet){
-                $details = Inventory::select(['item','descrip',"price",'make','year_from','year_end','cupt','length','height','width','lbs','weight'])->get();
+                $details = Inventory::select(['item','descrip',"price",'make','year_from','year_end','length','height','width','lbs'])->get();
                 $sheet->fromModel($details,'0', 'A1', true)->setfitToWidth(true);
                 $sheet->cell('C1', function($cell) {$cell->setValue('Price');   });
-                $sheet->cell('G1', function($cell) {$cell->setValue('CUFT');   });
-                $sheet->cells('A1:L1', function($cells) {
+                $sheet->cells('A1:J1', function($cells) {
                     $cells->setFont(array(
                         'size'       => '12',
                         'bold'       =>  true,
@@ -31,11 +30,11 @@ use App\Inventory;
             $excel->setDescription('Inventory file');
             //sheet
             $excel->sheet("date('Y-m-d')",function($sheet){
-                $details = Inventory::select(['item','descrip',"price2",'make','year_from','year_end','cupt','length','height','width','lbs','weight'])->get();
+                $details = Inventory::select(['item','descrip',"price2",'make','year_from','year_end','length','height','width','lbs'])->get();
                 $sheet->fromModel($details,'0', 'A1', true)->setfitToWidth(true);
                 $sheet->cell('C1', function($cell) {$cell->setValue('Price');   });
-                $sheet->cell('G1', function($cell) {$cell->setValue('CUFT');   });
-                $sheet->cells('A1:L1', function($cells) {
+                
+                $sheet->cells('A1:J1', function($cells) {
                     $cells->setFont(array(
                         'size'       => '12',
                         'bold'       =>  true,
@@ -52,11 +51,11 @@ use App\Inventory;
             $excel->setDescription('Inventory file');
             //sheet
             $excel->sheet("date('Y-m-d')",function($sheet){
-                $details = Inventory::select(['item','descrip',"price3",'make','year_from','year_end','cupt','length','height','width','lbs','weight'])->get();
+                $details = Inventory::select(['item','descrip',"price3",'make','year_from','year_end','length','height','width','lbs'])->get();
                 $sheet->fromModel($details,'0', 'A1', true)->setfitToWidth(true);
                 $sheet->cell('C1', function($cell) {$cell->setValue('Price');   });
-                $sheet->cell('G1', function($cell) {$cell->setValue('CUFT');   });
-                $sheet->cells('A1:L1', function($cells) {
+                
+                $sheet->cells('A1:J1', function($cells) {
                     $cells->setFont(array(
                         'size'       => '12',
                         'bold'       =>  true,
@@ -73,10 +72,9 @@ use App\Inventory;
             $excel->setDescription('Inventory file');
             //sheet
             $excel->sheet("date('Y-m-d')",function($sheet){
-                $details = Inventory::select(['item','descrip',"price4",'make','year_from','year_end','cupt','length','height','width','lbs','weight'])->get();
+                $details = Inventory::select(['item','descrip',"price4",'make','year_from','year_end','length','height','width','lbs'])->get();
                 $sheet->fromModel($details,'0', 'A1', true)->setfitToWidth(true);
                 $sheet->cell('C1', function($cell) {$cell->setValue('Price');   });
-                $sheet->cell('G1', function($cell) {$cell->setValue('CUFT');   });
                 $sheet->cells('A1:L1', function($cells) {
                     $cells->setFont(array(
                         'size'       => '12',

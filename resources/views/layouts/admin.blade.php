@@ -122,12 +122,12 @@
                                 {{count(App\SOMAST::where('sales_status','!=',9)->get())}}
                             </span>
                             </a>
-                            <a class="nav-link" id="" href="#v" role="tab">Awaits Reply 
+                            {{-- <a class="nav-link" id="" href="#v" role="tab">Awaits Reply 
                                 <span class="badge badge-light float-right">9</span>
                             </a>
                             <a class="nav-link" id="" href="#v" role="tab">Confirm Shipment 
                                 <span class="badge badge-light float-right">9</span>
-                            </a>
+                            </a> --}}
 
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Website Managenment</b></a>
                             <a class="nav-link" id="top10" href="/top10">Top 10 Best Sellers</a>
