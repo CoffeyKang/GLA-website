@@ -45,7 +45,18 @@
                         <div class="toWish" @click='removeToWish(item)'>
                             Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
                         </div>
-                        <div class="price">
+                        <div class="price" v-if="item.onhand > item.orderpt && disc">
+                            <span>
+                                SALE: CAD ${{item.pricel |discount10 |decimal}}<br>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange)|discount10 |decimal }}</span>
+                            </span>
+                            <span>
+                                TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |discount10 |decimal}}<br>
+                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange)|discount10 |decimal }}</span>
+                            </span>
+                        </div>
+
+                        <div class="price" v-if="item.onhand <= item.orderpt || !disc">
                             <span>
                                 PRICE: CAD ${{item.pricel |decimal }}<br>
                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
@@ -139,7 +150,8 @@ export default {
             hst:"-",
             user:{},
             isDealer:false,
-            usdPrice:this.$store.state.usdPrice,
+            disc:true,
+           
 
             // total:this.subtotal,
             
@@ -148,7 +160,8 @@ export default {
         computed:{
             total:function(){
                 return this.subtotal.toFixed(2);
-            }
+            },
+            usdPrice:function(){return this.$store.state.usdPrice},
         },
 
         filters:{
@@ -158,7 +171,11 @@ export default {
                 }else{
                     return value;
                 }
-            }
+            },
+
+            discount10(price) {
+				return (price * 0.9);
+			}
         },
         mounted(){
             this.reloadElement();
@@ -218,6 +235,12 @@ export default {
             }
             // this.$http.get('/api/getShortlist/'+)
             
+
+            if (this.ifDealer()) {
+                this.disc = false;
+            }else{
+                this.disc =  true;
+            }
             },
             
         methods:{
@@ -238,7 +261,16 @@ export default {
                         if ( short_num >element.onhand) {
                             this.storage.setItem(element.item, element.onhand);
                         }
-                        this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+                        if (this.ifDealer()) {
+                            this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+                        }else{
+                            if (element.onhand > element.orderpt) {
+                                this.subtotal += (element.pricel)*0.9 * parseInt(this.storage.getItem(element.item));
+                            }else{
+                                this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+
+                            }
+                        }
                     });
                         
                 }, response => {

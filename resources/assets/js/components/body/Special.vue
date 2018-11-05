@@ -22,9 +22,15 @@
 						<span>Year Fit: {{ item.year_from }} - {{ item.year_end }}</span>
 					</div>
 
-					<div class="car_make_name text-center">
-						<span class='price_label'>CAD: <b class='price'>  $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
-							<span v-if='usdPrice' class='usdPrice'>USD  $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+					<div class="car_make_name text-center" v-if="disc">
+						<span class='price_label'>CAD: <b class='price'>  $<span style='text-decoration:line-through' >{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
+							<span v-if='usdPrice' class='usdPrice'>USD  $<span style='text-decoration:line-through' >{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+						</span>
+					</div>
+
+					<div class="car_make_name text-center" v-if="!disc">
+						<span class='price_label'>CAD: <b class='price'>  {{item.pricel.toFixed(2) }}</b><br>
+							<span v-if='usdPrice' class='usdPrice'>USD  ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 						</span>
 					</div>
 
@@ -70,17 +76,19 @@
 				data:{},
 				page:1,
 				loading:1,
+				disc:true,
 				// usdPrice:this.$store.state.usdPrice,
 			}
 		},
 		mounted(){
+			/**	get special list */
 			this.$http.get('/api/special/'+this.page).then(response => {
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});	
-							
+				console.log(response);
 			    this.page = this.data.current_page;
 				window.scrollTo(0,0);
 			    // finish ladding screen
@@ -89,6 +97,14 @@
 			  	// error 
 			    console.log("error");
 			  });
+
+
+
+			  /**	 check if it is dealer */
+
+			  if (this.ifDealer()) {
+				  this.disc = false;
+			  }
 
 			 
 		},

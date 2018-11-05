@@ -37,7 +37,7 @@ export const store = new Vuex.Store({
     privince: country.privince,
     US_states: country.US_states,
     exchange: 1.35,
-    usdPrice:false,
+    usdPrice: false,
   },
 
   mutations: {
@@ -59,10 +59,9 @@ export const store = new Vuex.Store({
     exchange(state, exchange) {
       state.exchange = exchange;
     },
-    usdPrice(state, usdPrice){
+    usdPrice(state, usdPrice) {
       state.usdPrice = usdPrice;
-    }
-
+    },
     
 
   },

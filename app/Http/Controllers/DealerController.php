@@ -143,7 +143,7 @@ class DealerController extends Controller
 
                 $sotran->qty = $short->qty;
 
-                switch ($dealerInfo->pplan) {
+                switch ($dealerInfo->pricecode) {
                     case '4':
                         $sotran->price = $info->price4;
                         break;

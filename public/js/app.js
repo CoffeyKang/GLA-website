@@ -17014,13 +17014,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			if (JSON.parse(this.storage.getItem("userInfo")).m_country == 'US') {
 				this.$store.commit('usdPrice', true);
-				console.log(this.$store.state.usdPrice);
 				this.usdPrice = this.$store.state.usdPrice;
-				console.log(this.usdPrice);
 			} else {
 				this.$store.commit('usdPrice', false);
 			}
 		}
+
+		//if is dealer
+
 	},
 
 	filters: {
@@ -66289,7 +66290,7 @@ var myMixin = {
 
           this.$store.commit('carts_number', newNumber);
         }
-        // const h = this.$createElement;
+        // const h = this.$createElement
         // this.$notify({
         //   title: 'Succsesfully.',
         //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
@@ -66429,6 +66430,15 @@ var myMixin = {
       } else {}
 
       return Dealerprice;
+    },
+    ifDealer: function ifDealer() {
+      if (this.storage.getItem('user')) {
+        if (JSON.parse(this.storage.getItem('user')).level == 2) {
+          return true;
+        }
+      } else {
+        return false;
+      }
     }
   },
   computed: {
@@ -66855,7 +66865,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.item[data-v-2fa65a4a]{\n\tmargin:20px 0;\n\twidth: 260px;\n}\n.img[data-v-2fa65a4a]{\n\tbackground-position: center;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\theight: 250px;\n\tcursor: pointer;\n}\n.words[data-v-2fa65a4a]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\nbutton[data-v-2fa65a4a]{\n\twidth:150px;\n}\n.price[data-v-2fa65a4a]{\n\tcolor: red;\n\tfont-size: 2em;\n\tfont-weight: bold;\n\tpadding: 10px 0 ;\n}\n.description[data-v-2fa65a4a]{\n\tcolor: black;\n\tfont-weight: bold;\n\ttext-transform: uppercase;\n}\n", ""]);
+exports.push([module.i, "\n.item[data-v-2fa65a4a]{\n\tmargin:20px 0;\n\twidth: 260px;\n}\n.img[data-v-2fa65a4a]{\n\tbackground-position: center;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\theight: 250px;\n\tcursor: pointer;\n}\n.words[data-v-2fa65a4a]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\nbutton[data-v-2fa65a4a]{\n\twidth:150px;\n}\n.price[data-v-2fa65a4a]{\n\tcolor: red;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n\tpadding: 10px 0 ;\n}\n.description[data-v-2fa65a4a]{\n\tcolor: black;\n\tfont-weight: bold;\n\ttext-transform: uppercase;\n}\n", ""]);
 
 // exports
 
@@ -66899,6 +66909,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66907,15 +66925,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			storage: window.localStorage,
 			userInfo: [],
-			usdPrice: this.$store.state.usdPrice
+			usdPrice: this.$store.state.usdPrice,
+			onsale: false,
+			disc: true
 
 		};
 	},
 	mounted: function mounted() {
 		this.item.pricel = this.Dealerprice(this.item);
+
+		if (this.ifDealer()) {
+			this.disc = false;
+		} else {
+			console.log(this.item);
+			console.log(this.item.onhand);
+			console.log(this.item.orderpt);
+			if (this.item.onhand > this.item.orderpt) {
+				this.disc = true;
+			} else {
+				this.disc = false;
+			}
+		}
 	},
 
 
+	filters: {
+		discount10: function discount10(price) {
+			return (price * 0.9).toFixed(2);
+		}
+	},
 	computed: {},
 
 	methods: {
@@ -66971,21 +67009,70 @@ var render = function() {
         _vm._v(" "),
         _c("small", [_vm._v("Make: " + _vm._s(_vm.item.make) + " ")]),
         _vm._v(" "),
-        _c("span", { staticClass: "price" }, [
-          _vm._v("CAD $" + _vm._s(_vm.item.pricel.toFixed(2))),
-          _c("br"),
-          _vm._v(" "),
-          _vm.usdPrice
-            ? _c("span", { staticClass: "usdPrice" }, [
-                _vm._v(
-                  "USD $" +
-                    _vm._s(
-                      (_vm.item.pricel / _vm.$store.state.exchange).toFixed(2)
-                    )
-                )
+        _vm.disc
+          ? _c("span", { staticClass: "price" }, [
+              _c("span", { staticClass: "price_label" }, [
+                _vm._v("CAD: "),
+                _c("b", { staticClass: "price" }, [
+                  _vm._v("  $"),
+                  _c(
+                    "span",
+                    { staticStyle: { "text-decoration": "line-through" } },
+                    [_vm._v(_vm._s(_vm.item.pricel.toFixed(2)))]
+                  ),
+                  _vm._v(" $" + _vm._s(_vm._f("discount10")(_vm.item.pricel)))
+                ]),
+                _c("br"),
+                _vm._v(" "),
+                _vm.usdPrice
+                  ? _c("span", { staticClass: "usdPrice" }, [
+                      _vm._v("USD  $"),
+                      _c(
+                        "span",
+                        { staticStyle: { "text-decoration": "line-through" } },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              (
+                                _vm.item.pricel / _vm.$store.state.exchange
+                              ).toFixed(2)
+                            )
+                          )
+                        ]
+                      ),
+                      _vm._v(
+                        " $" +
+                          _vm._s(
+                            _vm._f("discount10")(
+                              _vm.item.pricel / _vm.$store.state.exchange
+                            )
+                          )
+                      )
+                    ])
+                  : _vm._e()
               ])
-            : _vm._e()
-        ]),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        !_vm.disc
+          ? _c("span", { staticClass: "price" }, [
+              _vm._v("CAD $" + _vm._s(_vm.item.pricel.toFixed(2))),
+              _c("br"),
+              _vm._v(" "),
+              _vm.usdPrice
+                ? _c("span", { staticClass: "usdPrice" }, [
+                    _vm._v(
+                      "USD $" +
+                        _vm._s(
+                          (_vm.item.pricel / _vm.$store.state.exchange).toFixed(
+                            2
+                          )
+                        )
+                    )
+                  ])
+                : _vm._e()
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "router-link",
@@ -67943,6 +68030,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -67951,20 +68044,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			lists: {},
 			data: {},
 			page: 1,
-			loading: 1
+			loading: 1,
+			disc: true
 			// usdPrice:this.$store.state.usdPrice,
 		};
 	},
 	mounted: function mounted() {
 		var _this = this;
 
+		/**	get special list */
 		this.$http.get('/api/special/' + this.page).then(function (response) {
 			_this.lists = response.data.special.data;
 			_this.data = response.data.special;
 			_this.lists.forEach(function (element) {
 				element.pricel = _this.Dealerprice(element);
 			});
-
+			console.log(response);
 			_this.page = _this.data.current_page;
 			window.scrollTo(0, 0);
 			// finish ladding screen
@@ -67973,6 +68068,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			// error 
 			console.log("error");
 		});
+
+		/**	 check if it is dealer */
+
+		if (this.ifDealer()) {
+			this.disc = false;
+		}
 	},
 
 	methods: {
@@ -68131,50 +68232,83 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "car_make_name text-center" }, [
-                  _c("span", { staticClass: "price_label" }, [
-                    _vm._v("CAD: "),
-                    _c("b", { staticClass: "price" }, [
-                      _vm._v("  $"),
-                      _c(
-                        "span",
-                        { staticStyle: { "text-decoration": "line-through" } },
-                        [_vm._v(_vm._s(item.pricel.toFixed(2)))]
-                      ),
-                      _vm._v(" $" + _vm._s(_vm._f("discount10")(item.pricel)))
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _vm.usdPrice
-                      ? _c("span", { staticClass: "usdPrice" }, [
-                          _vm._v("USD  $"),
+                _vm.disc
+                  ? _c("div", { staticClass: "car_make_name text-center" }, [
+                      _c("span", { staticClass: "price_label" }, [
+                        _vm._v("CAD: "),
+                        _c("b", { staticClass: "price" }, [
+                          _vm._v("  $"),
                           _c(
                             "span",
                             {
                               staticStyle: { "text-decoration": "line-through" }
                             },
-                            [
-                              _vm._v(
-                                _vm._s(
-                                  (
-                                    item.pricel / _vm.$store.state.exchange
-                                  ).toFixed(2)
-                                )
-                              )
-                            ]
+                            [_vm._v(_vm._s(item.pricel.toFixed(2)))]
                           ),
                           _vm._v(
-                            " $" +
-                              _vm._s(
-                                _vm._f("discount10")(
-                                  item.pricel / _vm.$store.state.exchange
-                                )
-                              )
+                            " $" + _vm._s(_vm._f("discount10")(item.pricel))
                           )
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm.usdPrice
+                          ? _c("span", { staticClass: "usdPrice" }, [
+                              _vm._v("USD  $"),
+                              _c(
+                                "span",
+                                {
+                                  staticStyle: {
+                                    "text-decoration": "line-through"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      (
+                                        item.pricel / _vm.$store.state.exchange
+                                      ).toFixed(2)
+                                    )
+                                  )
+                                ]
+                              ),
+                              _vm._v(
+                                " $" +
+                                  _vm._s(
+                                    _vm._f("discount10")(
+                                      item.pricel / _vm.$store.state.exchange
+                                    )
+                                  )
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.disc
+                  ? _c("div", { staticClass: "car_make_name text-center" }, [
+                      _c("span", { staticClass: "price_label" }, [
+                        _vm._v("CAD: "),
+                        _c("b", { staticClass: "price" }, [
+                          _vm._v("  " + _vm._s(item.pricel.toFixed(2)))
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm.usdPrice
+                          ? _c("span", { staticClass: "usdPrice" }, [
+                              _vm._v(
+                                "USD  $" +
+                                  _vm._s(
+                                    (
+                                      item.pricel / _vm.$store.state.exchange
+                                    ).toFixed(2)
+                                  )
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -69061,7 +69195,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69071,7 +69204,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			lists: {},
 			data: {},
 			page: 1,
-			loading: 1
+			loading: 1,
+			disc: true
 			// usdPrice:this.$store.state.usdPrice,
 		};
 	},
@@ -69096,6 +69230,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			// error 
 			console.log("error");
 		});
+
+		if (this.ifDealer()) {
+			this.disc = false;
+		} else {
+			this.disc = true;
+		}
 	},
 
 	methods: {
@@ -69268,12 +69408,14 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                item.onsale
+                item.onsale && _vm.disc
                   ? _c("div", { staticClass: "car_make_name text-center" }, [
                       _c("span", { staticClass: "price_label" }, [
                         _vm._v("CAD: "),
                         _c("b", { staticClass: "price" }, [
-                          _vm._v("   $"),
+                          _vm._v(
+                            " " + _vm._s(_vm.$store.state.discount) + "  $"
+                          ),
                           _c(
                             "span",
                             {
@@ -69323,7 +69465,7 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                !item.onsale
+                !item.onsale || !_vm.disc
                   ? _c("div", { staticClass: "car_make_name text-center" }, [
                       _c("span", { staticClass: "price_label" }, [
                         _vm._v("CAD: "),
@@ -69640,6 +69782,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69651,7 +69794,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			related: {},
 			color: "red",
 			showItem: false,
-			quantity: 1
+			quantity: 1,
+			disc: true
 
 		};
 	},
@@ -69686,6 +69830,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		});
 
 		this.viewed(this.id);
+
+		if (this.ifDealer()) {
+			this.disc = false;
+		} else {
+			this.disc = true;
+		}
 	},
 
 	methods: {
@@ -69849,7 +69999,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "priceDiv" }, [
-              _vm.item.onsale
+              _vm.item.onsale && _vm.disc
                 ? _c("div", { staticClass: "price" }, [
                     _vm._v("\n\t\t\t\t\tCAD $"),
                     _c(
@@ -69893,7 +70043,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              !_vm.item.onsale
+              !_vm.item.onsale || !_vm.disc
                 ? _c("div", { staticClass: "price" }, [
                     _vm._v(
                       "\n\t\t\t\t\tCAD $" + _vm._s(_vm.item.pricel.toFixed(2))
@@ -70668,6 +70818,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -70683,7 +70837,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			result: false,
 			empty: false,
 			loading: 1,
-			usdPrice: this.$store.state.usdPrice
+
+			discount: true
 		};
 	},
 	mounted: function mounted() {
@@ -70699,7 +70854,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}).then(function (response) {
 			// get body data
 			_this.list = response.body.items.data;
-
+			console.log(response);
 			_this.list.forEach(function (element) {
 				element.pricel = _this.Dealerprice(element);
 			});
@@ -70723,6 +70878,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}, function (response) {
 			console.log("error");
 		});
+
+		if (this.ifDealer()) {
+			this.discount = false;
+		} else {
+			this.discount = true;
+		}
 	},
 
 
@@ -70765,6 +70926,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		getYear: function getYear() {
 			return this.$store.state.search.year;
+		},
+		usdPrice: function usdPrice() {
+			return this.$store.state.usdPrice;
 		}
 	}
 });
@@ -70846,23 +71010,49 @@ var render = function() {
                       })
                     ),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-right" }, [
-                      _vm._v("CAD $" + _vm._s(thing.pricel.toFixed(2))),
-                      _c("br"),
-                      _vm._v(" "),
-                      _vm.usdPrice
-                        ? _c("span", { staticClass: "usdPrice" }, [
-                            _vm._v(
-                              "USD $" +
-                                _vm._s(
-                                  (
-                                    thing.pricel / _vm.$store.state.exchange
-                                  ).toFixed(2)
+                    thing.onhand > thing.orderpt && _vm.discount
+                      ? _c("td", { staticClass: "text-right" }, [
+                          _vm._v(
+                            "CAD $" + _vm._s((thing.pricel * 0.9).toFixed(2))
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm.usdPrice
+                            ? _c("span", { staticClass: "usdPrice" }, [
+                                _vm._v(
+                                  "USD $" +
+                                    _vm._s(
+                                      (
+                                        (thing.pricel /
+                                          _vm.$store.state.exchange) *
+                                        0.9
+                                      ).toFixed(2)
+                                    )
                                 )
-                            )
-                          ])
-                        : _vm._e()
-                    ]),
+                              ])
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    thing.onhand <= thing.orderpt || !_vm.discount
+                      ? _c("td", { staticClass: "text-right" }, [
+                          _vm._v("CAD $" + _vm._s(thing.pricel.toFixed(2))),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm.usdPrice
+                            ? _c("span", { staticClass: "usdPrice" }, [
+                                _vm._v(
+                                  "USD $" +
+                                    _vm._s(
+                                      (
+                                        thing.pricel / _vm.$store.state.exchange
+                                      ).toFixed(2)
+                                    )
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
                       _c(
@@ -78729,6 +78919,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -78743,7 +78944,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             hst: "-",
             user: {},
             isDealer: false,
-            usdPrice: this.$store.state.usdPrice
+            disc: true
 
             // total:this.subtotal,
 
@@ -78753,6 +78954,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         total: function total() {
             return this.subtotal.toFixed(2);
+        },
+        usdPrice: function usdPrice() {
+            return this.$store.state.usdPrice;
         }
     },
 
@@ -78763,6 +78967,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 return value;
             }
+        },
+
+        discount10: function discount10(price) {
+            return price * 0.9;
         }
     },
     mounted: function mounted() {
@@ -78812,6 +79020,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log('not login');
         }
         // this.$http.get('/api/getShortlist/'+)
+
+
+        if (this.ifDealer()) {
+            this.disc = false;
+        } else {
+            this.disc = true;
+        }
     },
 
 
@@ -78837,7 +79052,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (short_num > element.onhand) {
                         _this2.storage.setItem(element.item, element.onhand);
                     }
-                    _this2.subtotal += element.pricel * parseInt(_this2.storage.getItem(element.item));
+                    if (_this2.ifDealer()) {
+                        _this2.subtotal += element.pricel * parseInt(_this2.storage.getItem(element.item));
+                    } else {
+                        if (element.onhand > element.orderpt) {
+                            _this2.subtotal += element.pricel * 0.9 * parseInt(_this2.storage.getItem(element.item));
+                        } else {
+                            _this2.subtotal += element.pricel * parseInt(_this2.storage.getItem(element.item));
+                        }
+                    }
                 });
             }, function (response) {
                 // error 
@@ -79133,59 +79356,133 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "price" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                            PRICE: CAD $" +
-                                _vm._s(_vm._f("decimal")(item.pricel))
-                            ),
-                            _c("br"),
-                            _vm._v(" "),
-                            _vm.usdPrice
-                              ? _c("span", { staticClass: "usdPrice" }, [
-                                  _vm._v(
-                                    "USD $" +
-                                      _vm._s(
-                                        (
-                                          item.pricel /
-                                          _vm.$store.state.exchange
-                                        ).toFixed(2)
+                        item.onhand > item.orderpt && _vm.disc
+                          ? _c("div", { staticClass: "price" }, [
+                              _c("span", [
+                                _vm._v(
+                                  "\n                            SALE: CAD $" +
+                                    _vm._s(
+                                      _vm._f("decimal")(
+                                        _vm._f("discount10")(item.pricel)
                                       )
-                                  )
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(
-                              "\n                            TOTAL: CAD $" +
-                                _vm._s(
-                                  _vm._f("decimal")(
-                                    item.pricel *
-                                      parseInt(_vm.storage.getItem(item.item))
-                                  )
-                                )
-                            ),
-                            _c("br"),
-                            _vm._v(" "),
-                            _vm.usdPrice
-                              ? _c("span", { staticClass: "usdPrice" }, [
-                                  _vm._v(
-                                    "USD $" +
-                                      _vm._s(
-                                        (
-                                          (item.pricel *
+                                    )
+                                ),
+                                _c("br"),
+                                _vm._v(" "),
+                                _vm.usdPrice
+                                  ? _c("span", { staticClass: "usdPrice" }, [
+                                      _vm._v(
+                                        "USD $" +
+                                          _vm._s(
+                                            _vm._f("decimal")(
+                                              _vm._f("discount10")(
+                                                item.pricel /
+                                                  _vm.$store.state.exchange
+                                              )
+                                            )
+                                          )
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                            TOTAL: CAD $" +
+                                    _vm._s(
+                                      _vm._f("decimal")(
+                                        _vm._f("discount10")(
+                                          item.pricel *
                                             parseInt(
                                               _vm.storage.getItem(item.item)
-                                            )) /
-                                          _vm.$store.state.exchange
-                                        ).toFixed(2)
+                                            )
+                                        )
                                       )
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
-                        ])
+                                    )
+                                ),
+                                _c("br"),
+                                _vm._v(" "),
+                                _vm.usdPrice
+                                  ? _c("span", { staticClass: "usdPrice" }, [
+                                      _vm._v(
+                                        "USD $" +
+                                          _vm._s(
+                                            _vm._f("decimal")(
+                                              _vm._f("discount10")(
+                                                (item.pricel *
+                                                  parseInt(
+                                                    _vm.storage.getItem(
+                                                      item.item
+                                                    )
+                                                  )) /
+                                                  _vm.$store.state.exchange
+                                              )
+                                            )
+                                          )
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.onhand <= item.orderpt || !_vm.disc
+                          ? _c("div", { staticClass: "price" }, [
+                              _c("span", [
+                                _vm._v(
+                                  "\n                            PRICE: CAD $" +
+                                    _vm._s(_vm._f("decimal")(item.pricel))
+                                ),
+                                _c("br"),
+                                _vm._v(" "),
+                                _vm.usdPrice
+                                  ? _c("span", { staticClass: "usdPrice" }, [
+                                      _vm._v(
+                                        "USD $" +
+                                          _vm._s(
+                                            (
+                                              item.pricel /
+                                              _vm.$store.state.exchange
+                                            ).toFixed(2)
+                                          )
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                            TOTAL: CAD $" +
+                                    _vm._s(
+                                      _vm._f("decimal")(
+                                        item.pricel *
+                                          parseInt(
+                                            _vm.storage.getItem(item.item)
+                                          )
+                                      )
+                                    )
+                                ),
+                                _c("br"),
+                                _vm._v(" "),
+                                _vm.usdPrice
+                                  ? _c("span", { staticClass: "usdPrice" }, [
+                                      _vm._v(
+                                        "USD $" +
+                                          _vm._s(
+                                            (
+                                              (item.pricel *
+                                                parseInt(
+                                                  _vm.storage.getItem(item.item)
+                                                )) /
+                                              _vm.$store.state.exchange
+                                            ).toFixed(2)
+                                          )
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ])
+                          : _vm._e()
                       ])
                     ])
                   ]

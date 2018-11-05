@@ -18,12 +18,13 @@
 					<li><span class='column_name'>Compatible Make: </span><b v-for="item_make in item_makes" :key="item_make.row_id"> {{item_make.make}} &nbsp;</b></li>
 				</div>
 				<div class="priceDiv">
-					<div class="price" v-if="item.onsale">
+					
+					<div class="price" v-if="item.onsale&&disc">
 						CAD $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}<br> 
 						<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
 					</div>
 
-					<div class="price" v-if="!item.onsale">
+					<div class="price" v-if="!item.onsale || !disc">
 						CAD ${{ item.pricel.toFixed(2) }}<br>
 						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 					</div>
@@ -103,6 +104,7 @@
 				color:"red",
 				showItem :false,
 				quantity:1,
+				disc:true,
 
 			}
 		},
@@ -140,6 +142,12 @@
 			  });
 	
 			this.viewed(this.id);
+
+			if (this.ifDealer()) {
+				this.disc= false;
+			}else{
+				this.disc=true;
+			}
 
 			
 		},

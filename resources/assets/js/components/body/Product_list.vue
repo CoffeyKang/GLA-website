@@ -8,7 +8,6 @@
 				<span>Products List {{ make }}</span>
 			</div>
 		</div>
-	
 		<div class='container' id='car_makes'>
 		
 			<div class='car_make' v-for='item in lists' :key='item.item'>
@@ -24,13 +23,13 @@
 						<span>Year Fit: {{ item.year_from }} - {{ item.year_end }}</span>
 					</div>
 
-					<div class="car_make_name text-center" v-if="item.onsale">
-						<span class='price_label'>CAD: <b class='price'>   $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
+					<div class="car_make_name text-center" v-if="item.onsale && disc">
+						<span class='price_label'>CAD: <b class='price'> {{$store.state.discount}}  $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
 							<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange).toFixed(2) | discount10 }}</span>
 						</span>
 					</div>
 
-					<div class="car_make_name text-center" v-if="!item.onsale">
+					<div class="car_make_name text-center" v-if="!item.onsale || !disc">
 						<span class='price_label'>CAD: <b class='price'>  ${{ item.pricel.toFixed(2) }}</b><br>
 							<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 						</span>
@@ -79,6 +78,7 @@
 				data:{},
 				page:1,
 				loading:1,
+				disc:true,
 				// usdPrice:this.$store.state.usdPrice,
 			}
 		},
@@ -102,6 +102,12 @@
 			    console.log("error");
 			  });
 
+
+			if (this.ifDealer()) {
+				this.disc = false;
+			}else{
+				this.disc = true;
+			}
 			 
 		},
 		methods:{

@@ -123,7 +123,7 @@ class InventoryController extends Controller
             	$item->img_path = '/images/default_sm.jpg';
             }
 
-            if ($item->onhand > $item->ordpt) {
+            if ($item->onhand > $item->orderpt) {
                 $item->onsale = true;
             }else{
                 $item->onsale = false;
@@ -304,7 +304,7 @@ class InventoryController extends Controller
         foreach ($items as $item) {
                 
                 $item->img_path = $item->itemImg->img_path;
-                
+                $item->onsale = $item->onsale();
                 
                 if (file_exists('.'.$item->img_path)) {
                     
@@ -576,7 +576,12 @@ class InventoryController extends Controller
             $info = $item->itemInfo()->first();
             $info->itemFullInfo();
             // different level determin different price level
-            $item->price=$info->pricel;
+            if ($info->onsale()) {
+                $item->price=$info->pricel * 0.9;
+            }else{
+                $item->price=$info->pricel;
+            }
+            
             $item->descrip=$info->descrip;
             $item->img_path=$info->img_path;
             $item->year_from=$info->year_from;
@@ -1017,7 +1022,12 @@ class InventoryController extends Controller
 
                 
                 // different level determin different price level
-                $item->price=$info->pricel;
+                if ($info->onsale()) {
+                    $item->price=$info->pricel * 0.9;
+                }else{
+                    $item->price=$info->pricel;
+
+                }
                 $item->descrip=$info->descrip;
                 $item->img_path=$info->img_path;
                 $item->year_from=$info->year_from;
@@ -1679,7 +1689,7 @@ class InventoryController extends Controller
             $info = $item->itemInfo;
             $info->itemFullInfo();
             // different level determin different price level
-            switch ($dealerInfo->pplan) {
+            switch ($dealerInfo->pricecode) {
                 case '4':
                     $item->price = $info->price4;
                 break;
@@ -1874,6 +1884,10 @@ class InventoryController extends Controller
 
             /** store to sotran  */
             foreach ($shortlist as $item) {
+
+                $info = $item->itemInfo;
+
+                
             
                 $sotran = new SOTRAN;
 
@@ -1885,13 +1899,22 @@ class InventoryController extends Controller
 
                 $sotran->qty = $item->qty;
 
-                $sotran->price = $item->itemInfo->pricel;
+                if ($info->onsale()) {
+                    
+                    $sotran->price = round($item->itemInfo->pricel * 0.9, 2);
+                    $sotran->sale = 1;
+                    # code...
+                }else{
+                    $sotran->price = round($item->itemInfo->pricel, 2);
+                    $sotran->sale = 0;
+                }
+
 
                 $sotran->make = $item->itemInfo->make;
 
                 $sotran->date_sold = date("Y-m-d");
 
-                $sotran->sale = 0;
+                
 
                 $sotran->save();
 
@@ -1925,13 +1948,12 @@ class InventoryController extends Controller
         Paginator::currentPageResolver(function () use ($mycurrentPage) {
             return $mycurrentPage;
         });
-        $special = Inventory::where('onhand','>','orderpt')->paginate(20) ;
+        $special = Inventory::whereColumn('onhand','>','orderpt')->paginate(20) ;
 
         // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($special as $item) {
                
             $item->img_path = $item->itemImg->img_path;
-            
             
             if (file_exists('.'.$item->img_path)) {
                  

@@ -30,8 +30,12 @@
 							{{item_make.make}} &nbsp; 
 						</span>
 					</td>
-                    <td class='text-right'>CAD ${{thing.pricel.toFixed(2)}}<br>
+                    <td class='text-right' v-if="thing.onhand > thing.orderpt && discount">CAD ${{(thing.pricel*0.9).toFixed(2)}}<br>
+						<span v-if='usdPrice' class='usdPrice'>USD ${{ (((thing.pricel)/$store.state.exchange)*0.9).toFixed(2) }}</span></td>
+
+					<td class='text-right' v-if="thing.onhand <= thing.orderpt || !discount">CAD ${{thing.pricel.toFixed(2)}}<br>
 						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((thing.pricel)/$store.state.exchange).toFixed(2) }}</span></td>
+
                     <td class='text-center'>
                         <button class="btn btn-primary" @click="goToItem(thing.item)">Item Details</button>
                     </td>
@@ -83,7 +87,8 @@
 				result:false,
 				empty:false,
 				loading:1,
-				usdPrice:this.$store.state.usdPrice,
+				
+				discount:true,
 			}
 		},
 
@@ -101,7 +106,7 @@
 					}).then(response => {
 				// get body data
 				this.list = response.body.items.data;
-
+				console.log(response);
 				this.list.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});
@@ -125,6 +130,13 @@
 			  }, response => {
 			    console.log("error");
 			  });
+
+
+			  if (this.ifDealer()) {
+				  this.discount = false;
+			  }else{
+				  this.discount = true;
+			  }
 
 			  
         },
@@ -175,6 +187,10 @@
 			},
 			getYear(){
 				return this.$store.state.search.year;
+			},
+
+			usdPrice(){
+				return this.$store.state.usdPrice;
 			},
 		}
 	}

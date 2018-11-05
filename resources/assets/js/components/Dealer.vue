@@ -127,8 +127,6 @@ export default {
 
                 this.$store.commit('usdPrice',false);
 
-                
-
 
                 if (this.storage.getItem('user')) {
                         this.user = JSON.parse(this.storage.getItem('user'));

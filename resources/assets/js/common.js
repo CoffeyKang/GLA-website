@@ -5,7 +5,7 @@ export const myMixin = {
     };
   },
   mounted() {},
-  
+
   methods: {
     testMixin() {
       return alert('Mixin is called.');
@@ -67,7 +67,7 @@ export const myMixin = {
 
           this.$store.commit('carts_number', newNumber);
         }
-        // const h = this.$createElement;
+        // const h = this.$createElement
         // this.$notify({
         //   title: 'Succsesfully.',
         //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
@@ -196,8 +196,7 @@ export const myMixin = {
             case '1':
               Dealerprice = item.price;
               break;
-            default:
-              Dealerprice = item.pricel;
+            default: Dealerprice = item.pricel;
               break;
 
           }
@@ -207,6 +206,16 @@ export const myMixin = {
       }
 
       return Dealerprice;
+    },
+
+    ifDealer(){
+      if (this.storage.getItem('user')) {
+        if (JSON.parse(this.storage.getItem('user')).level==2) {
+          return true;
+        }
+      }else {
+        return false;
+      }
     }
 
   },
