@@ -12,19 +12,25 @@
 		<div class='container' id='car_makes'>
 		
 			<div class='car_make' v-for='item in lists' :key='item.item'>
-			
+				
 				<div class='item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click='goToItem(item.item)'>
 					</div>
 					
 					<div class="car_make_name text-center">
-						<span>{{ item.item.toUpperCase() }}</span>
+						<span>{{ item.item.toUpperCase() }} </span>
 					</div>
 					<div class="car_make_name text-center">
 						<span>Year Fit: {{ item.year_from }} - {{ item.year_end }}</span>
 					</div>
 
-					<div class="car_make_name text-center">
+					<div class="car_make_name text-center" v-if="item.onsale">
+						<span class='price_label'>CAD: <b class='price'>   $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
+							<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange).toFixed(2) | discount10 }}</span>
+						</span>
+					</div>
+
+					<div class="car_make_name text-center" v-if="!item.onsale">
 						<span class='price_label'>CAD: <b class='price'>  ${{ item.pricel.toFixed(2) }}</b><br>
 							<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 						</span>
@@ -73,7 +79,7 @@
 				data:{},
 				page:1,
 				loading:1,
-				usdPrice:this.$store.state.usdPrice,
+				// usdPrice:this.$store.state.usdPrice,
 			}
 		},
 		mounted(){
@@ -111,7 +117,7 @@
 				});
 
 			    this.page = this.data.current_page;
-			    
+			    window.scrollTo(0,0);
 
 			  }, response => {
 			  	// error 
@@ -128,7 +134,7 @@
 				this.lists.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});
-				
+				window.scrollTo(0,0);
 			    this.page = this.data.current_page;
 
 			  }, response => {
@@ -195,8 +201,15 @@
 				alert(123);
 			},
 		},
+		filters:{
+			discount10(price) {
+				return (price * 0.9).toFixed(2);
+			}
+		},
 		computed:{
-			
+			usdPrice(){
+				return	this.$store.state.usdPrice;
+			}
 		},
 		watch:{
 			

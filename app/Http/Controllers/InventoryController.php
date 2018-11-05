@@ -122,6 +122,12 @@ class InventoryController extends Controller
             }else{
             	$item->img_path = '/images/default_sm.jpg';
             }
+
+            if ($item->onhand > $item->ordpt) {
+                $item->onsale = true;
+            }else{
+                $item->onsale = false;
+            }
             
         }
         return $product_list;
@@ -138,6 +144,7 @@ class InventoryController extends Controller
 
         $singleItem->itemFullInfo();
 
+        $singleItem->onsale = $singleItem->onsale();
         $single = $singleItem->toArray();
 
         $item_makes = Item_make::where('item',$item)->get();
@@ -1250,6 +1257,8 @@ class InventoryController extends Controller
             foreach ($oneOrder as $item) {
                 $iteminfo = $item->itemInfo()->first()->allMakes();
                 $item->make = $iteminfo->all_makes;
+
+                $item->descrip = $item->itemInfo->descrip;
             }
 
             $address = $history->address;
@@ -1908,9 +1917,30 @@ class InventoryController extends Controller
     }
     
 
-    public function special(){
-        $special = Inventory::where('onhand','>','orderpt')->get();
+    public function special($page){
         
+
+        $mycurrentPage = $page?$page:1;
+
+        Paginator::currentPageResolver(function () use ($mycurrentPage) {
+            return $mycurrentPage;
+        });
+        $special = Inventory::where('onhand','>','orderpt')->paginate(20) ;
+
+        // join('inventory_img','inventory.item','inventory_img.item')
+        foreach ($special as $item) {
+               
+            $item->img_path = $item->itemImg->img_path;
+            
+            
+            if (file_exists('.'.$item->img_path)) {
+                 
+            }else{
+            	$item->img_path = '/images/default_sm.jpg';
+            }
+            
+        }
+
         return response()->json(['special'=>$special],200);
     }
 }

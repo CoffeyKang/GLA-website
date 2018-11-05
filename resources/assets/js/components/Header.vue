@@ -110,14 +110,20 @@
 				if (JSON.parse(this.storage.getItem("userInfo")).m_country=='US'){
 					this.$store.commit('usdPrice',true);
 					console.log(this.$store.state.usdPrice);
-					
+					this.usdPrice = this.$store.state.usdPrice;
+					console.log(this.usdPrice);
 					
 				}else{
 					this.$store.commit('usdPrice',false);
 				}
 			}
 			
-
+			
+		},
+		filters:{
+			discount10(price) {
+				return (price * 0.9).toFixed(2);
+			}
 		},
 		
 		computed:{

@@ -55,6 +55,8 @@
                                  <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                         </div>
+
+                        
                     </div>
                 </div>
             </div>

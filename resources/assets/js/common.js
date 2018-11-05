@@ -5,6 +5,7 @@ export const myMixin = {
     };
   },
   mounted() {},
+  
   methods: {
     testMixin() {
       return alert('Mixin is called.');

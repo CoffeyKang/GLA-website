@@ -3,17 +3,37 @@
 namespace App;
 
 use App\Item_make;
-
+use App\Scopes\STKCODE;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Inventory extends Model
 {
+    
+    
+
+    /**  add filter when inventory is called, the stkcode == N will not display */
+    protected static function boot(){
+        
+        parent::boot();
+
+        static::addGlobalScope(new STKCODE);
+
+        
+
+        
+    }
+
     protected $connection = 'mysql2';
 
+    protected $primaryKey = 'item';
+
     protected $table='inventory';
-    
+    public $incrementing = false;
+
     public $timestamps = false;
 
+    protected $onsale = false;
     
     /**
      * realationship with inventory 
@@ -90,5 +110,13 @@ class Inventory extends Model
 
     public function popular(){
         return $this->hasOne('App\Popular','item','item');
+    }
+
+    public function onsale(){
+        if ($this->onhand > $this->ordpt) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

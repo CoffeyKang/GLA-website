@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-xs-6">
-                <h1><b style='font-size:80%'>SALES ORDER {{somast.order_num}}</b></h1>
+                <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
                 <h4>
                     170 ZENWAY BLVD UNIT#2<br>
                     WOODBRIDGE, ONTARIO L4H 2Y7<br>
@@ -70,7 +70,7 @@
                 <tr>
                 <th>Item</th>
                 <th>QTY</th>
-                <th>Compatiable Make</th>
+                <th>Description</th>
                 <th>Price</th>
                 </tr>
             </thead>
@@ -78,7 +78,7 @@
                 <tr v-for="item in oneOrder" :key="item.order_serial">
                     <td>{{item.item}}</td>
                     <td>{{item.qty}}</td>
-                    <th>{{item.make.replace('_ca','').toUpperCase()}}</th>
+                    <th>{{item.descrip.toUpperCase()}}</th>
                     <td >$ {{item.price.toFixed(2)}}</td>
                 </tr>
             </tbody>

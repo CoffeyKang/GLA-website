@@ -18,7 +18,12 @@
 					<li><span class='column_name'>Compatible Make: </span><b v-for="item_make in item_makes" :key="item_make.row_id"> {{item_make.make}} &nbsp;</b></li>
 				</div>
 				<div class="priceDiv">
-					<div class="price">
+					<div class="price" v-if="item.onsale">
+						CAD $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}<br> 
+						<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+					</div>
+
+					<div class="price" v-if="!item.onsale">
 						CAD ${{ item.pricel.toFixed(2) }}<br>
 						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 					</div>
@@ -91,7 +96,7 @@
 	export default {
 		data(){
 			return {
-				usdPrice:this.$store.state.usdPrice,
+				
 				id:this.$route.params.id,
 				item:{},
 				related:{},
@@ -135,6 +140,8 @@
 			  });
 	
 			this.viewed(this.id);
+
+			
 		},
 		methods:{
 			goTo(item){
@@ -188,6 +195,12 @@
 			
 			
 		},
+
+		filters:{
+			discount10(price) {
+				return (price * 0.9).toFixed(2);
+			}
+		},
 		computed:{
 			getItem(){
 				return this.$store.state.search.item;
@@ -203,7 +216,11 @@
 			},
 			carts_number(){
 				return this.$store.state.carts_total;
+			},
+			usdPrice(){
+				return	this.$store.state.usdPrice;
 			}
+
 		}
 
 	}
@@ -257,7 +274,7 @@
 		font-weight: bold;
 	}
 	.price{
-		font-size: 3em;
+		font-size: 2.6em;
 		font-weight: bold;
 		color: red;
 	}

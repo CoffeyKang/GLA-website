@@ -294,9 +294,6 @@ class AccessControl extends Controller
        
 
     }
-
-
-
     /** test page */
     public function kang(){
         // $ch = curl_init();
@@ -306,6 +303,10 @@ class AccessControl extends Controller
     
             
         // dd($output);
+
+        $i = Inventory::where('item','1000E')->first();
+
+        dd($i);
     
         
 
