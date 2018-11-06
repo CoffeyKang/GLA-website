@@ -78,7 +78,7 @@
 		data(){
 			return {
                 item:this.$route.query.item,
-                make:this.$route.query.make,
+                
                 year:this.$route.query.year,
                 desc:this.$route.query.desc,
 				list:[],
@@ -192,6 +192,15 @@
 			usdPrice(){
 				return this.$store.state.usdPrice;
 			},
+
+			make(){
+				var m = this.$route.query.make;
+
+				var make = m.replace('_',' ');
+
+				return make;
+
+			}
 		}
 	}
 </script>

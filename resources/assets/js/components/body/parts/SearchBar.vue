@@ -16,7 +16,7 @@
 	                    	<el-option
 						      v-for="item in makes"
 						      :key="item.id"
-						      :label="item.make"
+						      :label="item.make.replace('_',' ').toUpperCase()"
 						      :value="item.make">
 						    </el-option>
 	                    </el-select >

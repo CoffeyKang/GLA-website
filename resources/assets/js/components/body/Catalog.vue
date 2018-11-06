@@ -8,7 +8,7 @@
 			:style="{ backgroundImage: 'url(/images/catalog/' + catalog.path + ')' }">
 			</div>
 			<div class="cat_btn">
-				<h3 class='text-center'>{{catalog.name}}</h3>
+				<h4 class='text-center'>{{catalog.name}}</h4>
 				<button class="btn btn-block viewOnline" @click="viewPDF(catalog.name)">
 					View Online
 				</button>

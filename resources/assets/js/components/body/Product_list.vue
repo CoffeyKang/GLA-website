@@ -5,7 +5,7 @@
 		  >
 		<div class="container">
 			<div class="title">
-				<span>Products List {{ make }}</span>
+				<span>Products List {{ make.replace('_', ' ').toUpperCase() }}</span>
 			</div>
 		</div>
 		<div class='container' id='car_makes'>
@@ -73,7 +73,7 @@
 	export default {
 		data (){
 			return {
-				make:this.$route.query.make,
+				
 				lists:{},
 				data:{},
 				page:1,
@@ -215,6 +215,15 @@
 		computed:{
 			usdPrice(){
 				return	this.$store.state.usdPrice;
+			},
+
+			make(){
+				var m = this.$route.query.make;
+
+				var make = m.replace('_',' ');
+
+				return make;
+
 			}
 		},
 		watch:{
