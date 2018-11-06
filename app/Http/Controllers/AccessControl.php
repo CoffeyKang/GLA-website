@@ -304,9 +304,11 @@ class AccessControl extends Controller
             
         // dd($output);
 
-        $i = Inventory::where('item','1000E')->first();
+        $u = User::find(18);
 
-        dd($i);
+        $u->getRate();
+
+        dd($u->getRate());
     
         
 

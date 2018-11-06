@@ -523,51 +523,53 @@ class InventoryController extends Controller
         $subtotal = 0;
 
                     
-        switch ($userInfo->m_state)
-        {
-            case "AB":
-                $tax = 5;
-                break;  
-            case "BC":
-                $tax = 12;
-                break;
-            case "MB":
-                $tax = 13;
-                break;  
-            case "NB":
-                $tax = 15;
-                break;
-            case "NL":
-                $tax = 5;
-                break; 
-            case "NT":
-                $tax = 5;
-                break; 
-            case "NS":
-                $tax = 15;
-                break;
-            case "NU":
-                $tax = 5;
-                break;
-            case "ON":
-                $tax = 13;
-                break;  
-            case "PE":
-                $tax = 15;
-                break;
-            case "QC":
-                $tax = 14.975;
-                break;
-            case "SK":
-                $tax = 11;
-                break;  
-            case "YT":
-                $tax = 5;
-                break;
+        // switch ($userInfo->m_state)
+        // {
+        //     case "AB":
+        //         $tax = 5;
+        //         break;  
+        //     case "BC":
+        //         $tax = 12;
+        //         break;
+        //     case "MB":
+        //         $tax = 13;
+        //         break;  
+        //     case "NB":
+        //         $tax = 15;
+        //         break;
+        //     case "NL":
+        //         $tax = 5;
+        //         break; 
+        //     case "NT":
+        //         $tax = 5;
+        //         break; 
+        //     case "NS":
+        //         $tax = 15;
+        //         break;
+        //     case "NU":
+        //         $tax = 5;
+        //         break;
+        //     case "ON":
+        //         $tax = 13;
+        //         break;  
+        //     case "PE":
+        //         $tax = 15;
+        //         break;
+        //     case "QC":
+        //         $tax = 14.975;
+        //         break;
+        //     case "SK":
+        //         $tax = 11;
+        //         break;  
+        //     case "YT":
+        //         $tax = 5;
+        //         break;
             
-            default:
-                $tax = 0;
-        }
+        //     default:
+        //         $tax = 0;
+        // }
+
+        $tax = $user->getRate();
         // Log::useFiles(storage_path('/logs/GLAlog.log'));
 
         // Log::info(" $user created." );
@@ -596,7 +598,7 @@ class InventoryController extends Controller
             }
         }
 
-        $tax_total = $subtotal * $tax / 100;
+        $tax_total = $subtotal * $tax;
 
 
         // calculate shipping
@@ -968,51 +970,53 @@ class InventoryController extends Controller
 
             $oversize = 1;
 
-            switch ($userInfo->state)
-            {
-                case "AB":
-                    $tax = 5;
-                    break;  
-                case "BC":
-                    $tax = 12;
-                    break;
-                case "MB":
-                    $tax = 13;
-                    break;  
-                case "NB":
-                    $tax = 15;
-                    break;
-                case "NL":
-                    $tax = 5;
-                    break; 
-                case "NT":
-                    $tax = 5;
-                    break; 
-                case "NS":
-                    $tax = 15;
-                    break;
-                case "NU":
-                    $tax = 5;
-                    break;
-                case "ON":
-                    $tax = 13;
-                    break;  
-                case "PE":
-                    $tax = 15;
-                    break;
-                case "QC":
-                    $tax = 14.975;
-                    break;
-                case "SK":
-                    $tax = 11;
-                    break;  
-                case "YT":
-                    $tax = 5;
-                break;
+            // switch ($userInfo->state)
+            // {
+            //     case "AB":
+            //         $tax = 5;
+            //         break;  
+            //     case "BC":
+            //         $tax = 12;
+            //         break;
+            //     case "MB":
+            //         $tax = 13;
+            //         break;  
+            //     case "NB":
+            //         $tax = 15;
+            //         break;
+            //     case "NL":
+            //         $tax = 5;
+            //         break; 
+            //     case "NT":
+            //         $tax = 5;
+            //         break; 
+            //     case "NS":
+            //         $tax = 15;
+            //         break;
+            //     case "NU":
+            //         $tax = 5;
+            //         break;
+            //     case "ON":
+            //         $tax = 13;
+            //         break;  
+            //     case "PE":
+            //         $tax = 15;
+            //         break;
+            //     case "QC":
+            //         $tax = 14.975;
+            //         break;
+            //     case "SK":
+            //         $tax = 11;
+            //         break;  
+            //     case "YT":
+            //         $tax = 5;
+            //     break;
                 
-                default:
-                    $tax = 0;
-            }
+            //     default:
+            //         $tax = 0;
+            // }
+
+            $tax = $user->getRate();
 
 
 
@@ -1043,7 +1047,7 @@ class InventoryController extends Controller
                 }
             }
 
-            $tax_total = $subtotal * $tax / 100;
+            $tax_total = $subtotal * $tax;
             
             // calculate shipping
             if ($oversize==1) {
@@ -1636,51 +1640,53 @@ class InventoryController extends Controller
 
         $tax_total = 0;
 
-        switch ($dealerInfo->terr)
-        {
-            case "AB":
-                $tax = 5;
-                break;  
-            case "BC":
-                $tax = 12;
-                break;
-            case "MB":
-                $tax = 13;
-                break;  
-            case "NB":
-                $tax = 15;
-                break;
-            case "NL":
-                $tax = 5;
-                break; 
-            case "NT":
-                $tax = 5;
-                break; 
-            case "NS":
-                $tax = 15;
-                break;
-            case "NU":
-                $tax = 5;
-                break;
-            case "ON":
-                $tax = 13;
-                break;  
-            case "PE":
-                $tax = 15;
-                break;
-            case "QC":
-                $tax = 14.975;
-                break;
-            case "SK":
-                $tax = 11;
-                break;  
-            case "YT":
-                $tax = 5;
-                break;
+        // switch ($dealerInfo->terr)
+        // {
+        //     case "AB":
+        //         $tax = 5;
+        //         break;  
+        //     case "BC":
+        //         $tax = 12;
+        //         break;
+        //     case "MB":
+        //         $tax = 13;
+        //         break;  
+        //     case "NB":
+        //         $tax = 15;
+        //         break;
+        //     case "NL":
+        //         $tax = 5;
+        //         break; 
+        //     case "NT":
+        //         $tax = 5;
+        //         break; 
+        //     case "NS":
+        //         $tax = 15;
+        //         break;
+        //     case "NU":
+        //         $tax = 5;
+        //         break;
+        //     case "ON":
+        //         $tax = 13;
+        //         break;  
+        //     case "PE":
+        //         $tax = 15;
+        //         break;
+        //     case "QC":
+        //         $tax = 14.975;
+        //         break;
+        //     case "SK":
+        //         $tax = 11;
+        //         break;  
+        //     case "YT":
+        //         $tax = 5;
+        //         break;
             
-            default:
-                $tax = 0;
-        }
+        //     default:
+        //         $tax = 0;
+        // }
+
+        $tax = $dealer->getRate();
         // Log::useFiles(storage_path('/logs/GLAlog.log'));
 
         // Log::info(" $user created." );
@@ -1716,7 +1722,7 @@ class InventoryController extends Controller
             
         }
 
-        $tax_total = $subtotal * $tax / 100;
+        $tax_total = $subtotal * $tax;
 
         $addressBook = $dealerInfo->addressBooks;
 

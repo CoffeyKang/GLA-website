@@ -19,6 +19,7 @@
                 <th>QTY</th>
                 <th>Compatiable Make</th>
                 <th>Price</th>
+                
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +27,7 @@
                     <td>{{item.item}}</td>
                     <td>{{item.qty}}</td>
                     <th>{{item.make.replace('_ca','').toUpperCase()}}</th>
-                    <td >$ {{item.price.toFixed(2)}}</td>
+                    <td >$ {{item.price.toFixed(2)}} </td>
                 </tr>
             </tbody>
         </table>

@@ -134,7 +134,7 @@
 
                             <a class="nav-link" id="" href="#v" role="tab">Update Feature Products</a>
                             <a class="nav-link" id="" href="#v" role="tab">Broadcasting Email</a>
-                            <a class="nav-link" id="" href="/exchangeRate" role="tab">Change Exchange Rate</a>
+                            <a class="nav-link" id="" href="/exchangeRate" role="tab">Change Exchange Rate and Tax</a>
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Account Details</a> --}}
                             {{-- <a class="nav-link" id="updateInfo"  href="/updateInfo" role="tab">Edit Profile</a> --}}
                             {{-- <a class="nav-link" id="uploadCatalog" href="/uploadCatalog" role="tab">UploadCatalog</a> --}}

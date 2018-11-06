@@ -5,7 +5,7 @@ namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\TaxRate;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
@@ -46,6 +46,21 @@ class User extends Authenticatable
 
     public function sotran(){
         return $this->hasMany('App\SOTRAN','m_id');
+    }
+
+    public function getRate(){
+        
+        $billing = $this->BillingAddress;
+
+        if ($billing) {
+            $province = $billing->province;
+        }else{
+            $province = "OT";
+        }
+
+        $taxRate = TaxRate::where('province',$province)->first()->tax/100;
+
+        return $taxRate;
     }
 
     /** 1 admin 2 dealer 3 customer */

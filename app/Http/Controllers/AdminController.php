@@ -23,6 +23,7 @@ use App\DealerDetails;
 use App\Catalog;
 use App\ExchangeRate;
 use Auth;
+use App\TaxRate;
 
 class AdminController extends Controller
 {
@@ -314,7 +315,8 @@ class AdminController extends Controller
 
     public function exchangeRate(){
         $exchange = ExchangeRate::find(1);
-        return view('admin.exchangeRate',compact('exchange'));
+        $taxRate = TaxRate::all();
+        return view('admin.exchangeRate',compact('exchange','taxRate'));
     }
 
     public function updateExchangeRate(Request $request){
@@ -330,6 +332,29 @@ class AdminController extends Controller
 
 
         return redirect()->back()->with('status','Exchange rate update.');
+    }
+
+    public function changeTaxRate(Request $request){
+
+        $taxRate = TaxRate::all();
+
+        $array = [];
+        foreach ($taxRate as $tax) {
+            $array["$tax->province"] = "required|numeric|min:0|max:99";
+
+        }
+
+        $this->validate($request,$array);
+
+        foreach ($taxRate as $item) {
+
+            $name = $item->province;
+
+            $item->tax = $request->$name;
+
+            $item->save();
+        }
+        return redirect()->back()->with('status','Tax rate update.');
     }
 
 }

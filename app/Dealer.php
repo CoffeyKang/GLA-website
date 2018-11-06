@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\TaxRate;
 class Dealer extends Model
 {   
     // I set protected attribute $connection in Model File. Set $connection = sql1
@@ -51,6 +51,21 @@ class Dealer extends Model
         }else{
             return $this->account;
         }
+    }
+
+    public function getRate(){
+        
+        $billing = $this->dealerInfo;
+
+        if ($billing) {
+            $province = $billing->terr;
+        }else{
+            $province = "OT";
+        }
+
+        $taxRate = TaxRate::where('province',$province)->first()->tax/100;
+
+        return $taxRate;
     }
 
 

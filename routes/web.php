@@ -72,4 +72,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/exchangeRate','AdminController@exchangeRate');
     
     Route::get('/updateExchangeRate','AdminController@updateExchangeRate');
+
+    Route::post('/changeTaxRate','AdminController@changeTaxRate');
 });
