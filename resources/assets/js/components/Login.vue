@@ -19,7 +19,7 @@
                         <span class='forgetPassword'>Remember my GLA ID</span> -->
                     </div>
                     <div>
-                        <span class='forgetPassword'>Forgot Password?</span>
+                        <span class='forgetPassword' @click='forget()'><i><u>Forgot Password?</u></i></span>
                     </div>
                 </div>
             </div>
@@ -178,14 +178,20 @@ export default {
         },
         toRegister(){
             this.$router.push('/register');
-        }
+        },
+
+        forget(){
+            this.$router.push('/forgetPassword');
+        },
     }
 }
 </script>
 
 
 <style scoped>
-
+    .forgetPassword{
+        cursor: pointer;
+    }
 
     .title{
         font-size: 28px;

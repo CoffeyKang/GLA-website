@@ -11,11 +11,11 @@
                     <el-form :rules="rules" :model="details" ref="details" size="medium">
                         <div class="inRow" >
                             <el-form-item prop='firstname' class='col-xs-6' style='padding-right:5px !important'>
-                                <el-input v-model="details.firstname" placeholder="Last Name" ></el-input>
+                                <el-input v-model="details.firstname" placeholder="First Name" ></el-input>
                             </el-form-item>
 
                             <el-form-item  prop='lastname' class='col-xs-6' style='padding-left:5px !important'>
-                                <el-input v-model="details.lastname" placeholder="First Name"  ></el-input>
+                                <el-input v-model="details.lastname" placeholder="Last Name"  ></el-input>
                             </el-form-item>
                         </div>
 

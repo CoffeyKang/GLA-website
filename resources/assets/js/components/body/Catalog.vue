@@ -8,7 +8,7 @@
 			:style="{ backgroundImage: 'url(/images/catalog/' + catalog.path + ')' }">
 			</div>
 			<div class="cat_btn">
-				<h4 class='text-center'>{{catalog.name}}</h4>
+				<h4 class='text-center'>{{catalog.name.toUpperCase()}}</h4>
 				<button class="btn btn-block viewOnline" @click="viewPDF(catalog.name)">
 					View Online
 				</button>

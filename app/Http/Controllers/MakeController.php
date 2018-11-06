@@ -15,7 +15,7 @@ class MakeController extends Controller
      */
     public function index()
     {
-        $carmakes = CarMake::all();
+        $carmakes = CarMake::orderBy('make','asc')->get();
         // $a = [];
         // foreach ($carmakes as $makes) {
         //     if (file_exists('../images/makes/nova.jpg')){

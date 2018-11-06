@@ -227,7 +227,7 @@ class InventoryController extends Controller
         $data = [$item,$make,$year,$desc,$page];
 
         
-                             
+        $make = str_replace('_',' ',$make);              
         // set paginator
         $mycurrentPage = $page;
         Paginator::currentPageResolver(function () use ($mycurrentPage) {

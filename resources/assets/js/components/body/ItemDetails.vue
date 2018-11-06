@@ -76,7 +76,7 @@
 						<li><span class='related_colum'>Year Fit: {{r.year_from}} -- {{r.year_end}}</span></li>
 						<li><span class='related_colum all_make'>Make: {{r.all_makes}}</span></li>
 						<div class="realted_priceDiv"  v-if="r.onhand > r.orderpt && disc">
-							CAD $<span style='text-decoration:line-through'>{{r.pricel.toFixed(2) }}</span> ${{r.pricel.toFixed(2)}}<br>
+							CAD $<span style='text-decoration:line-through'>{{r.pricel.toFixed(2) }}</span> ${{r.pricel | discount10}}<br>
 							<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((r.pricel)/$store.state.exchange) | discount10 }}</span>
 						</div>
 

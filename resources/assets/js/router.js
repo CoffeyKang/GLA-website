@@ -13,6 +13,7 @@ import PageNotFound from './components/body/PageNotFound.vue';
 import Login from './components/Login.vue';
 import Dealer from './components/Dealer.vue';
 import Register from './components/Register.vue';
+import Forget from './components/Forget.vue';
 import CustomerInfo from './components/CustomerInfo.vue';
 import UserHome from './components/userAdmin/UserHome.vue';
 import OrderHistory from './components/userAdmin/OrderHistory.vue';
@@ -59,7 +60,7 @@ export const routes = [
       { path: 'ChangePassword', component: ChangePass, name: 'ChangePass' }
     ]
   },
-
+  {path: '/forgetPassword', component: Forget, name: 'Forget'},
   {path: '/register', component: Register, name: 'Register'},
   {
     path: '/customerinfo', component: CustomerInfo, name: 'CustomerInfo',

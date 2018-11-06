@@ -50,6 +50,9 @@ Route::post('/loginCustomer','AccessControl@userinfo');
 /** create new customer */
 Route::post('/newCustomer','AccessControl@newCustomer');
 
+/** create new customer */
+Route::post('/resetPassword','AccessControl@resetPassword');
+
 // userdetails
 Route::post('/userDetails','AccessControl@userDetails');
 

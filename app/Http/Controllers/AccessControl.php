@@ -105,6 +105,45 @@ class AccessControl extends Controller
     }
 
 
+    /** reset password */
+
+    public function resetPassword(Request $request){
+
+        $this->validate($request,[
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'email'=>'email',
+            'password'=>'required|min:8',
+        ]);
+        
+        
+
+        $user = User::where('email',$request->email)->where('firstname',$request->firstname)
+        ->where('lastname',$request->lastname)->first();
+
+        if (!$user) {
+            
+            return response()->json(['status'=>"userNotExists"],200);
+        
+        }else{
+
+        }
+
+        $password = $request->password;
+
+        $user->password = bcrypt($password);
+        
+        $user->save();
+        
+        
+        $userInfo = UserInfo::where('m_id',$user->id)->first();
+
+
+        return response()->json(['user'=>$user,'userInfo'=>$userInfo],200);
+        
+    }
+
+
     public function userDetails(Request $request){
 
         

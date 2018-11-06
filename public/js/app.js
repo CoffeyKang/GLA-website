@@ -66487,44 +66487,47 @@ var myMixin = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_Register_vue__ = __webpack_require__(276);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_Register_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue__ = __webpack_require__(306);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue__ = __webpack_require__(316);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue__ = __webpack_require__(321);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue__ = __webpack_require__(326);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue__ = __webpack_require__(331);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_body_FinishOrder_vue__ = __webpack_require__(336);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_body_FinishOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_body_FinishOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_body_parts_Booklet_vue__ = __webpack_require__(341);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_body_parts_Booklet_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_body_parts_Booklet_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_ChangePass_vue__ = __webpack_require__(346);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_ChangePass_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_ChangePass_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OrderHistory_vue__ = __webpack_require__(351);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OrderHistory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_PendingOrder_vue__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_PendingOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_OneOrder_vue__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_OneOrder_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_Dealer_one_order_vue__ = __webpack_require__(366);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_Dealer_one_order_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_Dealer_one_order_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_dealerHome_vue__ = __webpack_require__(371);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_dealerHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_dealerHome_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_Forget_vue__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_Forget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_Forget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_CustomerInfo_vue__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_CustomerInfo_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_CustomerInfo_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_UserHome_vue__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_UserHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_userAdmin_UserHome_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OrderHistory_vue__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OrderHistory_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_PendingOrder_vue__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_userAdmin_PendingOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_OneOrder_vue__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__components_userAdmin_OneOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangeProfile_vue__ = __webpack_require__(306);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangeProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangeProfile_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_userAdmin_ChangePassword_vue__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_userAdmin_ChangePassword_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__components_userAdmin_ChangePassword_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_body_shoppingCart_vue__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_body_shoppingCart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__components_body_shoppingCart_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_Checkout_vue__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_body_Checkout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__components_body_Checkout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_body_DealerCheckout_vue__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_body_DealerCheckout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_body_DealerCheckout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_body_ConfirmOrder_vue__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_body_ConfirmOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_body_ConfirmOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_body_FinishOrder_vue__ = __webpack_require__(336);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_body_FinishOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_body_FinishOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_body_parts_Booklet_vue__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_body_parts_Booklet_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__components_body_parts_Booklet_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_ChangePass_vue__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_ChangePass_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_ChangePass_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_OrderHistory_vue__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_OrderHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_OrderHistory_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_PendingOrder_vue__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_PendingOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_PendingOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_OneOrder_vue__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_OneOrder_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_OneOrder_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_Dealer_one_order_vue__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_Dealer_one_order_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_Dealer_one_order_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_dealerAdmin_dealerHome_vue__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_dealerAdmin_dealerHome_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34__components_dealerAdmin_dealerHome_vue__);
+
 
 
 
@@ -66563,16 +66566,16 @@ var myMixin = {
 
 
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }, { path: '/SearchResualt', component: __WEBPACK_IMPORTED_MODULE_8__components_body_SearchResualt_vue___default.a, name: 'SearchResualt' }, { path: '/Item/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_body_ItemDetails_vue___default.a, name: 'ItemDetails' }, { path: '/wishlist', component: __WEBPACK_IMPORTED_MODULE_10__components_body_Wishlist_vue___default.a, name: 'Wishlist' }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_12__components_Login_vue___default.a, name: 'Login' }, { path: '/orderComplate/:sono', component: __WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_Dealer_one_order_vue___default.a, name: 'Dealer_one_order' }, { path: '/Dealer', component: __WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue___default.a, name: 'Dealer',
-  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HistoryOrder', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_28__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
-}, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_14__components_Register_vue___default.a, name: 'Register' }, {
-  path: '/customerinfo', component: __WEBPACK_IMPORTED_MODULE_15__components_CustomerInfo_vue___default.a, name: 'CustomerInfo',
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_body_Home_vue___default.a, name: 'home' }, { path: '/contact', component: __WEBPACK_IMPORTED_MODULE_1__components_body_Contact_vue___default.a }, { path: '/special', component: __WEBPACK_IMPORTED_MODULE_2__components_body_Special_vue___default.a }, { path: '/Catalog', component: __WEBPACK_IMPORTED_MODULE_3__components_body_Catalog_vue___default.a }, { path: '/allProducts', component: __WEBPACK_IMPORTED_MODULE_4__components_body_Products_vue___default.a }, { path: '/classicBody', component: __WEBPACK_IMPORTED_MODULE_5__components_body_Ccbd_vue___default.a }, { path: '/Product_list', component: __WEBPACK_IMPORTED_MODULE_6__components_body_Product_list_vue___default.a, name: 'Pruduct_list' }, { path: '/SearchResualt', component: __WEBPACK_IMPORTED_MODULE_8__components_body_SearchResualt_vue___default.a, name: 'SearchResualt' }, { path: '/Item/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_body_ItemDetails_vue___default.a, name: 'ItemDetails' }, { path: '/wishlist', component: __WEBPACK_IMPORTED_MODULE_10__components_body_Wishlist_vue___default.a, name: 'Wishlist' }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_12__components_Login_vue___default.a, name: 'Login' }, { path: '/orderComplate/:sono', component: __WEBPACK_IMPORTED_MODULE_33__components_dealerAdmin_Dealer_one_order_vue___default.a, name: 'Dealer_one_order' }, { path: '/Dealer', component: __WEBPACK_IMPORTED_MODULE_13__components_Dealer_vue___default.a, name: 'Dealer',
+  children: [{ path: '', component: __WEBPACK_IMPORTED_MODULE_34__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_34__components_dealerAdmin_dealerHome_vue___default.a, name: 'dealHome' }, { path: 'HistoryOrder', component: __WEBPACK_IMPORTED_MODULE_30__components_dealerAdmin_OrderHistory_vue___default.a, name: 'OrderHistory_dealer' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_31__components_dealerAdmin_PendingOrder_vue___default.a, name: 'PendingOrder_dealer' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_32__components_dealerAdmin_OneOrder_vue___default.a, name: 'OneOrder_dealer' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_29__components_dealerAdmin_ChangePass_vue___default.a, name: 'ChangePass' }]
+}, { path: '/forgetPassword', component: __WEBPACK_IMPORTED_MODULE_15__components_Forget_vue___default.a, name: 'Forget' }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_14__components_Register_vue___default.a, name: 'Register' }, {
+  path: '/customerinfo', component: __WEBPACK_IMPORTED_MODULE_16__components_CustomerInfo_vue___default.a, name: 'CustomerInfo',
 
-  children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_16__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_PendingOrder_vue___default.a, name: 'PendingOrder' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
-}, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_22__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_23__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '/ConfirmOrder', component: __WEBPACK_IMPORTED_MODULE_25__components_body_ConfirmOrder_vue___default.a, name: 'ConfirmOrder' }, { path: '/finishOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_26__components_body_FinishOrder_vue___default.a, name: 'FinishOrder' }, {
-  path: '/dealer_checkout', component: __WEBPACK_IMPORTED_MODULE_24__components_body_DealerCheckout_vue___default.a, name: 'DealerCheckout'
+  children: [{ path: 'HomePage', component: __WEBPACK_IMPORTED_MODULE_17__components_userAdmin_UserHome_vue___default.a, name: 'userHome' }, { path: 'OrderHistory', component: __WEBPACK_IMPORTED_MODULE_18__components_userAdmin_OrderHistory_vue___default.a, name: 'OrderHistory' }, { path: 'PendingOrder', component: __WEBPACK_IMPORTED_MODULE_19__components_userAdmin_PendingOrder_vue___default.a, name: 'PendingOrder' }, { path: 'oneOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_20__components_userAdmin_OneOrder_vue___default.a, name: 'OneOrder' }, { path: 'ChangeProfile', component: __WEBPACK_IMPORTED_MODULE_21__components_userAdmin_ChangeProfile_vue___default.a, name: 'ChangeProfile' }, { path: 'ChangePassword', component: __WEBPACK_IMPORTED_MODULE_22__components_userAdmin_ChangePassword_vue___default.a, name: 'ChangePassword' }]
+}, { path: '/SearchList', component: __WEBPACK_IMPORTED_MODULE_9__components_body_SearchList_vue___default.a, name: 'SearchList' }, { path: '/shoppingCart', component: __WEBPACK_IMPORTED_MODULE_23__components_body_shoppingCart_vue___default.a, name: 'ShoppingCart' }, { path: '/checkout', component: __WEBPACK_IMPORTED_MODULE_24__components_body_Checkout_vue___default.a, name: 'checkout' }, { path: '/ConfirmOrder', component: __WEBPACK_IMPORTED_MODULE_26__components_body_ConfirmOrder_vue___default.a, name: 'ConfirmOrder' }, { path: '/finishOrder/:order_num', component: __WEBPACK_IMPORTED_MODULE_27__components_body_FinishOrder_vue___default.a, name: 'FinishOrder' }, {
+  path: '/dealer_checkout', component: __WEBPACK_IMPORTED_MODULE_25__components_body_DealerCheckout_vue___default.a, name: 'DealerCheckout'
 }, {
-  path: '/booklet/:make', component: __WEBPACK_IMPORTED_MODULE_27__components_body_parts_Booklet_vue___default.a, name: 'Booklet'
+  path: '/booklet/:make', component: __WEBPACK_IMPORTED_MODULE_28__components_body_parts_Booklet_vue___default.a, name: 'Booklet'
 }, { path: '*', component: __WEBPACK_IMPORTED_MODULE_11__components_body_PageNotFound_vue___default.a }];
 
 /***/ }),
@@ -68598,7 +68601,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "cat_btn" }, [
             _c("h4", { staticClass: "text-center" }, [
-              _vm._v(_vm._s(catalog.name))
+              _vm._v(_vm._s(catalog.name.toUpperCase()))
             ]),
             _vm._v(" "),
             _c(
@@ -70221,7 +70224,7 @@ var render = function() {
                       { staticStyle: { "text-decoration": "line-through" } },
                       [_vm._v(_vm._s(r.pricel.toFixed(2)))]
                     ),
-                    _vm._v(" $" + _vm._s(r.pricel.toFixed(2))),
+                    _vm._v(" $" + _vm._s(_vm._f("discount10")(r.pricel))),
                     _c("br"),
                     _vm._v(" "),
                     _vm.usdPrice
@@ -70892,7 +70895,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			item: this.$route.query.item,
-
+			make: this.$route.query.make,
 			year: this.$route.query.year,
 			desc: this.$route.query.desc,
 			list: [],
@@ -70993,13 +70996,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		usdPrice: function usdPrice() {
 			return this.$store.state.usdPrice;
-		},
-		make: function make() {
-			var m = this.$route.query.make;
-
-			var make = m.replace('_', ' ');
-
-			return make;
 		}
 	}
 });
@@ -71935,7 +71931,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.title[data-v-3e2ac97c]{\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 40px;\n    padding-bottom:30px;\n}\n#loginDev[data-v-3e2ac97c], #registerDev[data-v-3e2ac97c]{\n    margin-bottom:50px;\n    margin-top: 50px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\np[data-v-3e2ac97c]{\n    padding:0 50px;\n    min-height:85px;\n    padding-bottom: 15px;\n}\n.remeber[data-v-3e2ac97c]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n@media screen and (min-width:768px){\n#loginDev[data-v-3e2ac97c]{\n        border-right: 1px solid black;\n}\n#loginDev[data-v-3e2ac97c], #registerDev[data-v-3e2ac97c]{\n        min-height:400px;\n}\n#registerForm[data-v-3e2ac97c]{\n        min-height: 260px;\n}\n}\n@media screen and (max-width:768px){\n#loginDev[data-v-3e2ac97c]{\n        border-bottom: 1px solid black;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.forgetPassword[data-v-3e2ac97c]{\n    cursor: pointer;\n}\n.title[data-v-3e2ac97c]{\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 40px;\n    padding-bottom:30px;\n}\n#loginDev[data-v-3e2ac97c], #registerDev[data-v-3e2ac97c]{\n    margin-bottom:50px;\n    margin-top: 50px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\np[data-v-3e2ac97c]{\n    padding:0 50px;\n    min-height:85px;\n    padding-bottom: 15px;\n}\n.remeber[data-v-3e2ac97c]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n@media screen and (min-width:768px){\n#loginDev[data-v-3e2ac97c]{\n        border-right: 1px solid black;\n}\n#loginDev[data-v-3e2ac97c], #registerDev[data-v-3e2ac97c]{\n        min-height:400px;\n}\n#registerForm[data-v-3e2ac97c]{\n        min-height: 260px;\n}\n}\n@media screen and (max-width:768px){\n#loginDev[data-v-3e2ac97c]{\n        border-bottom: 1px solid black;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -72113,6 +72109,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         toRegister: function toRegister() {
             this.$router.push('/register');
+        },
+        forget: function forget() {
+            this.$router.push('/forgetPassword');
         }
     }
 });
@@ -72228,7 +72227,28 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "div",
+                { staticClass: "col-xs-8 col-xs-offset-2 form-group remeber" },
+                [
+                  _c("div"),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "forgetPassword",
+                        on: {
+                          click: function($event) {
+                            _vm.forget()
+                          }
+                        }
+                      },
+                      [_vm._m(0)]
+                    )
+                  ])
+                ]
+              )
             ]
           )
         ]
@@ -72279,19 +72299,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-xs-8 col-xs-offset-2 form-group remeber" },
-      [
-        _c("div"),
-        _vm._v(" "),
-        _c("div", [
-          _c("span", { staticClass: "forgetPassword" }, [
-            _vm._v("Forgot Password?")
-          ])
-        ])
-      ]
-    )
+    return _c("i", [_c("u", [_vm._v("Forgot Password?")])])
   },
   function() {
     var _vm = this
@@ -73358,7 +73366,7 @@ var render = function() {
                         },
                         [
                           _c("el-input", {
-                            attrs: { placeholder: "Last Name" },
+                            attrs: { placeholder: "First Name" },
                             model: {
                               value: _vm.details.firstname,
                               callback: function($$v) {
@@ -73380,7 +73388,7 @@ var render = function() {
                         },
                         [
                           _c("el-input", {
-                            attrs: { placeholder: "First Name" },
+                            attrs: { placeholder: "Last Name" },
                             model: {
                               value: _vm.details.lastname,
                               callback: function($$v) {
@@ -118682,6 +118690,567 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(411)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(413)
+/* template */
+var __vue_template__ = __webpack_require__(414)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-f8228f38"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Forget.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f8228f38", Component.options)
+  } else {
+    hotAPI.reload("data-v-f8228f38", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 411 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(412);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("78285641", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f8228f38\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Forget.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f8228f38\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Forget.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 412 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#registerForm[data-v-f8228f38]{\n    margin:50px auto;\n}\n.title-span[data-v-f8228f38]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    text-align: left;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.title[data-v-f8228f38]{\n    font-size: 28px;\n    line-height: 40px;\n}\n.haveAccount[data-v-f8228f38]{\n    font-size: 18px;\n    line-height: 40px;\n}\n.inRow[data-v-f8228f38]{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n.col-xs-6[data-v-f8228f38], .col-xs-12 [data-v-f8228f38],.col-xs-5[data-v-f8228f38] {\n    padding:0;\n}\n.checkboxDiv[data-v-f8228f38]{\n    cursor: pointer;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 413 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+
+        return {
+            errors: [],
+            reload: false,
+            username: null,
+            firstname: null,
+            lastname: null,
+            email: null,
+            password: null,
+            confirm: null,
+            receiveEmail: true,
+            summary: false,
+            myCaptcha: '',
+            myCap: false,
+            storage: window.localStorage,
+            details: {
+                firstname: '',
+                lastname: '',
+                email: '',
+                password: '',
+                confirm: '',
+                checked: true
+
+            },
+            rules: {
+                firstname: [{ required: true, message: 'FIrst name is required.', trigger: 'blur', max: 99 }],
+                lastname: [{ required: true, message: 'Last name is required.', trigger: 'blur', max: 99 }],
+
+                email: [{ required: true, message: 'Email is required.', trigger: 'blur', max: 99 }, { type: 'email', message: 'invaldate email.', trigger: 'blur', max: 99 }],
+
+                password: [{ required: true, message: 'Password is required.', trigger: 'blur', max: 99 }, { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max: 99 }],
+
+                confirm: [{ required: true, message: 'Confirm password is required.', trigger: 'blur', max: 99 }, { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max: 99 }]
+            }
+        };
+    },
+    mounted: function mounted() {},
+
+    methods: {
+        checkPwd: function checkPwd(str) {
+            if (str.length < 8) {
+                return "Password minimal length is 8.";
+            } else if (str.length > 50) {
+                return "Password too long.";
+            } else if (str.search(/\d/) == -1) {
+                return "Password must contain number and alphabet.";
+            } else if (str.search(/[a-zA-Z]/) == -1) {
+                return "Password must contain number and alphabet.";
+            } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+                return "Password must contain number and alphabet.";
+            }
+            return "ok";
+        },
+        register: function register() {
+            var _this = this;
+
+            this.$refs["details"].validate(function (valid) {
+                if (valid) {
+
+                    if (_this.password != _this.confirm) {
+                        _this.$message({
+                            message: 'Password Confirmation does not match Password',
+                            type: 'error'
+                        });
+                        return false;
+                    }
+
+                    if (_this.checkPwd(_this.details.password) != "ok") {
+                        _this.$message({
+                            message: _this.checkPwd(_this.details.password),
+                            type: 'error'
+                        });
+                        $('.password').css('border-color', 'red');
+                        return false;
+                    }
+
+                    if (_this.details.password != _this.details.confirm) {
+                        _this.$message({
+                            message: 'confirm password not match',
+                            type: 'error'
+                        });
+                        $('.password').css('border-color', 'red');
+                        return false;
+                    }
+                    /** check captcha */
+
+                    _this.$http.post('/api/resetPassword', {
+                        'lastname': _this.details.lastname,
+                        'firstname': _this.details.firstname,
+                        'email': _this.details.email,
+                        'password': _this.details.password
+
+                    }).then(function (response) {
+
+                        if (response.data.status == "userNotExists") {
+                            _this.$message({
+                                message: 'Can not find this user.',
+                                type: 'error'
+                            });
+                            // $().ready(function(){
+                            // $('#email').css('background-color','#f56c6c !important');
+
+                            // });
+                            return false;
+                        } else {
+                            _this.$message({
+                                message: "Password reset, please log in.",
+                                type: 'success'
+                            });
+                            _this.$router.push('/login');
+                        }
+                    });
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 414 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "container",
+      on: {
+        keyup: function($event) {
+          if (
+            !("button" in $event) &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          _vm.register()
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "text-center col-xs-12 ",
+          attrs: { id: "registerForm" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "col-xs-8 col-xs-offset-2 form-group title-span" },
+            [
+              _c("span", { staticClass: "title" }, [
+                _vm._v("LOG IN ASSISTANCE")
+              ]),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "haveAccount" },
+                [
+                  _vm._v("Back to Log in. "),
+                  _c("router-link", { attrs: { tag: "a", to: "/login" } }, [
+                    _vm._v("Sign in")
+                  ])
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-xs-2" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-xs-8 col-xs-offset-2" },
+            [
+              _c(
+                "el-form",
+                {
+                  ref: "details",
+                  attrs: {
+                    rules: _vm.rules,
+                    model: _vm.details,
+                    size: "medium"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { prop: "email" } },
+                          [
+                            _c("el-input", {
+                              attrs: {
+                                id: "email",
+                                type: "email",
+                                placeholder: "Email Address"
+                              },
+                              model: {
+                                value: _vm.details.email,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "email", $$v)
+                                },
+                                expression: "details.email"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "inRow" },
+                    [
+                      _c(
+                        "el-form-item",
+                        {
+                          staticClass: "col-xs-6",
+                          staticStyle: { "padding-right": "5px !important" },
+                          attrs: { prop: "firstname" }
+                        },
+                        [
+                          _c("el-input", {
+                            attrs: { placeholder: "First Name" },
+                            model: {
+                              value: _vm.details.firstname,
+                              callback: function($$v) {
+                                _vm.$set(_vm.details, "firstname", $$v)
+                              },
+                              expression: "details.firstname"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-form-item",
+                        {
+                          staticClass: "col-xs-6",
+                          staticStyle: { "padding-left": "5px !important" },
+                          attrs: { prop: "lastname" }
+                        },
+                        [
+                          _c("el-input", {
+                            attrs: { placeholder: "Last Name" },
+                            model: {
+                              value: _vm.details.lastname,
+                              callback: function($$v) {
+                                _vm.$set(_vm.details, "lastname", $$v)
+                              },
+                              expression: "details.lastname"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { prop: "password" } },
+                          [
+                            _c("el-input", {
+                              staticClass: "password",
+                              attrs: {
+                                type: "password",
+                                placeholder: "New Password"
+                              },
+                              model: {
+                                value: _vm.details.password,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "password", $$v)
+                                },
+                                expression: "details.password"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { prop: "confirm" } },
+                          [
+                            _c("el-input", {
+                              staticClass: "password",
+                              attrs: {
+                                type: "password",
+                                placeholder: "Confirm Password"
+                              },
+                              model: {
+                                value: _vm.details.confirm,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.details, "confirm", $$v)
+                                },
+                                expression: "details.confirm"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "inRow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-xs-12" },
+                      [
+                        _c(
+                          "el-form-item",
+                          [
+                            _c(
+                              "el-button",
+                              {
+                                staticStyle: {
+                                  width: "100%",
+                                  "font-size": "24px",
+                                  padding: "5px"
+                                },
+                                attrs: { type: "success" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.register()
+                                  }
+                                }
+                              },
+                              [_vm._v("Reset Password ")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f8228f38", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
