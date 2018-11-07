@@ -6,8 +6,8 @@
                     <a href="/GLAAdmin" class="list-group-item" v-if="user.level==1">Admin Panel</a>
                     <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">My Account </router-link>
                     <router-link to='/CustomerInfo/OrderHistory' tag='a' class="list-group-item">Order History <span v-if="orderHistory" class='num'>({{orderHistory.length}})</span></router-link>
-                    <router-link to='/CustomerInfo/PendingOrder' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
-                    <router-link to='/CustomerInfo/TrackOrder' tag='a' class="list-group-item">Shipped Order <span v-if="pending" class='num'>({{orderHistory.length - pending.length}})</span></router-link>
+                    <!-- <router-link to='/CustomerInfo/PendingOrder' tag='a' class="list-group-item">Pending Order <span v-if="pending" class='num'>({{pending.length}})</span></router-link>
+                    <router-link to='/CustomerInfo/TrackOrder' tag='a' class="list-group-item">Shipped Order <span v-if="pending" class='num'>({{orderHistory.length - pending.length}})</span></router-link> -->
                     <router-link to='/CustomerInfo/HomePage' tag='a' class="list-group-item">Submit Inquiry</router-link>
                     <router-link to='/CustomerInfo/ChangeProfile' tag='a' class="list-group-item">Edit Profile </router-link>
                     <router-link to='/CustomerInfo/ChangePassword' tag='a' class="list-group-item">Change Password </router-link>

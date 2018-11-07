@@ -11,7 +11,9 @@
         <div class="edit_title" >
             <span>Order Number : {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }} </span>
         </div>
-        
+        <div v-if="somast.sales_status==9">
+            Track Order: <u style='cursor:pointer' @click='track(somast.track_num)' >{{somast.track_num}}</u>
+        </div>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -74,6 +76,16 @@ export default {
       },function(){
           this.empty=true;
       });
+    },
+    methods:{
+        track(track){
+            var url = "https://loomisexpress.com/webship/wfTrackingStatus.aspx?PieceNumber="+track+"&locale=en";
+            if (track.length>=1) {
+                window.open(url,'_blank');
+            }else{
+
+            }
+        },
     }
 
 
