@@ -54,7 +54,7 @@
             @endforeach
                     </div>
                 <div class="form-group row d-flex justify-content-end">
-                    <div class="col-4"><button class="btn btn-primary btn-block">Change ExchanTge Rate</button></div>
+                    <div class="col-4"><button class="btn btn-primary btn-block">Change Tax Rate</button></div>
                 </div>
     
         </form>

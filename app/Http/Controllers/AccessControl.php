@@ -289,7 +289,18 @@ class AccessControl extends Controller
              $userInfo->m_car = $data["car"];
              $userInfo->save();
 
+             /** also change user table customer firstname and lastname */
+            $user = $userInfo->main_user;
+
+            $user->firstname = $data["forename"];
+
+            $user->lastname = $data["surname"];
+
+            $user->save();
+
          }
+
+        
 
         $billing = Billing::where('cust_id',$userID)->first();
 

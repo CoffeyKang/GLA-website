@@ -1244,6 +1244,18 @@ class InventoryController extends Controller
         return response()->json(['history'=>$history,'pending'=>$pending],200);
     }
 
+    // get customer order history
+    public function customerTrackOrder(Request $request){
+
+        $id = $request->id;
+
+        $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->where('sales_status',9)->get();
+
+        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[0,1,3,5,7])->orderBy('order_num','desc')->get();
+        
+        return response()->json(['history'=>$history,'pending'=>$pending],200);
+    }
+
     // get dealer order history
     public function dealerOrderHistory(Request $request){
 

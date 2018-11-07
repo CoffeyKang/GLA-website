@@ -99,6 +99,8 @@ Route::post('/changeAddress','InventoryController@changeAddress');
 /** get customer so history */
 Route::get('/customerOrderHistory','InventoryController@customerOrderHistory');
 
+Route::get('/customerTrackOrder','InventoryController@customerTrackOrder');
+
 /** get dealer so history */
 Route::get('/dealerOrderHistory','InventoryController@dealerOrderHistory');
 // oneOrder

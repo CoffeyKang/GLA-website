@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="edit_title">
-            Order History
+            Track Shipped ORder
         </div>
         <table class="table table-striped table-hover" style='margin-top:20px;'>
             <thead>
@@ -10,11 +10,13 @@
                     <th>Order Number</th>
                     <th>Currency</th>
                     <th>Order Status</th>
+                    <th>Courier</th>
+                    <th style='width:100px;'>track_num</th>
                     <th class='text-right'>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in orderHistory.slice(from,end)" :key="item.sales_serial" @click='HistoryDetails(item.order_num)'>
+                <tr v-for="item in orderHistory.slice(from,end)" :key="item.sales_serial"  >
                     <td>{{item.date_order.substring(0,10)}}</td>
                     <td>{{item.order_num}}</td>
                     <th>{{item.currency}}</th>
@@ -32,6 +34,8 @@
                         <span v-if="item.sales_status==9">Shipped
                         </span>
                     </th>
+                    <td>{{item.courier}}</td>
+                    <td>{{item.track_num}}</td>
                     <td class='text-right'>$ {{(parseFloat(item.subtotal) + parseFloat(item.tax) + parseFloat(item.shipping)).toFixed(2)}}
                     </td>
                 </tr>
@@ -57,16 +61,11 @@ export default {
         }
     },
     mounted(){
-        this.customerOrderHistory();
+        this.customerTrackOrder();
         
         
     },
     methods:{
-        HistoryDetails(order_num){
-            console.log(order_num);
-            this.$router.push({ name: 'OneOrder', params: { order_num: order_num }});
-            
-        },
 
         previousPage(){
              this.current-=1;

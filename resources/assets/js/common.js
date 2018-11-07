@@ -98,6 +98,14 @@ export const myMixin = {
       });
     },
 
+    customerTrackOrder: function () {
+      var id = JSON.parse(this.storage.getItem('user')).id;
+      this.$http.get('/api/customerTrackOrder', { params: { 'id': id } }).then(response => {
+        this.orderHistory = response.data.history;
+        this.pending = response.data.pending;
+      });
+    },
+
     dealerOrderHistory: function () {
       var account = JSON.parse(this.storage.getItem('user')).account;
       this.$http.get('/api/dealerOrderHistory', { params: { 'account': account } }).then(response => {
@@ -208,9 +216,9 @@ export const myMixin = {
       return Dealerprice;
     },
 
-    ifDealer(){
+    ifDealer() {
       if (this.storage.getItem('user')) {
-        if (JSON.parse(this.storage.getItem('user')).level==2) {
+        if (JSON.parse(this.storage.getItem('user')).level == 2) {
           return true;
         }
       }else {

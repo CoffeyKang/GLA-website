@@ -16,6 +16,7 @@ import Register from './components/Register.vue';
 import Forget from './components/Forget.vue';
 import CustomerInfo from './components/CustomerInfo.vue';
 import UserHome from './components/userAdmin/UserHome.vue';
+import TrackOrder from './components/userAdmin/TrackOrder.vue';
 import OrderHistory from './components/userAdmin/OrderHistory.vue';
 import PendingOrder from './components/userAdmin/PendingOrder.vue';
 import OneOrder from './components/userAdmin/OneOrder.vue';
@@ -70,6 +71,7 @@ export const routes = [
       { path: 'OrderHistory', component: OrderHistory, name: 'OrderHistory' },
       { path: 'PendingOrder', component: PendingOrder, name: 'PendingOrder' },
       { path: 'oneOrder/:order_num', component: OneOrder, name: 'OneOrder' },
+      { path: 'TrackOrder', component: TrackOrder, name: 'TrackOrder' },
       { path: 'ChangeProfile', component: ChangeProfile, name: 'ChangeProfile'},
       { path: 'ChangePassword', component: ChangePassword, name: 'ChangePassword' }
     ]
