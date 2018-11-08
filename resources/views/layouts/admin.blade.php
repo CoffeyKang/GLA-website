@@ -132,7 +132,7 @@
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Website Managenment</b></a>
                             <a class="nav-link" id="top10" href="/top10">Top 10 Best Sellers</a>
 
-                            <a class="nav-link" id="" href="#v" role="tab">Update Feature Products</a>
+                            <a class="nav-link" id="" href="/featureProducts" role="tab">Update Feature Products</a>
                             <a class="nav-link" id="" href="#v" role="tab">Broadcasting Email</a>
                             <a class="nav-link" id="" href="/exchangeRate" role="tab">Change Exchange Rate and Tax</a>
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Account Details</a> --}}

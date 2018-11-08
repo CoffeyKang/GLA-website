@@ -51,7 +51,7 @@ class SOMAST extends Model
                 $status = 'Payment Failed';
                 break;
             case 1:
-                $status = 'Payment Success';
+                $status = 'Paid';
                 break;
             case 3:
                 $status = 'Pending for Quote';

@@ -177,7 +177,7 @@ class InventoryController extends Controller
      * @return [type]       [description]
      */
     public function featureProducts(){
-        $features = FeatureProduct::inRandomOrder()->take(4)->get();
+        $features = FeatureProduct::inRandomOrder()->get();
         $resualt = [];
         foreach ($features as $f) {
             array_push($resualt, $f->itemDetails()->first());

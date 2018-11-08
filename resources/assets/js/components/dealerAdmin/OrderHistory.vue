@@ -8,9 +8,8 @@
                 <tr>
                     <th>Order Date</th>
                     <th>Order Number</th>
-                    
                     <th>Order Status</th>
-                    <th style='width:100px;'>track_num</th>
+                    <th style='width:100px;'>Track Num</th>
                     <th class='text-right'>Shipping</th>
                     <th class='text-right'>Tax</th>
                     <th class='text-right'>Subtotal</th>

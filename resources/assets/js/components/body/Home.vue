@@ -28,7 +28,7 @@
         <div class="sub_title">
           <span>FEATURE PRODUCTS</span>
         </div>
-          <div class='feature_item container'>
+          <div class='container-fluid fitems'>
             <div v-for="a in featureProducts" :key="a.id">
                 <app-item :item="a"></app-item>
             </div>
@@ -39,7 +39,7 @@
             <span>MOST POPULAR ITEMS</span>
           </div>
 
-          <div class='feature_item container popular'>
+          <div class='feature_item container-fluid popular'>
             <div v-for="a in popular" :key='a.id' >
                 <app-item :item="a"></app-item>
             </div>
@@ -163,9 +163,39 @@
           flex-wrap: wrap;
         }
 
+        .fitems{
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          overflow: scroll;
+          overflow-y:hidden;
+          
+          
+        }
+
         .popular{
           margin-bottom: 50px;
         }
+
+        /* width */
+      ::-webkit-scrollbar {
+          width: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+      }
+      
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+          background: #888; 
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+          background: #555; 
+      }
         
     
       

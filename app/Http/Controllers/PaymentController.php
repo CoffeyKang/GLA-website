@@ -8,7 +8,8 @@ class PaymentController extends Controller
 {
     function TestPayment(){
 
-        // InventoryExcelFile();
+        InventoryExcelFile();
+        
         
         dd(1);
         $merchant_id = '117686147'; //INSERT MERCHANT ID (must be a 9 digit string)

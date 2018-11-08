@@ -357,4 +357,42 @@ class AdminController extends Controller
         return redirect()->back()->with('status','Tax rate update.');
     }
 
+    public function featureProducts(){
+        
+        $fitems = FeatureProduct::all();
+
+        return view('admin.featureProducts',compact('fitems'));
+    }
+
+    public function addNewFeatureProduct(Request $request){
+        $this->validate($request, [
+            'item'=>'required|exists:inventory|unique:feature_items',
+        ]);
+        $fitems = FeatureProduct::all();
+        if (count($fitems)>=20) {
+            return redirect()->back()->withErrors('The maximal number of feature products is 20');
+        }else{
+
+            $item = new FeatureProduct;
+
+            $item->item = $request->item;
+
+            $item->save();
+            
+            return redirect()->back()->with('status','New feature item added.');
+        }
+
+       
+        
+    }
+     public function deletefeatureItem($id){
+            $item = FeatureProduct::find($id);
+
+            if ($item) {
+                $item->delete();
+                return redirect()->back()->with('status',"Feature item $item->item removed.");
+            }else{
+                return redirect()->back()->withErrors('Item not find.');
+            }
+        }
 }

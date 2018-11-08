@@ -353,12 +353,8 @@ class AccessControl extends Controller
     
             
         // dd($output);
-
-        $u = User::find(18);
-
-        $u->getRate();
-
-        dd($u->getRate());
+        InventoryExcelFile();
+        return 1;
     
         
 

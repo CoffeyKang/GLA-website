@@ -19,7 +19,6 @@
                 <th scope='col'>subtotal</th>
                 <th scope='col'>tax</th>
                 <th scope='col'>Shipping</th>
-                <th scope="col">Currency</th>
                 <th scope="col">Order Date</th>
                 <th scope="col">Order Status</th>
                 <th scope="col">Shipping</th>
@@ -40,7 +39,6 @@
                 <td>$ {{number_format($so->subtotal,2)}}</td>
                 <td>$ {{number_format($so->tax,2)}}</td>
                 <td>$ {{number_format($so->shipping,2)}}</td>
-                <td>{{$so->currency}}</td>
                 <td>{{$so->date_order}}</td>
                 <td>{{$so->statusCode()}}</td>
                 @if ($so->sales_status==1)

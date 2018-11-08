@@ -30,6 +30,9 @@
                 </tr>
             </tbody>
         </table>
+        <div class="panel" v-if="somast.notes.length>=1">
+            <b>NOTES: </b>{{somast.notes}}
+        </div>
         <div class="text-right">
             <el-button type='primary' @click='$router.push({name:"OrderHistory_dealer"})'>Back</el-button>    
         </div>  
