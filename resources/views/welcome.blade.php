@@ -24,7 +24,7 @@
 
         <script src='https://libs.na.bambora.com/customcheckout/1/customcheckout.js'></script>
         
-        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+        {{-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> --}}
 
         <style>
             *{

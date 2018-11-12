@@ -2025,7 +2025,7 @@ class InventoryController extends Controller
                 $item->delete();
             }
 
-            return response()->json(['result'=>$result],200);
+            return response()->json(['result'=>$somast],200);
             
            
             
