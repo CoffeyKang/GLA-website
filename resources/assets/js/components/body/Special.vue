@@ -88,14 +88,13 @@
 				this.lists.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});	
-				console.log(response);
 			    this.page = this.data.current_page;
 				window.scrollTo(0,0);
 			    // finish ladding screen
 			    this.loading = 0;
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 
 
@@ -111,7 +110,6 @@
 		methods:{
 			nextPage(){
 				this.page +=1;
-				console.log(this.page);
 				this.$http.get('/api/special/'+this.page).then(response => {
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
@@ -124,7 +122,7 @@
 			    this.loading = 0;
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 			},
 			prePage(){
@@ -141,7 +139,7 @@ window.scrollTo(0,0);
 			    this.loading = 0;
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 			},
 			showLimitedWords:function(str,num){

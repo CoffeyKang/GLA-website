@@ -11,7 +11,6 @@ export const myMixin = {
       return alert('Mixin is called.');
     },
     addToCart: function () {
-      console.log('this is test add to cart function');
     },
 
     addToWishlist: function (item) {
@@ -39,7 +38,6 @@ export const myMixin = {
             });
           }
         }, response => {
-          console.log('something error');
         });
       }else {
         var currentPath = this.$route.path;
@@ -51,7 +49,6 @@ export const myMixin = {
 
     // addToCart
     addToCart_common(item) {
-      console.log(item);
       if (item.onhand < 1) {
         this.$alert('Out of stock', 'Warning', {
           confirmButtonText: 'OK'
@@ -87,7 +84,6 @@ export const myMixin = {
     },
 
     currentPath: function () {
-      console.log(this.$route.path);
     },
 
     customerOrderHistory: function () {
@@ -111,13 +107,11 @@ export const myMixin = {
       this.$http.get('/api/dealerOrderHistory', { params: { 'account': account } }).then(response => {
         this.orderHistory = response.data.history;
         this.pending = response.data.pending;
-        console.log(response.data);
       });
     },
 
     viewed: function (item) {
       this.$http.post('/api/viewed', { 'item': item }).then(response => {
-        console.log(response);
       });
     },
 
@@ -172,13 +166,10 @@ export const myMixin = {
       } else if (str.length > 50) {
         return ('Password too long.');
       } else if (str.search(/\d/) == -1) {
-        console.log('alphabet reqiured');
         return ('Password must contain number and alphabet.');
       } else if (str.search(/[a-zA-Z]/) == -1) {
-        console.log('alphabet reqiured');
         return ('Password must contain number and alphabet.');
       } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
-        console.log('alphabet reqiured');
         return ('Password must contain number and alphabet.');
       }
       return ('ok');

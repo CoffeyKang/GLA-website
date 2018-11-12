@@ -287,7 +287,6 @@ export default {
                         }
                         ).then(response=>{
                         this.loading = 0;
-                        // console.log(response.data);
                         if (response.data.result) {
                             this.carts.forEach(element => {
                                 this.storage.removeItem(element.item);

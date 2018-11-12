@@ -128,7 +128,6 @@
 							
 						}
 					}, response=>{
-						console.log('error');
 					});
 			},
 			// addToCart
@@ -167,7 +166,6 @@
 
 					this.removeFromWhishlist(item);
 
-					console.log(window.localStorage);
 				}
 
 				
@@ -176,7 +174,6 @@
 
 
 			getWishlist(){
-				console.log("gegtWishlist called");
 				var userID = JSON.parse(this.storage.getItem("user")).id;
 				if (JSON.parse(this.storage.getItem('user')).level == 2) {
 					var url = 'wishlist_dealer';
@@ -184,15 +181,12 @@
 					var url = 'wishlist';
 				}
 				this.$http.get('/api/'+url, {params:{userid:userID}}).then(response=>{
-					console.log("call get wishlist api");
 					this.items = response.data.items;
 
 					this.items.forEach(element => {
 						element.pricel = this.Dealerprice(element);
 					});
-					console.log(this.items);
 				}, response=>{
-					console.log('wishlist error');
 				});
 			}
 		},

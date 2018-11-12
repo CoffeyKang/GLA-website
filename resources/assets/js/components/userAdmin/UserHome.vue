@@ -7,7 +7,7 @@
         <div class="edit_title" v-if="user.level==2">
             Dealer Arae
         </div>
-        <div style='margin-top:20px;'>
+        <!-- <div style='margin-top:20px;'>
             <el-card class="box-card">
                 <div class="clearfix" slot="header">
                     Latest News
@@ -16,7 +16,7 @@
                     Once the spring thaw gives the way to soiling summer heat, I fill in love with swimming.
                 </div>
             </el-card>
-        </div>
+        </div> -->
 
         <div class='details'>
             <div style='width:48%;'>
@@ -34,7 +34,7 @@
                             <el-col :span="16"><div class="grid-content">{{ user.email }}</div></el-col>
                         </el-row>
                         <el-row :gutter="20" justify="center">
-                            <el-col :span="8"><div class="grid-content">Address:</div></el-col>
+                            <el-col :span="8"><div class="grid-content">Billing Address:</div></el-col>
                             <el-col :span="16"><div class="grid-content">{{ address }}</div></el-col>
                         </el-row>     
                     </div>

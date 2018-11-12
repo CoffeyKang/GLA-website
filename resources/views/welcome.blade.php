@@ -42,7 +42,6 @@
                     // 'sitekey' : '6LfNO3QUAAAAANDNGpUMsEachCebsRdXCF76NtBl',
                     'theme':'dark',
                     'callback' : function(response) { 
-                        console.log(response); 
                         window.localStorage.setItem('captcha',response);
                     },
                 });

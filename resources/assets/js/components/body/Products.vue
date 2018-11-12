@@ -46,7 +46,7 @@
 			    
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 		},
 		methods:{

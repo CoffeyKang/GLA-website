@@ -104,12 +104,10 @@
 			    
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 
 			this.$http.get('/api/catalogs').then(response=>{
 				this.catalogs = response.body.catalogs;
-				console.log(this.catalogs);
 			}, response=>{
 				// error log
 			});

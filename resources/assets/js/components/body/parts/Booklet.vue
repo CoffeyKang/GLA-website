@@ -33,14 +33,12 @@
         computed:{
             page(){
                 if (this.num>this.total ) {
-                    console.log(this.num);
                     this.num =1;
                 }else{
 
                 }
 
                 if (isNaN(this.num) ) {
-                    console.log('is not a number')
                     this.num =1;
                     $('#numInput').val(1);
                 }else{

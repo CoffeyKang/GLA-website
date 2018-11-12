@@ -62,13 +62,11 @@ export default {
     },
     mounted(){
         this.dealerOrderHistory();
-        console.log(this.orderHistory);
         
         
     },
     methods:{
         HistoryDetails(order_num){
-            console.log(order_num);
             this.$router.push({ name: 'OneOrder_dealer', params: { order_num: order_num }});
             
         },

@@ -30,10 +30,10 @@
 							{{item_make.make}} &nbsp; 
 						</span>
 					</td>
-                    <td class='text-right' v-if="thing.onhand > thing.orderpt && discount">CAD ${{(thing.pricel*0.9).toFixed(2)}}<br>
+                    <td class='text-right' v-if="thing.onhand-thing.aloc > thing.orderpt && discount">CAD ${{(thing.pricel*0.9).toFixed(2)}}<br>
 						<span v-if='usdPrice' class='usdPrice'>USD ${{ (((thing.pricel)/$store.state.exchange)*0.9).toFixed(2) }}</span></td>
 
-					<td class='text-right' v-if="thing.onhand <= thing.orderpt || !discount">CAD ${{thing.pricel.toFixed(2)}}<br>
+					<td class='text-right' v-if="thing.onhand-thing.aloc <= thing.orderpt || !discount">CAD ${{thing.pricel.toFixed(2)}}<br>
 						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((thing.pricel)/$store.state.exchange).toFixed(2) }}</span></td>
 
                     <td class='text-center'>
@@ -106,7 +106,6 @@
 					}).then(response => {
 				// get body data
 				this.list = response.body.items.data;
-				console.log(response);
 				this.list.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});
@@ -114,7 +113,6 @@
 				this.data = response.body.items;
 				this.page = this.data.current_page;
 				this.makes = response.body.item_makes;
-				console.log(this.makes);
 				if (this.data.total>=1) {
 					this.result=true;
 					// i need put the search details to vuex, in order to backbing to search result pages
@@ -128,7 +126,7 @@
 					this.loading=0;
 				}
 			  }, response => {
-			    console.log("error");
+			     
 			  });
 
 
@@ -161,7 +159,6 @@
 				},
 			prePage(){
 				this.page -=1;
-				console.log(this.page);
 				this.$router.push({name:'SearchList',query:{
 							item:this.item, 
 							make:this.make,

@@ -587,14 +587,11 @@
 		mounted(){
             // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
             
-            // console.log(isValidZip);
             this.user = JSON.parse(this.storage.getItem('user'));
 
             if (this.user) {
-                console.log('login');
             }else{
                 this.$router.push({name:'Login'});
-                console.log('not');
 
                 return false;
             }
@@ -696,7 +693,6 @@
                             data:this.details,
                             userID:this.userID,
                         }).then((response)=>{   
-                            console.log(response.data);
 
                             var info = response.data.userinfo;
                             var b = response.data.billing;

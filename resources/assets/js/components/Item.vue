@@ -16,7 +16,7 @@
 			
 			<span class='price' v-if="disc">
 				<span class='price_label'>CAD: <b class='price'>  $<span style='text-decoration:line-through' >{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
-							<span v-if='usdPrice' class='usdPrice'>USD  $<span style='text-decoration:line-through' >{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+							<span v-if='usdPrice' class='usdPrice'>USD  $<span style='text-decoration:line-through;' >{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
 						</span>
 				<!-- CAD ${{ item.pricel.toFixed(2) }}<br>
 				<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> -->
@@ -61,10 +61,7 @@
 			if (this.ifDealer()) {
 				this.disc = false;
 			}else{
-				console.log(this.item);
-				console.log(this.item.onhand);
-				console.log(this.item.orderpt);
-				if (this.item.onhand > this.item.orderpt) {
+				if (this.item.onhand-this.item.aloc > this.item.orderpt) {
 					this.disc = true;
 				}else{
 					this.disc = false;
@@ -119,10 +116,13 @@
 		font-size: 1.2em;
 		font-weight: bold;
 		padding: 10px 0 ;
+		min-height: 80px;
 	}
 	.description{
 		color: black;
 		font-weight: bold;
 		text-transform: uppercase;
 	}
+
+	
 </style>

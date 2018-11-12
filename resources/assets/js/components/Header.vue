@@ -102,7 +102,6 @@
 				
 					
 			}else{
-				console.log('not login');
 			}
 
 			if (this.storage.getItem("userInfo")) {

@@ -75,7 +75,6 @@ export default {
     },
     mounted(){
         
-        console.log(this.$store.state.loginStatus);
         let user = JSON.parse(this.storage.getItem('user'));
         if (user) {
             if (user.level!=2) {
@@ -133,7 +132,6 @@ export default {
                         let cust_id = this.user.id;
 
                         this.$http.get('/api/getShortlist_dealer/'+cust_id).then((response)=>{
-                            console.log(response.data);
                             let oldShortlist = response.data.oldShortlist;
                             
                             oldShortlist.forEach(element => {
@@ -157,15 +155,12 @@ export default {
                         });
 
                         this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
-                            // console.log('called');
                             if (response.data.deleteOldShortlist=='deletedOld') {
-                                // console.log('shortlist has been delete');
                             }else{
 
                             }
                         }));
                     }else{
-                        console.log('not login');
                     }
                 
 

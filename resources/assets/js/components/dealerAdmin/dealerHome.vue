@@ -5,7 +5,7 @@
         <div class="edit_title">
             Dealer Arae
         </div>
-        <div style='margin-top:20px;'>
+        <!-- <div style='margin-top:20px;'>
             <el-card class="box-card">
                 <div class="clearfix" slot="header">
                     Latest News
@@ -14,7 +14,7 @@
                     Once the spring thaw gives the way to soiling summer heat, I fill in love with swimming.
                 </div>
             </el-card>
-        </div>
+        </div> -->
 
         <div class='details'>
             <div style='width:48%;'>
@@ -97,7 +97,6 @@ export default {
         this.user = JSON.parse(this.storage.getItem('user'));
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.$http.get('/api/dealerInfo/'+this.user.account).then((response)=>{
-            console.log(response.data.dealerInfo);
         });
 
         this.dealerOrderHistory();

@@ -45,7 +45,7 @@
                         <div class="toWish" @click='removeToWish(item)'>
                             Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
                         </div>
-                        <div class="price" v-if="item.onhand > item.orderpt && disc">
+                        <div class="price" v-if="item.onhand -item.aloc > item.orderpt && disc">
                             <span>
                                 SALE: CAD ${{item.pricel |discount10 |decimal}}<br>
                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange)|discount10 |decimal }}</span>
@@ -56,7 +56,7 @@
                             </span>
                         </div>
 
-                        <div class="price" v-if="item.onhand <= item.orderpt || !disc">
+                        <div class="price" v-if="item.onhand-item.aloc <= item.orderpt || !disc">
                             <span>
                                 PRICE: CAD ${{item.pricel |decimal }}<br>
                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
@@ -195,7 +195,6 @@ export default {
                 }
 
                 this.$http.get('/api/'+url +'/'+cust_id).then((response)=>{
-                    console.log(response.data);
                     let oldShortlist = response.data.oldShortlist;
                     
                     oldShortlist.forEach(element => {
@@ -264,7 +263,7 @@ export default {
                         if (this.ifDealer()) {
                             this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
                         }else{
-                            if (element.onhand > element.orderpt) {
+                            if (element.onhand - element.aloc > element.orderpt) {
                                 this.subtotal += (element.pricel)*0.9 * parseInt(this.storage.getItem(element.item));
                             }else{
                                 this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));

@@ -86,7 +86,6 @@
     });
 
     function showDetails_Dealer(sono){
-        console.log(sono);
         
         var id = sono;
         var details = $("#"+id);

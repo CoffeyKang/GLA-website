@@ -101,18 +101,16 @@
 			    
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 		},
 		created(){
-			console.log(1);
 		},
 		computed:{
 			
 		},
 		methods:{
 			nextPage(){
-				console.log('next page');
 				this.page +=1;
 				this.$http.get('/api/searchResualt/',
 				{params:
@@ -132,7 +130,7 @@
 
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 			},
 
@@ -156,12 +154,11 @@
 
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 			},
 			showLimitedWords:function(str,num){
 				
-				console.log(num);
 				if (str.length <= num) {
 					return str;
 				}else{

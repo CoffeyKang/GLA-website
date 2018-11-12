@@ -353,9 +353,11 @@ class AccessControl extends Controller
     
             
         // dd($output);
-        InventoryExcelFile();
-        return 1;
-    
+        // InventoryExcelFile();
+        // return 1;
+        $a = -1?:2;
+
+        
         
 
         

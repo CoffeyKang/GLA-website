@@ -21,6 +21,7 @@ use App\SOTRAN;
 use App\Catalog;
 use App\Temp_SO_dealer;
 use App\ExchangeRate;
+use App\Popular;
 /** use LOG */
 use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
@@ -115,7 +116,7 @@ class InventoryController extends Controller
         foreach ($product_list as $item) {
                
             $item->img_path = $item->itemImg->img_path;
-            
+            $item->onhand = ($item->onhand - $item->aloc)>0?($item->onhand - $item->aloc):0;
             
             if (file_exists('.'.$item->img_path)) {
                  
@@ -123,7 +124,7 @@ class InventoryController extends Controller
             	$item->img_path = '/images/default_sm.jpg';
             }
 
-            if ($item->onhand > $item->orderpt) {
+            if (($item->onhand) > $item->orderpt) {
                 $item->onsale = true;
             }else{
                 $item->onsale = false;
@@ -142,9 +143,12 @@ class InventoryController extends Controller
 
         $singleItem = Inventory::where('item',$item)->first();
 
+        $singleItem->onhand = ($singleItem->onhand - $singleItem->aloc)>0?($singleItem->onhand - $singleItem->aloc):0;
+
         $singleItem->itemFullInfo();
 
         $singleItem->onsale = $singleItem->onsale();
+
         $single = $singleItem->toArray();
 
         $item_makes = Item_make::where('item',$item)->get();
@@ -162,6 +166,7 @@ class InventoryController extends Controller
         foreach ($related as $r) {
             $r->itemFullInfo();
             $r->allMakes();
+            $r->onhand = ($r->onhand - $r->aloc)>0?($r->onhand - $r->aloc):0;
         }
 
         foreach ($related as $item) {
@@ -184,6 +189,7 @@ class InventoryController extends Controller
         }
 
         foreach ($resualt as $item) {
+            
             $item->img_path = $item->itemImg()->first()->img_path;
             $item->checkImgExists();
         }   
@@ -197,13 +203,10 @@ class InventoryController extends Controller
 
 
     public function popularProducts(){
-        $popuar = Inventory_img::orderBy('viewed','aesc')->take(4)->get();
-
-        $resault = collect();
-        foreach ($popuar as $p) {
-            $item_details = $p->itemDtails()->get();
-            $resault = $resault->merge($item_details);
-        }
+        $popuar = Popular::orderBy('viewed','aesc')->take(10)->select('item')->get()->toArray();
+        
+        $resault = Inventory::with(["Popular"])->whereIn('item',$popuar)->get();
+        
         foreach ($resault as $r) {
             $item = $r->itemImg()->first();
 
@@ -217,7 +220,7 @@ class InventoryController extends Controller
         
         return $resault;
     }
-
+    
     public function searchResualt(Request $request){
         $item = $request->item?$request->item:'item';
         $make = $request->make?$request->make:'make';
@@ -225,8 +228,6 @@ class InventoryController extends Controller
         $desc = $request->desc?$request->desc:'desc';
         $page = $request->page?$request->page:1;
         $data = [$item,$make,$year,$desc,$page];
-
-        
         $make = str_replace('_',' ',$make);              
         // set paginator
         $mycurrentPage = $page;
@@ -235,7 +236,6 @@ class InventoryController extends Controller
         });
 
         $items = Inventory::orderBy('item','asc');
-
         /** make */
         if ($item!='item') {
                 
@@ -248,7 +248,6 @@ class InventoryController extends Controller
         /** make */
         if ($make!='make') {
 
-
             $item_from_make_table = Item_make::where('make',$make)->get();
 
             $from_make_table_item = [];
@@ -259,8 +258,6 @@ class InventoryController extends Controller
             }
 
             $items = $items->whereIn('item',$from_make_table_item);
-            
-           
 
         }else{
         }
@@ -522,52 +519,8 @@ class InventoryController extends Controller
 
         $subtotal = 0;
 
-                    
-        // switch ($userInfo->m_state)
-        // {
-        //     case "AB":
-        //         $tax = 5;
-        //         break;  
-        //     case "BC":
-        //         $tax = 12;
-        //         break;
-        //     case "MB":
-        //         $tax = 13;
-        //         break;  
-        //     case "NB":
-        //         $tax = 15;
-        //         break;
-        //     case "NL":
-        //         $tax = 5;
-        //         break; 
-        //     case "NT":
-        //         $tax = 5;
-        //         break; 
-        //     case "NS":
-        //         $tax = 15;
-        //         break;
-        //     case "NU":
-        //         $tax = 5;
-        //         break;
-        //     case "ON":
-        //         $tax = 13;
-        //         break;  
-        //     case "PE":
-        //         $tax = 15;
-        //         break;
-        //     case "QC":
-        //         $tax = 14.975;
-        //         break;
-        //     case "SK":
-        //         $tax = 11;
-        //         break;  
-        //     case "YT":
-        //         $tax = 5;
-        //         break;
-            
-        //     default:
-        //         $tax = 0;
-        // }
+
+        
 
         $tax = $user->getRate();
         // Log::useFiles(storage_path('/logs/GLAlog.log'));
@@ -600,7 +553,7 @@ class InventoryController extends Controller
 
         $tax_total = $subtotal * $tax;
 
-
+        
         // calculate shipping
 
         if (!$oversize) {
@@ -774,7 +727,9 @@ class InventoryController extends Controller
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
                 'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,
                 'groundDay'=>$groundDay,'expressDay'=>$expressDay,'addressBook'=>$addressBook],200);
-            }else{
+            }
+            
+            else{
                 $shippingRate = 'TBD';
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
                 'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,

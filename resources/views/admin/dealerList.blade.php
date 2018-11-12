@@ -49,7 +49,6 @@
         $('.nav-link').removeClass('active');
         $('#dealerList').addClass('active');
         $('.delete_btn').click(function(){
-            console.log(this.target);
             alert(this);
         });
 

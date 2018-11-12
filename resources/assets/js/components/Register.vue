@@ -267,8 +267,6 @@
                                             return false;
                                         }
 
-                                        console.log(response);
-                                        console.log(response.data.user);
                                         this.storage.setItem('user',JSON.stringify(response.data.user));
                                         this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
                                         this.$store.commit('changeLoginStatus',true);
@@ -282,7 +280,6 @@
                                         //     }).then(() => {
                                         //         this.$router.push({name:'userHome'});
                                         //     }).catch(() => {
-                                        //         console.log(123);
                                         //         this.$router.push({path:'/'});
                                                 
                                         // });

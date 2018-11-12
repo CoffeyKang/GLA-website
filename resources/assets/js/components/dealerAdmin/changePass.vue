@@ -118,7 +118,6 @@ export default {
                             account:this.account,
                         }).then((response)=>{ 
 
-                            console.log(response);
 
                             return false;
                             if (response.data.status=="OK") {

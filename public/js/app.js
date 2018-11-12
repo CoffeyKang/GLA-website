@@ -17006,9 +17006,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.storage.getItem("user")) {
 
 			this.userID = JSON.parse(this.storage.getItem("user")).id;
-		} else {
-			console.log('not login');
-		}
+		} else {}
 
 		if (this.storage.getItem("userInfo")) {
 
@@ -17254,12 +17252,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.makes = response.body;
 		}, function (response) {
 			// error 
-			console.log("error");
 		});
 
 		this.$http.get('/api/catalogs').then(function (response) {
 			_this.catalogs = response.body.catalogs;
-			console.log(_this.catalogs);
 		}, function (response) {
 			// error log
 		});
@@ -66232,9 +66228,7 @@ var myMixin = {
       return alert('Mixin is called.');
     },
 
-    addToCart: function addToCart() {
-      console.log('this is test add to cart function');
-    },
+    addToCart: function addToCart() {},
 
     addToWishlist: function addToWishlist(item) {
       var _this = this;
@@ -66262,9 +66256,7 @@ var myMixin = {
               message: _h('b', { style: 'color: teal' }, 'The item has been already in your Wishlist')
             });
           }
-        }, function (response) {
-          console.log('something error');
-        });
+        }, function (response) {});
       } else {
         var currentPath = this.$route.path;
 
@@ -66277,7 +66269,6 @@ var myMixin = {
     addToCart_common: function addToCart_common(item) {
       var _this2 = this;
 
-      console.log(item);
       if (item.onhand < 1) {
         this.$alert('Out of stock', 'Warning', {
           confirmButtonText: 'OK'
@@ -66313,9 +66304,7 @@ var myMixin = {
     },
 
 
-    currentPath: function currentPath() {
-      console.log(this.$route.path);
-    },
+    currentPath: function currentPath() {},
 
     customerOrderHistory: function customerOrderHistory() {
       var _this3 = this;
@@ -66344,14 +66333,11 @@ var myMixin = {
       this.$http.get('/api/dealerOrderHistory', { params: { 'account': account } }).then(function (response) {
         _this5.orderHistory = response.data.history;
         _this5.pending = response.data.pending;
-        console.log(response.data);
       });
     },
 
     viewed: function viewed(item) {
-      this.$http.post('/api/viewed', { 'item': item }).then(function (response) {
-        console.log(response);
-      });
+      this.$http.post('/api/viewed', { 'item': item }).then(function (response) {});
     },
 
     oneOrderDetails: function oneOrderDetails(so, id) {},
@@ -66403,13 +66389,10 @@ var myMixin = {
       } else if (str.length > 50) {
         return 'Password too long.';
       } else if (str.search(/\d/) == -1) {
-        console.log('alphabet reqiured');
         return 'Password must contain number and alphabet.';
       } else if (str.search(/[a-zA-Z]/) == -1) {
-        console.log('alphabet reqiured');
         return 'Password must contain number and alphabet.';
       } else if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
-        console.log('alphabet reqiured');
         return 'Password must contain number and alphabet.';
       }
       return 'ok';
@@ -66677,7 +66660,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.banner[data-v-7d1e3f45]{\n   height: 400px;\n   background-repeat: no-repeat;\n   background-size: cover;\n   background-position: center;\n   cursor:pointer;\n}\n.searchBar[data-v-7d1e3f45]{\n       background-color: black;\n       padding-top: 20px;  \n       padding-bottom: 20px;\n}\n.ads[data-v-7d1e3f45]{\n       margin-top: 20px;\n       margin-bottom: 20px;\n       display: -webkit-box;\n       display: -ms-flexbox;\n       display: flex;\n       -webkit-box-orient: horizontal;\n       -webkit-box-direction: normal;\n           -ms-flex-direction: row;\n               flex-direction: row;\n       -webkit-box-pack: justify;\n           -ms-flex-pack: justify;\n               justify-content: space-between;\n}\n.ad[data-v-7d1e3f45]{\n       background-position: 50%;\n       background-repeat: no-repeat;\n       background-size: cover;\n       height: 400px;\n       cursor:pointer;\n}\n.sub_title[data-v-7d1e3f45]{\n       margin-top: 20px;\n       margin-bottom: 20px;\n       padding: 10px 30px;\n       color: black;\n       background-color: yellow;\n       font-size: 1.5em;\n       font-weight: bold;\n}\n.feature_item[data-v-7d1e3f45]{\n       display: -webkit-box;\n       display: -ms-flexbox;\n       display: flex;\n       -webkit-box-pack: justify;\n           -ms-flex-pack: justify;\n               justify-content: space-between;\n       -ms-flex-wrap: wrap;\n           flex-wrap: wrap;\n}\n.fitems[data-v-7d1e3f45]{\n       display: -webkit-box;\n       display: -ms-flexbox;\n       display: flex;\n       -webkit-box-pack: justify;\n           -ms-flex-pack: justify;\n               justify-content: space-between;\n       -ms-flex-wrap: nowrap;\n           flex-wrap: nowrap;\n       overflow: scroll;\n       overflow-y:hidden;\n}\n.popular[data-v-7d1e3f45]{\n       margin-bottom: 50px;\n}\n\n     /* width */\n[data-v-7d1e3f45]::-webkit-scrollbar {\n       width: 10px;\n}\n\n   /* Track */\n[data-v-7d1e3f45]::-webkit-scrollbar-track {\n       background: #f1f1f1;\n}\n   \n   /* Handle */\n[data-v-7d1e3f45]::-webkit-scrollbar-thumb {\n       background: #888;\n}\n\n   /* Handle on hover */\n[data-v-7d1e3f45]::-webkit-scrollbar-thumb:hover {\n       background: #555;\n}\n     \n \n   \n\n", ""]);
+exports.push([module.i, "\n.banner[data-v-7d1e3f45]{\n   height: 400px;\n   background-repeat: no-repeat;\n   background-size: cover;\n   background-position: center;\n   cursor:pointer;\n}\n.searchBar[data-v-7d1e3f45]{\n       background-color: black;\n       padding-top: 20px;  \n       padding-bottom: 20px;\n}\n.ads[data-v-7d1e3f45]{\n       margin-top: 20px;\n       margin-bottom: 20px;\n       display: -webkit-box;\n       display: -ms-flexbox;\n       display: flex;\n       -webkit-box-orient: horizontal;\n       -webkit-box-direction: normal;\n           -ms-flex-direction: row;\n               flex-direction: row;\n       -webkit-box-pack: justify;\n           -ms-flex-pack: justify;\n               justify-content: space-between;\n}\n.ad[data-v-7d1e3f45]{\n       background-position: 50%;\n       background-repeat: no-repeat;\n       background-size: cover;\n       height: 400px;\n       cursor:pointer;\n}\n.sub_title[data-v-7d1e3f45]{\n       margin-top: 20px;\n       margin-bottom: 20px;\n       padding: 10px 30px;\n       color: black;\n       background-color: yellow;\n       font-size: 1.5em;\n       font-weight: bold;\n}\n.feature_item[data-v-7d1e3f45]{\n       display: -webkit-box;\n       display: -ms-flexbox;\n       display: flex;\n       -webkit-box-pack: justify;\n           -ms-flex-pack: justify;\n               justify-content: space-between;\n       -ms-flex-wrap: wrap;\n           flex-wrap: wrap;\n}\n.fitems[data-v-7d1e3f45], .pitems[data-v-7d1e3f45]{\n       display: -webkit-box;\n       display: -ms-flexbox;\n       display: flex;\n       -webkit-box-pack: justify;\n           -ms-flex-pack: justify;\n               justify-content: space-between;\n       -ms-flex-wrap: nowrap;\n           flex-wrap: nowrap;\n       overflow: scroll;\n       overflow-y:hidden;\n       overflow-x:hidden;\n       position: relative;\n}\n.popular[data-v-7d1e3f45]{\n       margin-bottom: 50px;\n}\n\n     /* width */\n[data-v-7d1e3f45]::-webkit-scrollbar {\n       width: 10px;\n}\n\n   /* Track */\n[data-v-7d1e3f45]::-webkit-scrollbar-track {\n       background: #f1f1f1;\n}\n   \n   /* Handle */\n[data-v-7d1e3f45]::-webkit-scrollbar-thumb {\n       background: #888;\n}\n\n   /* Handle on hover */\n[data-v-7d1e3f45]::-webkit-scrollbar-thumb:hover {\n       background: #555;\n}\n.arrow[data-v-7d1e3f45]{\n     display: -webkit-box;\n     display: -ms-flexbox;\n     display: flex;\n     -webkit-box-orient: horizontal;\n     -webkit-box-direction: normal;\n         -ms-flex-direction: row;\n             flex-direction: row;\n}\n.left[data-v-7d1e3f45], .right[data-v-7d1e3f45]{\n     background-size: contain;\n     background-position: center;\n     background-repeat: no-repeat;\n     min-width: 50px;\n}\n.pleft[data-v-7d1e3f45], .pright[data-v-7d1e3f45]{\n     background-size: contain;\n     background-position: center;\n     background-repeat: no-repeat;\n     min-width: 50px\n}\n.left[data-v-7d1e3f45], .pleft[data-v-7d1e3f45]{\n     background-image: url(\"/images/left.png\");\n     cursor: pointer;\n}\n.right[data-v-7d1e3f45], .pright[data-v-7d1e3f45]{\n     background-image: url(\"/images/right.png\");\n     cursor: pointer;\n}\n.el-icon-arrow-right[data-v-7d1e3f45], .el-carousel__arrow[data-v-7d1e3f45]{\n     color: red !important;\n     background-color: red !important;\n}\n.el-carousel__arrow[data-v-7d1e3f45], .el-carousel__arrow--left[data-v-7d1e3f45]{\n     background-image: url('/images/left.png') !important;\n     background-size: contain !important;\n     height: 50px !important;\n     width: 50px !important;\n     background-position: center !important;\n}\n   \n\n", ""]);
 
 // exports
 
@@ -66742,6 +66725,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -66753,8 +66764,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       featureProducts: {},
       ads: {},
       popular: {},
-      loading: 1
-
+      loading: 1,
+      FeatureSpeed: 1,
+      PopularSpeed: 1
     };
   },
 
@@ -66782,6 +66794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // get featureProducts
     this.$http.get('/api/featureProducts').then(function (response) {
       _this.featureProducts = response.body;
+      _this.loading = 0;
     }, function (response) {
       // error log
     });
@@ -66789,13 +66802,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     //get most populars
     this.$http.get('/api/popular').then(function (response) {
       _this.popular = response.body;
-      _this.loading = 0;
     }, function (response) {
       // error log
     });
+
+    // this.$nextTick(function () {
+    //   window.setInterval(() => {
+    //       document.getElementById('fitems').scrollLeft += this.FeatureSpeed;
+    //       document.getElementById('pitems').scrollLeft += this.PopularSpeed;
+    //   },50);
+    // });
+
   },
 
-  methods: {}
+  methods: {
+    right: function right() {
+      document.getElementById('fitems').scrollLeft += 250;
+    },
+    left: function left() {
+      document.getElementById('fitems').scrollLeft -= 250;
+    },
+    pright: function pright() {
+      document.getElementById('pitems').scrollLeft += 250;
+    },
+    pleft: function pleft() {
+
+      document.getElementById('pitems').scrollLeft -= 250;
+    }
+  }
 });
 
 /***/ }),
@@ -66884,7 +66918,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.item[data-v-2fa65a4a]{\n\tmargin:20px 0;\n\twidth: 260px;\n}\n.img[data-v-2fa65a4a]{\n\tbackground-position: center;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\theight: 250px;\n\tcursor: pointer;\n}\n.words[data-v-2fa65a4a]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\nbutton[data-v-2fa65a4a]{\n\twidth:150px;\n}\n.price[data-v-2fa65a4a]{\n\tcolor: red;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n\tpadding: 10px 0 ;\n}\n.description[data-v-2fa65a4a]{\n\tcolor: black;\n\tfont-weight: bold;\n\ttext-transform: uppercase;\n}\n", ""]);
+exports.push([module.i, "\n.item[data-v-2fa65a4a]{\n\tmargin:20px 0;\n\twidth: 260px;\n}\n.img[data-v-2fa65a4a]{\n\tbackground-position: center;\n\tbackground-size: 100%;\n\tbackground-repeat: no-repeat;\n\theight: 250px;\n\tcursor: pointer;\n}\n.words[data-v-2fa65a4a]{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\nbutton[data-v-2fa65a4a]{\n\twidth:150px;\n}\n.price[data-v-2fa65a4a]{\n\tcolor: red;\n\tfont-size: 1.2em;\n\tfont-weight: bold;\n\tpadding: 10px 0 ;\n\tmin-height: 80px;\n}\n.description[data-v-2fa65a4a]{\n\tcolor: black;\n\tfont-weight: bold;\n\ttext-transform: uppercase;\n}\n\n\n", ""]);
 
 // exports
 
@@ -66956,10 +66990,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.ifDealer()) {
 			this.disc = false;
 		} else {
-			console.log(this.item);
-			console.log(this.item.onhand);
-			console.log(this.item.orderpt);
-			if (this.item.onhand > this.item.orderpt) {
+			if (this.item.onhand - this.item.aloc > this.item.orderpt) {
 				this.disc = true;
 			} else {
 				this.disc = false;
@@ -67394,7 +67425,13 @@ var render = function() {
         [
           _c(
             "el-carousel",
-            { attrs: { "indicator-position": "inside", height: "400px" } },
+            {
+              attrs: {
+                "indicator-position": "inside",
+                height: "400px",
+                arrow: "always"
+              }
+            },
             _vm._l(_vm.banners, function(banner) {
               return _c(
                 "el-carousel-item",
@@ -67431,26 +67468,31 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container-fluid fitems" },
-        _vm._l(_vm.featureProducts, function(a) {
-          return _c(
-            "div",
-            { key: a.id },
-            [_c("app-item", { attrs: { item: a } })],
-            1
-          )
-        })
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "popular" }, [
-        _vm._m(1),
+      _c("div", { staticClass: "container-fluid arrow" }, [
+        _c("div", {
+          staticClass: "left",
+          on: {
+            click: function($event) {
+              _vm.left()
+            }
+          }
+        }),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "feature_item container-fluid popular" },
-          _vm._l(_vm.popular, function(a) {
+          {
+            staticClass: "container-fluid fitems",
+            attrs: { id: "fitems" },
+            on: {
+              mouseover: function($event) {
+                _vm.FeatureSpeed = 0
+              },
+              mouseout: function($event) {
+                _vm.FeatureSpeed = 1
+              }
+            }
+          },
+          _vm._l(_vm.featureProducts, function(a) {
             return _c(
               "div",
               { key: a.id },
@@ -67458,7 +67500,64 @@ var render = function() {
               1
             )
           })
-        )
+        ),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "right",
+          on: {
+            click: function($event) {
+              _vm.right()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "popular" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "container-fluid arrow" }, [
+          _c("div", {
+            staticClass: "pleft",
+            on: {
+              click: function($event) {
+                _vm.pleft()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "container-fluid pitems",
+              attrs: { id: "pitems" },
+              on: {
+                mouseover: function($event) {
+                  _vm.PopularSpeed = 0
+                },
+                mouseout: function($event) {
+                  _vm.PopularSpeed = 1
+                }
+              }
+            },
+            _vm._l(_vm.popular, function(a) {
+              return _c(
+                "div",
+                { key: a.id },
+                [_c("app-item", { attrs: { item: a } })],
+                1
+              )
+            })
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "pright",
+            on: {
+              click: function($event) {
+                _vm.pright()
+              }
+            }
+          })
+        ])
       ])
     ],
     1
@@ -68081,14 +68180,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.lists.forEach(function (element) {
 				element.pricel = _this.Dealerprice(element);
 			});
-			console.log(response);
 			_this.page = _this.data.current_page;
 			window.scrollTo(0, 0);
 			// finish ladding screen
 			_this.loading = 0;
 		}, function (response) {
 			// error 
-			console.log("error");
+
 		});
 
 		/**	 check if it is dealer */
@@ -68103,7 +68201,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this2 = this;
 
 			this.page += 1;
-			console.log(this.page);
 			this.$http.get('/api/special/' + this.page).then(function (response) {
 				_this2.lists = response.data.special.data;
 				_this2.data = response.data.special;
@@ -68116,7 +68213,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this2.loading = 0;
 			}, function (response) {
 				// error 
-				console.log("error");
+
 			});
 		},
 		prePage: function prePage() {
@@ -68135,7 +68232,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this3.loading = 0;
 			}, function (response) {
 				// error 
-				console.log("error");
+
 			});
 		},
 
@@ -68814,7 +68911,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.loading = 0;
 		}, function (response) {
 			// error 
-			console.log("error");
+
 		});
 	},
 
@@ -69232,9 +69329,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.$http.get('/api/product_list/' + this.make + '/' + this.page).then(function (response) {
 			// get body data
 			// 
+
 			_this.data = response.body;
 			_this.lists = response.body.data;
-
 			_this.lists.forEach(function (element) {
 				element.pricel = _this.Dealerprice(element);
 			});
@@ -69245,7 +69342,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.loading = 0;
 		}, function (response) {
 			// error 
-			console.log("error");
 		});
 
 		if (this.ifDealer()) {
@@ -69273,7 +69369,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				window.scrollTo(0, 0);
 			}, function (response) {
 				// error 
-				console.log("error");
 			});
 		},
 		prePage: function prePage() {
@@ -69292,7 +69387,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this3.page = _this3.data.current_page;
 			}, function (response) {
 				// error 
-				console.log("error");
+
 			});
 		},
 
@@ -70518,19 +70613,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.page = _this.data.current_page;
 		}, function (response) {
 			// error 
-			console.log("error");
+
 		});
 	},
-	created: function created() {
-		console.log(1);
-	},
+	created: function created() {},
 
 	computed: {},
 	methods: {
 		nextPage: function nextPage() {
 			var _this2 = this;
 
-			console.log('next page');
 			this.page += 1;
 			this.$http.get('/api/searchResualt/', { params: {
 					make: this.make,
@@ -70545,7 +70637,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this2.page = _this2.data.current_page;
 			}, function (response) {
 				// error 
-				console.log("error");
+
 			});
 		},
 		prePage: function prePage() {
@@ -70564,13 +70656,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this3.page = _this3.data.current_page;
 			}, function (response) {
 				// error 
-				console.log("error");
+
 			});
 		},
 
 		showLimitedWords: function showLimitedWords(str, num) {
 
-			console.log(num);
 			if (str.length <= num) {
 				return str;
 			} else {
@@ -70934,7 +71025,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}).then(function (response) {
 			// get body data
 			_this.list = response.body.items.data;
-			console.log(response);
 			_this.list.forEach(function (element) {
 				element.pricel = _this.Dealerprice(element);
 			});
@@ -70942,7 +71032,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.data = response.body.items;
 			_this.page = _this.data.current_page;
 			_this.makes = response.body.item_makes;
-			console.log(_this.makes);
 			if (_this.data.total >= 1) {
 				_this.result = true;
 				// i need put the search details to vuex, in order to backbing to search result pages
@@ -70955,9 +71044,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.empty = true;
 				_this.loading = 0;
 			}
-		}, function (response) {
-			console.log("error");
-		});
+		}, function (response) {});
 
 		if (this.ifDealer()) {
 			this.discount = false;
@@ -70983,7 +71070,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		prePage: function prePage() {
 			this.page -= 1;
-			console.log(this.page);
 			this.$router.push({ name: 'SearchList', query: {
 					item: this.item,
 					make: this.make,
@@ -71090,7 +71176,7 @@ var render = function() {
                       })
                     ),
                     _vm._v(" "),
-                    thing.onhand > thing.orderpt && _vm.discount
+                    thing.onhand - thing.aloc > thing.orderpt && _vm.discount
                       ? _c("td", { staticClass: "text-right" }, [
                           _vm._v(
                             "CAD $" + _vm._s((thing.pricel * 0.9).toFixed(2))
@@ -71114,7 +71200,7 @@ var render = function() {
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    thing.onhand <= thing.orderpt || !_vm.discount
+                    thing.onhand - thing.aloc <= thing.orderpt || !_vm.discount
                       ? _c("td", { staticClass: "text-right" }, [
                           _vm._v("CAD $" + _vm._s(thing.pricel.toFixed(2))),
                           _c("br"),
@@ -71501,9 +71587,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						message: h('b', { style: 'color: teal' }, 'The item removed.')
 					});
 				} else {}
-			}, function (response) {
-				console.log('error');
-			});
+			}, function (response) {});
 		},
 
 		// addToCart
@@ -71542,14 +71626,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				});
 
 				this.removeFromWhishlist(item);
-
-				console.log(window.localStorage);
 			}
 		},
 		getWishlist: function getWishlist() {
 			var _this4 = this;
 
-			console.log("gegtWishlist called");
 			var userID = JSON.parse(this.storage.getItem("user")).id;
 			if (JSON.parse(this.storage.getItem('user')).level == 2) {
 				var url = 'wishlist_dealer';
@@ -71557,16 +71638,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				var url = 'wishlist';
 			}
 			this.$http.get('/api/' + url, { params: { userid: userID } }).then(function (response) {
-				console.log("call get wishlist api");
 				_this4.items = response.data.items;
 
 				_this4.items.forEach(function (element) {
 					element.pricel = _this4.Dealerprice(element);
 				});
-				console.log(_this4.items);
-			}, function (response) {
-				console.log('wishlist error');
-			});
+			}, function (response) {});
 		}
 	}
 
@@ -72038,8 +72115,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         } else {
             this.$router.push('Login');
         }
-
-        console.log(this.loginDirect);
     },
 
     computed: {
@@ -72065,7 +72140,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (response.data.userInfo) {
                     if (response.data.userInfo.m_country == 'US') {
                         this.$store.commit('usdPrice', true);
-                        console.log(this.$store.state.usdPrice);
                     } else {
                         this.$store.commit('usdPrice', false);
                     }
@@ -72076,7 +72150,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     var cust_id = this.user.id;
 
                     this.$http.get('/api/getShortlist/' + cust_id).then(function (response) {
-                        console.log(response.data);
                         var oldShortlist = response.data.oldShortlist;
 
                         oldShortlist.forEach(function (element) {
@@ -72096,14 +72169,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
 
                     this.$http.get('/api/deleteShortlist/' + cust_id).then(function (response) {
-                        // console.log('called');
-                        if (response.data.deleteOldShortlist == 'deletedOld') {
-                            // console.log('shortlist has been delete');
-                        } else {}
+                        if (response.data.deleteOldShortlist == 'deletedOld') {} else {}
                     });
-                } else {
-                    console.log('not login');
-                }
+                } else {}
 
                 this.$store.commit('changeLoginStatus', true);
 
@@ -72536,7 +72604,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
 
-        console.log(this.$store.state.loginStatus);
         var user = JSON.parse(this.storage.getItem('user'));
         if (user) {
             if (user.level != 2) {
@@ -72588,7 +72655,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     var cust_id = _this.user.id;
 
                     _this.$http.get('/api/getShortlist_dealer/' + cust_id).then(function (response) {
-                        console.log(response.data);
                         var oldShortlist = response.data.oldShortlist;
 
                         oldShortlist.forEach(function (element) {
@@ -72608,14 +72674,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
 
                     _this.$http.get('/api/deleteShortlist/' + cust_id).then(function (response) {
-                        // console.log('called');
-                        if (response.data.deleteOldShortlist == 'deletedOld') {
-                            // console.log('shortlist has been delete');
-                        } else {}
+                        if (response.data.deleteOldShortlist == 'deletedOld') {} else {}
                     });
-                } else {
-                    console.log('not login');
-                }
+                } else {}
 
                 _this.$router.push({ path: '/' });
             }).catch(function (response) {
@@ -73241,8 +73302,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     return false;
                                 }
 
-                                console.log(response);
-                                console.log(response.data.user);
                                 _this.storage.setItem('user', JSON.stringify(response.data.user));
                                 _this.storage.setItem('userInfo', JSON.stringify(response.data.userInfo));
                                 _this.$store.commit('changeLoginStatus', true);
@@ -73256,7 +73315,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 //     }).then(() => {
                                 //         this.$router.push({name:'userHome'});
                                 //     }).catch(() => {
-                                //         console.log(123);
                                 //         this.$router.push({path:'/'});
 
                                 // });
@@ -74743,14 +74801,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
 
-        // console.log(isValidZip);
         this.user = JSON.parse(this.storage.getItem('user'));
 
-        if (this.user) {
-            console.log('login');
-        } else {
+        if (this.user) {} else {
             this.$router.push({ name: 'Login' });
-            console.log('not');
 
             return false;
         }
@@ -74842,7 +74896,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         data: _this.details,
                         userID: _this.userID
                     }).then(function (response) {
-                        console.log(response.data);
 
                         var info = response.data.userinfo;
                         var b = response.data.billing;
@@ -76078,31 +76131,6 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticStyle: { "margin-top": "20px" } },
-      [
-        _c("el-card", { staticClass: "box-card" }, [
-          _c(
-            "div",
-            {
-              staticClass: "clearfix",
-              attrs: { slot: "header" },
-              slot: "header"
-            },
-            [_vm._v("\n                Latest News\n            ")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "text" }, [
-            _vm._v(
-              "\n                Once the spring thaw gives the way to soiling summer heat, I fill in love with swimming.\n            "
-            )
-          ])
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
     _c("div", { staticClass: "details" }, [
       _c(
         "div",
@@ -76171,7 +76199,7 @@ var render = function() {
                   [
                     _c("el-col", { attrs: { span: 8 } }, [
                       _c("div", { staticClass: "grid-content" }, [
-                        _vm._v("Address:")
+                        _vm._v("Billing Address:")
                       ])
                     ]),
                     _vm._v(" "),
@@ -76796,7 +76824,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         HistoryDetails: function HistoryDetails(order_num) {
-            console.log(order_num);
             this.$router.push({ name: 'OneOrder', params: { order_num: order_num } });
         },
         track: function track(_track) {
@@ -77153,7 +77180,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         HistoryDetails: function HistoryDetails(order_num) {
-            console.log(order_num);
             this.$router.push({ name: 'OneOrder', params: { order_num: order_num } });
         },
         previousPage: function previousPage() {
@@ -78149,7 +78175,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         changeYear: function changeYear(a) {
-            console.log(a);
             this.details.year = a;
         },
         submitForm: function submitForm(details) {
@@ -80034,7 +80059,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (_this2.ifDealer()) {
                         _this2.subtotal += element.pricel * parseInt(_this2.storage.getItem(element.item));
                     } else {
-                        if (element.onhand > element.orderpt) {
+                        if (element.onhand - element.aloc > element.orderpt) {
                             _this2.subtotal += element.pricel * 0.9 * parseInt(_this2.storage.getItem(element.item));
                         } else {
                             _this2.subtotal += element.pricel * parseInt(_this2.storage.getItem(element.item));
@@ -80335,7 +80360,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        item.onhand > item.orderpt && _vm.disc
+                        item.onhand - item.aloc > item.orderpt && _vm.disc
                           ? _c("div", { staticClass: "price" }, [
                               _c("span", [
                                 _vm._v(
@@ -80405,7 +80430,7 @@ var render = function() {
                             ])
                           : _vm._e(),
                         _vm._v(" "),
-                        item.onhand <= item.orderpt || !_vm.disc
+                        item.onhand - item.aloc <= item.orderpt || !_vm.disc
                           ? _c("div", { staticClass: "price" }, [
                               _c("span", [
                                 _vm._v(
@@ -81263,6 +81288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var userData = JSON.parse(this.storage.getItem('user'));
             /** check again */
             this.$http.get('/api/shortlist', { params: { userid: userData.id } }).then(function (response) {
+                console.log(response.data);
                 _this.carts = response.data.carts;
                 _this.subtotal = response.data.subtotal.toFixed(2);
                 _this.hst = response.data.tax_total.toFixed(2);
@@ -83464,7 +83490,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     addressID: this.addressID
                 }).then(function (response) {
                     _this2.loading = 0;
-                    // console.log(response.data);
                     if (response.data.result) {
                         _this2.carts.forEach(function (element) {
                             _this2.storage.removeItem(element.item);
@@ -84398,7 +84423,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 // this.$router.push({name:'userHome'});
             } else {
 
-                console.log(response.data);
                 _this.oneOrder = response.data.oneOrder;
                 _this.somast = response.data.somast;
                 _this.status = response.data.status;
@@ -84887,12 +84911,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         page: function page() {
             if (this.num > this.total) {
-                console.log(this.num);
                 this.num = 1;
             } else {}
 
             if (isNaN(this.num)) {
-                console.log('is not a number');
                 this.num = 1;
                 $('#numInput').val(1);
             } else {}
@@ -85231,8 +85253,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         userID: _this.userID,
                         account: _this.account
                     }).then(function (response) {
-
-                        console.log(response);
 
                         return false;
                         if (response.data.status == "OK") {
@@ -85638,12 +85658,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.dealerOrderHistory();
-        console.log(this.orderHistory);
     },
 
     methods: {
         HistoryDetails: function HistoryDetails(order_num) {
-            console.log(order_num);
             this.$router.push({ name: 'OneOrder_dealer', params: { order_num: order_num } });
         },
         previousPage: function previousPage() {
@@ -85990,7 +86008,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         HistoryDetails: function HistoryDetails(order_num) {
-            console.log(order_num);
             this.$router.push({ name: 'OneOrder_dealer', params: { order_num: order_num } });
         },
         previousPage: function previousPage() {
@@ -87273,9 +87290,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.user = JSON.parse(this.storage.getItem('user'));
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
-        this.$http.get('/api/dealerInfo/' + this.user.account).then(function (response) {
-            console.log(response.data.dealerInfo);
-        });
+        this.$http.get('/api/dealerInfo/' + this.user.account).then(function (response) {});
 
         this.dealerOrderHistory();
     },
@@ -87305,31 +87320,6 @@ var render = function() {
     _c("div", { staticClass: "edit_title" }, [
       _vm._v("\n        Dealer Arae\n    ")
     ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticStyle: { "margin-top": "20px" } },
-      [
-        _c("el-card", { staticClass: "box-card" }, [
-          _c(
-            "div",
-            {
-              staticClass: "clearfix",
-              attrs: { slot: "header" },
-              slot: "header"
-            },
-            [_vm._v("\n                Latest News\n            ")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "text" }, [
-            _vm._v(
-              "\n                Once the spring thaw gives the way to soiling summer heat, I fill in love with swimming.\n            "
-            )
-          ])
-        ])
-      ],
-      1
-    ),
     _vm._v(" "),
     _c("div", { staticClass: "details" }, [
       _c(

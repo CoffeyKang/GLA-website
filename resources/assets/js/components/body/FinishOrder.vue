@@ -180,7 +180,6 @@ export default {
             // this.$router.push({name:'userHome'});
         }else{
 
-            console.log(response.data);
             this.oneOrder = response.data.oneOrder;
             this.somast = response.data.somast;
             this.status = response.data.status;

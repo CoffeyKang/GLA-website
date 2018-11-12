@@ -82,7 +82,6 @@ export default {
 			this.$router.push('Login');
         }
         
-        console.log(this.loginDirect);
     },
     computed:{
         loginStatus(){
@@ -106,7 +105,6 @@ export default {
                     if (response.data.userInfo) {
                         if (response.data.userInfo.m_country=='US'){
                             this.$store.commit('usdPrice',true);
-                            console.log(this.$store.state.usdPrice);
                         }else{
                             this.$store.commit('usdPrice',false);
                         }
@@ -117,7 +115,6 @@ export default {
                         let cust_id = this.user.id;
 
                         this.$http.get('/api/getShortlist/'+cust_id).then((response)=>{
-                            console.log(response.data);
                             let oldShortlist = response.data.oldShortlist;
                             
                             oldShortlist.forEach(element => {
@@ -145,15 +142,12 @@ export default {
                         });
 
                         this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
-                            // console.log('called');
                             if (response.data.deleteOldShortlist=='deletedOld') {
-                                // console.log('shortlist has been delete');
                             }else{
 
                             }
                         }));
                     }else{
-                        console.log('not login');
                     }
 
                     this.$store.commit('changeLoginStatus',true);

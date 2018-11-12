@@ -85,10 +85,10 @@
 		mounted(){
 			this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
-			    // 
+				// 
+				
 			    this.data = response.body;
 				this.lists = response.body.data;
-				
 				this.lists.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});	
@@ -99,7 +99,6 @@
 			    this.loading = 0;
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 
 
@@ -127,7 +126,6 @@
 
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 			},
 			prePage(){
@@ -145,7 +143,7 @@
 
 			  }, response => {
 			  	// error 
-			    console.log("error");
+			     
 			  });
 			},
 			showLimitedWords:function(str,num){

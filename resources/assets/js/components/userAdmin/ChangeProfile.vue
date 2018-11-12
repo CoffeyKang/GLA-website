@@ -443,7 +443,6 @@ export default {
 
     methods:{
         changeYear(a){
-            console.log(a);
             this.details.year = a;
             
         },

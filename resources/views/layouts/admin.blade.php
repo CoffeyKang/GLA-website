@@ -59,7 +59,6 @@
     <script>
         $().ready(function(){
             var h = $(window).height()-160;
-            console.log(h);
             $('.body').css('min-height',h+"px");
         });
 

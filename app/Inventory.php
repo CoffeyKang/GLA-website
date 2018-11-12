@@ -113,7 +113,7 @@ class Inventory extends Model
     }
 
     public function onsale(){
-        if ($this->onhand > $this->orderpt) {
+        if ($this->onhand - $this->aloc > $this->orderpt) {
             return true;
         }else{
             return false;
