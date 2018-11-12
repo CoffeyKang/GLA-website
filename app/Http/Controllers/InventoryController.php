@@ -1911,6 +1911,126 @@ class InventoryController extends Controller
             return $errors;
         }
     }
+
+
+    public function placeOrder_paypal(Request $request){
+
+        $customer = User::find($request->custno);
+        
+        $shortlist = Temp_SO::where('cust_id',$request->custno)->get();
+
+        $orderNumber = SOMAST::all()->max('order_num')+1;
+       
+        /** shipping address */
+
+        
+        if ($request->addressID!=0) {
+            $addr = AddressBook::find($request->addressID);
+            
+            if ($addr) {
+                $shippingArray =  array(
+                    'name' => $addr->forename.' '.$addr->forename,
+                    'phone_number' =>$addr->tel,
+                    'address_line1' => $addr->address,
+                    'city' => $addr->city,
+                    'province' => $addr->state,
+                    'postal_code' =>$addr->zipcode,
+                    'country' => $addr->country,
+            );
+            }else{
+                $addr = $customer->userDetails;
+                $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+                ); 
+            }
+            
+        }else{
+            $addr = $customer->userDetails;
+            $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+            );
+        }
+
+            $somast = new SOMAST;
+
+            $somast->order_num = $orderNumber;
+
+            $somast->m_id = $customer->id;
+
+            $somast->subtotal = $request->subtotal;
+
+            $somast->tax = $request->hst;
+
+            $somast->currency = "CAD";
+
+            $somast->shipping = $request->shipping;
+
+            $somast->address = $request->addressID;
+
+            $somast->shippingdays = $request->shippingDays;
+
+            $somast->date_order = date('Y-m-d');
+
+            $somast->sales_status = 1;
+
+            $somast->save();
+
+
+            /** store to sotran  */
+            foreach ($shortlist as $item) {
+
+                $info = $item->itemInfo;
+
+                $sotran = new SOTRAN;
+
+                $sotran->order_num = $somast->order_num;
+
+                $sotran->m_id = $request->custno;
+
+                $sotran->item = $item->item;
+
+                $sotran->qty = $item->qty;
+
+                if ($info->onsale()) {
+                    
+                    $sotran->price = round($item->itemInfo->pricel * 0.9, 2);
+                    $sotran->sale = 1;
+                    # code...
+                }else{
+                    $sotran->price = round($item->itemInfo->pricel, 2);
+                    $sotran->sale = 0;
+                }
+
+
+                $sotran->make = $item->itemInfo->make;
+
+                $sotran->date_sold = date("Y-m-d");
+
+                
+
+                $sotran->save();
+
+                $item->delete();
+            }
+
+            return response()->json(['result'=>$result],200);
+            
+           
+            
+            
+    }
     
 
     public function special($page){
@@ -1921,11 +2041,23 @@ class InventoryController extends Controller
         Paginator::currentPageResolver(function () use ($mycurrentPage) {
             return $mycurrentPage;
         });
-        $special = Inventory::whereColumn('onhand','>','orderpt')->paginate(20) ;
+        $special = Inventory::whereColumn('onhand','>','orderpt')->get()->toArray();
 
+        $arr = [];
+
+        foreach ($special as $item) {
+            if ($item['onhand'] - $item['aloc'] > $item['orderpt']) {
+                array_push($arr,$item['item']);
+            }else{
+                
+            }
+        }  
+
+        $special = Inventory::whereIn('item',$arr)->paginate(20);
+        
         // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($special as $item) {
-               
+            
             $item->img_path = $item->itemImg->img_path;
             
             if (file_exists('.'.$item->img_path)) {
@@ -1936,6 +2068,9 @@ class InventoryController extends Controller
             
         }
 
+        
+        
+        
         return response()->json(['special'=>$special],200);
     }
 }

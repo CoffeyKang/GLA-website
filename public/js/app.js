@@ -68319,150 +68319,166 @@ var render = function() {
         { staticClass: "container", attrs: { id: "car_makes" } },
         [
           _vm._l(_vm.lists, function(item) {
-            return _c("div", { key: item.item, staticClass: "car_make" }, [
-              _c("div", { staticClass: "item" }, [
-                _c("div", {
-                  staticClass: "car_img",
-                  style: { backgroundImage: "url(" + item.img_path + ")" },
-                  on: {
-                    click: function($event) {
-                      _vm.goToItem(item.item)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "car_make_name text-center" }, [
-                  _c("span", [_vm._v(_vm._s(item.item.toUpperCase()))])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "car_make_name text-center" }, [
-                  _c("span", [
-                    _vm._v(
-                      "Year Fit: " +
-                        _vm._s(item.year_from) +
-                        " - " +
-                        _vm._s(item.year_end)
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm.disc
-                  ? _c("div", { staticClass: "car_make_name text-center" }, [
-                      _c("span", { staticClass: "price_label" }, [
-                        _vm._v("CAD: "),
-                        _c("b", { staticClass: "price" }, [
-                          _vm._v("  $"),
-                          _c(
-                            "span",
-                            {
-                              staticStyle: { "text-decoration": "line-through" }
-                            },
-                            [_vm._v(_vm._s(item.pricel.toFixed(2)))]
-                          ),
-                          _vm._v(
-                            " $" + _vm._s(_vm._f("discount10")(item.pricel))
-                          )
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _vm.usdPrice
-                          ? _c("span", { staticClass: "usdPrice" }, [
-                              _vm._v("USD  $"),
-                              _c(
-                                "span",
-                                {
-                                  staticStyle: {
-                                    "text-decoration": "line-through"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      (
-                                        item.pricel / _vm.$store.state.exchange
-                                      ).toFixed(2)
-                                    )
-                                  )
-                                ]
-                              ),
-                              _vm._v(
-                                " $" +
-                                  _vm._s(
-                                    _vm._f("discount10")(
-                                      item.pricel / _vm.$store.state.exchange
-                                    )
-                                  )
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.disc
-                  ? _c("div", { staticClass: "car_make_name text-center" }, [
-                      _c("span", { staticClass: "price_label" }, [
-                        _vm._v("CAD: "),
-                        _c("b", { staticClass: "price" }, [
-                          _vm._v("  " + _vm._s(item.pricel.toFixed(2)))
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _vm.usdPrice
-                          ? _c("span", { staticClass: "usdPrice" }, [
-                              _vm._v(
-                                "USD  $" +
-                                  _vm._s(
-                                    (
-                                      item.pricel / _vm.$store.state.exchange
-                                    ).toFixed(2)
-                                  )
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "car_make_name text-center description" },
-                  [
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.showLimitedWords(item.descrip, 35)))
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "add_details" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
+            return item.onhand - item.aloc - item.orderpt > 0
+              ? _c("div", { key: item.item, staticClass: "car_make" }, [
+                  _c("div", { staticClass: "item" }, [
+                    _c("div", {
+                      staticClass: "car_img",
+                      style: { backgroundImage: "url(" + item.img_path + ")" },
                       on: {
                         click: function($event) {
                           _vm.goToItem(item.item)
                         }
                       }
-                    },
-                    [_vm._v("\n\t\t\t\t\t\tDetails\n\t\t\t\t\t")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "add_to_cart btn btn-link",
-                      on: {
-                        click: function($event) {
-                          _vm.addToCart_common_list(item)
-                        }
-                      }
-                    },
-                    [_vm._v("\n\t\t\t\t\t\tAdd To Cart  \n\t\t\t\t\t")]
-                  )
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "car_make_name text-center" }, [
+                      _c("span", [_vm._v(_vm._s(item.item.toUpperCase()))])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "car_make_name text-center" }, [
+                      _c("span", [
+                        _vm._v(
+                          "Year Fit: " +
+                            _vm._s(item.year_from) +
+                            " - " +
+                            _vm._s(item.year_end)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.disc
+                      ? _c(
+                          "div",
+                          { staticClass: "car_make_name text-center" },
+                          [
+                            _c("span", { staticClass: "price_label" }, [
+                              _vm._v("CAD: "),
+                              _c("b", { staticClass: "price" }, [
+                                _vm._v("  $"),
+                                _c(
+                                  "span",
+                                  {
+                                    staticStyle: {
+                                      "text-decoration": "line-through"
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(item.pricel.toFixed(2)))]
+                                ),
+                                _vm._v(
+                                  " $" +
+                                    _vm._s(_vm._f("discount10")(item.pricel))
+                                )
+                              ]),
+                              _c("br"),
+                              _vm._v(" "),
+                              _vm.usdPrice
+                                ? _c("span", { staticClass: "usdPrice" }, [
+                                    _vm._v("USD  $"),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticStyle: {
+                                          "text-decoration": "line-through"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            (
+                                              item.pricel /
+                                              _vm.$store.state.exchange
+                                            ).toFixed(2)
+                                          )
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      " $" +
+                                        _vm._s(
+                                          _vm._f("discount10")(
+                                            item.pricel /
+                                              _vm.$store.state.exchange
+                                          )
+                                        )
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.disc
+                      ? _c(
+                          "div",
+                          { staticClass: "car_make_name text-center" },
+                          [
+                            _c("span", { staticClass: "price_label" }, [
+                              _vm._v("CAD: "),
+                              _c("b", { staticClass: "price" }, [
+                                _vm._v("  " + _vm._s(item.pricel.toFixed(2)))
+                              ]),
+                              _c("br"),
+                              _vm._v(" "),
+                              _vm.usdPrice
+                                ? _c("span", { staticClass: "usdPrice" }, [
+                                    _vm._v(
+                                      "USD  $" +
+                                        _vm._s(
+                                          (
+                                            item.pricel /
+                                            _vm.$store.state.exchange
+                                          ).toFixed(2)
+                                        )
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "car_make_name text-center description" },
+                      [
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.showLimitedWords(item.descrip, 35)))
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "add_details" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.goToItem(item.item)
+                            }
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\tDetails\n\t\t\t\t\t")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "add_to_cart btn btn-link",
+                          on: {
+                            click: function($event) {
+                              _vm.addToCart_common_list(item)
+                            }
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\tAdd To Cart  \n\t\t\t\t\t")]
+                      )
+                    ])
+                  ])
                 ])
-              ])
-            ])
+              : _vm._e()
           }),
           _vm._v(" "),
           _c("div", { staticClass: "container paginate_btn alert" }, [
@@ -79995,7 +80011,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             this.$http.get('/api/' + url + '/' + cust_id).then(function (response) {
-                console.log(response.data);
                 var oldShortlist = response.data.oldShortlist;
 
                 oldShortlist.forEach(function (element) {
@@ -81288,7 +81303,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var userData = JSON.parse(this.storage.getItem('user'));
             /** check again */
             this.$http.get('/api/shortlist', { params: { userid: userData.id } }).then(function (response) {
-                console.log(response.data);
                 _this.carts = response.data.carts;
                 _this.subtotal = response.data.subtotal.toFixed(2);
                 _this.hst = response.data.tax_total.toFixed(2);
@@ -83405,6 +83419,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -83420,7 +83440,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _defineProperty(_ref, 'subtotal', this.$route.params.subtotal), _defineProperty(_ref, 'shippingDays', this.$route.params.shippingDays), _defineProperty(_ref, 'shipping', this.$route.params.shipping), _defineProperty(_ref, 'loading', 0), _defineProperty(_ref, 'userInfo', []), _defineProperty(_ref, 'address', []), _defineProperty(_ref, 'billing', []), _defineProperty(_ref, 'edit', false), _defineProperty(_ref, 'card', {
             month: new Date().getMonth() + 1,
             year: new Date().getFullYear()
-        }), _defineProperty(_ref, 'paymentError', false), _defineProperty(_ref, 'error', ''), _ref;
+        }), _defineProperty(_ref, 'paymentError', false), _defineProperty(_ref, 'error', ''), _defineProperty(_ref, 'paypal_flag', false), _ref;
     },
 
     computed: {},
@@ -83452,7 +83472,101 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (this.card.month < 10) {
             this.card.month = "0" + toString(this.card.month);
-        }
+        };
+
+        // paypal payment
+        var total = this.total;
+        var paypal_flag = this.paypal_flag;
+        var hst = this.hst;
+        var subtotal = this.subtotal;
+        var shippingDays = this.shippingDays;
+        var shipping = this.shipping;
+
+        paypal.Button.render({
+            // Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
+            },
+            // Customize button (optional)
+            locale: 'en_CA',
+            style: {
+                size: 'large',
+                color: 'gold'
+            },
+            // Set up a payment
+            payment: function payment(data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: total,
+                            currency: 'CAD',
+                            details: {
+                                hst: this.hst,
+                                subtotal: this.subtotal,
+                                shippingDays: this.shippingDays,
+                                shipping: this.shipping
+                            }
+                        },
+                        description: 'The payment transaction description.',
+                        custom: '90048630024435',
+                        item_list: {
+                            items: [],
+                            shipping_address: {
+                                recipient_name: 'Brian Robinson',
+                                line1: '4th Floor',
+                                line2: 'Unit #34',
+                                city: 'San Jose',
+                                country_code: 'US',
+                                postal_code: '95131',
+                                phone: '011862212345678',
+                                state: 'CA'
+                            }
+                        }
+
+                    }],
+                    note_to_payer: 'Contact us for any questions on your order.'
+                });
+            },
+            // Execute the payment
+            onAuthorize: function onAuthorize(data, actions) {
+                return actions.payment.execute().then(function () {
+                    // Show a confirmation message to the buyer
+                    // window.alert('Thank you for your purchase!');
+                    // this.$http.post('/api/finishOrder_paypal',
+                    //     {   
+                    //         custno:JSON.parse(this.storage.getItem('user')).id,
+                    //         billing:this.billing,
+                    //         address:this.address,
+                    //         hst:this.hst,
+                    //         total:this.total,
+                    //         subtotal:this.subtotal,
+                    //         shippingDays:this.shippingDays,
+                    //         shipping:this.shipping,
+                    //         addressID:this.addressID,
+                    //     }
+                    //     ).then(response=>{
+                    //     this.loading = 0;
+                    //     if (response.data.result) {
+                    //         this.carts.forEach(element => {
+                    //             this.storage.removeItem(element.item);
+                    //             this.$store.commit('carts_number',0);
+                    //         });
+
+                    //         this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
+                    //     }else{
+                    //         this.paymentError = true;
+
+                    //         this.error='Declined please try again';
+                    //     }
+                    // });
+
+                    paypal_flag = true;
+                    console.log(paypal_flag);
+                });
+            }
+        }, '#paypal-button');
     },
 
     methods: {
@@ -84025,7 +84139,9 @@ var render = function() {
                   ]
                 )
               : _vm._e()
-          ])
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
         ])
       ]),
       _vm._v(" "),
@@ -84131,6 +84247,16 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Price")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("fieldset", [
+      _c("legend", [_vm._v("Pay with Paypal")]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "paypal-button" } })
     ])
   }
 ]

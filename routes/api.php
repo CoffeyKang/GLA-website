@@ -159,6 +159,8 @@ Route::get('/exchangeRate','InventoryController@exchangeRate');
 
 Route::post('/finishOrder','InventoryController@placeOrder');
 
+Route::post('/finishOrder_paypal','InventoryController@placeOrder_paypal');
+
 Route::get('/special/{page}','InventoryController@special');
 
 

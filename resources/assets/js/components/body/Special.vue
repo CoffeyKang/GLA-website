@@ -9,7 +9,7 @@
 		</div>
 		<div class='container' id='car_makes'>
 		
-			<div class='car_make' v-for='item in lists' :key='item.item'>
+			<div class='car_make' v-for='item in lists' :key='item.item' v-if="item.onhand - item.aloc - item.orderpt >0">
 			
 				<div class='item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click='goToItem(item.item)'>

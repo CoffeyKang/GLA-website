@@ -130,6 +130,11 @@
                     </div>
                     
                 </fieldset>
+
+                <fieldset>
+                    <legend>Pay with Paypal</legend>
+                    <div id="paypal-button" ></div>
+                </fieldset>
             </div>
 
             
@@ -171,6 +176,7 @@
                     <div class=' summary_list text-center'>
                         <button class='mybtn btn btn-success' @click="placeOrder()">Place Order</button>
                     </div>
+                    
                 </div>
                     
             </div>
@@ -207,6 +213,7 @@ export default {
             },
             paymentError:false,
             error:'',
+            paypal_flag:false,
 
         }
     },
@@ -215,6 +222,12 @@ export default {
             
         },
         mounted(){
+            
+            
+
+            
+
+
             // determin if user has login
 			if(this.storage.getItem('user')&&this.storage.getItem('userInfo')){
 				// have to validate the user name and password once more here
@@ -247,7 +260,105 @@ export default {
 
            if (this.card.month<10) {
                this.card.month = "0" + toString(this.card.month);
-           }
+           };
+
+
+
+            // paypal payment
+            var total = this.total;
+            var paypal_flag = this.paypal_flag;
+            var hst=this.hst;
+            var subtotal=this.subtotal;
+            var shippingDays=this.shippingDays;
+            var shipping=this.shipping;
+            
+
+            
+            paypal.Button.render({
+                // Configure environment
+                env: 'sandbox',
+                client: {
+                    sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                    production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
+                },
+                // Customize button (optional)
+                locale: 'en_CA',
+                style: {
+                size: 'large',
+                color: 'gold',
+                },
+                // Set up a payment
+                payment: function(data, actions) {
+                    return actions.payment.create({
+                        transactions: [{
+                        amount: {
+                            total: total,
+                            currency: 'CAD',
+                            details:{
+                                hst:this.hst,
+                                subtotal:this.subtotal,
+                                shippingDays:this.shippingDays,
+                                shipping:this.shipping,
+                            }
+                        },
+                        description: 'The payment transaction description.',
+                        custom: '90048630024435',
+                        item_list: {
+                            items:[],
+                            shipping_address: {
+                            recipient_name: 'Brian Robinson',
+                            line1: '4th Floor',
+                            line2: 'Unit #34',
+                            city: 'San Jose',
+                            country_code: 'US',
+                            postal_code: '95131',
+                            phone: '011862212345678',
+                            state: 'CA'
+                            }
+                        }
+
+                        }],
+                        note_to_payer: 'Contact us for any questions on your order.'
+                    });
+                    },
+                // Execute the payment
+                onAuthorize: function(data, actions) {
+                    return actions.payment.execute().then(function() {
+                        // Show a confirmation message to the buyer
+                        // window.alert('Thank you for your purchase!');
+                        // this.$http.post('/api/finishOrder_paypal',
+                        //     {   
+                        //         custno:JSON.parse(this.storage.getItem('user')).id,
+                        //         billing:this.billing,
+                        //         address:this.address,
+                        //         hst:this.hst,
+                        //         total:this.total,
+                        //         subtotal:this.subtotal,
+                        //         shippingDays:this.shippingDays,
+                        //         shipping:this.shipping,
+                        //         addressID:this.addressID,
+                        //     }
+                        //     ).then(response=>{
+                        //     this.loading = 0;
+                        //     if (response.data.result) {
+                        //         this.carts.forEach(element => {
+                        //             this.storage.removeItem(element.item);
+                        //             this.$store.commit('carts_number',0);
+                        //         });
+
+                        //         this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
+                        //     }else{
+                        //         this.paymentError = true;
+
+                        //         this.error='Declined please try again';
+                        //     }
+                        // });
+
+                        paypal_flag = true;
+                        console.log(paypal_flag);
+                    });
+                }
+            }, '#paypal-button');
         },
         methods:{
             placeOrder(){
