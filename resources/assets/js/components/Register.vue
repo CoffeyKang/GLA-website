@@ -198,6 +198,7 @@
             
             
             register(){
+                
                 this.$refs["details"].validate((valid)=>{
                     if(valid){
 

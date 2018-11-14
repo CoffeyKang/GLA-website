@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                         <div>
-                            <span class='forgetPassword'>Forgot Password?</span>
+                            <!-- <span class='forgetPassword'>Forgot Password?</span> -->
                         </div>
                     </div>
                 </div>

@@ -48,11 +48,11 @@
             color: white;
         }
         .nav-link:hover{
-            color: yellow;
+            color: #FFE512;
         }
         .active{
             background-color: #8e8e8e !important;
-            color: yellow !important;
+            color: #FFE512 !important;
         }
     </style>
 

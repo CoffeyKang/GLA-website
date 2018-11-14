@@ -315,7 +315,7 @@
 		padding: 20px 0;
 	}
 	.related{
-		background-color: yellow;
+		background-color:  #FFE512;
 		font-size: 1.6em;
 		padding: 10px 20px;
 		font-weight: bold;

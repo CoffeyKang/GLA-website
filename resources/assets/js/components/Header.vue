@@ -169,7 +169,7 @@
 
 <style scoped>
 .gla-nav{
-		background-color: yellow;
+		background-color:  #FFE512;
 	}
 
 .black .active a,

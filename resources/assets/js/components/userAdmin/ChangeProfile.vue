@@ -297,7 +297,16 @@
                                     </el-form-item>
                                 </div>
                                 
-                                
+                            </div>
+                        </div>
+
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <div class="col-xs-5">
+                                    <el-form-item label-width='0px' >
+                                        <el-checkbox v-model="details.checked">Unsubscribe</el-checkbox>
+                                    </el-form-item>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -349,6 +358,7 @@ export default {
                 b_country:'',
                 b_phone:'',
                 b_zipcode:'',
+                checked:true,
                
             },
             billing:{},
@@ -406,6 +416,12 @@ export default {
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.billing = JSON.parse(this.storage.getItem('billing'));
 
+        if (this.user.receiveEmail==1) {
+            this.details.checked =  true;
+        }else{
+            this.details.checked =  false;
+        }
+        
         this.details.surname = this.userInfo.m_surname;
         this.details.forename = this.userInfo.m_forename;
         this.details.gender = this.getGender(this.userInfo.m_gender);
@@ -553,6 +569,12 @@ export default {
             });
         } ,
         resetForm(details){
+
+            if (this.user.receiveEmail==1) {
+                this.details.checked =  true;
+            }else{
+                this.details.checked =  false;
+            }
             this.details.surname = this.userInfo.m_surname;
             this.details.forename = this.userInfo.m_forename;
             this.details.gender = this.getGender(this.userInfo.m_gender);

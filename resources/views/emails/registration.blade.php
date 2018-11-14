@@ -16,6 +16,7 @@
     <style>
         body{
             margin-top: 100px;
+            font-family: Arial, Helvetica, sans-serif;
         }
         .main{
             display: flex;

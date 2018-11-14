@@ -31,8 +31,7 @@
                 font-family: Arial, Helvetica, sans-serif;
                 
             }
-            /* .el-step__head.is-success{ color: yellow !important; border-color: yellow !important; }
-            .el-step__title.is-success{ color: yellow !important } */
+            
         </style>
 
         <script>

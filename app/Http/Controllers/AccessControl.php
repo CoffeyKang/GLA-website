@@ -59,6 +59,9 @@ class AccessControl extends Controller
      */
     public function newCustomer(Request $request){
 
+       
+
+        
         $this->validate($request,[
             'firstname'=>'required',
             'lastname'=>'required',
@@ -84,8 +87,8 @@ class AccessControl extends Controller
         
         $email = $request->email;
 
-        $check = $request->checked;
-
+        $check = $request->checked?1:0;
+        
         $password = $request->password;
 
         $receiveEmail = $request->receiveEmail;
@@ -98,6 +101,8 @@ class AccessControl extends Controller
             'password' => bcrypt($password),
         ]);
         
+
+
         
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
@@ -301,6 +306,12 @@ class AccessControl extends Controller
             $user->firstname = $data["forename"];
 
             $user->lastname = $data["surname"];
+
+            if ($data["checked"]) {
+                $user->receiveEmail = 1;
+            }else{
+                $user->receiveEmail = 0;
+            }
 
             $user->save();
 

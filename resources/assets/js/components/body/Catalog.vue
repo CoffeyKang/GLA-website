@@ -1,14 +1,14 @@
 <template>
 	<div class='container' style='margin-bottom:10px;'>
 		<div class="title">
-			<span>Catalog</span>
+			<span>Catalog {{displayName('haha&ha')}}</span>
 		</div>
 		<div class="col-xs-3 cat" v-for="catalog in catalogs" :key="catalog.id">
 			<div class="cat_img" 
 			:style="{ backgroundImage: 'url(/images/catalog/' + catalog.path + ')' }">
 			</div>
 			<div class="cat_btn">
-				<h4 class='text-center'>{{catalog.name.toUpperCase()}}</h4>
+				<h4 class='text-center' v-html="displayName(catalog.display)"></h4>
 				<button class="btn btn-block viewOnline" @click="viewPDF(catalog.name)">
 					View Online
 				</button>
@@ -49,7 +49,13 @@
 			viewPDF(name){
 				window.localStorage.setItem('pdf_make',name);
 				this.$router.push({name:'Booklet',params:{make:name}});
+			},
+			displayName(value){
+				return value.replace(/&/,"<br>").toUpperCase();
 			}
+		},
+		computed:{
+			
 		}
 }
 </script>
@@ -72,12 +78,18 @@
 		background-repeat: no-repeat;
 	}
 	.viewOnline{
-		background-color: yellow;
+		background-color: #FFE512;
 		font-size: 1.2em;
 	}
 	.download{
 		background-color: black;
 		color: white;
 		font-size: 1.2em;
+	}
+	h4{
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

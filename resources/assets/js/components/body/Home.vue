@@ -208,7 +208,7 @@
           margin-bottom: 20px;
           padding: 10px 30px;
           color: black;
-          background-color: yellow;
+          background-color: #FFE512;
           font-size: 1.5em;
           font-weight: bold;
         }

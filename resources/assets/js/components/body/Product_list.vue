@@ -236,7 +236,7 @@
 		margin: 0px 50px;
 	}
 	.shoppingCart{
-		color: yellow;
+		color:  #FFE512;
 		cursor: pointer;
 	}
 	.title{
