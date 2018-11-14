@@ -74,10 +74,11 @@ export default {
     },
     mounted(){
         // check if user is login
-		if(this.storage.getItem('userInfo')){
-				
+		if(this.storage.getItem('userInfo')&&this.storage.getItem('userInfo')!='null'){
+			
             let userData = JSON.parse(this.storage.getItem('userInfo'));
-            this.$router.push('home');
+            
+            this.$router.push('/');
 		}else{
 			this.$router.push('Login');
         }
@@ -151,8 +152,16 @@ export default {
                     }
 
                     this.$store.commit('changeLoginStatus',true);
+
+                    if (this.$store.state.loginStatus&&this.storage.getItem('userInfo')=='null') {
+                        this.$store.commit('changeLoginStatus',false);
+                        this.$router.push({name:'userHome'});
+                        
+                    }else{
+                        this.$router.push(this.loginDirect);
+                    }
                     
-                    this.$router.push(this.loginDirect);
+                    
                     
                 }).catch(function(response){
                     // Your account or password was entered incorrectly.

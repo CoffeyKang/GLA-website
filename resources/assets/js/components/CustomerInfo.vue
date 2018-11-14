@@ -134,7 +134,7 @@
                     <el-card class="box-card" >
                         <div class="shipping" slot="header">
                             <span>Billing Information</span>
-                            <span><el-checkbox v-model="details.sameAsBilling">Same as Billing Address</el-checkbox></span>
+                            <span><el-checkbox v-model="details.sameAsBilling">Same as Shipping Address</el-checkbox></span>
                         </div>
                                 <div class="text" v-if="!details.sameAsBilling">
                             <el-form-item label="Address1" prop='address'>
@@ -703,11 +703,14 @@
                             this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
                             this.billing = JSON.parse(this.storage.getItem('billing'));
 
+                            this.$store.commit('changeLoginStatus',true);
+
                             if (this.userInfo.m_country=='US') {
                                 this.$store.commit('usdPrice',true);
                             }else{
                                 this.$store.commit('usdPrice',false);
                             }
+
                             this.$router.push({path:'/CustomerInfo/HomePage'});
                         
                         });

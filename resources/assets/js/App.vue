@@ -50,16 +50,16 @@
 				});
 				
 			// check if the use log in
-			if (this.storage.getItem("user")) {
-				this.$store.commit('changeLoginStatus',true);
-			}
+			
 
-			//check usd price
+			//check is user info has been set
+			
 			
 		},
 		watch: {
 	    '$route' (to, from) {
 				window.scrollTo(0,0);
+				
 			}
 		},
 		methods:{

@@ -269,7 +269,8 @@
 
                                         this.storage.setItem('user',JSON.stringify(response.data.user));
                                         this.storage.setItem('userInfo',JSON.stringify(response.data.userInfo));
-                                        this.$store.commit('changeLoginStatus',true);
+                                        
+                                        
                                         this.$router.push({name:'userHome'});
                                         
                                         // this.$confirm('', 'Congratulation', {

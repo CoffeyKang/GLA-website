@@ -99,7 +99,7 @@
 	}
 	.img{
 		background-position: center;
-		background-size: 100%;
+		background-size: 80%;
 		background-repeat: no-repeat;
 		height: 250px;
 		cursor: pointer;
@@ -107,6 +107,8 @@
 	.words{
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 	button{
 		width:150px;

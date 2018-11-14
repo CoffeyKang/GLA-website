@@ -79,10 +79,15 @@
 			},
 			customerInfo(){
 				this.$router.push({path:'/CustomerInfo/HomePage'});
-			}
+			},
+
+			
+
 		},
 		mounted(){
+			
 			//get exchange rate
+			
 			this.$http.get('/api/exchangeRate').then(response=>{
 				if (response.data.exchangeRate!=1) {
 					
@@ -95,11 +100,11 @@
 			};
 
 			/**	call api to get exchange rate */
-			if (this.storage.getItem("user")) {
+			if (this.storage.getItem("user")&&this.storage.getItem("Info")) {
 				
 				this.userID = JSON.parse(this.storage.getItem("user")).id;
 
-				
+				this.$store.commit('changeLoginStatus',true);
 					
 			}else{
 			}
@@ -128,11 +133,18 @@
 		
 		computed:{
 			
+			
+			loginStatus:{
+				get:function() {
+					return this.$store.state.loginStatus;
+				},
+				set:function(){
+
+				},
+			},
+
 			carts_total(){
 				return this.$store.state.carts_total;
-			},
-			loginStatus(){
-				return this.$store.state.loginStatus;
 			},
 
 			name(){

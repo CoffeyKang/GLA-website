@@ -22,6 +22,8 @@ use App\Inventory;
 use App\Billing;
 use DB;
 use Excel;
+use Mail;
+use App\Mail\registration;
 
 
 
@@ -99,6 +101,10 @@ class AccessControl extends Controller
         
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
+        
+        // @Mail::to($user->email)->send(
+        //     (new registration($user))
+        // );
 
         return response()->json(['user'=>$user,'userInfo'=>$userInfo],200);
         
@@ -346,16 +352,16 @@ class AccessControl extends Controller
     }
     /** test page */
     public function kang(){
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, 'localhost:8000/api/makes'); 
+
+        $user = User::find(18);
+        echo $user->password;
+        // @Mail::to("fkang@velements.com")->send(
+        //     (new registration($user))
+        // );
+
         
-        // $output = curl_exec($ch);
-    
+        
             
-        // dd($output);
-        // InventoryExcelFile();
-        // return 1;
-        $a = -1?:2;
 
         
         

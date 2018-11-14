@@ -146,12 +146,13 @@
                     <legend>Pay with Paypal</legend>
                     <!-- <div id="paypal-button" ></div> -->
                     <PayPal
-                        amount="10.00"
+                        :amount="parseFloat(total).toFixed(2).toString()"
                         currency="CAD"
                         :client="credentials"
                         env="sandbox"
                         locale="en_CA"
                         :button-style="myStyle"
+                        :items="myItems"
                         v-on:payment-authorized="paymentAuthorized"
                         v-on:payment-completed="paymentCompleted"
                         v-on:payment-cancelled="paymentCancelled"
@@ -222,6 +223,7 @@ export default {
             subtotal:this.$route.params.subtotal,
             hst:this.$route.params.hst,
             total:this.$route.params.total,
+            amount:'',
             subtotal:this.$route.params.subtotal,
             shippingDays:this.$route.params.shippingDays,
             shipping:this.$route.params.shipping,
@@ -240,6 +242,7 @@ export default {
                 sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
                 production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
             },
+            
             myStyle: {
                 label: 'checkout',
                 size:  'responsive',
@@ -248,8 +251,9 @@ export default {
             },
             opt_card_status:true,
             opt_paypal_status:false,
+            myItems:[],
             
-
+            
         }
     },
         components: {
@@ -260,12 +264,6 @@ export default {
             
         },
         mounted(){
-            
-            
-
-            
-
-
             // determin if user has login
 			if(this.storage.getItem('user')&&this.storage.getItem('userInfo')){
 				// have to validate the user name and password once more here
@@ -299,6 +297,44 @@ export default {
            if (this.card.month<10) {
                this.card.month = "0" + toString(this.card.month);
            };
+
+
+           /**  set my items */
+           this.myItems = [
+                {
+                    "name": "Tax",
+                    "description": "Tax.",
+                    "quantity": "1",
+                    "price": this.$route.params.hst,
+                    "currency": "CAD"
+                },
+                {
+                    "name": "Shipping",
+                    "description": "Shipping Fee.",
+                    "quantity": "1",
+                    "price": this.$route.params.shipping,
+                    "currency": "CAD"
+                }
+               
+            ]
+
+           
+            this.carts.forEach(element => {
+                var i = {
+                    "name": element.item,
+                    "description": element.descrip,
+                    "quantity":element.qty,
+                    "price": element.price,
+                    "currency": "CAD"
+                };
+
+                this.myItems.unshift(i);
+                
+            });
+            
+            
+
+            
 
         },
         methods:{
@@ -357,7 +393,6 @@ export default {
             },
 
             paymentAuthorized: function (data) {
-                console.log(data);
             },
             paymentCompleted: function (data) {
                 this.$http.post('/api/finishOrder_paypal',
@@ -389,7 +424,6 @@ export default {
                 });
             },
             paymentCancelled: function (data) {
-                console.log("payment cancelled");
             },
             opt_paypal(){
                 this.opt_paypal_status = true;

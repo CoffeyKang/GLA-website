@@ -222,15 +222,13 @@ export default {
                 });
 
                 this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
-                    // console.log('called');
                     if (response.data.deleteOldShortlist=='deletedOld') {
-                        // console.log('shortlist has been delete');
+                        // 'shortlist has been delete');
                     }else{
 
                     }
                 }));
             }else{
-                console.log('not login');
             }
             // this.$http.get('/api/getShortlist/'+)
             
@@ -254,7 +252,7 @@ export default {
                     this.$store.commit('carts_number',this.carts.length);
                     this.subtotal = 0;                
                     this.carts.forEach(element => {
-                        console.log(element);
+                        
                         element.pricel = this.Dealerprice(element);
                         let short_num = parseInt(this.storage.getItem(element.item));
                         if ( short_num >element.onhand) {
@@ -274,7 +272,6 @@ export default {
                         
                 }, response => {
                     // error 
-                    console.log("reloadElement error");
                 });
             },
             
@@ -340,7 +337,6 @@ export default {
                     
                     this.$http.post('api/checkoutDealer',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
 
-                        console.log(response);
                         
                         if (response.data.status=="Success") {
                         this.$router.push('/dealer_checkout');
@@ -349,7 +345,6 @@ export default {
                         } 
                     }, response => {
                         // error 
-                        console.log("reloadElement error");
                     });
                 }else{
 
@@ -371,7 +366,6 @@ export default {
                     
                     this.$http.post('api/checkout',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
 
-                        console.log(response);
                         
                         if (response.data.status=="Success") {
                             this.$router.push('/checkout');
@@ -380,7 +374,6 @@ export default {
                         } 
                     }, response => {
                         // error 
-                        console.log("reloadElement error");
                     });
                 }else{
 
