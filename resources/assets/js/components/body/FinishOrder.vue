@@ -94,7 +94,7 @@
                     <th>Status</th>
                 </tr>
                 <tr>
-                    <th>{{somast.shipping}}</th>
+                    <th>${{somast.shipping}}</th>
                     <th>{{somast.shippingdays}}</th>
                     <th>${{somast.subtotal|decimal}}</th>
                     <th>${{somast.tax|decimal}}</th>
@@ -133,7 +133,7 @@ export default {
                     status = 'Payment Failed';
                     break;
                 case 1:
-                    status = 'Payment Success';
+                    status = 'Paid';
                     break;
                 case 3:
                     status = 'Pending for Quote';

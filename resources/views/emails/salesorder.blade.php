@@ -19,6 +19,8 @@
             margin: auto;
             text-align: center;
             font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 24px;
             
         }
 
@@ -69,6 +71,9 @@
         .p160{
             width: 160px;
         }
+        .pd-10{
+        	padding: 10px;
+        }
     </style>
 </head>
 
@@ -87,7 +92,7 @@
 
                 <b>ORDER # {{$somast->order_num}}</b><br>
                 <span>Order Placed on {{substr($somast->date_order,0,10)}}</span>
-                <table width="530px">
+                <table width="530px" class='pd-10'>
                     <tr>
                         <td class='p265' style='text-align: left'>
                             <b>BILLING ADDRESS</b>
@@ -147,7 +152,7 @@
                     </tr>
                 </table>
 
-                <b>Delivery</b><span style='text-transform:uppercase; text-align: left; font-size:12px; color: gray'> to @if ($address->id!=0)
+                <b>Delivery</b><span style='text-transform:uppercase; text-align: left; font-size:12px; color: gray'> to @if ($address->id!=1)
                     {{$address->forename}} {{$address->surname}} {{$address->address}} {{$address->city}}
                     {{$address->state}} {{$address->zipcode}}  @if($address->country=="CA")CANADA @else USA @endif
                 @else
