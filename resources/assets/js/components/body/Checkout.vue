@@ -3,7 +3,13 @@
 		element-loading-text="Calculating ..."
         
 	>
-        <h3>Checkout</h3>
+        <h3>Confirm Order</h3>
+        <el-steps :active="2" finish-status="success">
+            <el-step title="Step 1"></el-step>
+            <el-step title="Step 2"></el-step>
+            <el-step title="Step 3"></el-step>
+            <el-step title="Step 4"></el-step>
+        </el-steps>
         <div class="col-sm-8" style='padding:0;'>
             <div>
                 <table class="table table-striped table-justified">
@@ -13,7 +19,7 @@
                             <th>Item</th>
                             <th>Make</th>
                             <th>QTY</th>
-                            <th>Price</th>
+                            <th style='min-width:120px;'>Price</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,7 +28,9 @@
                             <td>{{item.item}} </td>
                             <td>{{item.make}}</td>
                             <td>{{item.qty}}</td>
-                            <td>${{(item.price * item.qty).toFixed(2)}}</td>
+                            <td>CAD ${{(item.price * item.qty).toFixed(2)}}<br>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.price * item.qty)/$store.state.exchange).toFixed(2) }}</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -49,7 +57,8 @@
 
                     <div class='col-xs-12'  style='margin-top:20px;'>
                         <h4>Shipping To another address</h4>
-                        <el-select v-model="selectAdd" placeholder="Shipping To ...">
+                        <div style='display:flex; justify-content:space-between'> 
+                        <el-select v-model="selectAdd" placeholder="To default address.">
                             <el-option
                             v-for="item in addressBook"
                             :key="item.id"
@@ -57,6 +66,14 @@
                             :value="item.id">
                             </el-option>
                         </el-select>
+                        <div>
+                            <button class="btn btn-primray" @click='defaultShipping()' v-if="otherAddress">Ship To Default Address</button>
+                            <button class="btn btn-success" @click='showNewAddress=!showNewAddress'>
+                                <span v-if="!showNewAddress">Add new address</span>
+                                <span v-if="showNewAddress">Hide new address form</span>
+                            </button>
+                        </div>
+                        </div>
                     </div>
                 <div class='addressBook col-xs-12' >
                     <div class='address' v-for="address in addressBook" :key="address.id" v-if="address.id==selectAdd">
@@ -78,15 +95,15 @@
 
                 
                 
-                <div class="newShipping col-xs-12" @keyup.enter='submitForm(newAdd)'>
+                <div class="newShipping col-xs-12" @keyup.enter='submitForm(newAdd)' v-if="showNewAddress==true">
                     <h4 >New Shipping Address</h4>
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
                             <div class="inRow">
-                                <el-form-item label="Surname" prop='surname' component:input>
+                                <el-form-item label="Last Name" prop='surname' component:input>
                                     <el-input v-model="newAdd.surname"></el-input>
                                 </el-form-item>
-                                <el-form-item label="Forename" prop='forename'>
+                                <el-form-item label="First Name" prop='forename'>
                                     <el-input v-model="newAdd.forename"></el-input>
                                 </el-form-item>
                             </div>
@@ -94,32 +111,60 @@
                                 <el-input v-model="newAdd.address"></el-input>
                             </el-form-item>
                             <div class="inRow">
+                                
+                                
+                            </div>
+
+                            <div class="inRow">
+                                <el-form-item label="Postal Code"  label-width="120px" prop='zipcode'>
+                                    <el-input v-model="newAdd.zipcode"></el-input>
+                                </el-form-item>
                                 <el-form-item label="City" prop='city'>
                                     <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
                                 </el-form-item>
+                            </div>
 
-                                <el-form-item label="State" prop='state'>
-                                    <el-select v-model="newAdd.state" placeholder="State">
+                            <div class="inRow">
+                        
+
+                                <el-form-item label="Country" prop='country'>
+                                    <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
+                                    <el-select v-model="newAdd.country" placeholder="Country" @change='newAdd.state=""'>
                                         <el-option
-                                        v-for="item in privince"
+                                        v-for="item in country"
                                         :key="item.name"
                                         :label="item.name"
                                         :value="item.Code">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
+
                                 
-                            </div>
-                            <div class="inRow">
-                                <el-form-item label="Zipcode" prop='zipcode'>
-                                    <el-input v-model="newAdd.zipcode"></el-input>
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='CA'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
                                 </el-form-item>
-                                <el-form-item label="Country" prop='country'>
-                                    <el-input v-model="newAdd.country"></el-input>
+
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='US'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
                                 </el-form-item>
                             </div>
+                            
                             <el-form-item label="Telphone" prop='tel'>
-                                <el-input v-model="newAdd.tel"></el-input>
+                                <el-input type='number' v-model="newAdd.tel"></el-input>
                             </el-form-item>
 
                             <el-form-item class='text-center'>
@@ -146,23 +191,35 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ subtotal }}</span>
+                            <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ parseFloat(subtotal).toFixed(2) }}<br>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(subtotal))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span v-if="shippingRate=='quotable'">${{ shipping }}</span>
+                            <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ parseFloat(shipping).toFixed(2) }}
+                                <br>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(shipping))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst }}</span>
+                            <span>HST:</span><span class='text-right'>CAD ${{ hst }}
+                                <br>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(hst))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>TOTAL:</span><span v-if="shippingRate=='quotable'">${{ total.toFixed(2) }}</span>
+                            <span>TOTAL:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ total.toFixed(2) }}
+                                <br>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(total))/$store.state.exchange).toFixed(2) }}</span>
+
+                            </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
                     </div>
@@ -182,7 +239,7 @@
 
                 <div class=" text-center" v-if="shippingRate!='quotable'">
                     <button class='mybtn btn btn-success' >Get a Quote</button>
-                    
+                    <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
                 
             </div>
@@ -195,19 +252,26 @@
 export default {
     data(){
         return {
+            usdPrice:this.$store.state.usdPrice,
             items:[],
+            showNewAddress:false,
             qtys:[],
             otherAddress:false,
             storage:window.localStorage,
             carts:[],
             subtotal:0,
             hst:0,
+            addressID:0,
             quotes:[],
             shippingOPT:1,
             expressDay:1,
             groundDay:1,
             shippingRate:'',
             // shipping:0,
+            country:[
+                        {name:'Canada',Code:"CA"},
+                        {name:'USA',Code:"US"},
+                ],
             privince:[
                     {name:'Alberta',Code:"AB"},
                     {name:'British-Coloumbia',Code:"BC"},
@@ -227,16 +291,254 @@ export default {
             loading:1,
             addressBook:[],
             defaultAddress:true,
+            US_states:[
+                    {
+                        "name": "Alabama",
+                        "abbreviation": "AL"
+                    },
+                    {
+                        "name": "Alaska",
+                        "abbreviation": "AK"
+                    },
+                    {
+                        "name": "American Samoa",
+                        "abbreviation": "AS"
+                    },
+                    {
+                        "name": "Arizona",
+                        "abbreviation": "AZ"
+                    },
+                    {
+                        "name": "Arkansas",
+                        "abbreviation": "AR"
+                    },
+                    {
+                        "name": "California",
+                        "abbreviation": "CA"
+                    },
+                    {
+                        "name": "Colorado",
+                        "abbreviation": "CO"
+                    },
+                    {
+                        "name": "Connecticut",
+                        "abbreviation": "CT"
+                    },
+                    {
+                        "name": "Delaware",
+                        "abbreviation": "DE"
+                    },
+                    {
+                        "name": "District Of Columbia",
+                        "abbreviation": "DC"
+                    },
+                    {
+                        "name": "Federated States Of Micronesia",
+                        "abbreviation": "FM"
+                    },
+                    {
+                        "name": "Florida",
+                        "abbreviation": "FL"
+                    },
+                    {
+                        "name": "Georgia",
+                        "abbreviation": "GA"
+                    },
+                    {
+                        "name": "Guam",
+                        "abbreviation": "GU"
+                    },
+                    {
+                        "name": "Hawaii",
+                        "abbreviation": "HI"
+                    },
+                    {
+                        "name": "Idaho",
+                        "abbreviation": "ID"
+                    },
+                    {
+                        "name": "Illinois",
+                        "abbreviation": "IL"
+                    },
+                    {
+                        "name": "Indiana",
+                        "abbreviation": "IN"
+                    },
+                    {
+                        "name": "Iowa",
+                        "abbreviation": "IA"
+                    },
+                    {
+                        "name": "Kansas",
+                        "abbreviation": "KS"
+                    },
+                    {
+                        "name": "Kentucky",
+                        "abbreviation": "KY"
+                    },
+                    {
+                        "name": "Louisiana",
+                        "abbreviation": "LA"
+                    },
+                    {
+                        "name": "Maine",
+                        "abbreviation": "ME"
+                    },
+                    {
+                        "name": "Marshall Islands",
+                        "abbreviation": "MH"
+                    },
+                    {
+                        "name": "Maryland",
+                        "abbreviation": "MD"
+                    },
+                    {
+                        "name": "Massachusetts",
+                        "abbreviation": "MA"
+                    },
+                    {
+                        "name": "Michigan",
+                        "abbreviation": "MI"
+                    },
+                    {
+                        "name": "Minnesota",
+                        "abbreviation": "MN"
+                    },
+                    {
+                        "name": "Mississippi",
+                        "abbreviation": "MS"
+                    },
+                    {
+                        "name": "Missouri",
+                        "abbreviation": "MO"
+                    },
+                    {
+                        "name": "Montana",
+                        "abbreviation": "MT"
+                    },
+                    {
+                        "name": "Nebraska",
+                        "abbreviation": "NE"
+                    },
+                    {
+                        "name": "Nevada",
+                        "abbreviation": "NV"
+                    },
+                    {
+                        "name": "New Hampshire",
+                        "abbreviation": "NH"
+                    },
+                    {
+                        "name": "New Jersey",
+                        "abbreviation": "NJ"
+                    },
+                    {
+                        "name": "New Mexico",
+                        "abbreviation": "NM"
+                    },
+                    {
+                        "name": "New York",
+                        "abbreviation": "NY"
+                    },
+                    {
+                        "name": "North Carolina",
+                        "abbreviation": "NC"
+                    },
+                    {
+                        "name": "North Dakota",
+                        "abbreviation": "ND"
+                    },
+                    {
+                        "name": "Northern Mariana Islands",
+                        "abbreviation": "MP"
+                    },
+                    {
+                        "name": "Ohio",
+                        "abbreviation": "OH"
+                    },
+                    {
+                        "name": "Oklahoma",
+                        "abbreviation": "OK"
+                    },
+                    {
+                        "name": "Oregon",
+                        "abbreviation": "OR"
+                    },
+                    {
+                        "name": "Palau",
+                        "abbreviation": "PW"
+                    },
+                    {
+                        "name": "Pennsylvania",
+                        "abbreviation": "PA"
+                    },
+                    {
+                        "name": "Puerto Rico",
+                        "abbreviation": "PR"
+                    },
+                    {
+                        "name": "Rhode Island",
+                        "abbreviation": "RI"
+                    },
+                    {
+                        "name": "South Carolina",
+                        "abbreviation": "SC"
+                    },
+                    {
+                        "name": "South Dakota",
+                        "abbreviation": "SD"
+                    },
+                    {
+                        "name": "Tennessee",
+                        "abbreviation": "TN"
+                    },
+                    {
+                        "name": "Texas",
+                        "abbreviation": "TX"
+                    },
+                    {
+                        "name": "Utah",
+                        "abbreviation": "UT"
+                    },
+                    {
+                        "name": "Vermont",
+                        "abbreviation": "VT"
+                    },
+                    {
+                        "name": "Virgin Islands",
+                        "abbreviation": "VI"
+                    },
+                    {
+                        "name": "Virginia",
+                        "abbreviation": "VA"
+                    },
+                    {
+                        "name": "Washington",
+                        "abbreviation": "WA"
+                    },
+                    {
+                        "name": "West Virginia",
+                        "abbreviation": "WV"
+                    },
+                    {
+                        "name": "Wisconsin",
+                        "abbreviation": "WI"
+                    },
+                    {
+                        "name": "Wyoming",
+                        "abbreviation": "WY"
+                    }
+                ],
             newAdd:{
-
+                country:"CA",
             },
             selectAdd:"",
             rules:{
                 surname:[
-                        { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
+                        { required: true, message: 'Last name is required.', trigger: 'blur', max:99 }
                     ],
                     forename:[
-                        { required: true, message: 'Forename is required.', trigger: 'blur', max:99 },
+                        { required: true, message: 'First name is required.', trigger: 'blur', max:99 },
                     ],
                     city:[
                         { required: true, message: 'City is required.', trigger: 'blur', max:99 },
@@ -245,7 +547,7 @@ export default {
                         { required: true, message: 'State is required.', trigger: 'blur', max:99 },
                     ],
                     zipcode:[
-                        { required: true, message: 'Zip Code is required.', trigger: 'blur', max:99 },
+                        { required: true, message: 'Postal code is required.', trigger: 'blur', max:99 },
                     ],
                     address:[
                         { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
@@ -254,9 +556,9 @@ export default {
                         { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
                     ],
                     tel:[
-                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:15,}
+                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                     ],
-            }
+            },
         }
     },
         computed:{
@@ -279,6 +581,14 @@ export default {
                     
                 }
                 
+            },
+
+            shippingDays(){
+                if (this.shippingOPT=='1') {
+                    return parseInt(this.groundDay)+3;
+                }else{
+                    return parseInt(this.expressDay)+1;
+                }
             }
         },
         mounted(){
@@ -288,7 +598,6 @@ export default {
                 var userData = JSON.parse(this.storage.getItem('user'));
                 /** check again */
                 this.$http.get('/api/shortlist',{params:{userid:userData.id}}).then(response=>{
-                    console.log(response);
                     this.carts = response.data.carts;
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
@@ -301,21 +610,83 @@ export default {
                     this.expressDay = response.data.expressDay;
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
+
+                    if (this.carts.length<1) {
+                        this.$router.push({name:'ShoppingCart'});
+                    }else{
+                        
+                    }
                 });
 
 			}else{
 				this.$store.commit('changeLoginDirect','home');
 				this.$router.push('Login');
             }
+
+            // if (this.$store.state.confirm) {
+            //     this.loading = 0;
+
+            //     this.$router.push({name:"ConfirmOrder", 
+            //         params:{
+            //             carts:this.carts,
+            //             addressID:this.addressID,
+            //             subtotal:this.subtotal,
+            //             hst:this.hst,
+            //             total:this.total,
+            //             shippingDays:this.shippingDays,
+            //             shipping:this.shipping,
+            //         }
+            //     });
+            // }
         },
         methods:{
+            myalert(value){
+                alert(value);
+            },
+            defaultShipping(){
+               location.reload();
+            },
+            
+            isAlphaOrParen(a) {
+                return /^[a-zA-Z()]+$/.test(a);
+            },
             submitForm(newAdd){
-                console.log('submit form');
                 this.$refs["newAdd"].validate((valid)=>{
                     if (valid){
+
+                        if (this.newAdd.country=='US') {
+                            let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.newAdd.zipcode);
+
+                            if (!isValidZip) {
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid USA Zipcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }else{
+                            
+
+                            }
+                        }else{
+                            let str = this.newAdd.zipcode.replace(' ','');
+
+                            if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                            }else{
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid Canada postalcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }
+                        }
+
+
                         // submit userDetails info        
                         var userId = this.userInfo.m_id;
-                        console.log(userId);
                         this.$http.post('/api/newShippingAdd',
                             {
                                 'userID':userId,
@@ -337,13 +708,13 @@ export default {
                         
 
                     }else{
-                        this.$message({
-                            showClose:true,
-                            message:"Error Submit",
-                            type:"error",
-                            duration:5000,
-                        });
-                        return false;
+                        // this.$message({
+                        //     showClose:true,
+                        //     message:"Error Submit",
+                        //     type:"error",
+                        //     duration:5000,
+                        // });
+                        // return false;
                     }
                 });
             },
@@ -355,7 +726,6 @@ export default {
                     type: 'warning'
                     }).then(() => {
                         this.$http.post('/api/deleteAddress',{'id':id}).then(response=>{
-                            console.log(response);
                             this.$message({
                                 type: 'success',
                                 message: 'Scuccessfully delete!',
@@ -376,7 +746,6 @@ export default {
                 this.loading = 1;
                 window.scrollTo(0,0);   
                 this.$http.post('/api/changeAddress',{"id":id}).then(response=>{
-                    console.log(response);
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
                     this.userInfo = response.data.userInfo;
@@ -386,14 +755,48 @@ export default {
                     this.groundDay = response.data.groundDay;
                     this.expressDay = response.data.expressDay;
                     this.addressBook = response.data.addressBook;
-                    console.log(response.data.addressBook);
                     this.otherAddress = true;
-                    
+                    this.addressID = response.data.addressID,
                     this.loading = 0;
-                    
                     $('.addressBox').css("border",'none');
                     $("#box"+id).css("border",'3px solid green');
                 });        
+            },
+
+            confirm(){
+                this.loading = 0;
+                
+                this.$router.push({name:"ConfirmOrder", 
+                    params:{
+                        carts:this.carts,
+                        addressID:this.addressID,
+                        subtotal:this.subtotal,
+                        hst:this.hst,
+                        total:this.total,
+                        shippingDays:this.shippingDays,
+                        shipping:this.shipping,
+                    }
+                });
+
+                // this.$http.post('/api/confirmOrder',{
+                //         userId:this.userInfo.m_id,
+                //         shippingOPT:this.shippingOPT,
+                //         shippingFee:this.shipping,
+                //         shippingDays:this.shippingDays,
+                //         hst:this.hst,
+                //         subtotal:this.subtotal,
+                //         addressID:this.addressID,
+
+                //     }).then(response=>{
+                        
+                //         this.$router.push({name:"ConfirmOrder", 
+                //             params:{
+                //                 sono:response.data.sono,
+                //                 userId:this.userInfo.m_id,
+                //             }
+                //         });
+                // })
+                
             },
         },
         watch:{

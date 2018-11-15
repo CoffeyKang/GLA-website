@@ -1,9 +1,13 @@
 <template>
     <div>
-        <div class="edit_title">
+        <div class="edit_title" v-if="user.level!=2">
             User Homepage
         </div>
-        <div style='margin-top:20px;'>
+
+        <div class="edit_title" v-if="user.level==2">
+            Dealer Arae
+        </div>
+        <!-- <div style='margin-top:20px;'>
             <el-card class="box-card">
                 <div class="clearfix" slot="header">
                     Latest News
@@ -12,7 +16,7 @@
                     Once the spring thaw gives the way to soiling summer heat, I fill in love with swimming.
                 </div>
             </el-card>
-        </div>
+        </div> -->
 
         <div class='details'>
             <div style='width:48%;'>
@@ -30,7 +34,7 @@
                             <el-col :span="16"><div class="grid-content">{{ user.email }}</div></el-col>
                         </el-row>
                         <el-row :gutter="20" justify="center">
-                            <el-col :span="8"><div class="grid-content">Address:</div></el-col>
+                            <el-col :span="8"><div class="grid-content">Billing Address:</div></el-col>
                             <el-col :span="16"><div class="grid-content">{{ address }}</div></el-col>
                         </el-row>     
                     </div>
@@ -83,12 +87,14 @@ export default {
             userInfo:{},
             user:{},
             orderHistory:[],
+            billing:{},
         }
     },
 
     mounted(){
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.user = JSON.parse(this.storage.getItem('user'));
+        this.billing = JSON.parse(this.storage.getItem('billing'));
         this.customerOrderHistory();
         
     },
@@ -99,8 +105,8 @@ export default {
         },
         
         address:function(){
-             return this.userInfo.m_address + ' ' + this.userInfo.m_city + ' ' +this.userInfo.m_state + ' ' +
-             this.userInfo.m_country + ' ' +this.userInfo.m_zipcode;
+             return this.billing.address1 +' '+ this.billing.address2 + ', ' + this.billing.city + ' ' +this.billing.province + ' ' +
+             this.billing.country + ' ' +this.billing.postalcode;
         }
   }
 

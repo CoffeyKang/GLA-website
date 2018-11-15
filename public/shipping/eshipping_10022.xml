@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Eshipper xmlns="http://www.eshipper.net/XMLSchema" username="veistrading" password="229280" version="3.0.0"><QuoteRequest><From id="10022" company="Veis Trading Inc." address1="200 Riviera Drive, Unit 2" city="Toronto" state="ON" country="CA" zip="L3R5M1"/><To company="fei Ka" address1="1234 Street" city="TORONTO" state="CO" country="US" zip="L2B3Z6"/><Packages type="Package"><Package length="5" width="3" height="2" weight="22"/></Packages></QuoteRequest></Eshipper>

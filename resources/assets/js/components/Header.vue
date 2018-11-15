@@ -10,7 +10,9 @@
 					<ul class='right-header'>
 						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
 						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register</router-link>
-						<li v-if="loginStatus" @click="logOut()">Log Out</li>
+						<li v-if="loginStatus" @click="logOut()"> Log Out</li>
+
+						<li v-if="loginStatus" style='cursor:default'>Hello,{{name}}.</li>
 						<li v-if="loginStatus" @click='customerInfo()'>My Account</li>
 						<router-link to='/wishList' tag='li'>Wish List</router-link>
 						<router-link to='/shoppingCart' tag='li'> 
@@ -43,7 +45,7 @@
 					<router-link to='/classicBody' tag='li' active-class='active' ><a>Classic Body</a></router-link>
 					<router-link to='/contact' tag='li' active-class='active' ><a>Contact</a></router-link>
 					<router-link to='/special' tag='li' active-class='active' ><a><b>Special</b></a></router-link>
-					<router-link to='/dealers' tag='li' active-class='active' ><a>Dealers Area</a></router-link>
+					<router-link to='/Dealer' tag='li' active-class='active' ><a>Dealers Area</a></router-link>
 				</ul>
 			</div>
 		</div>
@@ -59,6 +61,9 @@
 				labelPosition: 'left',
 				storage:window.localStorage,
 				userID:0,
+				usdPrice:this.$store.state.usdPrice,
+				userInfo:{},
+				username:'',
 			}
 		},
 		components:{
@@ -67,35 +72,92 @@
 		methods:{
 			logOut(){
 				this.storage.clear();
+				this.username='';
 				this.$store.commit('changeLoginStatus',false);
 				this.$store.commit('carts_number',0);
 				this.$router.push('/');
 			},
 			customerInfo(){
 				this.$router.push({path:'/CustomerInfo/HomePage'});
-			}
-		},
-		mounted(){
+			},
 
-			if (this.storage.getItem("user")) {
-				
-				this.userID = JSON.parse(this.storage.getItem("user")).id;
-					
-			}else{
-				console.log('not login');
-			}
 			
 
+		},
+		mounted(){
+			
+			//get exchange rate
+			
+			this.$http.get('/api/exchangeRate').then(response=>{
+				if (response.data.exchangeRate!=1) {
+					
+					this.$store.commit('exchange',response.data.exchangeRate);
+				}else{
+					this.$store.commit('exchange',1.35);
+				}
+			}), ()=>{
+				this.$store.commit('exchange',1.35);
+			};
+
+			/**	call api to get exchange rate */
+			if (this.storage.getItem("user")&&this.storage.getItem("Info")) {
+				
+				this.userID = JSON.parse(this.storage.getItem("user")).id;
+
+				this.$store.commit('changeLoginStatus',true);
+					
+			}else{
+			}
+
+			if (this.storage.getItem("userInfo")) {
+				
+				if (JSON.parse(this.storage.getItem("userInfo")).m_country=='US'){
+					this.$store.commit('usdPrice',true);
+					this.usdPrice = this.$store.state.usdPrice;
+					
+				}else{
+					this.$store.commit('usdPrice',false);
+				}
+			}
+	
+			//if is dealer
+			
+			
+			
+		},
+		filters:{
+			discount10(price) {
+				return (price * 0.9).toFixed(2);
+			}
 		},
 		
 		computed:{
 			
+			
+			loginStatus:{
+				get:function() {
+					return this.$store.state.loginStatus;
+				},
+				set:function(){
+
+				},
+			},
+
 			carts_total(){
 				return this.$store.state.carts_total;
 			},
-			loginStatus(){
-				return this.$store.state.loginStatus;
-			},
+
+			name(){
+				if (JSON.parse(this.storage.getItem("user")).level!=2) {
+					this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
+					this.username = this.userInfo.m_forename + ' '+ this.userInfo.m_surname;
+				}else{
+					this.userInfo = JSON.parse(this.storage.getItem("userInfo"));
+					this.username = this.userInfo.custno;
+				}
+
+				return this.username;
+			}
 
 
 
@@ -107,7 +169,7 @@
 
 <style scoped>
 .gla-nav{
-		background-color: yellow;
+		background-color:  #FFE512;
 	}
 
 .black .active a,
@@ -120,9 +182,9 @@
 }
 li a{
 	border-radius: 0;
-	font-size: 18px;
+	font-size: 24px;
 	color: black;
-	padding:15px 0;
+	padding:10px 0;
 
 }
 

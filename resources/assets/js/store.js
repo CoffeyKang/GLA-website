@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { country } from './country';
 Vue.use(Vuex);
 
 const searchModule = {
@@ -29,7 +30,14 @@ export const store = new Vuex.Store({
   state: {
     carts_total: 0,
     loginStatus: false,
-    loginDirect: '/'
+    loginDirect: '/',
+    confirm: false,
+    captcha: '',
+    country: country.country,
+    privince: country.privince,
+    US_states: country.US_states,
+    exchange: 1.35,
+    usdPrice: false,
   },
 
   mutations: {
@@ -41,7 +49,21 @@ export const store = new Vuex.Store({
     },
     changeLoginDirect(state, direction) {
       state.loginDirect = direction;
-    }
+    },
+    confirm(state, ifConfirm) {
+      state.confirm = ifConfirm;
+    },
+    captcha(state, captcha) {
+      state.captcha = captcha;
+    },
+    exchange(state, exchange) {
+      state.exchange = exchange;
+    },
+    usdPrice(state, usdPrice) {
+      state.usdPrice = usdPrice;
+    },
+    
+
   },
   modules: {
     search: searchModule

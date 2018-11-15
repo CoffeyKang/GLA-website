@@ -1,26 +1,26 @@
 <template>
-	<div class='container'>
-		<table class="table table-striped table-bordered" v-if='result' style='margin-top:30px;'>
+	<div class='container' v-loading='loading'  
+		element-loading-text="Searching ..." style='min-height:600px;'>
+		<table class="table table-striped table-bordered vertical-center" v-if='result' style='margin-top:30px; '>
             <thead>
                 <tr>
                     <th>Item</th>
                     <th>Description</th>
-					<th>Thumbnail</th>
+					<th style='min-width:120px;'>Thumbnail</th>
                     <th>Compatible Make</th>
-                    <th class='text-right'>Price</th>
+                    <th class='text-right' style='min-width:120px;'>Price</th>
                     <th class='text-center'>Action</th>
                 </tr>
             </thead>
             <tbody>
 				
                 <tr v-for="thing in list" :key="thing.item">
-                    <td>{{thing.item}}</td>
+                    <td  style='height:80px; vertical-align:middle !important'>{{thing.item}}</td>
                     <td>{{thing.descrip}}</td>
-					<td 
+					<td :style="{ backgroundImage: 'url(' + thing.img_path + ')' }"
 						style='
 							padding:5px;
-							height:50px; 
-							background-image:url("/images/default.jpg");
+							height:80px; 
 							background-size:contain;
 							background-repeat:no-repeat;
 							background-position:center'
@@ -30,7 +30,12 @@
 							{{item_make.make}} &nbsp; 
 						</span>
 					</td>
-                    <td class='text-right'>${{thing.pricel.toFixed(2)}}</td>
+                    <td class='text-right' v-if="thing.onhand-thing.aloc > thing.orderpt && discount">CAD ${{(thing.pricel*0.9).toFixed(2)}}<br>
+						<span v-if='usdPrice' class='usdPrice'>USD ${{ (((thing.pricel)/$store.state.exchange)*0.9).toFixed(2) }}</span></td>
+
+					<td class='text-right' v-if="thing.onhand-thing.aloc <= thing.orderpt || !discount">CAD ${{thing.pricel.toFixed(2)}}<br>
+						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((thing.pricel)/$store.state.exchange).toFixed(2) }}</span></td>
+
                     <td class='text-center'>
                         <button class="btn btn-primary" @click="goToItem(thing.item)">Item Details</button>
                     </td>
@@ -73,7 +78,7 @@
 		data(){
 			return {
                 item:this.$route.query.item,
-                make:this.$route.query.make,
+                make: this.$route.query.make,
                 year:this.$route.query.year,
                 desc:this.$route.query.desc,
 				list:[],
@@ -81,6 +86,9 @@
 				page:this.$route.query.page,
 				result:false,
 				empty:false,
+				loading:1,
+				
+				discount:true,
 			}
 		},
 
@@ -96,14 +104,15 @@
 							page:this.page,
 						}
 					}).then(response => {
-						
-						console.log(response);
 				// get body data
 				this.list = response.body.items.data;
+				this.list.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
+
 				this.data = response.body.items;
 				this.page = this.data.current_page;
 				this.makes = response.body.item_makes;
-				console.log(this.makes);
 				if (this.data.total>=1) {
 					this.result=true;
 					// i need put the search details to vuex, in order to backbing to search result pages
@@ -111,27 +120,34 @@
 					this.$store.commit('setMake',this.make);
 					this.$store.commit('setDesc',this.desc);
 					this.$store.commit('setYear',this.year);
-
+					this.loading=0;
 				}else{
 					this.empty=true;
+					this.loading=0;
 				}
 			  }, response => {
-			    console.log("error");
+			     
 			  });
+
+
+			  if (this.ifDealer()) {
+				  this.discount = false;
+			  }else{
+				  this.discount = true;
+			  }
+
+			  
         },
 
 		
 
         methods:{
             goToItem(id){
-                console.log('zhe lifjdalfjdafjdalkf');
-                console.log(id);
                 this.$router.push({ name: 'ItemDetails', params: { id:id }})
 			},
 			
             nextPage(){
 				this.page +=1;
-				console.log(this.page);
 				this.$router.push({name:'SearchList',query:{
 							item:this.item, 
 							make:this.make,
@@ -143,7 +159,6 @@
 				},
 			prePage(){
 				this.page -=1;
-				console.log(this.page);
 				this.$router.push({name:'SearchList',query:{
 							item:this.item, 
 							make:this.make,
@@ -170,6 +185,12 @@
 			getYear(){
 				return this.$store.state.search.year;
 			},
+
+			usdPrice(){
+				return this.$store.state.usdPrice;
+			},
+
+			
 		}
 	}
 </script>
@@ -183,6 +204,11 @@
 	}
 	.paginate_btn .btn{
 		min-width: 115px;
+	}
+
+	td{
+		height:80px; 
+		vertical-align:middle !important;
 	}
 	
 </style>

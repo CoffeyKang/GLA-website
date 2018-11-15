@@ -22,7 +22,7 @@
 						<el-option
 						v-for="item in makes"
 						:key="item.id"
-						:label="item.make"
+						:label="item.make.replace('_',' ').toUpperCase()"
 						:value="item.make">
 						</el-option>
 
@@ -48,6 +48,10 @@
 		</div>
 		<div class='searchCatalog'>
 			<span class="searchTitle">Search by Catalog:</span>
+			<span class='searchTitle_D'>
+				If you don't know the particular <b>Part Name</b> or <b>Item Number</b>, you may search by browsing our online catalogue.
+				Please select your desired <b>Make</b> from the menu selection below:
+			</span>
 			<div class="img">
 
 			</div>
@@ -56,30 +60,31 @@
 				
 					<el-form-item label="Make" >
 						
-						<el-select v-model="search.make" placeholder="Make" style='width:350px;'>
+						<el-select v-model="cat_make" placeholder="Make" style='width:350px;'>
 							<el-option
-							v-for="item in makes"
+							v-for="item in catalogs"
 							:key="item.id"
-							:label="item.make"
-							:value="item.make">
+							:label="item.name"
+							:value="item.name">
 							</el-option>
 
 						</el-select >		    
 					</el-form-item>
 					
 					<el-form-item>
-						<el-button type="primary" @click="searchItem()">Search</el-button>
+						<el-button type="primary" @click="searchItem_cat()">Search</el-button>
 						<el-button @click='resetSearch()'> Reset </el-button>
 					</el-form-item>
 				</el-form>
 			</div>
 		</div>
+		
     </div>
 </template>
 
 <script>
 	export default{
-
+		
 		data(){
 			return {
 				search:{},
@@ -87,39 +92,52 @@
 				sr:{},
 				currentYear:new Date().getFullYear(),
 				checkInput:false,
+				catalogs:[],
+				cat_make:'',
 			}
 		},
 		mounted(){
+			
 			this.$http.get('/api/makes').then(response => {
 			    // get body data
 			    this.makes = response.body;
 			    
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
+
+			this.$http.get('/api/catalogs').then(response=>{
+				this.catalogs = response.body.catalogs;
+			}, response=>{
+				// error log
+			});
 		},
 		methods:{
 			searchItem(){
-				
 				this.$router.push({name:'SearchList',query:{
 							item:this.search.item, 
 							make:this.search.make,
 							year:this.search.year,
 							desc:this.search.desc,
 						}});
-
 				this.$emit('closeSearchLayer',false);
 			},
 			resetSearch(){
 				return this.search={};
-			}
-		},
-		watch: {
-			
-				
-		}
+			},
 
+			searchItem_cat(){
+				var name = this.cat_make;
+				if (name!='') {
+					window.localStorage.setItem('pdf_make',name);
+					this.$router.push({name:'Booklet',params:{make:name}});
+				}else{
+					
+				}	
+				
+				this.$emit('closeSearchLayer',false);
+			},
+		},
 	}
 </script>
 
@@ -132,6 +150,14 @@
 		font-weight: bold;
 		text-align: center;
 		font-size: 20px;
+		padding-bottom: 20px;
+		width: 100%;
+	}
+
+	.searchTitle_D{
+		padding-left: 15px;
+		text-align: left;
+		font-size: 16px;
 		padding-bottom: 20px;
 		width: 100%;
 	}

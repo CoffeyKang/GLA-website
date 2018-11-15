@@ -30,10 +30,11 @@
                         
                         <div class="price">
                             <span>
-                                PRICE: $ {{item.pricel}}
+                                PRICE: CAD $ {{item.pricel}}<br>
+								<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                             <span>
-                                <button class="btn btn-success" @click="addToCart(item)">Add To Cart</button>
+                                <button class="btn btn-success" @click="addToCart(item)" v-if="item.onhand>=1">Add To Cart</button>
                             </span>
                         </div>
                     </div>
@@ -63,13 +64,13 @@
 			return {
 				items:{},
 				storage:window.localStorage,
+				usdPrice:this.$store.state.usdPrice,
 				
 			}
 		},
 		mounted(){
 			// check if user is login
 			if(this.storage.getItem('user')){
-				
 				let userData = JSON.parse(this.storage.getItem('user'));
 			}else{
 				this.$store.commit('changeLoginDirect','wishlist');
@@ -77,6 +78,8 @@
 			}
 
 			this.getWishlist();
+
+			
 
 		},
 		computed:{
@@ -86,31 +89,45 @@
 		},
 		methods:{
 			clearWish(){
-				  this.$http.post('/api/clearWishlist',{user:JSON.parse(this.storage.getItem("user")).id}).then(response=>{
-
+					if (JSON.parse(this.storage.getItem('user')).level == 2) {
+						var url = 'clearWishlist_dealer';
+						}else {
+						var url = 'clearWishlist';
+					}
+				
+				  this.$http.post('/api/'+url,{user:JSON.parse(this.storage.getItem("user")).id}).then(response=>{
 						const h = this.$createElement;
 						this.$notify({
-						title: 'Succsesfully Clear.',
-						message: h('b', { style: 'color: teal' }, 'The Wish list was cleared')
+							title: 'Succsesfully Clear.',
+							message: h('b', { style: 'color: teal' }, 'The Wish list was cleared')
 						});
+						this.getWishlist();
 					},response=>{
 
 					});
 			},
 			removeFromWhishlist(item){
 				var user = JSON.parse(this.storage.getItem("user")).id;
-				this.$http.post('/api/removeFromWishlist',{user:user,item:item.item})
+
+				if (JSON.parse(this.storage.getItem('user')).level == 2) {
+					var url = 'removeFromWishlist_dealer';
+					}else {
+					var url = 'removeFromWishlist';
+				}
+
+				this.$http.post('/api/'+url,{user:user,item:item.item})
 					.then(response=>{
-						
+						const h = this.$createElement;
 						if (response.data==1) {
-							this.items={},
 							this.getWishlist();
-							this.items.remove(item);
+							this.$notify({
+								title: 'Succsesfully remove.',
+								message: h('b', { style: 'color: teal' }, 'The item removed.')
+							});
 						}else{
 							
 						}
 					}, response=>{
-						console.log('error');
 					});
 			},
 			// addToCart
@@ -130,28 +147,46 @@
 					}
 
 					const h = this.$createElement;
-					this.$notify({
-						title: 'Succsesfully.',
-						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+					// this.$notify({
+					// 	title: 'Succsesfully.',
+					// 	message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart<button>123<button>')
+					// });
+
+					this.$confirm('', 'Congratulation', {
+						confirmButtonText: 'Continue Shopping',
+						cancelButtonText: 'Go to Shopping Cart',
+						type: 'success',
+						center: true
+						}).then(() => {
+							this.$router.push({path:'/allProducts'});
+						}).catch(() => {
+							this.$router.push({name:'ShoppingCart'});
+							
 					});
 
-					console.log(window.localStorage);
+					this.removeFromWhishlist(item);
+
 				}
 
-				this.removeFromWhishlist(item);
+				
 				
 			},
 
 
 			getWishlist(){
-				console.log("gegtWishlist called");
 				var userID = JSON.parse(this.storage.getItem("user")).id;
-				this.$http.get('/api/wishlist', {params:{userid:userID}}).then(response=>{
-					console.log("call get wishlist api");
+				if (JSON.parse(this.storage.getItem('user')).level == 2) {
+					var url = 'wishlist_dealer';
+					}else {
+					var url = 'wishlist';
+				}
+				this.$http.get('/api/'+url, {params:{userid:userID}}).then(response=>{
 					this.items = response.data.items;
-					console.log(this.items);
+
+					this.items.forEach(element => {
+						element.pricel = this.Dealerprice(element);
+					});
 				}, response=>{
-					console.log('wishlist error');
 				});
 			}
 		},
@@ -185,7 +220,7 @@
         justify-content: space-between;
     }
     .item_action{
-        width: 30%;
+        width: 40%;
         padding: 30px;
         height: 250px;
     }

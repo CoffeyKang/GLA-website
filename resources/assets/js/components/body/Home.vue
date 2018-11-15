@@ -1,12 +1,10 @@
 <template>
     <div class="container-fuild container"  v-loading="loading">
         <div class="images_change">
-            <el-carousel indicator-position="inside" height='400px'>
-
+            <el-carousel indicator-position="inside" height='400px' arrow="always">
                 <el-carousel-item v-for="banner in banners" :key='banner.id'  >
                   <router-link :to="banner.link" tag='div' class="banner" :style="{ backgroundImage: 'url(' + banner.img_path + ')' }">
                   </router-link>
-                  
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -16,7 +14,7 @@
         
 
         <div class="ads row" >
-        <div v-for="ad in ads " class='col-xs-4' :key="ad.id">
+        <div v-for="ad in ads " class='col-xs-4' :key="ad.id" >
           <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }">
             
           </div>
@@ -28,22 +26,52 @@
         <div class="sub_title">
           <span>FEATURE PRODUCTS</span>
         </div>
-          <div class='feature_item container'>
-            <div v-for="a in featureProducts" :key="a.id">
-                <app-item :item="a"></app-item>
-            </div>
-          </div>  
+        <div class="container-fluid arrow" >
 
+        
+            <div class='left' @click='left()'>
+                
+            </div>
+            <div class='container-fluid fitems' id='fitems' @mouseover="FeatureSpeed=0" @mouseout="FeatureSpeed=1">
+              <div v-for="a in featureProducts" :key="a.id">
+                  <app-item :item="a"></app-item>
+              </div>
+            </div> 
+            <div class='right' @click='right()'>
+                
+            </div> 
+        </div>
+
+        <!-- popular  -->
         <div class="popular">
           <div class="sub_title">
             <span>MOST POPULAR ITEMS</span>
           </div>
 
-          <div class='feature_item container popular'>
+          <div class="container-fluid arrow" >
+
+        
+            <div class='pleft' @click='pleft()'>
+                
+            </div>
+
+            <div class='container-fluid pitems' id='pitems' @mouseover="PopularSpeed=0" @mouseout="PopularSpeed=1">
+              <div v-for="a in popular" :key="a.id">
+                  <app-item :item="a"></app-item>
+              </div>
+            </div> 
+            <div class='pright' @click='pright()'>
+                
+            </div> 
+        </div>
+
+          <!-- <div class='feature_item container-fluid popular'>
+            
             <div v-for="a in popular" :key='a.id' >
                 <app-item :item="a"></app-item>
             </div>
-          </div>
+            
+          </div> -->
         </div>
     </div>
 </template>
@@ -60,7 +88,8 @@
           ads:{},
           popular:{},
           loading:1,
-
+          FeatureSpeed:1,
+          PopularSpeed:1,
         }
       },
         components:{
@@ -87,6 +116,7 @@
           // get featureProducts
           this.$http.get('/api/featureProducts').then(response=>{
             this.featureProducts = response.body;
+             this.loading = 0;
           }, response=>{
             // error log
           });
@@ -94,13 +124,39 @@
          //get most populars
           this.$http.get('/api/popular').then(response=>{
             this.popular = response.body;
-            this.loading = 0;
+          
           }, response=>{
             // error log
           });
+
+          // this.$nextTick(function () {
+          //   window.setInterval(() => {
+          //       document.getElementById('fitems').scrollLeft += this.FeatureSpeed;
+          //       document.getElementById('pitems').scrollLeft += this.PopularSpeed;
+          //   },50);
+          // });
+          
+            
+
         },
         methods:{
-          
+          right(){
+              document.getElementById('fitems').scrollLeft += 250;
+          },
+
+          left(){
+              document.getElementById('fitems').scrollLeft -= 250;
+          },
+          pright(){
+              document.getElementById('pitems').scrollLeft += 250;
+          },
+
+          pleft(){
+            
+              document.getElementById('pitems').scrollLeft -= 250;
+              
+            
+          }
         }
     }
 </script>
@@ -152,7 +208,7 @@
           margin-bottom: 20px;
           padding: 10px 30px;
           color: black;
-          background-color: yellow;
+          background-color: #FFE512;
           font-size: 1.5em;
           font-weight: bold;
         }
@@ -163,11 +219,84 @@
           flex-wrap: wrap;
         }
 
+        .fitems, .pitems{
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          overflow: scroll;
+          overflow-y:hidden;
+          overflow-x:hidden;
+          position: relative;
+          
+          
+        }
+
         .popular{
           margin-bottom: 50px;
         }
-        
-    
+
+        /* width */
+      ::-webkit-scrollbar {
+          width: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+      }
+      
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+          background: #888; 
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+          background: #555; 
+      }
+      
+      .arrow{
+        display: flex;
+        flex-direction: row;
+      }
+
+      .left, .right{
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-width: 50px;
+      }
+
+      .pleft, .pright{
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-width: 50px
+      }
+      .left, .pleft{
+        background-image: url("/images/left.png");
+        cursor: pointer;
+      }
+      .right, .pright{
+        background-image: url("/images/right.png");
+        cursor: pointer;
+      }
+
+      .el-icon-arrow-right, .el-carousel__arrow{
+        color: red !important;
+        background-color: red !important;
+      }
+
+
+      
+      
+      .el-carousel__arrow, .el-carousel__arrow--left{
+        background-image: url('/images/left.png') !important;
+        background-size: contain !important;
+        height: 50px !important;
+        width: 50px !important;
+        background-position: center !important;
+      }
       
 
 </style>

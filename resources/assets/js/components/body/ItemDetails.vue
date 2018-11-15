@@ -18,8 +18,15 @@
 					<li><span class='column_name'>Compatible Make: </span><b v-for="item_make in item_makes" :key="item_make.row_id"> {{item_make.make}} &nbsp;</b></li>
 				</div>
 				<div class="priceDiv">
-					<div class="price">
-						$ {{ item.pricel.toFixed(2) }}
+					
+					<div class="price" v-if="item.onsale&&disc">
+						CAD <span style='text-decoration:line-through; color:#800000'>$ {{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}<br> 
+						<span v-if='usdPrice' class='usdPrice'>USD <span style='text-decoration:line-through ; color:#800000'> ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+					</div>
+
+					<div class="price" v-if="!item.onsale || !disc">
+						CAD ${{ item.pricel.toFixed(2) }}<br>
+						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 					</div>
 					<div class="action">
 						<div class='action_left'>
@@ -48,7 +55,7 @@
 							</div>
 						</div>
 						<div class="action_right">
-							<button class='btn btn-primary addToCart' id='addToCart' @click='addToCart(item.item)'>Add To Cart</button>
+							<button class='btn btn-primary addToCart' id='addToCart' @click='addToCart_common(item)'>Add To Cart</button>
 						</div>
 					</div>
 				</div>
@@ -60,7 +67,7 @@
 		<div class="related_products container">
 			<div v-for='r in related' :key='r.item'>
 				<div class='related_item'>
-					<div class="car_img" :style="{ backgroundImage: 'url(' + r.img_path + ')' }">
+					<div class="car_img" :style="{ backgroundImage: 'url(' + r.img_path + ')' }" @click="goTo(r.item)"> 
 					</div>
 
 					<div class="related_details text-left">
@@ -68,8 +75,14 @@
 						<li><b>{{r.descrip}}</b></li>
 						<li><span class='related_colum'>Year Fit: {{r.year_from}} -- {{r.year_end}}</span></li>
 						<li><span class='related_colum all_make'>Make: {{r.all_makes}}</span></li>
-						<div class="realted_priceDiv">
-							${{r.pricel.toFixed(2)}}
+						<div class="realted_priceDiv"  v-if="r.onhand > r.orderpt && disc">
+							CAD <span style='text-decoration:line-through; color:#800000'> ${{r.pricel.toFixed(2) }}</span> ${{r.pricel | discount10}}<br>
+							<span v-if='usdPrice' class='usdPrice'>USD <span style='text-decoration:line-through; color:#800000'>${{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((r.pricel)/$store.state.exchange) | discount10 }}</span>
+						</div>
+
+						<div class="realted_priceDiv"  v-if="r.onhand <= r.orderpt || !disc">
+							CAD ${{r.pricel.toFixed(2)}}<br>
+							<span v-if='usdPrice' class='usdPrice'>USD ${{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span>
 						</div>
 						
 						<button class="btn btn-primary" @click="goTo(r.item)">
@@ -89,17 +102,18 @@
 	export default {
 		data(){
 			return {
+				
 				id:this.$route.params.id,
 				item:{},
 				related:{},
 				color:"red",
 				showItem :false,
 				quantity:1,
+				disc:true,
 
 			}
 		},
 		created(){
-			console.log(this.$route.params.id);
 			
 		},
 		mounted(){
@@ -107,38 +121,43 @@
 			    // get body data
 			    
 				this.item = response.body.singleItem;
+
+				this.item.pricel = this.Dealerprice(this.item);
 				
 				this.item_makes = response.body.item_makes;
 
 				
 
 			    this.showItem = true;
-
+				
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 
 			// get related item
 			this.$http.get('/api/related/'+ this.id).then(response => {
-			    // get body data
+				// get body data
+				
 				this.related = response.data;
-				console.log(this.related);
+				this.related.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
 			  }, response => {
 			  	// error 
-			    console.log("error_related");
 			  });
-
+	
 			this.viewed(this.id);
 
-			
-			  
-			
+			if (this.ifDealer()) {
+				this.disc= false;
+			}else{
+				this.disc=true;
+			}
 
+			
 		},
 		methods:{
 			goTo(item){
-				console.log(item);
 				this.$http.get('/api/item/'+ item).then(response => {
 			    // get body data
 				this.item = response.body;
@@ -146,7 +165,6 @@
 			    window.scrollTo(0,0);
 			  }, response => {
 			  	// error 
-			    console.log("error");
 			  });
 
 			},
@@ -179,7 +197,6 @@
 						this.$store.commit('carts_number',newNumber);
 
 					}
-
 					
 					const h = this.$createElement;
 					this.$notify({
@@ -190,6 +207,12 @@
 			},
 			
 			
+		},
+
+		filters:{
+			discount10(price) {
+				return (price * 0.9).toFixed(2);
+			}
 		},
 		computed:{
 			getItem(){
@@ -204,10 +227,13 @@
 			getYear(){
 				return this.$store.state.search.year;
 			},
-
 			carts_number(){
 				return this.$store.state.carts_total;
+			},
+			usdPrice(){
+				return	this.$store.state.usdPrice;
 			}
+
 		}
 
 	}
@@ -231,9 +257,9 @@
 	.itemImages{
 		
 		border-radius: 12px 12px 0 0;
-	    background-position: 50%;
+	    background-position: center;
 	    background-repeat: no-repeat;
-	    background-size: 100%;
+	    background-size: contain;
 	    height: 600px;
 
 		
@@ -261,7 +287,7 @@
 		font-weight: bold;
 	}
 	.price{
-		font-size: 3em;
+		font-size: 2.6em;
 		font-weight: bold;
 		color: red;
 	}
@@ -289,7 +315,7 @@
 		padding: 20px 0;
 	}
 	.related{
-		background-color: yellow;
+		background-color:  #FFE512;
 		font-size: 1.6em;
 		padding: 10px 20px;
 		font-weight: bold;
@@ -304,6 +330,7 @@
 		background-size: 100%;
 		background-repeat: no-repeat;
 		background-position: 50%;
+		cursor: pointer;
 
 	}
 	
@@ -322,7 +349,7 @@
 	}
 	.realted_priceDiv{
 		color: red;
-		font-size: 1.8em;
+		font-size: 1.2em;
 		font-weight: bold;
 	}
 

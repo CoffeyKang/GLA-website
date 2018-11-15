@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.business.uss.transforce.ca" xmlns:xsd="http://ws.business.uss.transforce.ca/xsd" xmlns:xsd1="http://dto.uss.transforce.ca/xsd">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ws:processShipment>
+         <ws:request>
+            <xsd:user_id>admin@uss.com</xsd:user_id>
+            <xsd:password>uss</xsd:password>
+            <xsd:shipment>
+               <xsd1:shipper_num>HB4499</xsd1:shipper_num>
+               <xsd1:shipping_date>20181107</xsd1:shipping_date>
+               <xsd1:delivery_address_line_1>123 MAIN ST</xsd1:delivery_address_line_1>
+               <xsd1:delivery_address_line_2>STE 200</xsd1:delivery_address_line_2>
+               <xsd1:delivery_address_line_3/>
+               <xsd1:delivery_city>MISSISSAUGA</xsd1:delivery_city>
+               <xsd1:delivery_country>CA</xsd1:delivery_country>
+               <xsd1:delivery_email>deliveries@loomis-express.com</xsd1:delivery_email>
+               <xsd1:delivery_extension>1234</xsd1:delivery_extension>
+               <xsd1:delivery_name>Company Name Here</xsd1:delivery_name>
+               <xsd1:delivery_phone>9055551212</xsd1:delivery_phone>
+               <xsd1:delivery_postal_code>L5R3R3</xsd1:delivery_postal_code>
+               <xsd1:delivery_province>ON</xsd1:delivery_province>
+               <xsd1:dimension_unit>I</xsd1:dimension_unit>
+               <xsd1:pickup_address_line_1>5555 DIXIE RD</xsd1:pickup_address_line_1>
+               <xsd1:pickup_address_line_2>building 2</xsd1:pickup_address_line_2>
+               <xsd1:pickup_address_line_3>ste 500</xsd1:pickup_address_line_3>
+               <xsd1:pickup_city>MISSISSAUGA</xsd1:pickup_city>
+               <xsd1:pickup_email>shipping@loomis-express.com</xsd1:pickup_email>
+               <xsd1:pickup_extension>6162</xsd1:pickup_extension>
+               <xsd1:pickup_name>LOOMIS EXPRESS</xsd1:pickup_name>
+               <xsd1:pickup_phone>9054528769</xsd1:pickup_phone>
+               <xsd1:pickup_postal_code>L4W1E6</xsd1:pickup_postal_code>
+               <xsd1:pickup_province>ON</xsd1:pickup_province>
+               <xsd1:reported_weight_unit>L</xsd1:reported_weight_unit>
+               <xsd1:service_type>DD</xsd1:service_type>
+               <xsd1:shipment_info_num>
+                  <xsd1:name>declared_value</xsd1:name>
+                  <xsd1:value>1000</xsd1:value>
+               </xsd1:shipment_info_num>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>cost_centre</xsd1:name>
+                  <xsd1:value>ABCDEDF123123</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>reference</xsd1:name>
+                  <xsd1:value>XYZ123456</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>nsr</xsd1:name>
+                  <xsd1:value>false</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>instruction</xsd1:name>
+                  <xsd1:value>Handle With Care.</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>attention</xsd1:name>
+                  <xsd1:value>RECEIVABLES</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>chain_of_sig</xsd1:name>
+                  <xsd1:value>false</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:shipment_info_str>
+                  <xsd1:name>rc</xsd1:name>
+                  <xsd1:value>false</xsd1:value>
+               </xsd1:shipment_info_str>
+               <xsd1:packages>
+                  <xsd1:reported_weight>20.5</xsd1:reported_weight>
+               </xsd1:packages>
+               <xsd1:packages>
+                  <xsd1:reported_weight>20.5</xsd1:reported_weight>
+               </xsd1:packages>
+            </xsd:shipment>
+         </ws:request>
+      </ws:processShipment>
+   </soapenv:Body>
+</soapenv:Envelope>

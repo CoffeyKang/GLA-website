@@ -8,7 +8,7 @@
 
                     <div class="inputSearch">
                     
-	                  <el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc.">
+	                  <el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A, 1860, M1035B, etc.">
 
 										</el-input>
 						<div class='mySelect'>
@@ -16,7 +16,7 @@
 	                    	<el-option
 						      v-for="item in makes"
 						      :key="item.id"
-						      :label="item.make"
+						      :label="item.make.replace('_',' ').toUpperCase()"
 						      :value="item.make">
 						    </el-option>
 	                    </el-select >
@@ -55,7 +55,6 @@
 			    this.makes = response.body;
 			    
 			  }, response => {
-			    console.log("error");
 			  });
 		},
 

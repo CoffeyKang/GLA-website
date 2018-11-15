@@ -7,6 +7,24 @@ use Auth;
 use App\User;
 use App\UserInfo;
 use Validator;
+use Illuminate\Support\Facades\Log;
+
+use App\Inventory_img;
+use App\Item_make;
+use App\FeatureProduct;
+use App\Wishlist;
+use App\Temp_SO;
+use App\AddressBook;
+use App\SOMAST;
+use App\SOTRAN;
+use App\Catalog;
+use App\Inventory;
+use App\Billing;
+use DB;
+use Excel;
+use Mail;
+use App\Mail\registration;
+
 
 
 
@@ -26,7 +44,8 @@ class AccessControl extends Controller
         if(Auth::attempt(['email'=>$email,'password'=>$password])){
             $user = Auth::user();
             $userInfo = UserInfo::where('m_id',$user->id)->first();
-            return response()->json(['user'=>$user, 'userInfo'=>$userInfo],200);
+            $userBilling = Billing::where('cust_id',$user->id)->first();
+            return response()->json(['user'=>$user, 'userInfo'=>$userInfo,'billing'=>$userBilling],200);
         }else{
             return response()->json([], 401);
         };
@@ -40,11 +59,17 @@ class AccessControl extends Controller
      */
     public function newCustomer(Request $request){
 
+       
+
+        
         $this->validate($request,[
-            'username'=>'required',
+            'firstname'=>'required',
+            'lastname'=>'required',
             'email'=>'email:unique:users',
             'password'=>'required|min:8',
         ]);
+        
+        $captcha = $request->captcha;
         
 
         $checkEmail = User::where('email',$request->email)->first();
@@ -56,20 +81,72 @@ class AccessControl extends Controller
         }else{
 
         }
-        $username = $request->username;
+        $firstname = $request->firstname;
 
+        $lastname = $request->lastname;
+        
         $email = $request->email;
 
+        $check = $request->checked?1:0;
+        
         $password = $request->password;
 
         $receiveEmail = $request->receiveEmail;
-
+        
         $user = User::create([
-            'name' => $username,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
             'email' => $email,
+            'receiveEmail'=>$check,
             'password' => bcrypt($password),
         ]);
+        
 
+        Mail::to("$user->email")->send(new registration($user));
+        
+        $userInfo = UserInfo::where('m_id',$user->id)->first();
+
+        
+        // @Mail::to($user->email)->send(
+        //     (new registration($user))
+        // );
+
+        return response()->json(['user'=>$user,'userInfo'=>$userInfo],200);
+        
+    }
+
+
+    /** reset password */
+
+    public function resetPassword(Request $request){
+
+        $this->validate($request,[
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'email'=>'email',
+            'password'=>'required|min:8',
+        ]);
+        
+        
+
+        $user = User::where('email',$request->email)->where('firstname',$request->firstname)
+        ->where('lastname',$request->lastname)->first();
+
+        if (!$user) {
+            
+            return response()->json(['status'=>"userNotExists"],200);
+        
+        }else{
+
+        }
+
+        $password = $request->password;
+
+        $user->password = bcrypt($password);
+        
+        $user->save();
+        
+        
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
 
@@ -80,6 +157,7 @@ class AccessControl extends Controller
 
     public function userDetails(Request $request){
 
+        
         
          //check the userInfo exsits or not
 
@@ -100,40 +178,88 @@ class AccessControl extends Controller
 
              if ($data["gender"]=='Female') {
                  $userInfo->m_gender = 2;
-             }else{
+             }elseif($data["gender"]=='Male'){
                  $userInfo->m_gender = 1;
+             }else{
+                 $userInfo->m_gender = 3;
+             }
+            
+
+             //check tel format 
+
+             $tel = $data["tel"];
+
+             $tel = preg_replace('/[^0-9]/','',$tel);
+            //  if ( strlen($tel)>=10 ){
+            //     $tel = substr_replace($tel,'(',0,0);
+            //     $tel = substr_replace($tel,') ',4,0);
+            //     $tel = substr_replace($tel,'-',9,0);
+            //  }else{
+                
+            //  }
+
+             $mobile = $data["mobile"];
+
+             $mobile = preg_replace('/[^0-9]/','',$mobile);
+             if ( strlen($mobile)>=10 ){
+                $mobile = substr_replace($mobile,'(',0,0);
+                $mobile = substr_replace($mobile,') ',4,0);
+                $mobile = substr_replace($mobile,'-',9,0);
+             }else{
+                
              }
              
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
-             $userInfo->m_city = $data["city"];
-             $userInfo->m_state = $data["state"];
-             $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = "ca";
-             $userInfo->m_tel = $data["tel"];
-             $userInfo->m_mobile = $data["mobile"];
-             $userInfo->m_edu = $data["edu"];
-             $userInfo->m_job = $data["job"];
-             $userInfo->m_title = $data["tit"];
+             $userInfo->m_city = strtoupper($data["city"]);
+             $userInfo->m_state = strtoupper($data["state"]);
+             $userInfo->m_zipcode = strtoupper($data["zipcode"]);
+             $userInfo->m_country = $data["country"];
+             $userInfo->m_tel = $tel;
+             $userInfo->m_mobile = $mobile;
+             $userInfo->m_make = $data["make"];
+             $userInfo->m_year = $data["year"];
+            //  $userInfo->m_title = $data["tit"];
              $userInfo->m_car = $data["car"];
-
-             
              $userInfo->save();
+
+
+             $billing = new Billing;
+
+             $billing->cust_id = $userID;
+             $billing->lastname = $data["surname"];
+             $billing->firstname = $data["forename"];
+             if ($data["sameAsBilling"]) {
+                $billing->address1 = $data["address"];
+                $billing->city = strtoupper($data["city"]);
+                $billing->province = strtoupper($data["state"]);
+                $billing->postalcode = strtoupper($data["zipcode"]);
+                $billing->country = $data["country"];
+                $billing->phone = $tel;
+             }else{
+                $billing->address1 = $data["b_address1"];
+                $billing->address2 = $data["b_address2"];
+                $billing->city = strtoupper($data["b_city"]);
+                $billing->province = strtoupper($data["b_state"]);
+                $billing->postalcode = strtoupper($data["b_zipcode"]);
+                $billing->country = $data["b_country"];
+                $billing->phone = $data["b_tel"];
+             }
+
+             $billing->save();
 
 
 
 
          }
 
-         return response()->json(['userinfo'=>$userInfo],200);
+         return response()->json(['userinfo'=>$userInfo,'billing'=>$billing],200);
     }
 
     /** double check the user info */
     public function doubleCheck(Request $request){
         $username = $request->username;
         $password = $request->userPass;
-
-
         return $password;
 
     }
@@ -156,27 +282,62 @@ class AccessControl extends Controller
              $userInfo->m_forename = $data["forename"];
               if ($data["gender"]=='Female') {
                  $userInfo->m_gender = 2;
-             }else{
+             }else if($data["gender"]=='Male') {
                  $userInfo->m_gender = 1;
+             }else{
+                 $userInfo->m_gender = 3;
              }
              $userInfo->m_birth = $data["brithday"];
              $userInfo->m_address = $data["address"];
              $userInfo->m_city = $data["city"];
              $userInfo->m_state = $data["state"];
              $userInfo->m_zipcode = $data["zipcode"];
-             $userInfo->m_country = "ca";
+             $userInfo->m_country = $data["country"];
              $userInfo->m_tel = $data["tel"];
              $userInfo->m_mobile = $data["mobile"];
-             $userInfo->m_edu = $data["edu"];
-             $userInfo->m_job = $data["job"];
-             $userInfo->m_title = $data["tit"];
+             $userInfo->m_year = $data["year"];
+             $userInfo->m_make = $data["model"];
              $userInfo->m_car = $data["car"];
-
              $userInfo->save();
+
+             /** also change user table customer firstname and lastname */
+            $user = $userInfo->main_user;
+
+            $user->firstname = $data["forename"];
+
+            $user->lastname = $data["surname"];
+
+            if ($data["checked"]) {
+                $user->receiveEmail = 1;
+            }else{
+                $user->receiveEmail = 0;
+            }
+
+            $user->save();
 
          }
 
-         return response()->json(['userinfo'=>$userInfo],200);
+        
+
+        $billing = Billing::where('cust_id',$userID)->first();
+
+        $billing->firstname = $data["b_firstname"];
+        $billing->lastname = $data["b_lastname"];
+        $billing->address1 = $data["b_address1"];
+        if (array_key_exists('b_address2',$data)){
+            $billing->address2 = $data["b_address2"];
+            # code...
+        }else{
+
+        }
+        $billing->city = $data["b_city"];
+        $billing->province = $data["b_state"];
+        $billing->postalcode = $data["b_zipcode"];
+        $billing->country = $data["b_country"];
+        $billing->phone = $data["b_tel"];
+        $billing->save();
+
+        return response()->json(['userinfo'=>$userInfo,'billing'=>$billing],200);
     }
 
     public function changePassword(Request $request){
@@ -199,6 +360,43 @@ class AccessControl extends Controller
         
        
 
+    }
+    /** test page */
+    public function kang(){
+
+        $user = User::find(18);
+
+        $somast = SOMAST::where('order_num',1000573)->first();
+
+        $sotran = $somast->sotran;
+
+        $billing = $user->BillingAddress;
+
+        $add_id = $somast->address;
+
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
+
+        
+        
+        return view('emails.salesorder', compact('user','somast','sotran','address','billing'));
+        // echo $user->password;
+        // @Mail::to("fkang@velements.com")->send(
+        //     (new registration($user))
+        // );
+
+        
+        
+            
+
+        
+        
+
+        
+        
     }
 
     

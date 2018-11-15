@@ -58,15 +58,15 @@ export default {
             rules:{
                 oldPass:[
                     { required: true, message: 'Password is required.', trigger: 'blur', max:99 },
-                    { min:6, message:'Minimal lenght is six',trigger: 'blur'}
+                    { min:8, message:'Minimal lenght is 8',trigger: 'blur'}
                 ],
                 newPass:[
                     { required: true, message: 'New Password is required.', trigger: 'blur', max:99 },
-                    { min:6, message:'Minimal lenght is six',trigger: 'blur'}
+                    { min:8, message:'Minimal lenght is 8',trigger: 'blur'}
                 ],
                 confirmPass:[
                     { required: true, message: 'Password confirm is required.', trigger: 'blur',  max:99 },
-                    { min:6, message:'Minimal lenght is six',trigger: 'blur'}
+                    { min:8, message:'Minimal lenght is 8',trigger: 'blur'}
                 ],
             }
         }
@@ -76,6 +76,8 @@ export default {
     mounted(){
         this.user = JSON.parse(this.storage.getItem('user'));
         this.email = this.user.email;
+
+        
     },
 
     computed: {
@@ -86,6 +88,7 @@ export default {
         submitForm(pass){
                 this.$refs["pass"].validate((valid)=>{
                     if (valid){
+                        
                         if (this.pass.newPass!=this.pass.confirmPass) {
                             this.$message(
                                 {
@@ -94,7 +97,20 @@ export default {
                                 }
                             );
                             return false;
+                        }else{
+                             
                         }
+
+                        if (this.checkPwd(this.pass.newPass)!='ok') {
+                            this.$message({
+                                message:this.checkPwd(this.pass.newPass),
+                                type:'error',
+                            });
+                            return false;
+                        }else{
+
+                        }
+                        
                         // submit userDetails info        
                         var userId = this.user.id;
                         this.userID = userId;
@@ -158,6 +174,7 @@ export default {
         background-color: black;
         color: white;
         font-weight: bold;
+        font-size: 22px;
         padding: 10px 0 10px 30px;
         border-radius: 10px;
     }

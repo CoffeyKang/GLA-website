@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/kang',"AccessControl@kang");
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,6 +24,8 @@ Auth::routes();
 Route::get('/checkout', 'HomeController@index')->name('home');
 
 Route::get('/GLAAdmin','AdminController@index')->name('index');
+
+
 
 
 
@@ -59,5 +63,21 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/updateDealer/{id}','AdminController@updateDealer');
 
-    ROute::get('/uploadCatalog','AdminController@uploadCatalog');
+    Route::get('/uploadCatalog','AdminController@uploadCatalog');
+
+    Route::get('/shippingOrder/{order_num}','AdminController@shippingOrder');
+
+    Route::post('/updateShipping','AdminController@updateShipping');
+
+    Route::get('/exchangeRate','AdminController@exchangeRate');
+    
+    Route::get('/updateExchangeRate','AdminController@updateExchangeRate');
+
+    Route::post('/changeTaxRate','AdminController@changeTaxRate');
+
+    Route::get('/featureProducts','AdminController@featureProducts');
+
+    Route::post('/addNewFeatureProduct','AdminController@addNewFeatureProduct');
+
+    Route::get('/deletefeatureItem/{id}','AdminController@deletefeatureItem');
 });

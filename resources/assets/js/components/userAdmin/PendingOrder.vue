@@ -20,7 +20,7 @@
                     <td>{{item.order_num}}</td>
                     <th>{{item.currency}}</th>
                     <th>
-                        <span v-if="item.sales_status==0">Payment Failed
+                        <span v-if="item.sales_status==0">Unpaid
                         </span>
                         <span v-if="item.sales_status==1">Payment Success
                         </span>
@@ -66,7 +66,6 @@ export default {
     },
     methods:{
         HistoryDetails(order_num){
-            console.log(order_num);
             this.$router.push({ name: 'OneOrder', params: { order_num: order_num }});
             
         },

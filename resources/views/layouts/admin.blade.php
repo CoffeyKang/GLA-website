@@ -48,13 +48,22 @@
             color: white;
         }
         .nav-link:hover{
-            color: yellow;
+            color: #FFE512;
         }
         .active{
             background-color: #8e8e8e !important;
-            color: yellow !important;
+            color: #FFE512 !important;
         }
     </style>
+
+    <script>
+        $().ready(function(){
+            var h = $(window).height()-160;
+            $('.body').css('min-height',h+"px");
+        });
+
+
+    </script>
 
 </head>
 
@@ -99,7 +108,7 @@
                             <a class="nav-link active" id="home"   href="/home" role="tab">Admin Home | {{Auth::user()->name}} </a>
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Dealer Managenment</b></a>
                             <a class="nav-link" id="dealerList" href="/dealerList" role="tab">Dealer List</a>
-                            <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a>
+                            {{-- <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a> --}}
                             <a class="nav-link" id="dealerHistory" href="/dealerHistory" role="tab">Dealer Order History</a>
                             
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Member Managenment</b></a>
@@ -112,22 +121,22 @@
                                 {{count(App\SOMAST::where('sales_status','!=',9)->get())}}
                             </span>
                             </a>
-                            <a class="nav-link" id="" href="#v" role="tab">Awaits Reply 
+                            {{-- <a class="nav-link" id="" href="#v" role="tab">Awaits Reply 
                                 <span class="badge badge-light float-right">9</span>
                             </a>
                             <a class="nav-link" id="" href="#v" role="tab">Confirm Shipment 
                                 <span class="badge badge-light float-right">9</span>
-                            </a>
+                            </a> --}}
 
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Website Managenment</b></a>
                             <a class="nav-link" id="top10" href="/top10">Top 10 Best Sellers</a>
 
-                            <a class="nav-link" id="" href="#v" role="tab">Update Feature Products</a>
+                            <a class="nav-link" id="" href="/featureProducts" role="tab">Update Feature Products</a>
                             <a class="nav-link" id="" href="#v" role="tab">Broadcasting Email</a>
-
+                            <a class="nav-link" id="" href="/exchangeRate" role="tab">Change Exchange Rate and Tax</a>
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Account Details</a> --}}
                             {{-- <a class="nav-link" id="updateInfo"  href="/updateInfo" role="tab">Edit Profile</a> --}}
-                            <a class="nav-link" id="uploadCatalog" href="/uploadCatalog" role="tab">UploadCatalog</a>
+                            {{-- <a class="nav-link" id="uploadCatalog" href="/uploadCatalog" role="tab">UploadCatalog</a> --}}
                             <a class="nav-link" id="changePassword" href="/changePassword" role="tab">Change Password</a>
                         </div>
                     </div>

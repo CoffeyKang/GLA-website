@@ -1,6 +1,6 @@
 <template>
     <div class='container loginPage' @keyup.enter="loginTo()">
-        <div class="col-xs-12 col-sm-6" id='loginDev'>
+        <div class="col-xs-12 col-sm-6" id='loginDev' >
             <div class="text-center row" id='loginForm'>
                 
                 <div class='title'>Login</div>
@@ -19,7 +19,7 @@
                         <span class='forgetPassword'>Remember my GLA ID</span> -->
                     </div>
                     <div>
-                        <span class='forgetPassword'>Forgot Password?</span>
+                        <span class='forgetPassword' @click='forget()'><i><u>Forgot Password?</u></i></span>
                     </div>
                 </div>
             </div>
@@ -74,15 +74,15 @@ export default {
     },
     mounted(){
         // check if user is login
-		if(this.storage.getItem('userInfo')){
-				
+		if(this.storage.getItem('userInfo')&&this.storage.getItem('userInfo')!='null'){
+			
             let userData = JSON.parse(this.storage.getItem('userInfo'));
-            this.$router.push('home');
+            
+            this.$router.push('/');
 		}else{
 			this.$router.push('Login');
         }
         
-        console.log(this.loginDirect);
     },
     computed:{
         loginStatus(){
@@ -102,9 +102,66 @@ export default {
 
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
+                    myStorage.setItem('billing', JSON.stringify(response.data.billing));
+                    if (response.data.userInfo) {
+                        if (response.data.userInfo.m_country=='US'){
+                            this.$store.commit('usdPrice',true);
+                        }else{
+                            this.$store.commit('usdPrice',false);
+                        }
+                    }
+
+                    if (this.storage.getItem('user')) {
+                        this.user = JSON.parse(this.storage.getItem('user'));
+                        let cust_id = this.user.id;
+
+                        this.$http.get('/api/getShortlist/'+cust_id).then((response)=>{
+                            let oldShortlist = response.data.oldShortlist;
+                            
+                            oldShortlist.forEach(element => {
+                                let item = element.item;
+                                let quantity = element.qty;
+                                if (window.localStorage.getItem(item)) {
+                                    // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                                    // window.localStorage.setItem(item,qty);
+                                }else{
+                                    window.localStorage.setItem(item,quantity);
+                                    
+                                    var newNumber = this.carts_number+1;
+                                    
+                                    this.$store.commit('carts_number',newNumber);
+
+                                }
+
+
+                            });
+
+                            
+                            
+
+                            
+                        });
+
+                        this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
+                            if (response.data.deleteOldShortlist=='deletedOld') {
+                            }else{
+
+                            }
+                        }));
+                    }else{
+                    }
+
                     this.$store.commit('changeLoginStatus',true);
+
+                    if (this.$store.state.loginStatus&&this.storage.getItem('userInfo')=='null') {
+                        this.$store.commit('changeLoginStatus',false);
+                        this.$router.push({name:'userHome'});
+                        
+                    }else{
+                        this.$router.push(this.loginDirect);
+                    }
                     
-                    this.$router.push(this.loginDirect);
+                    
                     
                 }).catch(function(response){
                     // Your account or password was entered incorrectly.
@@ -119,18 +176,25 @@ export default {
                     }
                 
                 });
+        
 
         },
         toRegister(){
             this.$router.push('/register');
-        }
+        },
+
+        forget(){
+            this.$router.push('/forgetPassword');
+        },
     }
 }
 </script>
 
 
 <style scoped>
-
+    .forgetPassword{
+        cursor: pointer;
+    }
 
     .title{
         font-size: 28px;

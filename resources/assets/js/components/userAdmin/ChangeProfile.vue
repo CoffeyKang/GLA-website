@@ -4,8 +4,7 @@
         <div class="edit_title">
             Edit Your Profile
         </div>
-        <el-form  label-position="left" label-width="100px" :rules="rules" :model="details" ref="details" size="mini">
-
+        <el-form  label-position="left" label-width="120px" :rules="rules" :model="details" ref="details" size="large">
             <div class='part'>
                 <el-card class="box-card">
                     <div class="clearfix" slot="header">
@@ -13,29 +12,36 @@
                     </div>
                     <div class="text">
                         <div class="inRow">
-                            <el-form-item label="Last Name" prop='surname'>
-                                <el-input v-model="details.surname" placeholder="Last Name" ></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="First Names" prop='forename'>
-                                <el-input v-model="details.forename" placeholder="First Names"  ></el-input>
-                            </el-form-item>
+                            <div class="col-xs-6">
+                                <el-form-item label="Last Name" prop='surname'>
+                                    <el-input v-model="details.surname" placeholder="Last Name" ></el-input>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="First Names" prop='forename'>
+                                    <el-input v-model="details.forename" placeholder="First Names"></el-input>
+                                </el-form-item>
+                            </div>
                         </div>
                         <div class="inRow">
-                            <el-form-item label="Date of Birth" prop='brithday' >
-                                <el-input type='date' v-model="details.brithday"   ></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="Gender" prop='gender' >
+                            <div class="col-xs-6">
+                                <el-form-item label="Date of Birth" prop='brithday' >
+                                    <el-input type='date' v-model="details.brithday"   ></el-input>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="Gender" prop='gender' >
                                 <el-select v-model="details.gender" placeholder="Gender">
                                     <el-option
-                                    v-for="gender in ['Male','Female']"
+                                    v-for="gender in ['Male','Female','I do not want to tell']"
                                     :key="gender"
                                     :label="gender"
                                     :value="gender">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
+                            </div>
+                            
 
                             
                         </div>
@@ -43,6 +49,121 @@
                 </el-card>
 
                 
+                
+            </div>
+
+            <div class='part'>
+                <el-card class="box-card">
+                    <div class="clearfix" slot="header">
+                        Billing Information
+                    </div>
+                    <div class="text">
+                        <div class="inRow">
+                            <div class="col-xs-6">
+                                <el-form-item label="Last Name" prop='surname'>
+                                    <el-input v-model="details.b_lastname" placeholder="Last Name" ></el-input>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="First Names" prop='forename'>
+                                    <el-input v-model="details.b_firstname" placeholder="First Names"></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <el-form-item label="address1" prop='address'>
+                                    <el-input v-model="details.b_address1" placeholder="address1" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <el-form-item label="address2" prop='address2'>
+                                    <el-input v-model="details.b_address2" placeholder="address2" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+
+                        <div class="inRow">
+
+                            <div class="col-xs-6">
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="details.b_city" placeholder="City"  ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                            <div class="col-xs-6">
+                                <el-form-item label="Postal Code"  prop='b_zipcode'>
+                                    <el-input v-model="details.b_zipcode" placeholder="Postal Code" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="inRow">
+                            <div class="col-xs-6">
+                                <el-form-item label="Country" prop='country'>
+                                    <el-select v-model="details.b_country" placeholder="Country" @change='details.b_state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="Province" prop='state' v-if="details.b_country=='CA'">
+                                    <!-- <select v-model="billing.province" class='form-control'>
+                                        <option v-for="item in privince" :key="item.name" :value="item.Code">{{ item. name}}</option>
+                                    </select> -->
+                                    <el-select v-model="details.b_state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="State" prop='state' v-if="details.b_country=='US'">
+                                    <el-select v-model="details.b_state" placeholder="Province">
+                                        <!-- <select v-model="billing.province" class='form-control'>
+                                            <option v-for="item in US_states" :key="item.name" :value="item.abbreviation">{{ item. name}}</option>
+                                        </select> -->
+                                        <el-option
+                                            v-for="item in US_states"
+                                            :key="item.name"
+                                            :label="item.name"
+                                            :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            
+
+                            
+                        </div>
+
+                        
+
+                        <div class="inRow">
+                            <div class="col-xs-12">
+                                <el-form-item label="Tel" prop='tel'>
+                                    <el-input type='number' v-model="details.b_tel" placeholder="Tel"></el-input>
+                                </el-form-item>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </el-card>
                 
             </div>
 
@@ -54,48 +175,99 @@
                     </div>
                     <div class="text">
                         <div class="inRow">
-                            <el-form-item label="City" prop='city'>
-                                <el-input v-model="details.city" placeholder="City"  ></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="Province" prop='state'>
-                                <el-select v-model="details.state" placeholder="Province">
-                                    <el-option
-                                    v-for="item in privince"
-                                    :key="item.name"
-                                    :label="item.name"
-                                    :value="item.Code">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
+                            <div class="col-xs-12">
+                                <el-form-item label="Address" prop='address'>
+                                    <el-input v-model="details.address" placeholder="Address"  ></el-input>
+                                </el-form-item>
+                            </div>
+                            
                         </div>
 
                         <div class="inRow">
-                            <el-form-item label="Postal Code"  prop='zipcode'>
-                                <el-input v-model="details.zipcode" placeholder="Postal Code" ></el-input>
-                            </el-form-item>
 
-                            <el-form-item label="Country" prop='country'>
-                                <el-input v-model="details.country" placeholder="Country"  ></el-input>
-                            </el-form-item>
+                            <div class="col-xs-6">
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="details.city" placeholder="City"  ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                            <div class="col-xs-6">
+                                <el-form-item label="Postal Code"  prop='zipcode'>
+                                    <el-input v-model="details.zipcode" placeholder="Postal Code" ></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                            
+                            
                         </div>
 
+
                         <div class="inRow">
-                            <el-form-item label="Tel" prop='tel'>
-                                <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
-                            </el-form-item>
+                            <div class="col-xs-6">
+                                
+
+                                <el-form-item label="Country" prop='country'>
+                                    <el-select v-model="details.country" placeholder="Country" @change='details.state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            <div class="col-xs-6">
+                                <el-form-item label="Province" prop='state' v-if="details.country=='CA'">
+                                    <el-select v-model="details.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="Province" prop='state' v-if="details.country=='US'">
+                                    <el-select v-model="details.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            
+
+                            
+                        </div>
+
                         
-                            <el-form-item label="Mobile" prop='mobile'>
-                                <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
-                            </el-form-item>
+
+                        <div class="inRow">
+                            <div class="col-xs-6">
+                                <el-form-item label="Tel" prop='tel'>
+                                    <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
+                                </el-form-item>
+                            </div>
+                            
+                            <div class="col-xs-6">
+                                <el-form-item label="Mobile" prop='mobile'>
+                                    <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
+                                </el-form-item>
+                            </div>
+                            
                         </div>
-                        <el-form-item label="Address" prop='address'>
-                            <el-input v-model="details.address" placeholder="Address"  ></el-input>
-                        </el-form-item>
+                        
                     </div>
                 </el-card>
                 
             </div>
+
+            
             
             <!-- other information -->
             <div class='part'>
@@ -104,39 +276,38 @@
                         Other Information
                     </div>
                     <div class="text">
+
                         <div class="inRow">
-                            <!-- <el-form-item label="Edu"  prop='education'>
-                                <el-input v-model="details.edu" placeholder="Education" ></el-input>
-                            </el-form-item> -->
-
-                            <el-form-item label="Education" prop='education'>
-                                <el-select v-model="details.edu" placeholder="Education">
-                                    <el-option
-                                    v-for="item in edu"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        
-                            <el-form-item label="Job"  prop='job'>
-                                <el-input v-model="details.job" placeholder="Job"  ></el-input>
-                            </el-form-item>
-
+                            <div class="col-xs-12">
+                                <div class="col-xs-5">
+                                <el-form-item label="Car" prop='car'>
+                                    <el-input v-model="details.car" placeholder="Make" ></el-input>
+                                </el-form-item>
+                                </div>
+                                <div class="col-xs-3">
+                                    <el-form-item label-width='0px' >
+                                        <select v-model="details.year" class='form-control'>
+                                            <option v-for="item in myRange(1949)" :key="item">{{ item }}</option>
+                                        </select>
+                                    </el-form-item>
+                                </div>
+                                <div class="col-xs-4">
+                                    <el-form-item label-width='0px' >
+                                        <el-input v-model="details.model" placeholder="Model"  ></el-input>
+                                    </el-form-item>
+                                </div>
+                                
+                            </div>
                         </div>
 
                         <div class="inRow">
-
-                        
-                            <el-form-item label="Title" prop='tit'>
-                                <el-input v-model="details.tit" placeholder="Title"  ></el-input>
-                            </el-form-item>
-                        
-                            <el-form-item label="Car" prop='car'>
-                                <el-input v-model="details.car" placeholder="Car" ></el-input>
-                            </el-form-item>
-
+                            <div class="col-xs-12">
+                                <div class="col-xs-5">
+                                    <el-form-item label-width='0px' >
+                                        <el-checkbox v-model="details.checked">Unsubscribe</el-checkbox>
+                                    </el-form-item>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </el-card>
@@ -144,9 +315,9 @@
             </div>
             <div class="part text-right">
                 <el-form-item>
-                        <el-button type='default' @click="resetForm(details)">Cancel</el-button>
-                        <el-button type="success" @click="submitForm(details)">Update</el-button>
-                    </el-form-item>
+                    <el-button type='default' class='myB' @click="resetForm(details)">Reset</el-button>
+                    <el-button type="success" class='myB' @click="submitForm(details)">Update</el-button>
+                </el-form-item>
             </div>
         </el-form>
     </div>
@@ -159,21 +330,9 @@ export default {
             storage: window.localStorage,
             user:{},
             userInfo:{},
-            privince:[
-                    {name:'Alberta',Code:"AB"},
-                    {name:'British-Coloumbia',Code:"BC"},
-                    {name:'Manitoba',Code:"MB"},
-                    {name:'New-Brunswick',Code:"NB"},
-                    {name:'Newfoundland and Labrador',Code:"NL"},
-                    {name:'Northwest Territories',Code:"NT"},
-                    {name:'Nova-Scotia',Code:"NS"},
-                    {name:'Nunavut',Code:"NU"},
-                    {name:'Ontario',Code:"ON"},
-                    {name:'Prince-Edward Island',Code:"PE"},
-                    {name:'Quebec',Code:"QC"},
-                    {name:'Saskatchewan',Code:"SK"},
-                    {name:'Yukon',Code:"YT"},
-                ],  
+            privince:this.$store.state.privince,
+            country:this.$store.state.country,
+            US_states:this.$store.state.US_states,
             details:{
                 surname:'',
                 forename:'',
@@ -190,7 +349,19 @@ export default {
                 job:'',
                 tit:'',
                 car:'',
+                b_firstname:'',
+                b_lastname:'',
+                b_address1:'',
+                b_address2:' ',
+                b_city:'',
+                b_province:'',
+                b_country:'',
+                b_phone:'',
+                b_zipcode:'',
+                checked:true,
+               
             },
+            billing:{},
             rules:{
                 surname:[
                     { required: true, message: 'Surname is required.', trigger: 'blur', max:99 }
@@ -199,14 +370,21 @@ export default {
                     { required: true, message: 'Forename is required.', trigger: 'blur', max:99 },
                 ],
                 city:[
-                    { required: true, message: 'City is required.', trigger: 'blur', max:99 },
-                ],
+                        { required: true, message: 'City is required.', trigger: 'blur', max:99 },
+                    ],
                 state:[
                     { required: true, message: 'State is required.', trigger: 'blur', max:99 },
                 ],
                 zipcode:[
-                    { required: true, message: 'Zip Code is required.', trigger: 'blur', max:99 },
+                    { required: true, message: 'Postal Code is required.', trigger: 'blur' },
+                    { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
                 ],
+
+                b_zipcode:[
+                    { required: true, message: 'Postal Code is required.', trigger: 'blur' },
+                    { min:5, max:7, message: 'Please input valid postalcode.', trigger: 'blur'},
+                ],
+                
                 address:[
                     { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
                 ],
@@ -214,10 +392,10 @@ export default {
                     { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
                 ],
                 tel:[
-                    {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:15,}
+                    {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                 ],
                 mobile:[
-                    {message: 'Invalid telephone number.', trigger: 'blur',  max: 15,}
+                    {message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
                 ],
             },
 
@@ -232,23 +410,47 @@ export default {
     },
 
     mounted(){
+        
+        
         this.user = JSON.parse(this.storage.getItem('user'));
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+        this.billing = JSON.parse(this.storage.getItem('billing'));
+
+        if (this.user.receiveEmail==1) {
+            this.details.checked =  true;
+        }else{
+            this.details.checked =  false;
+        }
+        
         this.details.surname = this.userInfo.m_surname;
         this.details.forename = this.userInfo.m_forename;
-        this.details.gender = (this.userInfo.m_gender==1?"Male":"Female");
+        this.details.gender = this.getGender(this.userInfo.m_gender);
         this.details.brithday = this.userInfo.m_birth;
         this.details.address = this.userInfo.m_address;
         this.details.city = this.userInfo.m_city;
         this.details.state = this.userInfo.m_state;
         this.details.zipcode = this.userInfo.m_zipcode;
-        this.details.country = this.userInfo.m_country;
+        this.details.country =(this.userInfo.m_country=="US"?"US":"CA");
         this.details.tel = this.userInfo.m_tel;
         this.details.mobile = this.userInfo.m_mobile;
-        this.details.edu = this.userInfo.m_edu;
-        this.details.job = this.userInfo.m_job;
-        this.details.tit = this.userInfo.m_title;
+        
+        this.details.model = this.userInfo.m_make;
+        this.details.year = (this.userInfo.m_year<1950?1950:this.userInfo.m_year);
         this.details.car = this.userInfo.m_car;
+
+
+        /** billing address */
+        this.details.b_lastname = this.billing.lastname;
+        this.details.b_firstname = this.billing.firstname;
+        this.details.b_address1 = this.billing.address1;
+        this.details.b_address2 = this.billing.address2;
+        this.details.b_city = this.billing.city;
+        this.details.b_state = this.billing.province;
+        this.details.b_zipcode = this.billing.postalcode;
+        this.details.b_country =(this.billing.country=="US"?"US":"CA");
+        this.details.b_tel = this.billing.phone;
+
+        
     },
 
     computed: {
@@ -256,56 +458,152 @@ export default {
     },
 
     methods:{
-            submitForm(details){
-                this.$refs["details"].validate((valid)=>{
-                    if (valid){
-                        // submit userDetails info        
-                        var userId = this.user.id;
-                        this.userID = userId;
-                        this.$http.post('/api/updateUserInfo',{
-                            data:this.details,
-                            userID:this.userID,
-                        }).then((response)=>{   
-                            var info = response.data.userinfo;
-                            this.storage.setItem('userInfo',JSON.stringify(info));
-                            this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+        changeYear(a){
+            this.details.year = a;
+            
+        },
+        
+        submitForm(details){
+            this.$refs["details"].validate((valid)=>{
+                if (valid){
+                    if (this.details.country=='US') {
+                        let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.zipcode);
+
+                        if (!isValidZip) {
                             this.$message({
-                            showClose:true,
-                            message:"Edit Successfully",
-                            type:"success",
-                            duration:5000,
-                        });
-                        window.scrollTo(0,0);
-                        });
+                                showClose:true,
+                                message:"Please inter valid USA Zipcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }else{
+                        
+
+                        }
                     }else{
-                        this.$message({
-                            showClose:true,
-                            message:"Error Submit",
-                            type:"error",
-                            duration:5000,
-                        });
-                        return false;
+                        let str = this.details.zipcode.replace(' ','');
+
+                        if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                        }else{
+                            this.$message({
+                                showClose:true,
+                                message:"Please inter valid Canada postalcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }
                     }
-                });
-            } ,
-            resetForm(details){
-                this.details.surname = this.userInfo.m_surname;
-                this.details.forename = this.userInfo.m_forename;
-                this.details.gender = (this.userInfo.m_gender==1?"Male":"Female");
-                this.details.brithday = this.userInfo.m_birth;
-                this.details.address = this.userInfo.m_address;
-                this.details.city = this.userInfo.m_city;
-                this.details.state = this.userInfo.m_state;
-                this.details.zipcode = this.userInfo.m_zipcode;
-                this.details.country = this.userInfo.m_country;
-                this.details.tel = this.userInfo.m_tel;
-                this.details.mobile = this.userInfo.m_mobile;
-                this.details.edu = this.userInfo.m_edu;
-                this.details.job = this.userInfo.m_job;
-                this.details.tit = this.userInfo.m_title;
-                this.details.car = this.userInfo.m_car;
-            },
+
+                    if (this.details.b_country=='US') {
+                        let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.details.b_zipcode);
+
+                        if (!isValidZip) {
+                            this.$message({
+                                showClose:true,
+                                message:"Please inter valid USA Zipcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }else{
+                        
+
+                        }
+                    }else{
+                        let str = this.details.b_zipcode.replace(' ','');
+
+                        if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                        }else{
+                            this.$message({
+                                showClose:true,
+                                message:"Please inter valid Canada postalcode",
+                                type:"error",
+                                duration:5000,
+                            });
+                            return false;
+                        }
+                    }
+
+                    
+                    // submit userDetails info        
+                    var userId = this.user.id;
+                    this.userID = userId;
+                    this.$http.post('/api/updateUserInfo',{
+                        data:this.details,
+                        userID:this.userID,
+                    }).then((response)=>{   
+                        var info = response.data.userinfo;
+                        
+                        var b = response.data.billing;
+                        this.storage.setItem('userInfo',JSON.stringify(info));
+                        this.storage.setItem('billing', JSON.stringify(response.data.billing));
+                        this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+                        this.billing = JSON.parse(this.storage.getItem('billing'));
+
+
+                        if (this.userInfo.m_country=="US") {         
+                            this.$store.commit('usdPrice',true);
+                        }else{
+                            this.$store.commit('usdPrice',false);
+                        }
+
+                        this.$message({
+                        showClose:true,
+                        message:"Edit Successfully",
+                        type:"success",
+                        duration:5000,
+                    });
+                    window.scrollTo(0,0);
+                    });
+                }else{
+                    // this.$message({
+                    //     showClose:true,
+                    //     message:"Error Submit",
+                    //     type:"error",
+                    //     duration:5000,
+                    // });
+                    // return false;
+                }
+            });
+        } ,
+        resetForm(details){
+
+            if (this.user.receiveEmail==1) {
+                this.details.checked =  true;
+            }else{
+                this.details.checked =  false;
+            }
+            this.details.surname = this.userInfo.m_surname;
+            this.details.forename = this.userInfo.m_forename;
+            this.details.gender = this.getGender(this.userInfo.m_gender);
+            this.details.brithday = this.userInfo.m_birth;
+            this.details.address = this.userInfo.m_address;
+            this.details.city = this.userInfo.m_city;
+            this.details.state = this.userInfo.m_state;
+            this.details.zipcode = this.userInfo.m_zipcode;
+            this.details.country = (this.userInfo.m_country=="US"?"US":"CA");
+            this.details.tel = this.userInfo.m_tel;
+            this.details.mobile = this.userInfo.m_mobile;
+            this.details.model = this.userInfo.m_make;
+            this.details.year = (this.userInfo.m_year<1950?1950:this.userInfo.m_year);
+            this.details.car = this.userInfo.m_car;
+
+            /** billing address */
+            this.details.b_lastname = this.billing.lastname;
+            this.details.b_firstname = this.billing.firstname;
+            this.details.b_address1 = this.billing.address1;
+            this.details.b_address2 = this.billing.address2;
+            this.details.b_city = this.billing.city;
+            this.details.b_state = this.billing.province;
+            this.details.b_zipcode = this.billing.postalcode;
+            this.details.b_country =(this.billing.country=="US"?"US":"CA");
+            this.details.b_tel = this.billing.phone;
+        },
     },
+
+    
 
 }
 </script>
@@ -315,8 +613,12 @@ export default {
         background-color: black;
         color: white;
         font-weight: bold;
+        font-size: 22px;
         padding: 10px 0 10px 30px;
         border-radius: 10px;
+    }
+    .clearfix{
+        font-size: 20px;
     }
     .part{
         margin-top:20px;
@@ -325,6 +627,16 @@ export default {
         display: flex;
         justify-content: space-around;
     }
+    .myB{
+        font-size: 20px;
+    }
     
+    select{
+        height: 40px !important;
+        border: 1px solid #dcdfe6 !important;
+    }
+
+
+
 
 </style>    

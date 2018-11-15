@@ -26,6 +26,7 @@
 				carts:[],
 				storage:window.localStorage,
 				items:[],
+				usdPrice:this.$store.state.usdPrice,
 			}
 		},
 		components:{
@@ -46,25 +47,28 @@
                         
                 }, response => {
                         // error 
-                    console.log("error4");
 				});
 				
 			// check if the use log in
-			if (this.storage.getItem("user")) {
-				this.$store.commit('changeLoginStatus',true);
-			}
+			
+
+			//check is user info has been set
+			
+			
 		},
 		watch: {
 	    '$route' (to, from) {
-			console.log('url changed');
 				window.scrollTo(0,0);
+				
 			}
 		},
 		methods:{
 			test(){
 				
 			}
-		}
+		},
+
+		
 	}
 </script>
 

@@ -1,6 +1,12 @@
 <template>
     <div class="container">
         <h3>Shopping Carts</h3>
+        <el-steps :active="1" finish-status="success">
+            <el-step title="Step 1"></el-step>
+            <el-step title="Step 2"></el-step>
+            <el-step title="Step 3"></el-step>
+            <el-step title="Step 4"></el-step>
+        </el-steps>
         <div class="col-sm-8" style='padding:0;'>
             <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
                 <div class='singleItem'>
@@ -39,14 +45,29 @@
                         <div class="toWish" @click='removeToWish(item)'>
                             Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
                         </div>
-                        <div class="price">
+                        <div class="price" v-if="item.onhand -item.aloc > item.orderpt && disc">
                             <span>
-                                PRICE: $ {{item.pricel}}
+                                SALE: CAD ${{item.pricel |discount10 |decimal}}<br>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange)|discount10 |decimal }}</span>
                             </span>
                             <span>
-                                TOTAL: $ {{(item.pricel) * parseInt(storage.getItem(item.item))}}
+                                TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |discount10 |decimal}}<br>
+                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange)|discount10 |decimal }}</span>
                             </span>
                         </div>
+
+                        <div class="price" v-if="item.onhand-item.aloc <= item.orderpt || !disc">
+                            <span>
+                                PRICE: CAD ${{item.pricel |decimal }}<br>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
+                            <span>
+                                TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}<br>
+                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
+                        </div>
+
+                        
                     </div>
                 </div>
             </div>
@@ -63,7 +84,9 @@
                 <div class="summary_details">
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span>${{ subtotal }}</span>
+                            <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ subtotal|decimal }}<br>
+                                <span v-if='usdPrice' class='usdPrice '>USD ${{ (subtotal/$store.state.exchange).toFixed(2) }}</span>
+                            </span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -77,15 +100,36 @@
                         </div>
                     </div>
                     <div class="summary_list">
-                        <div class='summary_amount'>
-                            <span>TOTAL:</span><span>${{ total }}</span>
+                        <div class='summary_amount text-right'>
+                            <span>TOTAL:</span><span class='text-right'>CAD ${{ total }}<br>
+                            <span v-if='usdPrice' class='usdPrice'>USD ${{ (total/$store.state.exchange).toFixed(2) }}</span></span>
+                            
                         </div>
                     </div>
                 </div>
 
                 <div class="processBTN text-center">
-                    <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1">Proceed To
+                    <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1&& !isDealer">Proceed To
                     Check Out</button>
+                
+                </div>
+                    
+
+                <div class="processBTN text-center" style='margin-top:10px'>
+                    
+                    <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& !isDealer">Continue Shopping</button>
+                </div>
+
+                <div class="processBTN text-center ">
+                    <button class='mybtn btn btn-success' @click='dealerCheckOut()' v-if="carts.length>=1&& isDealer">Proceed To
+                    Check Out</button>
+                    
+                </div>
+
+                <div class="processBTN text-center" style='margin-top:10px'>
+                    
+                    <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& isDealer">Continue Shopping</button>
+                    
                 </div>
             </div>
         </div>
@@ -104,17 +148,96 @@ export default {
             subtotal:0,
             shipping:"-",
             hst:"-",
+            user:{},
+            isDealer:false,
+            disc:true,
+           
+
             // total:this.subtotal,
             
             }
         },
         computed:{
             total:function(){
-                return this.subtotal;
-            }
+                return this.subtotal.toFixed(2);
+            },
+            usdPrice:function(){return this.$store.state.usdPrice},
+        },
+
+        filters:{
+            decimal:function(value){
+                if (!isNaN(value)) {
+                    return value.toFixed(2)
+                }else{
+                    return value;
+                }
+            },
+
+            discount10(price) {
+				return (price * 0.9);
+			}
         },
         mounted(){
             this.reloadElement();
+
+
+
+            if (this.storage.getItem('user')) {
+                this.user = JSON.parse(this.storage.getItem('user'));
+                let cust_id = this.user.id;
+
+                if (this.user.level==2) {
+                    this.isDealer = true;
+                    var url = 'getShortlist_dealer';
+                }else{
+                    this.isDealer = false;
+                    var url = 'getShortlist';
+                }
+
+                this.$http.get('/api/'+url +'/'+cust_id).then((response)=>{
+                    let oldShortlist = response.data.oldShortlist;
+                    
+                    oldShortlist.forEach(element => {
+                        let item = element.item;
+                        let quantity = element.qty;
+                        if (window.localStorage.getItem(item)) {
+                            // var qty = parseInt(window.localStorage.getItem(item)) + quantity;
+                            // window.localStorage.setItem(item,qty);
+                        }else{
+                            window.localStorage.setItem(item,quantity);
+                            
+                            var newNumber = this.carts_number+1;
+                            
+                            this.$store.commit('carts_number',newNumber);
+
+                        }
+
+
+                    });
+
+                    
+                    
+
+                    
+                });
+
+                this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
+                    if (response.data.deleteOldShortlist=='deletedOld') {
+                        // 'shortlist has been delete');
+                    }else{
+
+                    }
+                }));
+            }else{
+            }
+            // this.$http.get('/api/getShortlist/'+)
+            
+
+            if (this.ifDealer()) {
+                this.disc = false;
+            }else{
+                this.disc =  true;
+            }
             },
             
         methods:{
@@ -129,12 +252,26 @@ export default {
                     this.$store.commit('carts_number',this.carts.length);
                     this.subtotal = 0;                
                     this.carts.forEach(element => {
-                        this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+                        
+                        element.pricel = this.Dealerprice(element);
+                        let short_num = parseInt(this.storage.getItem(element.item));
+                        if ( short_num >element.onhand) {
+                            this.storage.setItem(element.item, element.onhand);
+                        }
+                        if (this.ifDealer()) {
+                            this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+                        }else{
+                            if (element.onhand - element.aloc > element.orderpt) {
+                                this.subtotal += (element.pricel)*0.9 * parseInt(this.storage.getItem(element.item));
+                            }else{
+                                this.subtotal += (element.pricel) * parseInt(this.storage.getItem(element.item));
+
+                            }
+                        }
                     });
                         
                 }, response => {
                     // error 
-                    console.log("reloadElement error");
                 });
             },
             
@@ -192,8 +329,34 @@ export default {
                 this.reloadElement();
                 this.addToWishlist(item.item);
             },
-            checkOut(){
+            
+            dealerCheckOut(){
+                var user = JSON.parse(this.storage.getItem("user"));
+                var userInfo = JSON.parse(this.storage.getItem("userInfo"));
+                if (user&&userInfo) {
+                    
+                    this.$http.post('api/checkoutDealer',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
 
+                        
+                        if (response.data.status=="Success") {
+                        this.$router.push('/dealer_checkout');
+                        }else if (response.data.status=='noDetails') {
+                            this.$router.push({path:'customerInfo'});
+                        } 
+                    }, response => {
+                        // error 
+                    });
+                }else{
+
+                    /** require to login and then turn back to shoppingg cart */
+                    this.$store.commit('changeLoginDirect','shoppingCart');
+				    this.$router.push({path:'customerInfo'});
+                    
+                }
+
+                return false;    
+            },
+            checkOut(){
                 
                 /** check if the client has logged in or not. if not, checkout requirs to login. */
                 var user = JSON.parse(this.storage.getItem("user"));
@@ -203,7 +366,6 @@ export default {
                     
                     this.$http.post('api/checkout',{storage:this.storage, userID:user.id},[method=>"POST"]).then(response => {
 
-                        console.log(response);
                         
                         if (response.data.status=="Success") {
                             this.$router.push('/checkout');
@@ -212,7 +374,6 @@ export default {
                         } 
                     }, response => {
                         // error 
-                        console.log("reloadElement error");
                     });
                 }else{
 
@@ -227,6 +388,13 @@ export default {
                 
                 
             },
+
+            continueShopping(){
+                this.$router.push({path:'allProducts'});
+               
+            }
+
+            
         },
         watch:{
             
@@ -253,7 +421,7 @@ export default {
         height: 80px;
     }
     .itemDetails{
-        width: 40%;
+        width: 50%;
         padding: 30px;
         height: 250px;
         display: flex;
@@ -261,7 +429,7 @@ export default {
         justify-content: space-between;
     }
     .item_action{
-        width: 30%;
+        width: 40%;
         padding: 30px;
         height: 250px;
     }
@@ -322,7 +490,7 @@ export default {
     .summary_list{ 
         display: flex;
         flex-direction: column;
-        height: 60px;
+        min-height: 70px;
 
     }
     .summary_title{
@@ -338,9 +506,11 @@ export default {
         font-size: 20px;
         font-weight: bold;
         border-bottom: 1px solid black;
+        min-height: 70px;
     }
     .mybtn{
        font-size: 16px;
+       width: 190px;
     }
     .fakeLink{
         cursor: pointer;
