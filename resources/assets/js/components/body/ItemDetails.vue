@@ -20,8 +20,8 @@
 				<div class="priceDiv">
 					
 					<div class="price" v-if="item.onsale&&disc">
-						CAD $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}<br> 
-						<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+						CAD <span style='text-decoration:line-through; color:#800000'>$ {{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}<br> 
+						<span v-if='usdPrice' class='usdPrice'>USD <span style='text-decoration:line-through ; color:#800000'> ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
 					</div>
 
 					<div class="price" v-if="!item.onsale || !disc">
@@ -76,8 +76,8 @@
 						<li><span class='related_colum'>Year Fit: {{r.year_from}} -- {{r.year_end}}</span></li>
 						<li><span class='related_colum all_make'>Make: {{r.all_makes}}</span></li>
 						<div class="realted_priceDiv"  v-if="r.onhand > r.orderpt && disc">
-							CAD $<span style='text-decoration:line-through'>{{r.pricel.toFixed(2) }}</span> ${{r.pricel | discount10}}<br>
-							<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((r.pricel)/$store.state.exchange) | discount10 }}</span>
+							CAD <span style='text-decoration:line-through; color:#800000'> ${{r.pricel.toFixed(2) }}</span> ${{r.pricel | discount10}}<br>
+							<span v-if='usdPrice' class='usdPrice'>USD <span style='text-decoration:line-through; color:#800000'>${{ ((r.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((r.pricel)/$store.state.exchange) | discount10 }}</span>
 						</div>
 
 						<div class="realted_priceDiv"  v-if="r.onhand <= r.orderpt || !disc">
@@ -257,9 +257,9 @@
 	.itemImages{
 		
 		border-radius: 12px 12px 0 0;
-	    background-position: 50%;
+	    background-position: center;
 	    background-repeat: no-repeat;
-	    background-size: 100%;
+	    background-size: contain;
 	    height: 600px;
 
 		

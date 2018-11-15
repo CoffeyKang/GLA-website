@@ -23,8 +23,8 @@
 					</div>
 
 					<div class="car_make_name text-center" v-if="disc">
-						<span class='price_label'>CAD: <b class='price'>  $<span style='text-decoration:line-through' >{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
-							<span v-if='usdPrice' class='usdPrice'>USD  $<span style='text-decoration:line-through' >{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
+						<span class='price_label'>CAD: <b class='price'>  <span style='text-decoration:line-through; color:#800000' >${{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
+							<span v-if='usdPrice' class='usdPrice'>USD  <span style='text-decoration:line-through; color:#800000' >${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
 						</span>
 					</div>
 
@@ -262,7 +262,7 @@ window.scrollTo(0,0);
 	}
 	.price_label{color: red;}
 	.price{
-		color:#800000;
+		color:red;
 	}
 	.add_details{
 		display: flex;

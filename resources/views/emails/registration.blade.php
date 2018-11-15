@@ -15,53 +15,52 @@
     
     <style>
         body{
-            margin-top: 100px;
-            font-family: Arial, Helvetica, sans-serif;
+            margin:auto;
+            text-align: center;
+            font-family: Arial,sans-serif;
         }
-        .main{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            
-        }
-        .header{
-            height: 75px;
+        .body{
+            margin: auto;
+            text-align: center;
+            width: 530px;
         }
 
-        .footer{
-            height: 75px;
-        }
         .content{
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+            text-align: left !important;
+            padding: 50px 0;
         }
+        
+
+        .footer{
+            width:530px;
+            padding: 10px 0;
+            background-color: #FFE512;
+            font-size: 12px;
+            text-align: center;
+        }
+        .hi{
+            font-size: 120%;
+        }
+        
     </style>
 </head>
-<body class='container'>
-    <div class="main">
-        <div class="header">
-            <img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="">
-        </div>
-        <div class="content">
-        <h3>Dear {{$user->firstname}} {{$user->lastname}}, THANK YOU FOR REGISTERING</h3>
-        <p>Your Account {{ $user->email }} has been successfully registrered.
-            Thank you for registering to the Oriel Alumni website. You should receive a confirmation email shortly with your user name
-            and password reminder. Before you can be given access to the website we need to verify your registration, which can take
-            up to 3 working days to process. A notification email will be sent to you once this has been completed. If you need any help
-            using the website please email the Development Office or call them on 01865 276599.</p>
-        </div>
-        <div class="footer text-center" style='text-align:center'>
-            Thank you. <br>Golden Leaf Automotive Inc.
-        </div>
-    </div>
-    <script>
-        $().ready(function(){
-            var h = $(window).height()-200;
-            $('.main').css('height',h+"px");
-            $('.content').css('height',(h-150)+"px");
-        });
-    </script>
+<body>
+    
+    <table class='body'>
+        <tr>
+            <td><img src="http://retail.goldenleafautomotive.com/images/emailHeader.jpg" alt=""></td>
+        </tr>
+        <tr class='content'>
+            <td><span class='hi'>Hi {{$user->firstname}},</span><br>
+            <p>Your Account {{ $user->email }} has been set up.</p>
+            <p>You can always log in to your account to check your order status and update your personal information.</p>
+            <p>If you have any questions, please feel free to contact us.</p></td>
+        </tr>
+        <tr>
+            <td class='footer'>70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br>
+            &copy; {{date("Y")}} Golden Leaf Automotive. All rights reserved.</td>
+        </tr>
+    </table>
+    
 </body>
 </html>

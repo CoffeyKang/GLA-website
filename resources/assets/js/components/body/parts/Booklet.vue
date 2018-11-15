@@ -113,7 +113,7 @@
 
     .viewOnline{
         height: 1475px;
-        background-color: lightgray;
+        background-color: white;
         
     }
     

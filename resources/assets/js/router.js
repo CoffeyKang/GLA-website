@@ -1,6 +1,7 @@
 import Home from './components/body/Home.vue';
 import Contact from './components/body/Contact.vue';
 import Special from './components/body/Special.vue';
+import Policy from './components/body/Policy.vue';
 import Catalog from './components/body/Catalog.vue';
 import Products from './components/body/Products.vue';
 import Ccbd from './components/body/Ccbd.vue';
@@ -42,6 +43,7 @@ export const routes = [
   {path: '/',component: Home,name: 'home'},
   {path: '/contact',component: Contact},
   {path: '/special',component: Special},
+  {path: '/policy/:detail',component: Policy},
   {path: '/Catalog',component: Catalog},
   {path: '/allProducts',component: Products},
   {path: '/classicBody',component: Ccbd},

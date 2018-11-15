@@ -24,8 +24,8 @@
 					</div>
 
 					<div class="car_make_name text-center" v-if="item.onsale && disc">
-						<span class='price_label'>CAD: <b class='price'> {{$store.state.discount}}  $<span style='text-decoration:line-through'>{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
-							<span v-if='usdPrice' class='usdPrice'>USD $<span style='text-decoration:line-through'>{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange).toFixed(2) | discount10 }}</span>
+						<span class='price_label'>CAD: <b class='price'> {{$store.state.discount}}  <span style='text-decoration:line-through;color:#800000'>${{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
+							<span v-if='usdPrice' class='usdPrice'>USD <span style='text-decoration:line-through; color:#800000' >${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange).toFixed(2) | discount10 }}</span>
 						</span>
 					</div>
 
@@ -269,7 +269,7 @@
 	.car_img{
 		padding: 30px;
 		height: 200px;
-		background-size: 100%;
+		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: 50%;
 		cursor: pointer;
@@ -289,7 +289,7 @@
 	}
 	.price_label{color: red;}
 	.price{
-		color:#800000;
+		color:red;
 	}
 	.add_details{
 		display: flex;

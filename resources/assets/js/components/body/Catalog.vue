@@ -1,7 +1,7 @@
 <template>
 	<div class='container' style='margin-bottom:10px;'>
 		<div class="title">
-			<span>Catalog {{displayName('haha&ha')}}</span>
+			<span>Catalog</span>
 		</div>
 		<div class="col-xs-3 cat" v-for="catalog in catalogs" :key="catalog.id">
 			<div class="cat_img" 

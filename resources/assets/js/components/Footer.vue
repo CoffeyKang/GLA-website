@@ -25,10 +25,10 @@
 			<div>
 				<ul>
 					<li class='footer-title'>Shopping Policies</li>
-					<li>Pricing Policy</li>
-					<li>Return Policy</li>
-					<li>Shipping and Delivery</li>
-					<li>Warranty and Damage</li>
+					<router-link to='/policy/price' tag='li'> Pricing Policy</router-link>
+					<router-link to='/policy/returnPolicy' tag='li'> Return Policy</router-link>
+					<router-link to='/policy/shipping' tag='li'> Shipping and Delivery</router-link>
+					<router-link to='/policy/warranty' tag='li'> Warranty and Damage</router-link>
 
 				</ul>
 			</div>

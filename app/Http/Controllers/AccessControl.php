@@ -102,7 +102,7 @@ class AccessControl extends Controller
         ]);
         
 
-
+        Mail::to("$user->email")->send(new registration($user));
         
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
@@ -365,7 +365,25 @@ class AccessControl extends Controller
     public function kang(){
 
         $user = User::find(18);
-        echo $user->password;
+
+        $somast = SOMAST::where('order_num',1000573)->first();
+
+        $sotran = $somast->sotran;
+
+        $billing = $user->BillingAddress;
+
+        $add_id = $somast->address;
+
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
+
+        
+        
+        return view('emails.salesorder', compact('user','somast','sotran','address','billing'));
+        // echo $user->password;
         // @Mail::to("fkang@velements.com")->send(
         //     (new registration($user))
         // );
