@@ -100,7 +100,7 @@
 			};
 
 			/**	call api to get exchange rate */
-			if (this.storage.getItem("user")&&this.storage.getItem("Info")) {
+			if (this.storage.getItem("user")&&this.storage.getItem("userInfo")) {
 				
 				this.userID = JSON.parse(this.storage.getItem("user")).id;
 
