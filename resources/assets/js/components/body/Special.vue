@@ -7,6 +7,31 @@
 				<span>On Sale products</span>
 			</div>
 		</div>
+		<div class="container paginate_btn alert">
+				<div class='col-xs-4 text-right'>
+					<!-- pre page -->
+					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
+						Previous Page
+					</button>
+				</div>
+				<div class='col-xs-4 text-center'>
+					{{data.total}}  Products found, Page 
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in pages"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select> / of {{data.last_page}}
+				</div>
+				<div class='col-xs-4'>
+					<!-- next page -->
+					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+						Next Page
+					</button>
+				</div>
+			</div>
 		<div class='container' id='car_makes'>
 		
 			<div class='car_make' v-for='item in lists' :key='item.item' v-if="item.onhand - item.aloc - item.orderpt >0">
@@ -49,14 +74,24 @@
 				</div>
 			</div>
 			<div class="container paginate_btn alert">
-				<div class="text-left">
-					{{data.total}}   Products found, Page {{page}} of {{data.last_page}}
-				</div>
-				<div>
+				<div class='col-xs-4 text-right'>
 					<!-- pre page -->
 					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
 						Previous Page
 					</button>
+				</div>
+				<div class='col-xs-4 text-center'>
+					{{data.total}}  Products found, Page 
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in pages"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select> / of {{data.last_page}}
+				</div>
+				<div class='col-xs-4'>
 					<!-- next page -->
 					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
 						Next Page
@@ -142,6 +177,26 @@ window.scrollTo(0,0);
 			     
 			  });
 			},
+
+			toPage(page){
+				this.page =page;
+				
+				this.$http.get('/api/special/'+this.page).then(response => {
+			    this.lists = response.data.special.data;
+				this.data = response.data.special;
+				this.lists.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});	
+			    this.page = this.data.current_page;
+				window.scrollTo(0,0);
+			    // finish ladding screen
+			    this.loading = 0;
+			  }, response => {
+			  	// error 
+			     
+			  });
+			},
+			
 			showLimitedWords:function(str,num){
 				
 				if (str.length <= num) {
@@ -190,6 +245,14 @@ window.scrollTo(0,0);
 		computed:{
 			usdPrice(){
 				return	this.$store.state.usdPrice;
+			},
+			pages(){
+				var pages = [];
+				for (let index = 1; index <= this.data.last_page; index++) {
+					pages.push(index);
+					
+				}
+				return pages;
 			}
 		},
 		filters:{
@@ -234,6 +297,7 @@ window.scrollTo(0,0);
 		width: 280px;
 		display: flex;
 		flex-direction: column;
+		font-size: 16px;
 
 	}
 	.car_make_name{

@@ -34,7 +34,7 @@
 			</div>
 			<div class='payment'>
 				<div>
-				<img src="images/horizontal_solution_PPeCheck.gif" alt="payment_logo">
+				<img src="images/paymentOption.png" alt="payment_logo">
 				</div>
 				<div class='copyright'>
 					&copy; 2018 Golden Leaf Automotive. All rights reserved.

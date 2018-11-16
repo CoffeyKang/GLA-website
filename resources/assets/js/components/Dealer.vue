@@ -3,9 +3,8 @@
         <div v-if="!loginStatus||customerLogin">
 
         
-            <div class="col-xs-8 col-xs-offset-2 " id='loginDev' >
-                <div class="text-center" id='loginForm'>
-                    
+            <div class="col-xs-8 col-xs-offset-2 text-center" id='loginDev'>
+                <div class="text-center container-fluid" id='loginForm'>
                     <div class='title'>Dealer Login</div>
                     <div class="col-xs-8 col-xs-offset-2 form-group">
                         <input type="text" placeholder="Account" class="form-control" v-model='account'>
@@ -18,25 +17,14 @@
                     </div>
                     <div class="col-xs-8 col-xs-offset-2 form-group remeber">
                         <div>
-                            <!-- <span class='forgetPassword'>Forgot Password?</span> -->
+                            <span class='forgetPassword'>If you require or have forgotten your dealer login information please contact us at 905-850-3433</span>
                         </div>
                     </div>
                 </div>
                 
             </div>
             
-            <div class="panel panel-default col-xs-12">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Log In Help</h3>
-                </div>
-                <div class="panel-body">
-                    If you are having problems logging in, try the following: <br>
-                    1. Enable Cookies. <br>
-                    2. Enable Javascript. <br>
-                    3. Refresh the page. <br>
-                    If you are still experiencing problems, try using this link to reset your cookies and reload the page automatically.
-                </div>
-            </div>
+            
         </div>
 
         <div v-if="loginStatus && !customerLogin">

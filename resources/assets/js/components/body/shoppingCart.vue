@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h3>Shopping Carts</h3>
+        <h3>Shopping Cart</h3>
         <el-steps :active="1" finish-status="success">
             <el-step title="Step 1"></el-step>
             <el-step title="Step 2"></el-step>
@@ -305,7 +305,7 @@ export default {
                     return false;
                 }
                 if (value>item.onhand) {
-                    this.$alert('Out of stock', 'Warning', {
+                    this.$alert('The quantity you request exceeds our stock.', 'Warning', {
 						confirmButtonText: 'OK',
 					});
                     

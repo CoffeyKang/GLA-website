@@ -5,9 +5,35 @@
 		  >
 		<div class="container">
 			<div class="title">
-				<span>Products List {{ make.replace('_', ' ').toUpperCase() }}</span>
+				<span>Products -- {{ make.replace('_', ' ').toUpperCase() }}</span>
 			</div>
 		</div>
+
+		<div class="container paginate_btn alert">
+				<div class='col-xs-4 text-right'>
+					<!-- pre page -->
+					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
+						Previous Page
+					</button>
+				</div>
+				<div class='col-xs-4 text-center'>
+					{{data.total}}  Products found, Page 
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in pages"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select> / of {{data.last_page}}
+				</div>
+				<div class='col-xs-4'>
+					<!-- next page -->
+					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+						Next Page
+					</button>
+				</div>
+			</div>
 		<div class='container' id='car_makes'>
 		
 			<div class='car_make' v-for='item in lists' :key='item.item'>
@@ -43,21 +69,31 @@
 						<button class="btn btn-primary" @click='goToItem(item.item)'>
 							Details
 						</button>
-						<button class='add_to_cart btn btn-link' @click='addToCart_common_list(item)'>
+						<a class='add_to_cart btn ' @click='addToCart_common_list(item)'>
 							Add To Cart  
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>
 			<div class="container paginate_btn alert">
-				<div class="text-left">
-					{{data.total}}   Products found, Page {{page}} of {{data.last_page}}
-				</div>
-				<div>
+				<div class='col-xs-4 text-right'>
 					<!-- pre page -->
 					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
 						Previous Page
 					</button>
+				</div>
+				<div class='col-xs-4 text-center'>
+					{{data.total}}  Products found, Page 
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in pages"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select> / of {{data.last_page}}
+				</div>
+				<div class='col-xs-4'>
 					<!-- next page -->
 					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
 						Next Page
@@ -83,6 +119,7 @@
 			}
 		},
 		mounted(){
+			
 			this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
 				// 
@@ -111,6 +148,7 @@
 		},
 		methods:{
 			nextPage(){
+				
 				this.page +=1;
 				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
@@ -130,6 +168,27 @@
 			},
 			prePage(){
 				this.page -=1;
+				
+				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
+			    // get body data
+			    this.data = response.body;
+				this.lists = response.body.data;
+				
+				this.lists.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});
+				window.scrollTo(0,0);
+			    this.page = this.data.current_page;
+
+			  }, response => {
+			  	// error 
+			     
+			  });
+			},
+
+			toPage(page){
+				this.page =page;
+				
 				this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
 			    this.data = response.body;
@@ -219,9 +278,18 @@
 				var m = this.$route.query.make;
 
 				var make = m.replace('_',' ');
+				
 
 				return make;
 
+			},
+			pages(){
+				var pages = [];
+				for (let index = 1; index <= this.data.last_page; index++) {
+					pages.push(index);
+					
+				}
+				return pages;
 			}
 		},
 		watch:{
@@ -297,8 +365,13 @@
 		padding: 10px;
 	}
 	.add_to_cart{
+		margin-left: 10px;
 		display: flex;
 		align-items: flex-end;
+		
+	}
+	.add_to_cart:hover{
+		border: 1px solid #2a88bd;
 	}
 	.description{
 		min-height: 70px;

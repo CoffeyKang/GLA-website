@@ -304,7 +304,7 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-5">
                                     <el-form-item label-width='0px' >
-                                        <el-checkbox v-model="details.checked">Unsubscribe</el-checkbox>
+                                        <el-checkbox v-model="details.checked">I wish to unsubscribe from offers, promotions and deal.</el-checkbox>
                                     </el-form-item>
                                 </div>
                             </div>

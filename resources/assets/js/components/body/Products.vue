@@ -15,8 +15,12 @@
 					<!-- <img src="/images/makes/default.jpg" alt="2"> -->
 				</div>
 
-				<button class="btn btn-block viewOnline">
+				<button class="btn btn-block viewOnline" v-if="make.make!='MONTECARLO'">
 					{{ make.make.toUpperCase().replace("_"," " ) }}
+				</button>
+
+				<button class="btn btn-block viewOnline" v-if="make.make=='MONTECARLO'">
+					MONTE CARLO
 				</button>
 				
 			</router-link>
@@ -94,6 +98,6 @@ a:hover{
 	.viewOnline{
 		background-color: black;
 		color: white;
-		font-size: 1.2em;
+		font-size: 20px;
 	}
 </style>

@@ -8,29 +8,18 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
-
         <app-search></app-search>
-
-        
-
         <div class="ads row" >
         <div v-for="ad in ads " class='col-xs-4' :key="ad.id" >
-          <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }">
-            
+          <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }" @click="goto(ad.id)">
           </div>
         </div>
-           
-
         </div>
-
         <div class="sub_title">
           <span>FEATURE PRODUCTS</span>
         </div>
         <div class="container-fluid arrow" >
-
-        
             <div class='left' @click='left()'>
-                
             </div>
             <div class='container-fluid fitems' id='fitems' @mouseover="FeatureSpeed=0" @mouseout="FeatureSpeed=1">
               <div v-for="a in featureProducts" :key="a.id">
@@ -156,7 +145,19 @@
               document.getElementById('pitems').scrollLeft -= 250;
               
             
+          },
+
+          goto(id){
+            if (id==1) {
+              this.$router.push({name:'Pruduct_list', query:{make: "WHEEL"}});
+            }else if(id==2){
+              this.$router.push('/special');
+            }else{
+              this.$router.push('/catalog');
+            }
           }
+
+
         }
     }
 </script>
@@ -232,7 +233,7 @@
         }
 
         .popular{
-          margin-bottom: 50px;
+          margin-bottom: 30px;
         }
 
         /* width */

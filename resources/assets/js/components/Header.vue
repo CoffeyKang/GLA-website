@@ -2,19 +2,19 @@
 	<div class='container'>
 		<div class="logo_top" id='page_top'>
 			<div class='logo'>
-				<div>
-					<img src="images/header_logo.png" alt="Logo">
+				<div >
+					<img src="images/header_logo.png" alt="Logo" @click="$router.push('/')" style='cursor:pointer'>
 				</div>
 
 				<div>
 					<ul class='right-header'>
-						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span></li>
-						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register</router-link>
-						<li v-if="loginStatus" @click="logOut()"> Log Out</li>
+						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span> | </li>
+						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register | </router-link>
+						<li v-if="loginStatus" @click="logOut()"> Log Out  | </li>
 
-						<li v-if="loginStatus" style='cursor:default'>Hello,{{name}}.</li>
-						<li v-if="loginStatus" @click='customerInfo()'>My Account</li>
-						<router-link to='/wishList' tag='li'>Wish List</router-link>
+						<li v-if="loginStatus" style='cursor:default'>Hello,{{name}}  | </li>
+						<li v-if="loginStatus" @click='customerInfo()'>My Account  | </li>
+						<router-link to='/wishList' tag='li'>Wish List  | </router-link>
 						<router-link to='/shoppingCart' tag='li'> 
 							<el-badge :value="carts_total" class="item">
 								<span class="glyphicon glyphicon-shopping-cart"></span>
@@ -120,8 +120,26 @@
 				}
 			}
 	
-			//if is dealer
-			
+			// cookie notifacation
+			if (!this.$store.state.useCookie) {
+				this.$notify.info({
+					title: 'Why We Use Cookies',
+					dangerouslyUseHTMLString: true,
+					message: "This site uses cookies to make your browsing experience more convenient and personal. Cookies store useful information on your computer to help us improve the efficiency and relevance of our site for you. In some cases, they are essential to making the site work properly. By accessing this site, you consent to the use of cookies. For more information, refer to GLA's privacy policy and cookie policy.<br> <b> <a style='cursor:pointer'>I understand</a></b>",
+					position: 'bottom-right',
+					duration: 10000,
+					onClick:function(){
+						
+						this.close();
+					},
+					onClose:function(){
+					}
+				});	
+			}else{
+
+			}
+			 
+			this.$store.commit('useCookie',true);
 			
 			
 		},
@@ -205,6 +223,7 @@ li a{
 	cursor:pointer;
 
 }
+
 
 
 

@@ -1,19 +1,17 @@
 <template>
 	<div class='container ItemDetails'>
 		<div class="nav" id='top'>
-			HOME/FIREBIRD/PARTS<br>
-			<span @click='backToSearch()' class='backToSearch'>RETRUN TO SEARCH RESUALT</span>
+			<span @click='backToSearch()' class='backToSearch'>RETURN TO SEARCH RESAULT</span>
 		</div>
 		<div class="item" v-if='showItem'>
-			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }"> 
-
+			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click="dialogVisible = true"> 
 			</div>
 			<div class="words col-xs-offset-1 col-xs-5">
 				<div class="descrip">
 					<span style=' text-transform: uppercase'>{{ item.descrip }}</span>
 				</div>
 				<div class="details text-left">
-					<li><span class='column_name'>Item Number:</span> <b>{{item.item}}</b></li>
+					<li><span class='column_name'>Item Number:</span> <b >{{item.item}}</b></li>
 					<li><span class='column_name'>Year Fit: </span><b>{{item.year_from}} -- {{item.year_end}}</b></li>
 					<li><span class='column_name'>Compatible Make: </span><b v-for="item_make in item_makes" :key="item_make.row_id"> {{item_make.make}} &nbsp;</b></li>
 				</div>
@@ -30,13 +28,13 @@
 					</div>
 					<div class="action">
 						<div class='action_left'>
-							<div class="inStock">In-Stock: {{item.onhand}}</div>
+							<div class="inStock">In-Stock: <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0">Not In Stock</span></div>
 							<div class="quantity row">
-								<div class="col-xs-3">
+								<div class="col-xs-4" style='font-size:20px;'>
 									Quantity:
 								</div>
-								<div class="col-xs-6">
-									<el-select v-model="quantity" size='mini' popper-class='text-center'>
+								<div class="col-xs-5">
+									<el-select v-model="quantity" size='mini' popper-class='text-center' >
 										<el-option
 											v-for="a in item.onhand"
 											:key="a.item"
@@ -93,7 +91,16 @@
 			</div>
 		</div>
 		
-		
+		<el-dialog
+			:visible.sync="dialogVisible"
+			custom-class='bigpic'
+			width=55%
+			:before-close="handleClose"
+			>
+			<span style='margin:auto;text-align:center'
+			><img :src="item.img_path" alt="" style='width:100%;'></span>
+			
+		</el-dialog>
 
 	</div>
 </template>
@@ -102,7 +109,7 @@
 	export default {
 		data(){
 			return {
-				
+				 dialogVisible: false,
 				id:this.$route.params.id,
 				item:{},
 				related:{},
@@ -261,6 +268,7 @@
 	    background-repeat: no-repeat;
 	    background-size: contain;
 	    height: 600px;
+		cursor: zoom-in;
 
 		
 	}
@@ -280,9 +288,13 @@
 		padding-bottom: 20px;
 		padding-top: 20px;
 		border-bottom: 1px black solid;
+		
+	}
+	.details{
+		font-size: 20px;
 	}
 	.descrip span{
-		font-size: 1.8em;
+		font-size: 20px;
 		line-height: 30px;
 		font-weight: bold;
 	}
@@ -298,7 +310,7 @@
 	}
 	.inStock{
 		color: green;
-		font-size: 1.2em;
+		font-size: 20px;
 		padding-bottom: 5px;
 	}
 	.wish{
@@ -323,6 +335,7 @@
 	.related_products{
 		display: flex;
 		justify-content:space-between;
+		margin-bottom: 25px;
 	}
 
 	.car_img{

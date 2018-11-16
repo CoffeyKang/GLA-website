@@ -10,12 +10,12 @@
 			
 			<span class='description'>{{ item.descipt}}</span>
 			
-			<small>Year Fit: {{ item.year_begin}} -- {{item.year_end}}</small>
+			<small>Year Fit: {{ item.year_from}} -- {{item.year_end}}</small>
 			
 			<small>Make: {{ item.make}} </small>
 			
 			<span class='price' v-if="disc">
-				<span class='price_label'>CAD: <b class='price'>  $<span style='text-decoration:line-through' >{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
+				<span class='price_label'>CAD <b class='price'>  $<span style='text-decoration:line-through' >{{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
 							<span v-if='usdPrice' class='usdPrice'>USD  $<span style='text-decoration:line-through;' >{{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>
 						</span>
 				<!-- CAD ${{ item.pricel.toFixed(2) }}<br>
@@ -94,8 +94,8 @@
 
 <style scoped>
 	.item{
-		margin:20px 0;
-		width: 260px;
+		padding:5px 0 10px 0;
+		width: 250px;
 	}
 	.img{
 		background-position: center;
@@ -105,6 +105,7 @@
 		cursor: pointer;
 	}
 	.words{
+		font-size: 20px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -115,7 +116,7 @@
 	}
 	.price{
 		color: red;
-		font-size: 1.2em;
+		font-size: 20px;
 		font-weight: bold;
 		padding: 10px 0 ;
 		min-height: 80px;

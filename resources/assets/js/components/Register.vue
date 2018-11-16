@@ -48,8 +48,7 @@
                                     <!-- <el-input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'></el-input>
                                     -->
                                     <el-checkbox v-model="details.checked"></el-checkbox>
-                                    <span class='checkboxDiv' @click='details.checked = !details.checked'>Click here to disagree to allow Golden Leaf Automotive to send you 
-                                        exclusive email offers and discounts. You can unsubscribe at any time.</span>
+                                    <span class='checkboxDiv' @click='details.checked = !details.checked'>I agree to receive updates on offers, promotions and deals.</span>
                                 </div>
                             </div>
                             <div class="col-xs-1"></div>
@@ -73,38 +72,7 @@
                         </div>
                     </el-form>
                 </div>
-                <!-- <div class="col-xs-4 col-xs-offset-2 form-group">
-                    <input type="text" placeholder="First Name" class="form-control" v-model='firstname' required>
-                </div>
-
-                <div class="col-xs-4  form-group">
-                    <input type="text" placeholder="Last Name" class="form-control" v-model='lastname' required>
-                </div>
-
-                <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="email" placeholder="Email Address" class="form-control" v-model='email' required>
-                </div>
-
-                <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" id='password' placeholder="Password" class="form-control" v-model='password' required>
-                </div>
-
-                <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <input type="password" placeholder="Confirm Password" class="form-control" 
-                     v-model='confirm' required>
-                </div>
-
-                <div class="col-xs-8 col-xs-offset-2 form-group remeber">
-                    <div>
-                        <input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'>
-                        <span class='forgetPassword'>Click here to disagree to allow Golden Leaf Automotive to send you 
-                            exclusive email offers and discounts. You can unsubscribe at any time.</span>
-                    </div>
-                    
-                </div>
-                <div class="col-xs-8 col-xs-offset-2 form-group">
-                    <button class="btn btn-success col-xs-12" id='loginBtn' @click="register()">Register</button>
-                </div> -->
+                
             </div>
             
            
@@ -161,12 +129,12 @@
 
                     password:[
                         { required: true, message: 'Password is required.', trigger: 'blur', max:99 },
-                        { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max:99 },
+                        { min: 8, message: 'Your password must be a minimum of 8 characters and include at least one number and english character.', trigger: 'blur', max:99 },
                     ],
 
                     confirm:[
                         { required: true, message: 'Confirm password is required.', trigger: 'blur', max:99 },
-                        { min: 8, message: 'Password minimal length is 8.', trigger: 'blur', max:99 },
+                        { min: 8, message: 'Your password must be a minimum of 8 characters and include at least one number and english character.', trigger: 'blur', max:99 },
                     ],
                 }
             }

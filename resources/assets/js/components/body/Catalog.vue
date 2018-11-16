@@ -67,7 +67,7 @@
 
 	}
 	.title span{
-		font-size: 1.5em;
+		font-size: 20px;
 		color: white;
 		font-weight: bold;
 	}
@@ -79,12 +79,12 @@
 	}
 	.viewOnline{
 		background-color: #FFE512;
-		font-size: 1.2em;
+		font-size: 20px;
 	}
 	.download{
 		background-color: black;
 		color: white;
-		font-size: 1.2em;
+		font-size: 20px;
 	}
 	h4{
 		height: 40px;

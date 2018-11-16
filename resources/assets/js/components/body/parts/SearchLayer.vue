@@ -64,7 +64,7 @@
 							<el-option
 							v-for="item in catalogs"
 							:key="item.id"
-							:label="item.name"
+							:label="displayName(item.display)"
 							:value="item.name">
 							</el-option>
 
@@ -113,6 +113,9 @@
 			});
 		},
 		methods:{
+			displayName(value){
+				return value.replace(/&/," ").toUpperCase();
+			},
 			searchItem(){
 				this.$router.push({name:'SearchList',query:{
 							item:this.search.item, 

@@ -3,7 +3,7 @@
 		<!-- home page search bar -->
        <form class='searchForm'>
                     <div class='words'>
-                    	I NEED TO FIND:
+                    	I WANT TO FIND:
                     </div>
 
                     <div class="inputSearch">
