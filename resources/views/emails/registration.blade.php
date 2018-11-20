@@ -22,17 +22,17 @@
         .body{
             margin: auto;
             text-align: center;
-            width: 530px;
+            width: 600px;
         }
 
         .content{
             text-align: left !important;
             padding: 50px 0;
         }
-        
+        .text-right{ text-align: right; } .text-left{ text-align: left; }
 
         .footer{
-            width:530px;
+            width:600px;
             padding: 10px 0;
             background-color: #FFE512;
             font-size: 12px;
@@ -41,26 +41,35 @@
         .hi{
             font-size: 120%;
         }
-        
+        .headerNav{ font-size: 20px; color: #1d4077; font-weight: 700; border-bottom:1px solid black; } .headerNav a{ color: #1d4077;
+        } .headerNav a:hover{ text-decoration: none; }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     
     <table class='body'>
         <tr>
-            <td><img src="http://retail.goldenleafautomotive.com/images/emailHeader.jpg" alt=""></td>
+            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
+            <td class='text-right'> <span class='headerNav'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="http://retail.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
         </tr>
+        
         <tr class='content'>
-            <td><span class='hi'>Hi {{$user->firstname}},</span><br>
+            <td colspan=2 style='padding-top:30px'><span class='hi'>Hi {{$user->firstname}},</span><br>
             <p>Your Account {{ $user->email }} has been set up.</p>
             <p>You can always log in to your account to check your order status and update your personal information.</p>
             <p>If you have any questions, please feel free to contact us.</p></td>
         </tr>
+        <br>
         <tr>
-            <td class='footer'>70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br>
+            <td class='footer' colspan=2 >70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br>
             &copy; {{date("Y")}} Golden Leaf Automotive. All rights reserved.</td>
         </tr>
     </table>
-    
+
 </body>
 </html>

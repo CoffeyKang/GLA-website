@@ -71,7 +71,7 @@ a:hover{
 }
 	#car_makes{
 		
-		margin-bottom: 60px;
+		margin-bottom: 40px;
 	}
 	.car_make{
 		margin-top: 30px;

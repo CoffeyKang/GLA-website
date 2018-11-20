@@ -1,5 +1,5 @@
 <template>
-	<div class='container' style='margin-bottom:10px;'>
+	<div class='container' style='margin-bottom:40px;'>
 		<div class="title">
 			<span>Catalog</span>
 		</div>

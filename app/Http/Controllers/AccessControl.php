@@ -382,7 +382,7 @@ class AccessControl extends Controller
 
         
         
-        return view('emails.salesorder', compact('user','somast','sotran','address','billing'));
+        return view('emails.registration', compact('user','somast','sotran','address','billing'));
         // echo $user->password;
         // @Mail::to("fkang@velements.com")->send(
         //     (new registration($user))

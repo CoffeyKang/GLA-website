@@ -65,7 +65,7 @@
 
                             <div class="col-xs-12">
                                 <el-form-item>
-                                    <el-button type="success"  style="width: 100%; font-size:24px; padding:5px;" @click="register()" disabled>Register </el-button>
+                                    <el-button type="success"  style="width: 100%; font-size:24px; padding:5px;" @click="register()">Register </el-button>
                                 </el-form-item>
                             </div>
                             

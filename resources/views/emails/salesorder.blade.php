@@ -27,7 +27,7 @@
         .body {
             margin: auto;
             text-align: center;
-            width: 530px;
+            width: 600px;
         }
 
         .content {
@@ -37,7 +37,7 @@
 
 
         .footer {
-            width: 530px;
+            width: 600px;
             padding: 10px 0;
             background-color: #FFE512;
             font-size: 12px;
@@ -63,7 +63,7 @@
         .p60{
             width: 60px;
         }
-        .p530{width: 530px;}
+        .p530{width: 600px;}
         .p105{
             width: 105px;
 
@@ -74,6 +74,19 @@
         .pd-10{
         	padding: 10px;
         }
+        .headerNav{
+            font-size: 20px;
+            color: #1d4077;
+            font-weight: 700;
+            border-bottom:1px solid black;
+        }
+        .headerNav a{
+            color: #1d4077;
+        }
+        .headerNav a:hover{
+            text-decoration: none;
+        }
+        a{ text-decoration: none; }
     </style>
 </head>
 
@@ -81,10 +94,13 @@
     
     <table class='body'>
         <tr>
-            <td><img src="http://retail.goldenleafautomotive.com/images/emailHeader.jpg" alt=""></td>
+            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
+            <td class='text-right'> <span class='headerNav'>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://retail.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
         </tr>
         <tr class='content'>
-            <td>
+            <td colspan=2 style='padding-top:30px'>
                 <span class='hi'>Hi {{$user->firstname}}, Thank you for your Order</span><br>
                 <p>Your Order is now being processed. Please review the order details and contact us as soon as possible 
                     if any details are incorrect.
@@ -92,17 +108,17 @@
 
                 <b>ORDER # {{$somast->order_num}}</b><br>
                 <span>Order Placed on {{substr($somast->date_order,0,10)}}</span>
-                <table width="530px" class='pd-10'>
+                <table width="600px" class='pd-10'>
                     <tr>
                         <td class='p265' style='text-align: left'>
                             <b>BILLING ADDRESS</b>
                         </td>
                         <td class='p265' style='text-align: left'>
-                            <b>ORDER TOTAL</b>
+                            <b>SHIPPING ADDRESS</b>
                         </td>
                     </tr>
                     <tr>
-                        <td style='background-color:darkgray; text-align: left'>
+                        <td style='background-color:darkgray; text-align: left;text-transform:uppercase'>
                             {{$billing->firstname}} {{$billing->lastname}}<br>
                             {{$billing->address1}} @if (strlen($billing->address2)>=1)
                                 {{$billing->address2}}
@@ -112,63 +128,31 @@
                             {{$billing->country}}<br>
                             
                         </td>
+
+                        <td style='background-color:lightgray; text-align: left; text-transform:uppercase'>
+                            @if ($address->id!=1) {{$address->forename}} {{$address->surname}}<br>{{$address->address}}<br> {{$address->city}} {{$address->state}}
+                            {{$address->zipcode}} @if($address->country=="CA")CANADA @else USA @endif 
+                            @else {{$user->firstname}} {{$user->lastname}}<br>
+                            {{$user->userDetails->m_address}}<br> {{$user->userDetails->m_city}} {{$user->userDetails->m_state}} {{$user->userDetails->m_zipcode}}
+                            @if($user->userDetails->m_country=="CA")CANADA @else USA @endif @endif
+                            <br>
                         
-                        <td style='background-color:lightgray;'>
-                            <table class='p265'>
-                                <tr class='p265'>
-                                    <td class='px160' style='text-align: left'>
-                                        Subtotal
-                                    </td>
-                                    <td class='p105 text-right' style='text-align: right'>
-                                        ${{number_format($somast->subtotal,2)}}
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td class='px160 text-left' style='text-align: left'>
-                                        Shipping
-                                    </td>
-                                    <td class='p105 text-right' style='text-align: right'>
-                                        ${{number_format($somast->shipping,2)}}
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td class='px160 text-left' style='text-align: left'> 
-                                        Taxes
-                                    </td>
-                                    <td class=' p105 text-right' style='text-align: right'>
-                                        ${{number_format($somast->tax,2)}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class='px160 text-left' style='text-align: left'>
-                                        Total
-                                    </td>
-                                    <td class='p105 text-right' style='text-align: right'>
-                                        ${{$somast->subtotal + $somast->shipping + $somast->tax}}
-                                    </td>
-                                </tr>
-                            </table>
                         </td>
+                        
+                        
                     </tr>
                 </table>
+                <br>
+                
 
-                <b>Delivery</b><span style='text-transform:uppercase; text-align: left; font-size:12px; color: gray'> to @if ($address->id!=1)
-                    {{$address->forename}} {{$address->surname}} {{$address->address}} {{$address->city}}
-                    {{$address->state}} {{$address->zipcode}}  @if($address->country=="CA")CANADA @else USA @endif
-                @else
-                    {{$user->firstname}} {{$user->lastname}} {{$user->userDetails->m_address}} {{$user->userDetails->m_city}} 
-                    {{$user->userDetails->m_state}} {{$user->userDetails->m_zipcode}} @if($user->userDetails->m_country=="CA")CANADA @else USA @endif
-                @endif
-
-                <table style='font-size:10px;' width="530px" class='p530'>
-                    <tr style='border-bottom:1px solid gray'>
+                <table style='font-size:10px;' width="600px;" class='p530'>
+                    <tr style='border-bottom:1px solid gray;padding-top:30px'>
                         <th class='p60'>Item</th>
                         <th  style='word-wrap: break-word; width:"290px"'>Description</th>
                         <th class='p60'>Unit Price</th>
                         <th class='p60'>QTY</th>
                         <th class='p60'>Price</th>
                     </tr>
-                    <tr><td colspan='5'><hr></td></tr>
                     @foreach ($somast->sotran as $item)
                         <tr style='border-bottom:1px solid lightgray'>
                             <td  class='p60'>{{$item->item}}</td>
@@ -177,14 +161,37 @@
                             <td class='p60'>${{$item->price}}</td>
                             <td class='p60'>${{$item->price * $item->qty}}</td>
                         </tr>
-                        <tr><td colspan='5'><hr></td></tr>
                     @endforeach
+                        
+                </table>
+                <table style='font-size:12px;' width="600px;" class='p530 text-center'>
+                    <tr>
+                        <th>
+                            Subtotal
+                        </th>
+                        <th>
+                            Shipping
+                        </th>
+                        <th>
+                            HST/GST/QST
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                    <tr>    
+                        <td>${{number_format($somast->subtotal,2)}}</td>
+                        <td>${{number_format($somast->shipping,2)}}</td>
+                        <td>${{number_format($somast->tax,2)}}</td>
+                        <td>${{$somast->subtotal + $somast->shipping + $somast->tax}}</td>
+                    </tr>
                 </table>
             </span>
             </td>
         </tr>
+        <br>
         <tr>
-            <td class='footer'>70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br> &copy; {{date("Y")}} Golden Leaf Automotive.
+            <td class='footer' colspan=2>70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br> &copy; {{date("Y")}} Golden Leaf Automotive.
                 All rights reserved.</td>
         </tr>
     </table>
