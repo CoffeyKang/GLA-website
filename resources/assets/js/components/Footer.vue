@@ -48,7 +48,7 @@
 	export default{
 		data(){
 			return {
-
+				
 			}
 		},
 		computed:{
@@ -57,6 +57,14 @@
 					return this.$store.state.loginStatus;
 				}
 			}
+		},
+
+		mounted(){
+			
+
+			
+
+			
 		},
 
 		methods:{

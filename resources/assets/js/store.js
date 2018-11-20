@@ -38,7 +38,6 @@ export const store = new Vuex.Store({
     US_states: country.US_states,
     exchange: 1.35,
     usdPrice: false,
-    useCookie: false,
   },
 
   mutations: {
@@ -63,9 +62,7 @@ export const store = new Vuex.Store({
     usdPrice(state, usdPrice) {
       state.usdPrice = usdPrice;
     },
-    useCookie(state, useCookie) {
-      state.useCookie = useCookie;
-    }
+   
 
   },
   modules: {

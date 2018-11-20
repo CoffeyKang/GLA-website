@@ -77,29 +77,32 @@
             </div>
             <div class="col-xs-12 ">
                 <fieldset  v-if="opt_card_status">
-                    <legend>Card Information</legend>
-                    <div class="control-group col-xs-4">
+                    <legend>Card Information -- We do not store your credit card details.</legend>
+                    <div class="control-group col-xs-8">
                         <label label-default="" class="control-label">Card Holder's Name</label>
                         <div class="controls">
                             <input type="text" id='cardName' class="form-control" pattern="\w+ \w+.*" placeholder="Name on card" required v-model='card.name'>
                         </div>
                     </div>
+                    <div class="control-group col-xs-4">
+                         
+                    </div>
+
                     <div class="control-group col-xs-8">
                         <label label-default="" class="control-label">Card Number</label>
                         <div class="controls">
-                            <div class="row">
-                                <div>
-                                    <input type="text" id='cardNumber' class="form-control" v-model='card.card' autocomplete="off" minlength="16" maxlength="16"  placeholder="Input your card number" required >
-                                </div>
-                            </div>
+                            <input type="text" id='cardNumber' class="form-control" v-model='card.card' autocomplete="off" minlength="16" maxlength="16"  placeholder="Input your card number" required >
                         </div>
                     </div>
+                    
+
                     <div class="control-group col-xs-6">
                         <label label-default="" class="control-label">Card Expiry Date</label>
                         <div class="controls">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <select class="form-control" name="cc_exp_mo" v-model='card.month'>
+                                <div class="col-md-5">
+                                    <input type="number"  class="form-control" id ='cardMonth' v-model='card.month' autocomplete="off" minlength="2" maxlength="2"  placeholder="MM" required >
+                                    <!-- <select class="form-control" name="cc_exp_mo" v-model='card.month'>
                                         <option value="01">January</option>
                                         <option value="02">February</option>
                                         <option value="03">March</option>
@@ -112,13 +115,11 @@
                                         <option value="10">October</option>
                                         <option value="11">November</option>
                                         <option value="12">December</option>
-                                    </select>
+                                    </select> -->
                                 </div>
+                                <div class="col-md-1" style='font-size:32px; line-height:36px;'> / </div>
                                 <div class="col-md-6">
-                                    
-                                    <select class="form-control" name="cc_exp_yr" v-model='card.year' >
-                                        <option v-for="year in myYear(2000)" :key="year">{{year}}</option>
-                                    </select>
+                                    <input type="number" id ='cardYear'  class="form-control" v-model='card.year' autocomplete="off" minlength="4" maxlength="4"  placeholder="Year" required >
                                 </div>
                             </div>
                         </div>
@@ -127,8 +128,8 @@
                         <label label-default="" class="control-label">Card CVV</label>
                         <div class="controls">
                             <div class="row">
-                                <div>
-                                    <input type="text" id='cardCVV' v-model='card.cvv' class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" placeholder="Three digits at back of your card">
+                                <div class='col-xs-4'>
+                                    <input type="text" id='cardCVV'  v-model='card.cvv' class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" placeholder="Three digits at back of your card">
                                 </div>
                             </div>
                         </div>
@@ -143,7 +144,7 @@
                 </fieldset>
 
                 <fieldset  v-if="opt_paypal_status">
-                    <legend>Pay with Paypal</legend>
+                    <legend>Pay with Paypal and Accept our shipping policy.</legend>
                     <!-- <div id="paypal-button" ></div> -->
                     <PayPal
                         :amount="parseFloat(total).toFixed(2).toString()"
@@ -198,7 +199,11 @@
                     </div>
 
                     <div class=' summary_list text-center' v-if="opt_card_status">
-                        <button class='mybtn btn btn-success' @click="placeOrder()">Place Order</button>
+                        <el-checkbox v-model="accept">Accept our shipping policy</el-checkbox>
+                    </div>
+                    <div class=' summary_list text-center' v-if="opt_card_status">
+                        
+                        <button class='mybtn btn btn-success' @click="placeOrder()" :disabled='!accept'>Place Order</button>
                     </div>
                     
                 </div>
@@ -233,8 +238,7 @@ export default {
             billing:[],
             edit:false,
             card:{
-               month:(new Date()).getMonth() +1,
-               year:(new Date()).getFullYear(),
+               
             },
             paymentError:false,
             error:'',
@@ -252,7 +256,7 @@ export default {
             opt_card_status:true,
             opt_paypal_status:false,
             myItems:[],
-            
+            accept:false,
             
         }
     },
@@ -340,13 +344,23 @@ export default {
         methods:{
             placeOrder(){
                 this.loading = 1;
-                if (!this.card.name || !this.card.card || !this.card.cvv || this.card.card.length<16) {
+                if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<4) {
                     if (!this.card.name) {
                         $('#cardName').css('border','1px solid red');
                     }else{}
                     
                     if (!this.card.card || this.card.card.length<16){
                         $('#cardNumber').css('border','1px solid red');
+                    }else{
+                    }
+
+                    if (!this.card.month || this.card.card.month<2){
+                        $('#cardMonth').css('border','1px solid red');
+                    }else{
+                    }
+
+                    if (!this.card.year || this.card.card.year<4){
+                        $('#cardYear').css('border','1px solid red');
                     }else{
                     }
 
@@ -442,6 +456,7 @@ export default {
 }
 </script>
 <style scoped>
+::placeholder{color: gray}
     .oneItem{
         border: 1px solid black;
         margin: 15px 0;

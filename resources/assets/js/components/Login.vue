@@ -103,6 +103,9 @@ export default {
                     myStorage.setItem('userInfo', JSON.stringify(response.data.userInfo));
 
                     myStorage.setItem('billing', JSON.stringify(response.data.billing));
+                    
+                    var timeStamp = new Date();
+                    myStorage.setItem('timeStamp',timeStamp.getTime());
                     if (response.data.userInfo) {
                         if (response.data.userInfo.m_country=='US'){
                             this.$store.commit('usdPrice',true);

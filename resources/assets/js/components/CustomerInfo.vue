@@ -20,11 +20,8 @@
 
         <!-- if do not have details, please enter details first -->
         <div v-if="!hasInfo" class='user_details container text-center' >
-            <div >
-                <div class="alert alert-success text-left col-xs-12 col-sm-8 col-sm-offset-2">
-                    Register a Golden Leaf Automotive account for a better shopping experience. You will be able to place order, check order status, 
-                    shipping progress and fast and easy check out. If you don't have an account, please create a new one.
-                </div>
+            <div>
+                
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                 <el-form  label-position="left" label-width="120px" :rules="rules" :model="details" ref="details" size="medium">
                     <el-card class="box-card">

@@ -6,6 +6,7 @@
 		<div class="item" v-if='showItem'>
 			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click="dialogVisible = true"> 
 			</div>
+			
 			<div class="words col-xs-offset-1 col-xs-5">
 				<div class="descrip">
 					<span style=' text-transform: uppercase'>{{ item.descrip }}</span>
@@ -67,7 +68,6 @@
 				<div class='related_item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + r.img_path + ')' }" @click="goTo(r.item)"> 
 					</div>
-
 					<div class="related_details text-left">
 						<li><span class='related_colum'>Item Number: #{{r.item}}</span> </li>
 						<li><b>{{r.descrip}}</b></li>
@@ -95,10 +95,9 @@
 			:visible.sync="dialogVisible"
 			custom-class='bigpic'
 			width=55%
-			:before-close="handleClose"
 			>
 			<span style='margin:auto;text-align:center'
-			><img :src="item.img_path" alt="" style='width:100%;'></span>
+			><img :src="item.img_path" alt="" style='width:100% '></span>
 			
 		</el-dialog>
 
@@ -267,7 +266,7 @@
 	    background-position: center;
 	    background-repeat: no-repeat;
 	    background-size: contain;
-	    height: 600px;
+	    height: 400px;
 		cursor: zoom-in;
 
 		
@@ -276,8 +275,6 @@
 	.words{
 		display: flex;
 		flex-direction: column;
-		
-		padding: 50px;
 	}
 	li{
 		list-style-type: none;
@@ -289,6 +286,10 @@
 		padding-top: 20px;
 		border-bottom: 1px black solid;
 		
+	}
+	.priceDiv{
+		border-bottom: none;
+		padding-bottom:50px;
 	}
 	.details{
 		font-size: 20px;

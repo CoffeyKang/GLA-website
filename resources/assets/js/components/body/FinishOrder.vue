@@ -24,34 +24,31 @@
                     170 ZENWAY BLVD UNIT#2<br>
                     WOODBRIDGE, ONTARIO L4H 2Y7<br>
                     TELEPHONE 905/850-3433<br>
-                    GST/HST # 86476 7512
+                    GST/HST # 864767512RT0001
                 </h4>
             </div>
 
             <div class="col-xs-6">
                 <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
-                <h4>
-                    170 ZENWAY BLVD UNIT#2<br>
-                    WOODBRIDGE, ONTARIO L4H 2Y7<br>
-                    TELEPHONE 905/850-3433<br>
-                    GST/HST # 86476 7512
+                <h4><br><br><br><br>
+                    
                 </h4>
             </div>
         </div>
         
         <div>
-            <div class="col-xs-6">
+            <div class="col-xs-6 addessLabel">
                 <el-card class="box-card" >
                             <h4>Bill To</h4>
                             <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}},  {{billing.city}}, {{billing.postalcode}}<br>{{billing.province}}, {{billing.country}}<br>{{billing.phone}}</h4>
                     </el-card>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-6 addessLabel" >
                 <div  v-if="address==0" >
                     
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{userInfo.m_surname + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>{{userInfo.m_state}}, {{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
+                            <h4>{{userInfo.m_forename + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>{{userInfo.m_state}}, {{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
                     </el-card>
                 </div>
 
@@ -200,7 +197,9 @@ export default {
 </script>
 
 <style>
-
+    .addessLabel{
+        text-transform: uppercase;
+    }
 .edit_title{
         background-color: black;
         color: white;

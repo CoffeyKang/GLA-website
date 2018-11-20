@@ -107,6 +107,9 @@ export default {
                 this.storage.setItem('user',JSON.stringify(user));
 
                 this.storage.setItem('userInfo',JSON.stringify(userInfo));
+
+                var timeStamp = new Date();
+                this.storage.setItem('timeStamp',timeStamp.getTime());
                 
                 let userData = JSON.parse(this.storage.getItem('user'));
                 

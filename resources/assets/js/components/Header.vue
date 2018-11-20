@@ -85,6 +85,18 @@
 
 		},
 		mounted(){
+			// calculate the mileseconds to determin localstorage exipire or not
+			var one_day=1000*60*60*24;
+			var today = (new Date()).getTime();
+			var timeStamp = this.storage.getItem('timeStamp')||today;
+			var diff = today - timeStamp;
+			diff = diff/one_day;
+
+			if (diff>=7) {
+				console.log('Localstorage expired');
+				this.logOut();
+			}else{
+			}
 			
 			//get exchange rate
 			
@@ -119,9 +131,9 @@
 					this.$store.commit('usdPrice',false);
 				}
 			}
-	
+			var accept = this.storage.getItem('accept');
 			// cookie notifacation
-			if (!this.$store.state.useCookie) {
+			if (!accept) {
 				this.$notify.info({
 					title: 'Why We Use Cookies',
 					dangerouslyUseHTMLString: true,
@@ -129,7 +141,7 @@
 					position: 'bottom-right',
 					duration: 10000,
 					onClick:function(){
-						
+						window.localStorage.setItem('accept',true);
 						this.close();
 					},
 					onClose:function(){
@@ -139,7 +151,7 @@
 
 			}
 			 
-			this.$store.commit('useCookie',true);
+			
 			
 			
 		},

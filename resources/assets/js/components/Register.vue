@@ -65,7 +65,7 @@
 
                             <div class="col-xs-12">
                                 <el-form-item>
-                                    <el-button type="success"  style="width: 100%; font-size:24px; padding:5px;" @click="register()">Register </el-button>
+                                    <el-button type="success"  style="width: 100%; font-size:24px; padding:5px;" @click="register()" disabled>Register </el-button>
                                 </el-form-item>
                             </div>
                             
@@ -75,7 +75,6 @@
                 
             </div>
             
-           
         
     </div>
 </template>
@@ -140,12 +139,15 @@
             }
         },
 
+        
+
         mounted(){
             let recaptchaScript = document.createElement('script')
                 recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit" async defer')
                 document.head.appendChild(recaptchaScript)
         },
         methods:{
+            
             
             checkPwd(str) {
                 if (str.length < 8) {

@@ -100,11 +100,13 @@
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
                             <div class="inRow">
-                                <el-form-item label="Last Name" prop='surname' component:input>
-                                    <el-input v-model="newAdd.surname"></el-input>
-                                </el-form-item>
+                               
                                 <el-form-item label="First Name" prop='forename'>
                                     <el-input v-model="newAdd.forename"></el-input>
+                                </el-form-item>
+
+                                 <el-form-item label="Last Name" prop='surname' component:input>
+                                    <el-input v-model="newAdd.surname"></el-input>
                                 </el-form-item>
                             </div>
                             <el-form-item label="Address" prop='address'>

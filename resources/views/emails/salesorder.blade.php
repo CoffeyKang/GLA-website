@@ -160,18 +160,13 @@
                     {{$user->userDetails->m_state}} {{$user->userDetails->m_zipcode}} @if($user->userDetails->m_country=="CA")CANADA @else USA @endif
                 @endif
 
-
-
-
                 <table style='font-size:10px;' width="530px" class='p530'>
                     <tr style='border-bottom:1px solid gray'>
-
                         <th class='p60'>Item</th>
                         <th  style='word-wrap: break-word; width:"290px"'>Description</th>
                         <th class='p60'>Unit Price</th>
                         <th class='p60'>QTY</th>
                         <th class='p60'>Price</th>
-                        
                     </tr>
                     <tr><td colspan='5'><hr></td></tr>
                     @foreach ($somast->sotran as $item)
