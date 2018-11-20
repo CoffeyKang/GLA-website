@@ -32,7 +32,7 @@
             <div class="userNav">
                 <div class="list-group">
                     <router-link to='/Dealer/HomePage' tag='a' class="list-group-item">My Account </router-link>
-                    <router-link to='/Dealer/HistoryOrder' tag='a' class="list-group-item">History Order<span v-if="orderHistory" class='num'> ({{orderHistory.length}})</span></router-link>
+                    <router-link to='/Dealer/HistoryOrder' tag='a' class="list-group-item">Order History<span v-if="orderHistory" class='num'> ({{orderHistory.length}})</span></router-link>
                     <!-- <router-link to='/Dealer/PendingOrder' tag='a' class="list-group-item">Pending Order<span v-if="orderHistory" class='num'> ({{pending.length}})</span></router-link> -->
                     <router-link to='/Dealer/HomePage' tag='a' class="list-group-item">Submit Inquiry</router-link>
                     <a @click="priceSheet()" class='list-group-item' style='cursor:pointer'>Download Price Sheet</a>

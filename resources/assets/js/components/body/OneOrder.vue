@@ -9,7 +9,7 @@
     <div v-if="!empty">
 
         <div class="edit_title" >
-            <span>Order Number : {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }} </span>
+            <span>Order Number: {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }} </span>
         </div>
         
         <table class="table table-striped table-hover">

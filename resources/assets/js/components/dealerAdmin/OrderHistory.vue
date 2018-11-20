@@ -8,8 +8,6 @@
                 <tr>
                     <th>Order Date</th>
                     <th>Order Number</th>
-                    <th>Order Status</th>
-                    <th style='width:100px;'>Track Num</th>
                     <th class='text-right'>Shipping</th>
                     <th class='text-right'>Tax</th>
                     <th class='text-right'>Subtotal</th>
@@ -19,21 +17,6 @@
                 <tr v-for="item in orderHistory.slice(from,end)" :key="item.sales_serial" @click='HistoryDetails(item.order_num)'>
                     <td>{{item.date_order.substring(0,10)}}</td>
                     <td>{{item.order_num}}</td>
-                    <th>
-                        <span v-if="item.sales_status==0">Unpaid
-                        </span>
-                        <span v-if="item.sales_status==1">Payment Success
-                        </span>
-                        <span v-if="item.sales_status==3">Pending for Quote
-                        </span>
-                        <span v-if="item.sales_status==5">Pending for Reply
-                        </span>
-                        <span v-if="item.sales_status==7">Under Process
-                        </span>
-                        <span v-if="item.sales_status==9">Shipped
-                        </span>
-                    </th>
-                    <td>{{item.track_num}}</td>
                      <td class='text-right'>$ {{parseFloat(item.shipping).toFixed(2)}}</td>
                      <td class='text-right'>$ {{parseFloat(item.tax).toFixed(2)}}</td>
                     <td class='text-right'>$ {{parseFloat(item.subtotal).toFixed(2)}}</td>

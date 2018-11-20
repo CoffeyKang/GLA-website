@@ -8,7 +8,7 @@
             <el-step title="Step 1"></el-step>
             <el-step title="Step 2"></el-step>
             <el-step title="Step 3"></el-step>
-            <el-step title="Step 4"></el-step>
+            
         </el-steps>
         <div class="col-sm-8" style='padding:0;'>
             <div>
@@ -105,13 +105,7 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span v-if="shippingRate=='quotable'">${{ parseFloat(shipping).toFixed(2) }}</span>
-                            <span v-if="shippingRate!='quotable'">TBD</span>
-                        </div>
-                    </div>
-                    <div class="summary_list">
-                        <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst }}</span>
+                            <span>HST/GST/QST:</span><span>${{ hst }}</span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -127,7 +121,7 @@
                 
 
                 <div class=" text-center" >
-                    <button class='mybtn btn btn-success' @click='confirm()'>Get a Quote</button>
+                    <button class='mybtn btn btn-success' @click='confirm()'>Place Order</button>
                     <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
                 

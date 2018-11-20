@@ -1,6 +1,5 @@
 <template>
 	<div class='container'>
-		
 		<div class='wishBody'>
 			<div class='wishilist-items container-fuild col-sm-8'>
 				<div class="container-fulid oneItem" v-for="item in items" :key="item.item" >
@@ -17,7 +16,6 @@
                             <span class='info'>Year Fit: {{item.year_from}} -- {{item.year_end}}</span>
                             <span class='info'>Make: {{item.make}}</span>
                         </div>
-                        
                         
                         <div class="instock">
                             In-stock: {{item.onhand}}
@@ -195,6 +193,9 @@
 </script>
 
 <style scoped>
+	.container{
+		padding: 30px 0 30px 0;
+	}
 	.oneItem{
         border: 1px solid black;
         margin: 15px 0;

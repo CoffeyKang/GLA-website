@@ -7,133 +7,135 @@
             <el-step title="Step 3"></el-step>
             <el-step title="Step 4"></el-step>
         </el-steps>
-        <div class="col-sm-8" style='padding:0;'>
-            <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
-                <div class='singleItem'>
-                    <div class="itemImg" >
-                        <div id="itemImg" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
-                            
+        <div class="container-fluid body">
+        
+            <div class="col-sm-8" style='padding:0;'>
+                <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
+                    <div class='singleItem'>
+                        <div class="itemImg" >
+                            <div id="itemImg" :style="{ backgroundImage: 'url(' + item.img_path + ')' }">
+                                
+                            </div>
                         </div>
-                    </div>
-                    <div class="itemDetails">
-                        <div class="desc">
-                            <span class='title'>{{item.descrip}}</span>
-                            <span class='info'>Product No: {{item.item}}</span>
-                            <span class='info'>Year Fit: {{item.year_from}} -- {{item.year_end}}</span>
-                            <span class='info'>Make: {{item.make}}</span>
-                        </div>
-                        
-                        <div class="qty">
-                            <b style='width:50px; height:28px;line-height:28px;'> QTY: </b>
-                            
-                            <input type="number" :value="parseInt(storage.getItem(item.item))"
-                                style='width:50px;' min="0" :max="parseInt(item.onhand)" :id="item.item">
-                            <div style='height:28px; padding-left:15px;' class='update_link'>
-                                <button class='btn btn-link' @click="updateCart(item)">Update</button>
+                        <div class="itemDetails">
+                            <div class="desc">
+                                <span class='title'>{{item.descrip}}</span>
+                                <span class='info'>Product No: {{item.item}}</span>
+                                <span class='info'>Year Fit: {{item.year_from}} -- {{item.year_end}}</span>
+                                <span class='info'>Make: {{item.make}}</span>
                             </div>
                             
+                            <div class="qty">
+                                <b style='width:50px; height:28px;line-height:28px;'> QTY: </b>
+                                
+                                <input type="number" :value="parseInt(storage.getItem(item.item))"
+                                    style='width:50px;' min="0" :max="parseInt(item.onhand)" :id="item.item">
+                                <div style='height:28px; padding-left:15px;' class='update_link'>
+                                    <button class='btn btn-link' @click="updateCart(item)">Update</button>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="instock">
+                                In-stock: {{item.onhand}}
+                            </div>
+                        </div>
+                        <div class="item_action text-right">
+                            <div class="closure ">
+                                <span class="glyphicon glyphicon-remove" @click="removeFromCart(item)"></span>
+                            </div>
+                            <div class="toWish" @click='removeToWish(item)'>
+                                Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
+                            </div>
+                            <div class="price" v-if="item.onhand -item.aloc > item.orderpt && disc">
+                                <span>
+                                    SALE: CAD ${{item.pricel |discount10 |decimal}}<br>
+                                    <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange)|discount10 |decimal }}</span>
+                                </span>
+                                <span>
+                                    TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |discount10 |decimal}}<br>
+                                    <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange)|discount10 |decimal }}</span>
+                                </span>
+                            </div>
+
+                            <div class="price" v-if="item.onhand-item.aloc <= item.orderpt || !disc">
+                                <span>
+                                    PRICE: CAD ${{item.pricel |decimal }}<br>
+                                    <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
+                                </span>
+                                <span>
+                                    TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}<br>
+                                    <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
+                                </span>
+                            </div>
+
                             
                         </div>
-                        <div class="instock">
-                            In-stock: {{item.onhand}}
+                    </div>
+                </div>
+                <div class="container-fulid oneItem alert alert-warning" v-if="carts.length<1" style='border:0'>
+                    <h5>Your Shopping Cart is empty.</h5>
+                    
+                </div>
+            </div>
+            <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
+                <div class="summary" >
+                    <div class="summary_title">
+                        ORDER SUMMARY
+                    </div>
+                    <div class="summary_details">
+                        <div class="summary_list">
+                            <div class='summary_amount'>
+                                <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ subtotal|decimal }}<br>
+                                    <span v-if='usdPrice' class='usdPrice '>USD ${{ (subtotal/$store.state.exchange).toFixed(2) }}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="summary_list" v-if="!ifDealer()">
+                            <div class='summary_amount'>
+                                <span>SHIPPING:</span><span>${{ shipping }}</span>
+                            </div>
+                        </div>
+                        <div class="summary_list">
+                            <div class='summary_amount'>
+                                <span>HST/GST/QST:</span><span>${{ hst }}</span>
+                            </div>
+                        </div>
+                        <div class="summary_list">
+                            <div class='summary_amount text-right'>
+                                <span>TOTAL:</span><span class='text-right'>CAD ${{ total }}<br>
+                                <span v-if='usdPrice' class='usdPrice'>USD ${{ (total/$store.state.exchange).toFixed(2) }}</span></span>
+                                
+                            </div>
                         </div>
                     </div>
-                    <div class="item_action text-right">
-                        <div class="closure ">
-                            <span class="glyphicon glyphicon-remove" @click="removeFromCart(item)"></span>
-                        </div>
-                        <div class="toWish" @click='removeToWish(item)'>
-                            Add to Wishlist <span class="glyphicon glyphicon-heart-empty"></span>
-                        </div>
-                        <div class="price" v-if="item.onhand -item.aloc > item.orderpt && disc">
-                            <span>
-                                SALE: CAD ${{item.pricel |discount10 |decimal}}<br>
-                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange)|discount10 |decimal }}</span>
-                            </span>
-                            <span>
-                                TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |discount10 |decimal}}<br>
-                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange)|discount10 |decimal }}</span>
-                            </span>
-                        </div>
 
-                        <div class="price" v-if="item.onhand-item.aloc <= item.orderpt || !disc">
-                            <span>
-                                PRICE: CAD ${{item.pricel |decimal }}<br>
-                                <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
-                            </span>
-                            <span>
-                                TOTAL: CAD ${{(item.pricel) * parseInt(storage.getItem(item.item)) |decimal}}<br>
-                                 <span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel) * parseInt(storage.getItem(item.item))/$store.state.exchange).toFixed(2) }}</span>
-                            </span>
-                        </div>
+                    <div class="processBTN text-center">
+                        <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1&& !isDealer">Proceed To
+                        Check Out</button>
+                    
+                    </div>
+                        
 
+                    <div class="processBTN text-center" style='margin-top:10px'>
+                        
+                        <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& !isDealer">Continue Shopping</button>
+                    </div>
+
+                    <div class="processBTN text-center ">
+                        <button class='mybtn btn btn-success' @click='dealerCheckOut()' v-if="carts.length>=1&& isDealer">Proceed To
+                        Check Out</button>
+                        
+                    </div>
+
+                    <div class="processBTN text-center" style='margin-top:10px'>
+                        
+                        <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& isDealer">Continue Shopping</button>
                         
                     </div>
                 </div>
             </div>
-            <div class="container-fulid oneItem alert alert-warning" v-if="carts.length<1" style='border:0'>
-                <h5>Your Shopping Cart is empty.</h5>
-                
-            </div>
         </div>
-        <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
-            <div class="summary" >
-                <div class="summary_title">
-                    ORDER SUMMARY
-                </div>
-                <div class="summary_details">
-                    <div class="summary_list">
-                        <div class='summary_amount'>
-                            <span>SUBTOTAL:</span><span class='text-right'>CAD ${{ subtotal|decimal }}<br>
-                                <span v-if='usdPrice' class='usdPrice '>USD ${{ (subtotal/$store.state.exchange).toFixed(2) }}</span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="summary_list">
-                        <div class='summary_amount'>
-                            <span>SHIPPING:</span><span>${{ shipping }}</span>
-                        </div>
-                    </div>
-                    <div class="summary_list">
-                        <div class='summary_amount'>
-                            <span>HST:</span><span>${{ hst }}</span>
-                        </div>
-                    </div>
-                    <div class="summary_list">
-                        <div class='summary_amount text-right'>
-                            <span>TOTAL:</span><span class='text-right'>CAD ${{ total }}<br>
-                            <span v-if='usdPrice' class='usdPrice'>USD ${{ (total/$store.state.exchange).toFixed(2) }}</span></span>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                <div class="processBTN text-center">
-                    <button class='mybtn btn btn-success' @click='checkOut()' v-if="carts.length>=1&& !isDealer">Proceed To
-                    Check Out</button>
-                
-                </div>
-                    
-
-                <div class="processBTN text-center" style='margin-top:10px'>
-                    
-                    <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& !isDealer">Continue Shopping</button>
-                </div>
-
-                <div class="processBTN text-center ">
-                    <button class='mybtn btn btn-success' @click='dealerCheckOut()' v-if="carts.length>=1&& isDealer">Proceed To
-                    Check Out</button>
-                    
-                </div>
-
-                <div class="processBTN text-center" style='margin-top:10px'>
-                    
-                    <button class='mybtn btn btn-warning' @click='continueShopping()' v-if="carts.length>=1&& isDealer">Continue Shopping</button>
-                    
-                </div>
-            </div>
-        </div>
-        
     </div>
 </template>
 <script>
@@ -404,6 +406,9 @@ export default {
 }
 </script>
 <style scoped>
+    .body{
+        margin-bottom: 35px;
+    }
     .oneItem{
         border: 1px solid black;
         margin: 15px 0;

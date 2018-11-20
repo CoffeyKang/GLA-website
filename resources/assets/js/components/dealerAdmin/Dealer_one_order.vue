@@ -8,14 +8,14 @@
     <div v-if="!empty">
         
         <div class="edit_title" >
-            <span>Order Number : {{so}} Almost Complate</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
+            <span>Order Number : {{so}} </span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
 
         <el-steps :active="3" finish-status="success">
             <el-step title="Step 1"></el-step>
             <el-step title="Step 2"></el-step>
             <el-step title="Step 3"></el-step>
-            <el-step title="Step 4"></el-step>
+            
         </el-steps>
         <div>
             <div class="col-xs-6">
@@ -24,17 +24,17 @@
                     170 ZENWAY BLVD UNIT#2<br>
                     WOODBRIDGE, ONTARIO L4H 2Y7<br>
                     TELEPHONE 905/850-3433<br>
-                    GST/HST # 86476 7512
+                    GST/HST # 864767512RT0001
                 </h4>
             </div>
 
             <div class="col-xs-6">
                 <h1><b style='font-size:80%'>SALES ORDER {{somast.order_num}}</b></h1>
                 <h4>
-                    170 ZENWAY BLVD UNIT#2<br>
-                    WOODBRIDGE, ONTARIO L4H 2Y7<br>
-                    TELEPHONE 905/850-3433<br>
-                    GST/HST # 86476 7512
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </h4>
             </div>
         </div>

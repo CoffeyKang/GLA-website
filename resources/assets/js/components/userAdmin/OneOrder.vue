@@ -1,25 +1,64 @@
 <template>
 <div>
-   
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
         </div>
     </div>
     <div v-if="!empty">
-
         <div class="edit_title" >
-            <span>Order Number : {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }} </span>
+            <span>Order Number : {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
-        <div v-if="somast.sales_status==9">
-            Track Order: <u style='cursor:pointer' @click='track(somast.track_num)' >{{somast.track_num}}</u>
+        <div class='row'>
+            <div class="col-xs-6">
+                <h1><i>GOLDEN LEAF AUTOMOTIVE</i></h1>
+                <h4>
+                    170 ZENWAY BLVD UNIT#2<br>
+                    WOODBRIDGE, ONTARIO L4H 2Y7<br>
+                    TELEPHONE 905/850-3433<br>
+                    GST/HST # 864767512RT0001
+                </h4>
+            </div>
+            <div class="col-xs-6">
+                <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
+                <h4><br><br><br><br>
+                    
+                </h4>
+            </div>
         </div>
+        
+        <div>
+            <div class="col-xs-6 addessLabel">
+                <el-card class="box-card" >
+                            <h4>Bill To</h4>
+                            <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}},  {{billing.city}},<br> {{billing.postalcode}}, {{billing.province}}, {{billing.country}}<br>{{billing.phone}}</h4>
+                    </el-card>
+            </div>
+            <div class="col-xs-6 addessLabel" >
+                <div  v-if="address==0" >
+                    
+                    <el-card class="box-card" >
+                            <h4>Ship To</h4>
+                            <h4>{{userInfo.m_forename + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},  {{userInfo.m_city}},<br> {{userInfo.m_zipcode}},{{userInfo.m_state}}, {{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
+                    </el-card>
+                </div>
+
+                <div v-if="address!=0" >
+                    <el-card class="box-card" >
+                            <h4>Ship To</h4>
+                            <h4>{{address.surname + ' ' + address.surname}} <br> <br>{{address.address}},  {{address.city}}, <br>{{address.zipcode}},{{address.state}}, {{address.country}}<br>{{address.tel}}</h4>
+                    </el-card>
+                </div>
+            </div>
+        </div>
+        
+        
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
                 <th>Item</th>
                 <th>QTY</th>
-                <th>Compatiable Make</th>
+                <th>Description</th>
                 <th>Price</th>
                 </tr>
             </thead>
@@ -27,13 +66,34 @@
                 <tr v-for="item in oneOrder" :key="item.order_serial">
                     <td>{{item.item}}</td>
                     <td>{{item.qty}}</td>
-                    <th>{{item.make.replace('_ca','').toUpperCase()}}</th>
+                    <th>{{item.descrip.toUpperCase()}}</th>
                     <td >$ {{item.price.toFixed(2)}}</td>
                 </tr>
             </tbody>
+            
+        </table>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Shipping</th>
+                    <th>Estimate Shipping Days</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <th>${{somast.shipping}}</th>
+                    <th>{{somast.shippingdays}}</th>
+                    <th>${{somast.subtotal|decimal}}</th>
+                    <th>${{somast.tax|decimal}}</th>
+                    <th>{{statusCode}}</th>
+                </tr>
+            </thead>
         </table>
         <div class="text-right">
-            <el-button type='primary' @click='$router.push({name:"OrderHistory"})'>Back</el-button>    
+            <el-button type='success' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>Print Order</el-button>
+            <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
+            <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>    
         </div>  
     </div>
 </div>        
@@ -45,16 +105,58 @@ export default {
         return {
             so:this.$route.params.order_num,
             storage:window.localStorage,
-            id:0,
+            account:0,
             oneOrder:[],
             somast:[],
             empty:false,
             show:false,
-
+            address:[],
+            userInfo:[],
+            billing:[],
         }
     },
+    computed:{
+        statusCode(){
+            var status = '';
+            switch (this.somast.sales_status) {
+                case'':
+                    status = 'Payment Failed';
+                    break;
+                case 1:
+                    status = 'Paid';
+                    break;
+                case 3:
+                    status = 'Pending for Quote';
+                    break;
+                case 5:
+                    status = 'Pending for Reply';
+                    break;
+                case 7:
+                    status = 'Under Process';
+                    break;
+                case 9:
+                    status = 'Shipped';
+                    break;
+                default:
+                    status = 'Shipped';
+                    break;
+            }
 
+            return status;
+        }
+    },
+    filters:{
+        decimal:function(value){
+                if (!isNaN(value)) {
+                    return value.toFixed(2)
+                }else{
+                    return value;
+                }
+            }
+    },
     mounted(){
+        this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+        this.billing = JSON.parse(this.storage.getItem('billing'));
         this.id = JSON.parse(this.storage.getItem('user')).id;
         this.$http.get('/api/oneOrder', { params: { 'so': this.so,'id': this.id } }).then(response => {
         if (response.data.status=='invalid') {
@@ -65,27 +167,22 @@ export default {
                     type:'error',
                 }
             );
-            this.$router.push({name:'userHome'});
+            // this.$router.push({name:'userHome'});
         }else{
+
             this.oneOrder = response.data.oneOrder;
             this.somast = response.data.somast;
             this.status = response.data.status;
             this.show = true;
+            this.address = response.data.address;
+            this.oneOrder.forEach(element => {
+                this.storage.removeItem(element.item);
+            });
         }
         
       },function(){
           this.empty=true;
       });
-    },
-    methods:{
-        track(track){
-            var url = "https://loomisexpress.com/webship/wfTrackingStatus.aspx?PieceNumber="+track+"&locale=en";
-            if (track.length>=1) {
-                window.open(url,'_blank');
-            }else{
-
-            }
-        },
     }
 
 
@@ -93,7 +190,9 @@ export default {
 </script>
 
 <style>
-
+    .addessLabel{
+        text-transform: uppercase;
+    }
 .edit_title{
         background-color: black;
         color: white;
