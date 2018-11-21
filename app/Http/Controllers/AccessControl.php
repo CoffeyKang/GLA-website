@@ -24,6 +24,7 @@ use DB;
 use Excel;
 use Mail;
 use App\Mail\registration;
+use App\Mail\SalesOrder;
 
 
 
@@ -101,8 +102,9 @@ class AccessControl extends Controller
             'password' => bcrypt($password),
         ]);
         
+        @Mail::to("$user->email")->send(new registration($user));
+       
 
-        Mail::to("$user->email")->send(new registration($user));
         
         $userInfo = UserInfo::where('m_id',$user->id)->first();
 
@@ -366,27 +368,25 @@ class AccessControl extends Controller
 
         $user = User::find(18);
 
-        $somast = SOMAST::where('order_num',1000573)->first();
+        $somast = SOMAST::where('order_num',1000514)->first();
+        soSendemail($somast);
 
-        $sotran = $somast->sotran;
+        // $sotran = SOTRAN::where('order_num',1000512)->get();
 
-        $billing = $user->BillingAddress;
+        // $billing = $user->BillingAddress;
 
-        $add_id = $somast->address;
+        // $add_id = $somast->address;
 
-        if (!$add_id==0) {
-            $address = AddressBook::find($add_id);
-        }else{
-            $address =AddressBook::find(1);
-        }
+        // if (!$add_id==0) {
+        //     $address = AddressBook::find($add_id);
+        // }else{
+        //     $address =AddressBook::find(1);
+        // }
 
+        // Mail::to('fkang@velements.com')->send(new SalesOrder($user,$somast,$billing,$address));
+        // Mail::to('coffeykang@gmail.com')->send(new SalesOrder($user,$somast,$billing,$address));
         
-        
-        return view('emails.registration', compact('user','somast','sotran','address','billing'));
-        // echo $user->password;
-        // @Mail::to("fkang@velements.com")->send(
-        //     (new registration($user))
-        // );
+        // return view('emails.salesorder', compact('user','somast','sotran','address','billing'));
 
         
         

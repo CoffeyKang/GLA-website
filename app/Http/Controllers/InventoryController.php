@@ -22,6 +22,10 @@ use App\Catalog;
 use App\Temp_SO_dealer;
 use App\ExchangeRate;
 use App\Popular;
+use Excel;
+use Mail;
+use App\Mail\registration;
+use App\Mail\SalesOrder;
 /** use LOG */
 use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
@@ -1894,6 +1898,10 @@ class InventoryController extends Controller
                 $item->delete();
             }
 
+            /**
+             * send email 
+             */
+            soSendemail($somast);
             return response()->json(['result'=>$result],200);
             
         } catch (\Beanstream\Exception $e) {
@@ -2024,7 +2032,7 @@ class InventoryController extends Controller
 
                 $item->delete();
             }
-
+            soSendemail($somast);
             return response()->json(['result'=>$somast],200);
             
            

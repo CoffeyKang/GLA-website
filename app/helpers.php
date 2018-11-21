@@ -1,5 +1,11 @@
 <?php
 use App\Inventory;
+use App\SOMAST;
+use App\AddressBook;
+use App\Billing;
+use App\User;
+use App\Mail\registration;
+use App\Mail\SalesOrder;
 
     function InventoryExcelFile(){
         // Generate and return the spreadsheet price 
@@ -84,6 +90,24 @@ use App\Inventory;
                 });
             })->store('XLS', public_path('Excel'));
         });  
+    }
+
+    function soSendemail(SOMAST $somast){
+        
+        $user = $somast->customer;
+
+        $billing = $user->BillingAddress;
+
+        $add_id = $somast->address;
+
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
+
+        Mail::to("$user->email")->send(new SalesOrder($user,$somast,$billing,$address));
+        
     }
 
     

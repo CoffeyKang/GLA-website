@@ -31,13 +31,11 @@ class SalesOrder extends Mailable
 
     public $address;
     
-    public function __construct(User $user, SOMAST $somast, SOTRAN $sotran, Billing $billing, AddressBook $address)
+    public function __construct(User $user, SOMAST $somast, Billing $billing, AddressBook $address)
     {
         $this->user = $user;
 
         $this->somast = $somast;
-
-        $this->sotran = $sotran;
 
         $this->billing = $billing;
 
