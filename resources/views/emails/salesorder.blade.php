@@ -64,6 +64,9 @@
             width: 60px;
         }
         .p530{width: 600px;}
+        .p300{
+            width: 300px;
+        }
         .p105{
             width: 105px;
 
@@ -108,28 +111,15 @@
 
                 <b>ORDER # {{$somast->order_num}}</b><br>
                 <span>Order Placed on {{substr($somast->date_order,0,10)}}</span>
+                
                 <table width="600px" class='pd-10'>
                     <tr>
-                        <td class='p265' style='text-align: left'>
-                            <b>BILLING ADDRESS</b>
-                        </td>
-                        <td class='p265' style='text-align: left'>
-                            <b>SHIPPING ADDRESS</b>
+                        <td style='text-align: left;  '>
+                            <b ><br>SHIPPING TO</b>
                         </td>
                     </tr>
                     <tr>
-                        <td style='background-color:darkgray; text-align: left;text-transform:uppercase'>
-                            {{$billing->firstname}} {{$billing->lastname}}<br>
-                            {{$billing->address1}} @if (strlen($billing->address2)>=1)
-                                {{$billing->address2}}
-                            @endif <br>
-                            {{$billing->city}}, {{$billing->province}}
-                            {{$billing->postalcode}}
-                            {{$billing->country}}<br>
-                            
-                        </td>
-
-                        <td style='background-color:lightgray; text-align: left; text-transform:uppercase'>
+                        <td style='text-align: left; text-transform:uppercase; font-weight:700'>
                             @if ($address->id!=1) {{$address->forename}} {{$address->surname}}<br>{{$address->address}}<br> {{$address->city}} {{$address->state}}
                             {{$address->zipcode}} @if($address->country=="CA")CANADA @else USA @endif 
                             @else {{$user->firstname}} {{$user->lastname}}<br>
@@ -146,45 +136,56 @@
                 
 
                 <table style='font-size:10px;' width="600px;" class='p530'>
+                    <tr>
+                        <td colspan=5 style='text-align: left'>
+                            <b style='font-size:14px !important'>ORDER DETAILS</b>
+                        </td>
+                    </tr>
                     <tr style='border-bottom:1px solid gray;padding-top:30px'>
                         <th class='p60'>Item</th>
                         <th  style='word-wrap: break-word; width:"290px"'>Description</th>
                         <th class='p60'>Unit Price</th>
                         <th class='p60'>QTY</th>
-                        <th class='p60'>Price</th>
+                        <th class='p60 text-right'>Price</th>
                     </tr>
                     @foreach ($somast->sotran as $item)
                         <tr style='border-bottom:1px solid lightgray'>
                             <td  class='p60'>{{$item->item}}</td>
                             <td style='word-wrap: break-word; width:"290px"'>{{$item->itemInfo->descrip}}</td>
                             <td  class='p60'>{{$item->qty}}</td>
-                            <td class='p60'>${{$item->price}}</td>
-                            <td class='p60'>${{$item->price * $item->qty}}</td>
+                            <td class='p60'>${{number_format($item->price,2)}}</td>
+                            <td class='p60 text-right' >${{number_format($item->price * $item->qty,2)}}</td>
                         </tr>
                     @endforeach
                         
                 </table>
+                <br>
                 <table style='font-size:12px;' width="600px;" class='p530 text-center'>
+                    
                     <tr>
-                        <th>
-                            Subtotal
-                        </th>
-                        <th>
-                            Shipping
-                        </th>
-                        <th>
-                            HST/GST/QST
-                        </th>
-                        <th>
-                            Total
-                        </th>
+                        <td class='p300 text-right'>
+
+                        </td>
+                        <td>
+                            <table width="600px;" class='p300 text-right'>
+                                <tr>
+                                    <td>
+                                        Subtotal <br>
+                                        Shipping <br>
+                                        HST/GST/QST <br>
+                                        <b>Total</b> <br><br>
+                                    </td>
+                                    <td>
+                                        ${{number_format($somast->subtotal,2)}}<br>
+                                        ${{number_format($somast->shipping,2)}}<br>
+                                        ${{number_format($somast->tax,2)}}<br>
+                                        <b>${{$somast->subtotal + $somast->shipping + $somast->tax}}</b><br><br>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
-                    <tr>    
-                        <td>${{number_format($somast->subtotal,2)}}</td>
-                        <td>${{number_format($somast->shipping,2)}}</td>
-                        <td>${{number_format($somast->tax,2)}}</td>
-                        <td>${{$somast->subtotal + $somast->shipping + $somast->tax}}</td>
-                    </tr>
+                    
                 </table>
             </span>
             </td>

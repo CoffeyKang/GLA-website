@@ -110,5 +110,10 @@ use App\Mail\SalesOrder;
         
     }
 
+    function test(){
+        $time  = date('Y-m-d');
+        echo $time;
+    }
+
     
 ?>

@@ -366,27 +366,25 @@ class AccessControl extends Controller
     /** test page */
     public function kang(){
 
-        $user = User::find(18);
+        $somast = SOMAST::where('order_num',1000580)->first();
 
-        $somast = SOMAST::where('order_num',1000514)->first();
-        soSendemail($somast);
+        $user = $somast->customer;
 
-        // $sotran = SOTRAN::where('order_num',1000512)->get();
+        $billing = $user->BillingAddress;
 
-        // $billing = $user->BillingAddress;
+        $add_id = $somast->address;
 
-        // $add_id = $somast->address;
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
 
-        // if (!$add_id==0) {
-        //     $address = AddressBook::find($add_id);
-        // }else{
-        //     $address =AddressBook::find(1);
-        // }
-
-        // Mail::to('fkang@velements.com')->send(new SalesOrder($user,$somast,$billing,$address));
-        // Mail::to('coffeykang@gmail.com')->send(new SalesOrder($user,$somast,$billing,$address));
         
-        // return view('emails.salesorder', compact('user','somast','sotran','address','billing'));
+
+        return view('emails.salesorder',compact('user','somast','billing','address'));
+
+        
 
         
         

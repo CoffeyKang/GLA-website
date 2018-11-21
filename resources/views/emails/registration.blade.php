@@ -28,6 +28,7 @@
         .content{
             text-align: left !important;
             padding: 50px 0;
+            
         }
         .text-right{ text-align: right; } .text-left{ text-align: left; }
 
@@ -39,7 +40,8 @@
             text-align: center;
         }
         .hi{
-            font-size: 120%;
+            font-size: 150%;
+            color: #1d4077;
         }
         .headerNav{ font-size: 20px; color: #1d4077; font-weight: 700; border-bottom:1px solid black; } .headerNav a{ color: #1d4077;
         } .headerNav a:hover{ text-decoration: none; }
@@ -62,11 +64,11 @@
             <td colspan=2 style='padding-top:30px'><span class='hi'>Hi {{$user->firstname}},</span><br>
             <p>Your Account {{ $user->email }} has been set up.</p>
             <p>You can always log in to your account to check your order status and update your personal information.</p>
-            <p>If you have any questions, please feel free to contact us.</p></td>
+            <p>If you have any questions, please feel free to contact us.<br><br></p></td>
         </tr>
-        <br>
+        
         <tr>
-            <td class='footer' colspan=2 >70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br>
+            <td class='footer' colspan=2  >70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br>
             &copy; {{date("Y")}} Golden Leaf Automotive. All rights reserved.</td>
         </tr>
     </table>
