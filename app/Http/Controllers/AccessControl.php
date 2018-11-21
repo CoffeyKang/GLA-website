@@ -25,6 +25,7 @@ use Excel;
 use Mail;
 use App\Mail\registration;
 use App\Mail\SalesOrder;
+use App\Mail\LeaveMessege;
 
 
 
@@ -363,26 +364,34 @@ class AccessControl extends Controller
        
 
     }
+
+    /** sending email to inquiry */
+
+    public function inquiry(Request $request){
+        $email['user'] = $request->user;
+        $email['subject'] = $request->subject;
+        $email['messege'] = $request->subject;
+        
+        Mail::to('fkang@velements.com')->send(new LeaveMessege($email));
+
+
+
+
+
+        return response()->json(['status'=>true],200);
+    }
     /** test page */
     public function kang(){
 
-        $somast = SOMAST::where('order_num',1000580)->first();
-
-        $user = $somast->customer;
-
-        $billing = $user->BillingAddress;
-
-        $add_id = $somast->address;
-
-        if (!$add_id==0) {
-            $address = AddressBook::find($add_id);
-        }else{
-            $address =AddressBook::find(1);
-        }
+        $email = [
+            'subject'=>'hello',
+            'user' =>'james',
+            'messege'=>'my name is james kang'
+        ];
 
         
 
-        return view('emails.salesorder',compact('user','somast','billing','address'));
+        return view('emails.messege',compact('email'));
 
         
 

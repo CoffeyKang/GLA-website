@@ -115,7 +115,7 @@
                 },
                 rules:{
                     firstname:[
-                        { required: true, message: 'FIrst name is required.', trigger: 'blur', max:99 }
+                        { required: true, message: 'Frrst name is required.', trigger: 'blur', max:99 }
                     ],
                     lastname:[
                         { required: true, message: 'Last name is required.', trigger: 'blur', max:99 },

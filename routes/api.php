@@ -163,6 +163,8 @@ Route::post('/finishOrder_paypal','InventoryController@placeOrder_paypal');
 
 Route::get('/special/{page}','InventoryController@special');
 
+Route::post('/inquiry','AccessControl@inquiry');
+
 
 
 
