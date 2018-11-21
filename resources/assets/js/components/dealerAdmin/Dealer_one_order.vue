@@ -58,9 +58,7 @@
                 <div v-if="address!=''" >
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{address.company}}<br> <br>
-                            {{address.address}},  {{address.city}}, {{address.postalcode}}<br>
-                            {{address.province}}, {{address.country}}<br>{{address.tel}}</h4>
+                            <h4>{{address.company}}<br><br>{{address.address}},  {{address.city}}, {{address.postalcode}}<br>{{address.province}}, <span v-if="address.country=='CA'">Canada</span> <span v-if="address.country=='US'">US</span><br>{{address.tel}}</h4>
                     </el-card>
                 </div>
             </div>

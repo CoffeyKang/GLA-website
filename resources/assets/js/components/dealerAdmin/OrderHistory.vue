@@ -14,13 +14,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in orderHistory.slice(from,end)" :key="item.sales_serial" @click='HistoryDetails(item.order_num)'>
+                <tr v-for="item in orderHistory.slice(from,end)" :key="item.sales_serial" @click='HistoryDetails(item.order_num)' style='cursor:pointer'>
                     <td>{{item.date_order.substring(0,10)}}</td>
                     <td>{{item.order_num}}</td>
                      <td class='text-right'>$ {{parseFloat(item.shipping).toFixed(2)}}</td>
                      <td class='text-right'>$ {{parseFloat(item.tax).toFixed(2)}}</td>
                     <td class='text-right'>$ {{parseFloat(item.subtotal).toFixed(2)}}</td>
-                    
                 </tr>
             </tbody>
         </table>
