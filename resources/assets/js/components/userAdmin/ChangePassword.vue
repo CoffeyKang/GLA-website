@@ -24,8 +24,8 @@
                             <el-input type='password' v-model="pass.newPass" placeholder="New Password" ></el-input>
                         </el-form-item>
 
-                        <el-form-item label="Confimr Password" prop='confirmPass'>
-                            <el-input type='password' v-model="pass.confirmPass" placeholder="Confimr Password"  ></el-input>
+                        <el-form-item label="Confirm Password" prop='confirmPass'>
+                            <el-input type='password' v-model="pass.confirmPass" placeholder="Confirm Password"  ></el-input>
                         </el-form-item>
                         
                         

@@ -1,7 +1,7 @@
 <template>
 	<div class='container ItemDetails'>
 		<div class="nav" id='top'>
-			<span @click='backToSearch()' class='backToSearch'>RETURN TO SEARCH RESAULT</span>
+			<span @click='backToSearch()' class='backToSearch' v-if="search">RETURN TO SEARCH RESAULT</span>
 		</div>
 		<div class="item" v-if='showItem'>
 			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click="dialogVisible = true"> 
@@ -238,6 +238,18 @@
 			},
 			usdPrice(){
 				return	this.$store.state.usdPrice;
+			},
+
+			search(){
+				if (
+					this.$store.state.search.item=="thisIsItem"&&
+					this.$store.state.search.desc=="zheshidewc"&&
+					this.$store.state.search.make=="make"
+					) {
+					return false;
+				}else{
+					return true;
+				}
 			}
 
 		}

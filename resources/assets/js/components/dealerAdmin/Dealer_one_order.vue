@@ -47,7 +47,7 @@
                     </el-card>
             </div>
             <div class="col-xs-6">
-                <div  v-if="address==false" >
+                <div  v-if="address==''" >
                     
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
@@ -55,12 +55,12 @@
                     </el-card>
                 </div>
 
-                <div v-if="address!=false" >
+                <div v-if="address!=''" >
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
                             <h4>{{address.company}}<br> <br>
-                            {{address.address1}},  {{address.city}}, {{address.zip}}<br>
-                            {{address.terr}}, {{address.country}}<br>{{address.phone}}</h4>
+                            {{address.address}},  {{address.city}}, {{address.postalcode}}<br>
+                            {{address.province}}, {{address.country}}<br>{{address.tel}}</h4>
                     </el-card>
                 </div>
             </div>
@@ -103,7 +103,9 @@
             </thead>
         </table>
         <div class="text-right">
-            <el-button type='primary' @click='$router.push({name:"OrderHistory_dealer"})'>Check History Order</el-button>    
+            <el-button type='success' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>Print Order</el-button>
+            <el-button type='primary' @click='$router.push({name:"OrderHistory_dealer"})'>Check History Order</el-button>
+            <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>        
         </div>  
     </div>
 </div>        

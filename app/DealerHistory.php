@@ -20,6 +20,11 @@ class DealerHistory extends Model
         return $this->hasMany('App\DealerDetails','order_num','order_num');
     }
 
+    /** dealer ship to */
+    public function dealerShipAddress(){
+        return $this->hasOne('App\DealerShipAddress','order_num','order_num');
+    }
+
     // dealer company name
     public function fullname(){
         if ($this->dealer()->first()) {

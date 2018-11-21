@@ -47,39 +47,83 @@
 
 
                     <div class='col-xs-12'  style='margin-top:20px;'>
-                        <h4>Shipping To another address</h4>
+                        <h4>Shipping To Another Address</h4>
                         <div style='display:flex; justify-content:space-between'> 
-                        <el-select v-model="selectAdd" placeholder="To default address.">
-                            <el-option
-                            v-for="item in addressBook"
-                            :key="item.cshipno"
-                            :label="item.cshipno"
-                            :value="item.cshipno">
-                            </el-option>
-                        </el-select>
+                            <el-card class="box-card" >
+                        <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
+                            <el-form-item label="Company" prop='company'>
+                                <el-input v-model="newAdd.company"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Address" prop='address'>
+                                <el-input v-model="newAdd.address"></el-input>
+                            </el-form-item>
+                            <div class="inRow">
+                                
+                                
+                            </div>
+
+                            <div class="inRow">
+                                <el-form-item label="Postal Code"  label-width="120px" prop='zipcode'>
+                                    <el-input v-model="newAdd.zipcode"></el-input>
+                                </el-form-item>
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
+                                </el-form-item>
+                            </div>
+
+                            <div class="inRow">
+
+                                <el-form-item label="Country" prop='country'>
+                                    <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
+                                    <el-select v-model="newAdd.country" placeholder="Country" @change='newAdd.state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='CA'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='US'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </div>
+                            
+                            <el-form-item label="Telphone" prop='tel'>
+                                <el-input type='number' v-model="newAdd.tel"></el-input>
+                            </el-form-item>
+
+                            <el-form-item class='text-center'>
+                                <el-button type="default" @click="defaultAddress()">Ship to Default Address</el-button>
+                                <el-button type="success" @click="toNew(newAdd)">Ship to New Address</el-button>
+                            </el-form-item>
+                            
+                        </el-form>                
+                    </el-card> 
                         
                         </div>
                     </div>
-                <div class='addressBook col-xs-12' >
-                    <div class='address' v-for="address in addressBook" :key="address.cshipno" v-if="address.cshipno==selectAdd">
-                        <el-card class="box-card addressBox" :id="'box'+address.cshipno" >
-                               <h5><b>{{dealerInfo.company}} </b> <br> <br>
-                                {{dealerInfo.address1}},  {{dealerInfo.city}}, {{dealerInfo.zip}}<br>
-                                {{dealerInfo.terr}}, {{dealerInfo.country}}<br>{{dealerInfo.phone}}
-                                </h5>
-                                <div class='shipToAddress'>
-                                    <button class=" btn btn-success text-center" @click='changeAddress(address)'>
-                                        Deliver to address
-                                    </button>
-
-                                    <button class=" btn btn-default text-center" @click='defaultAddress()'>
-                                        Default Address
-                                    </button>
-                                    
-                                </div>
-                        </el-card>
-                    </div>
-                </div>
+                
 
                 
                 
@@ -116,15 +160,10 @@
                     </div>
                 </div>
 
-                
-
-                
-
                 <div class=" text-center" >
                     <button class='mybtn btn btn-success' @click='confirm()'>Place Order</button>
                     <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
-                
             </div>
         </div>
         
@@ -150,7 +189,36 @@ export default {
             dealerInfo:[],
             loading:1,
             addressBook:[],
-            selectAdd:'',
+            country: this.$store.state.country,
+            privince: this.$store.state.privince,
+            US_states: this.$store.state.US_states,
+            newAdd:{
+                country:"CA",
+            },
+            rules:{
+                    company:[
+                        { required: true, message: 'First name is required.', trigger: 'blur', max:99 },
+                    ],
+                    city:[
+                        { required: true, message: 'City is required.', trigger: 'blur', max:99 },
+                    ],
+                    state:[
+                        { required: true, message: 'State is required.', trigger: 'blur', max:99 },
+                    ],
+                    zipcode:[
+                        { required: true, message: 'Postal code is required.', trigger: 'blur', max:99 },
+                    ],
+                    address:[
+                        { required: true, message: 'Address is required.', trigger: 'blur', max:99 },
+                    ],
+                    
+                    country:[
+                        { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
+                    ],
+                    tel:[
+                        {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
+                    ],
+            },
         }
     },
         computed:{
@@ -192,23 +260,21 @@ export default {
             
         },
         methods:{
-            
-            changeAddress(address){
-                
-                this.dealerInfo.company = address.company;
-                this.dealerInfo.address = address.address1;
-                this.dealerInfo.city = address.city;
-                this.dealerInfo.zip = address.zip;
-                this.dealerInfo.terr = address.terr;
-                this.dealerInfo.country = address.country;
-                this.dealerInfo.phone = address.phone;
-
-                
-
-        
-
-
+            toNew(address){
+                this.$refs["newAdd"].validate((valid)=>{
+                    if (valid){
+                        this.dealerInfo.company = address.company;
+                        this.dealerInfo.address1 = address.address;
+                        this.dealerInfo.city = address.city;
+                        this.dealerInfo.zip = address.zipcode;
+                        this.dealerInfo.terr = address.state;
+                        this.dealerInfo.country = address.country;
+                        this.dealerInfo.phone = address.tel;
+                    }else{}
+                })
             },
+            
+            
             defaultAddress(){
                 var userData = JSON.parse(this.storage.getItem('user'));
                 this.$http.get('/api/DealerShortlist',{params:{userid:userData.id}}).then(response=>{
@@ -219,7 +285,8 @@ export default {
                     this.dealerInfo = response.data.dealerInfo;
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
-                    this.selectAdd = '';
+                    this.newAdd = {};
+                    this.newAdd.country = 'CA';
                     if (this.carts.length<1) {
                         this.$router.push({name:'ShoppingCart'});
                     }else{
@@ -237,12 +304,11 @@ export default {
                 var dealerData = JSON.parse(this.storage.getItem('user'));
                 
                 if (dealerData && dealerData.level ==2) {
-                
                     var dealerId = dealerData.id;
                     this.$http.post('/api/dealerConfirm', 
                         {
                             dealerId:dealerId,
-                            selectAdd:this.selectAdd,
+                            address:this.newAdd,
                         }).then((response)=>{
                         if (response.data.status=='ok') {
                             this.$store.commit('carts_number',0);

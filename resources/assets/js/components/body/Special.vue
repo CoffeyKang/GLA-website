@@ -4,7 +4,7 @@
 		  >
 		<div class="container">
 			<div class="title">
-				<span>On Sale products</span>
+				<span>On Sale Products</span>
 			</div>
 		</div>
 		<div class="container paginate_btn alert">
@@ -236,7 +236,7 @@ window.scrollTo(0,0);
 					const h = this.$createElement;
 					this.$notify({
 						title: 'Succsesfully.',
-						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+						message: h('b', { style: 'color: teal'}, 'Item successfully added to cart')
 					});
 				}
 			},

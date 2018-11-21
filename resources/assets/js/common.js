@@ -10,8 +10,7 @@ export const myMixin = {
     testMixin() {
       return alert('Mixin is called.');
     },
-    addToCart: function () {
-    },
+    addToCart: function () {},
 
     addToWishlist: function (item) {
       if (this.storage.getItem('user')) {
@@ -28,13 +27,13 @@ export const myMixin = {
             const h = this.$createElement;
             this.$notify({
               title: 'Succsesfully.',
-              message: h('b', { style: 'color: teal' }, 'The item has been already put into Wishlist')
+              message: h('b', { style: 'color: teal' }, 'Item successfully added to wishlist')
             });
           }else {
             const h = this.$createElement;
             this.$notify({
               title: 'Already in yor wishlist.',
-              message: h('b', { style: 'color: teal' }, 'The item has been already in your Wishlist')
+              message: h('b', { style: 'color: teal' }, 'Item successfully added to wishlist')
             });
           }
         }, response => {
@@ -83,8 +82,7 @@ export const myMixin = {
       }
     },
 
-    currentPath: function () {
-    },
+    currentPath: function () {},
 
     customerOrderHistory: function () {
       var id = JSON.parse(this.storage.getItem('user')).id;
@@ -153,7 +151,7 @@ export const myMixin = {
           return 'Famale';
           break;
         case 3:
-          return 'I do not want to tell.';
+          return 'I do not wish to disclose.';
           break;
         default: return 'Male';
           break;

@@ -32,7 +32,7 @@
 						<td class='right'>http://www.goldenleafautomotive.com</td>
 					</tr>
 					<tr>
-						<td class='left' >BUSINESS HOUR<span class='glyphicon glyphicon-play'></span></td>
+						<td class='left' >BUSINESS HOURS<span class='glyphicon glyphicon-play'></span></td>
 						 <td class='right'>	Monday-Friday: 8:30am-5pm <br>
 							Saturday: Appointment Only</td>
 					</tr>

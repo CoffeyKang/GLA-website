@@ -10,7 +10,7 @@
             <el-step title="Step 3"></el-step>
             <el-step title="Step 4"></el-step>
         </el-steps>
-        <div class="col-sm-8" style='padding:0;'>
+        <div class="col-sm-8" style='padding:0; margin-bottom:40px;'>
             <div>
                 <table class="table table-striped table-justified">
                     <thead>
@@ -100,7 +100,6 @@
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
                             <div class="inRow">
-                               
                                 <el-form-item label="First Name" prop='forename'>
                                     <el-input v-model="newAdd.forename"></el-input>
                                 </el-form-item>
@@ -185,7 +184,7 @@
             
             
         </div>
-        <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
+        <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px; margin-bottom:40px;'>
             <div class="summary" >
                 <div class="summary_title">
                     ORDER SUMMARY

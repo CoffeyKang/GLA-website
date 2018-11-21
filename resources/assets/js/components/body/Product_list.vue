@@ -244,7 +244,7 @@
 					const h = this.$createElement;
 					this.$notify({
 						title: 'Succsesfully.',
-						message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+						message: h('b', { style: 'color: teal'}, 'Item successfully added to cart')
 					});
 
 					// this.$confirm('', 'Congratulation', {

@@ -15,6 +15,7 @@ use App\DealerHistory;
 use App\DealerDetails;
 use App\Temp_SO_dealer;
 use App\DealerAddressBook;
+use App\DealerShipAddress;
 
 class DealerController extends Controller
 {
@@ -76,6 +77,8 @@ class DealerController extends Controller
 
 
     public function dealerConfirm(Request $request){
+
+        
        
         $dealer = Dealer::where('id',$request->dealerId)->first();
         
@@ -120,7 +123,7 @@ class DealerController extends Controller
 
             $somast->notes = '';
 
-            $somast->address = $request->selectAdd;
+            $somast->address = '';
             
             $somast->save();
 
@@ -227,6 +230,37 @@ class DealerController extends Controller
 
             $somast->save();
 
+            /** store new shipping related to sono */
+            $newAdd = $request->address;
+            if (array_key_exists('company',$newAdd)&&array_key_exists('address',$newAdd)) {
+                $dealerShip = new DealerShipAddress;
+
+                $dealerShip->company = $newAdd['company'];
+
+                $dealerShip->address = $newAdd['address'];
+
+                $dealerShip->city = $newAdd['city'];
+
+                $dealerShip->postalcode = $newAdd['zipcode'];
+
+                $dealerShip->country = $newAdd['country'];
+
+                $dealerShip->province = $newAdd['state'];
+
+                $dealerShip->tel = $newAdd['tel'];
+
+                $dealerShip->order_num = $sono;
+
+                $dealerShip->save();
+
+                $somast->address = $dealerShip->id;
+
+                $somast->save();
+
+            }else{
+
+            }
+
             return response()->json(['status'=>"ok",'sono'=>$sono],200);
         }else{
             return response()->json(['status'=>"dealerNotFound"],401);
@@ -254,9 +288,9 @@ class DealerController extends Controller
             $shipTo = $history->address;
 
             if ($shipTo!='') {
-                $address = DealerAddressBook::where('cshipno',$shipTo)->first();
+                $address = DealerShipAddress::find($shipTo);
             }else{
-                $address = false;
+                $address = '';
             }
 
             $dealerInfo = $history->dealer->dealerInfo;

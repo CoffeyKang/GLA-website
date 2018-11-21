@@ -41,7 +41,7 @@
                                 <el-form-item label="Gender" prop='gender' >
                                     <el-select v-model="details.gender" placeholder="Gender">
                                         <el-option
-                                        v-for="gender in ['Male','Female','I do not want to tell']"
+                                        v-for="gender in ['Male','Female','I do not wish to disclose']"
                                         :key="gender"
                                         :label="gender"
                                         :value="gender">
