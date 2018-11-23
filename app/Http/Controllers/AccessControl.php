@@ -26,6 +26,8 @@ use Mail;
 use App\Mail\registration;
 use App\Mail\SalesOrder;
 use App\Mail\LeaveMessege;
+use App\Mail\DealerMessege;
+use App\Mail\InquiryOnline;
 
 
 
@@ -370,9 +372,31 @@ class AccessControl extends Controller
     public function inquiry(Request $request){
         $email['user'] = $request->user;
         $email['subject'] = $request->subject;
-        $email['messege'] = $request->subject;
-        
-        Mail::to('fkang@velements.com')->send(new LeaveMessege($email));
+        $email['messege'] = $request->messege;
+
+        if ($request->type=='customer') {
+
+            Mail::to('fkang@velements.com')->send(new LeaveMessege($email));
+            # code...
+        }else{
+            Mail::to('fkang@velements.com')->send(new DealerMessege($email));
+        }
+
+
+
+
+
+        return response()->json(['status'=>true],200);
+    }
+
+    public function inquiryOnline(Request $request){
+        $email['name'] = $request->name;
+        $email['email'] = $request->email;
+        $email['subject'] = $request->subject;
+        $email['messege'] = $request->messege;
+
+        Mail::to('fkang@velements.com')->send(new InquiryOnline($email));
+    
 
 
 

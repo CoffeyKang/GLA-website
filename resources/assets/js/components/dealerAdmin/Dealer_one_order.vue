@@ -90,13 +90,13 @@
                     <th>Dealer Account</th>
                     <th>Subtotal</th>
                     <th>Tax</th>
-                    <th>Status</th>
+                    <th>Total</th>
                 </tr>
                 <tr>
                     <th>{{somast.account}}</th>
                     <th>${{somast.subtotal|decimal}}</th>
                     <th>${{somast.tax|decimal}}</th>
-                    <th>{{statusCode}}</th>
+                    <th>${{somast.subtotal + somast.tax |decimal}}</th>
                 </tr>
             </thead>
         </table>

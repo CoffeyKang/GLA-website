@@ -29,7 +29,6 @@
                     <el-button type='success' @click="sendMessage()"> Send Messege </el-button>
                 </el-form-item>
             </el-form>
-            
         </div>
     </div>
 </template>
@@ -45,8 +44,7 @@ export default {
             billing:{},
             success:false,
             email:{
-                user : JSON.parse(window.localStorage.getItem('user')).firstname + ' '+ JSON.parse(window.localStorage.getItem('user')).firstname
-                + ',  '+ JSON.parse(window.localStorage.getItem('user')).email,
+                user : JSON.parse(window.localStorage.getItem('userInfo')).custno + ', '+ JSON.parse(window.localStorage.getItem('userInfo')).company,
             },
             rules:{
                 subject:[
@@ -77,7 +75,7 @@ export default {
                             subject:this.email.subject,
                             user:this.email.user,
                             messege:this.email.messege,
-                            type:'customer'
+                            type:"dealer"
                         }).then(response=>{
                             if (response.data.status) {
                                 this.success = true;

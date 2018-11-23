@@ -154,8 +154,7 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>TOTAL:</span><span v-if="shippingRate=='quotable'">${{ total.toFixed(2) }}</span>
-                            <span v-if="shippingRate!='quotable'">TBD</span>
+                            <span>TOTAL:</span><span>${{ total.toFixed(2) }}</span>
                         </div>
                     </div>
                 </div>
@@ -224,7 +223,7 @@ export default {
         computed:{
             total:function(){
                 
-                return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
+                return parseFloat(this.subtotal) + parseFloat(this.hst);
 
             },
             
@@ -263,6 +262,36 @@ export default {
             toNew(address){
                 this.$refs["newAdd"].validate((valid)=>{
                     if (valid){
+                        if (this.newAdd.country=='US') {
+                            let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(this.newAdd.zipcode);
+
+                            if (!isValidZip) {
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid USA Zipcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }else{
+                            
+
+                            }
+                        }else{
+                            let str = this.newAdd.zipcode.replace(' ','');
+
+                            if ($.isNumeric(str[1]+str[3]+str[5])&& this.isAlphaOrParen(str[0])&& this.isAlphaOrParen(str[2])&& this.isAlphaOrParen(str[0])) {
+                            }else{
+                                this.$message({
+                                    showClose:true,
+                                    message:"Please inter valid Canada postalcode",
+                                    type:"error",
+                                    duration:5000,
+                                });
+                                return false;
+                            }
+                        }
+                        
                         this.dealerInfo.company = address.company;
                         this.dealerInfo.address1 = address.address;
                         this.dealerInfo.city = address.city;

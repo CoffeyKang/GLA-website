@@ -67,9 +67,9 @@
 						<button class="btn btn-primary" @click='goToItem(item.item)'>
 							Details
 						</button>
-						<button class='add_to_cart btn btn-link' @click='addToCart_common_list(item)'>
+						<a class='add_to_cart btn' @click='addToCart_common_list(item)'>
 							Add To Cart  
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -334,8 +334,13 @@ window.scrollTo(0,0);
 		padding: 10px;
 	}
 	.add_to_cart{
+		margin-left: 10px;
 		display: flex;
 		align-items: flex-end;
+	}
+
+	.add_to_cart:hover{
+		border: 1px solid #2a88bd;
 	}
 	.description{
 		min-height: 70px;

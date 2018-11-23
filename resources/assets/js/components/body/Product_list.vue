@@ -5,7 +5,7 @@
 		  >
 		<div class="container">
 			<div class="title">
-				<span>Products -- {{ make.replace('_', ' ').toUpperCase() }}</span>
+				<span>Products - {{ make.replace('_', ' ').toUpperCase() }}</span>
 			</div>
 		</div>
 

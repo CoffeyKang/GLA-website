@@ -39,6 +39,7 @@ import PendingOrder_dealer from './components/dealerAdmin/PendingOrder.vue';
 import OneOrder_dealer from './components/dealerAdmin/OneOrder.vue';
 import Dealer_one_order from './components/dealerAdmin/Dealer_one_order.vue';
 import dealHome from './components/dealerAdmin/dealerHome.vue';
+import DealerInquiry from './components/dealerAdmin/Inquiry.vue';
 
 export const routes = [
   {path: '/',component: Home,name: 'home'},
@@ -58,6 +59,7 @@ export const routes = [
     children: [
       { path: '', component: dealHome, name: 'dealHome' },
       { path: 'HomePage', component: dealHome, name: 'dealHome' },
+      { path: 'DealerInquiry', component: DealerInquiry, name: 'DealerInquiry' },
       { path: 'HistoryOrder', component: OrderHistory_dealer, name: 'OrderHistory_dealer' },
       { path: 'PendingOrder', component: PendingOrder_dealer, name: 'PendingOrder_dealer' },
       { path: 'oneOrder/:order_num', component: OneOrder_dealer, name: 'OneOrder_dealer' },

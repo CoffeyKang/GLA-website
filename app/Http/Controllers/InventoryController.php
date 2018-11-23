@@ -242,11 +242,16 @@ class InventoryController extends Controller
         $items = Inventory::orderBy('item','asc');
         /** make */
         if ($item!='item') {
-                
-            $items = $items->where('item',$item);
+            $checkItem = Inventory::where('item',$item)->first();
+            if ($checkItem) {
+                $items = $items->where('item',$item);
+            }else{
+                $items = $items->where('descrip','LIKE',"%".$item."%");
+            }
 
         }else{
-
+            
+            
         }
         
         /** make */

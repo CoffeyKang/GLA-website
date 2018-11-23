@@ -165,6 +165,8 @@ Route::get('/special/{page}','InventoryController@special');
 
 Route::post('/inquiry','AccessControl@inquiry');
 
+Route::post('/inquiryOnline','AccessControl@inquiryOnline');
+
 
 
 

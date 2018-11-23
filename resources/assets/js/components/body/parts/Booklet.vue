@@ -3,16 +3,43 @@
         <div class='searchBar'>
             <app-search ></app-search>
         </div>
+        <div class="btnBar">
+            <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
+            <span>
+                <!-- <el-input v-model='num' id='numInput' style='width:60px;'></el-input> -->
+                 <el-select v-model="num" placeholder="Change Page" style='width:80px;'>
+						<el-option
+							v-for="p in total"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select> / <el-input :value='total' style='width:60px; ' readonly="readonly"></el-input>
+            </span>
+            <span><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
+        </div>
+
         <div class="viewOnline">
             <img :src="page" alt="" style='width:100%' @click='nextPage()'>
         </div>
+
         <div class='searchBar'>
             <app-search ></app-search>
         </div>
         <div class="btnBar">
             <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
             <span>
-                <el-input v-model='num' id='numInput' style='width:60px;'></el-input> / <el-input :value='total' style='width:60px; ' readonly="readonly"></el-input>
+                <!-- <el-input v-model='num' id='numInput' style='width:60px;'></el-input>
+                 -->
+                 <el-select v-model="num" placeholder="Change Page" style='width:80px;'>
+						<el-option
+							v-for="p in total"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select>
+                 / <el-input :value='total' style='width:60px; ' readonly="readonly"></el-input>
             </span>
             <span><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
         </div>
