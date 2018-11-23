@@ -1907,6 +1907,7 @@ class InventoryController extends Controller
              * send email 
              */
             soSendemail($somast);
+            SO_PDF($somast->order_num);
             return response()->json(['result'=>$result],200);
             
         } catch (\Beanstream\Exception $e) {
@@ -2038,6 +2039,7 @@ class InventoryController extends Controller
                 $item->delete();
             }
             soSendemail($somast);
+            SO_PDF($somast->order_num);
             return response()->json(['result'=>$somast],200);
             
            

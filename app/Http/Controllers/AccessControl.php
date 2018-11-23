@@ -407,27 +407,41 @@ class AccessControl extends Controller
     /** test page */
     public function kang(){
 
-        $email = [
-            'subject'=>'hello',
-            'user' =>'james',
-            'messege'=>'my name is james kang'
-        ];
+        SO_PDF(1000582);
 
-        
+        // $history = SOMAST::where('order_num',1000582)->first();
+        // $customer = $history->customer;
+        // $billing = $customer->BillingAddress;
+        // $userInfo = $customer->userDetails;
+        // $oneOrder = $history->sotran;
 
-        return view('emails.messege',compact('email'));
-
-        
-
-        
-        
+        // if ($history) {
             
+        //     $oneOrder = $history->sotran()->get();
 
-        
-        
+        //     foreach ($oneOrder as $item) {
+        //         $iteminfo = $item->itemInfo()->first()->allMakes();
+        //         $item->make = $iteminfo->all_makes;
+        //         $item->descrip = $item->itemInfo->descrip;
+        //     }
 
+        //     $address = $history->address;
+        //     if ($address==0) {
+        //         return view('pdf.salesorder', 
+        //         ['somast'=>$history, 'oneOrder'=>$oneOrder, 
+        //         'status'=>'valid','address'=>0,'billing'=>$billing,
+        //         'userInfo'=>$userInfo,'oneOrder'=>$oneOrder]);
+                
+        //     }else{
+        //         $addressBook = AddressBook::find($address);
+        //         return view('pdf.salesorder', 
+        //         ['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid','address'=>$addressBook,'billing'=>$billing,
+        //         'userInfo'=>$userInfo,'oneOrder'=>$oneOrder]);
+                
+        //     }
         
-        
+        // }else{
+        // }
     }
 
     

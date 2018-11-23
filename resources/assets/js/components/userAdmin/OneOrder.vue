@@ -91,7 +91,7 @@
             </thead>
         </table>
         <div class="text-right">
-            <el-button type='success' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>Print Order</el-button>
+            <el-button type='success' @click='downPDF(somast.order_num)'>Print Order</el-button>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>    
         </div>  
@@ -153,6 +153,11 @@ export default {
                     return value;
                 }
             }
+    },
+    methods:{
+        downPDF(sono){
+				window.open('/PDF/salesOrder/'+sono+'.pdf');
+			},
     },
     mounted(){
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));

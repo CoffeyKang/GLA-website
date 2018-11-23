@@ -110,9 +110,47 @@ use App\Mail\SalesOrder;
         
     }
 
-    function test(){
-        $time  = date('Y-m-d');
-        echo $time;
+    function SO_PDF($sono){
+        
+        $history = SOMAST::where('order_num',$sono)->first();
+        $customer = $history->customer;
+        $billing = $customer->BillingAddress;
+        $userInfo = $customer->userDetails;
+        $oneOrder = $history->sotran;
+        if ($history) {
+            
+            $oneOrder = $history->sotran()->get();
+
+            foreach ($oneOrder as $item) {
+                $iteminfo = $item->itemInfo()->first()->allMakes();
+                $item->make = $iteminfo->all_makes;
+                $item->descrip = $item->itemInfo->descrip;
+            }
+
+            $address = $history->address;
+            if ($address==0) {
+                $pdf = PDF::loadView('pdf.salesorder', 
+                ['somast'=>$history, 'oneOrder'=>$oneOrder, 
+                'status'=>'valid','address'=>0,'billing'=>$billing,
+                'userInfo'=>$userInfo,'oneOrder'=>$oneOrder]);
+                
+            }else{
+                $addressBook = AddressBook::find($address);
+                $pdf = PDF::loadView('pdf.salesorder', 
+                ['somast'=>$history, 'oneOrder'=>$oneOrder, 'status'=>'valid','address'=>$addressBook,'billing'=>$billing,
+                'userInfo'=>$userInfo,'oneOrder'=>$oneOrder]);
+                
+            }
+            
+            return $pdf->setPaper('a4')->save("PDF/salesOrder/$sono.pdf")->stream('download.pdf');
+        }else{
+           
+        }
+
+        function test($sono){
+            
+        }
+       
     }
 
     
