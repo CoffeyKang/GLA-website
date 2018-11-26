@@ -198,44 +198,120 @@
 </script>
 
 <style scoped>
-.gla-nav{
+
+
+
+
+@media screen and (min-width:1200px){
+	.gla-nav{
 		background-color:  #FFE512;
 	}
 
-.black .active a,
-.black .active a:visited,
-.black .active a:hover{
-    background-color: black;
+	.black .active a,
+	.black .active a:visited,
+	.black .active a:hover{
+		background-color: black;
+	}
+	.nav-pills > .active > a, .nav-pills > .active > a:hover,.black .active a:visited {
+		background-color: black;
+	}
+	li a{
+		border-radius: 0;
+		font-size: 24px;
+		color: black;
+		padding:10px 0;
+
+	}
+
+	.logo{
+		padding: 20px 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		
+	}
+
+
+
+	.logo ul li{
+		display: inline;
+		padding-left: 10px;
+		font-size: 20px;
+		cursor:pointer;
+
+	}
 }
-.nav-pills > .active > a, .nav-pills > .active > a:hover,.black .active a:visited {
-    background-color: black;
+@media screen and (min-width:1000px) and (max-width: 1200px) {
+	.gla-nav{
+		background-color:  #FFE512;
+	}
+
+	.black .active a,
+	.black .active a:visited,
+	.black .active a:hover{
+		background-color: black;
+	}
+	.nav-pills > .active > a, .nav-pills > .active > a:hover,.black .active a:visited {
+		background-color: black;
+	}
+	li a{
+		border-radius: 0;
+		font-size: 20px;
+		color: black;
+		padding:10px 0;
+
+	}
+	.logo{
+		padding: 20px 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		
+	}
+	.logo ul li{
+		display: inline;
+		padding-left: 10px;
+		font-size: 18px;
+		cursor:pointer;
+
+	}
 }
-li a{
-	border-radius: 0;
-	font-size: 24px;
-	color: black;
-	padding:10px 0;
 
+@media screen and (min-width:768px) and (max-width: 1000px){
+	.gla-nav{
+		background-color:  #FFE512;
+	}
+
+	.black .active a,
+	.black .active a:visited,
+	.black .active a:hover{
+		background-color: black;
+	}
+	.nav-pills > .active > a, .nav-pills > .active > a:hover,.black .active a:visited {
+		background-color: black;
+	}
+	li a{
+		border-radius: 0;
+		font-size: 14px;
+		color: black;
+		padding:10px 0;
+
+	}
+	.logo{
+		padding: 20px 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		
+	}
+	.logo ul li{
+		display: inline;
+		padding-left: 10px;
+		font-size: 14px;
+		cursor:pointer;
+
+	}
 }
-
-.logo{
-	padding: 20px 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	
-}
-
-
-
-.logo ul li{
-	display: inline;
-	padding-left: 10px;
-	font-size: 20px;
-	cursor:pointer;
-
-}
-
 
 
 

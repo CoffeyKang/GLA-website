@@ -96,14 +96,7 @@
     	display: flex;
     	justify-content: space-around;
     }
-    .words{
-    	width: 20%;
-    	font-weight: bold;
-    	line-height: 40px;
-    	align-items: center;
-    	font-size: 1.2em;
-
-    }
+    
     .findBTN{
       margin-left: 20px;
       height: 40px;
@@ -118,4 +111,23 @@
     	margin-left: 20px;
     }
 
+@media screen and (min-width:1000px){
+	.words{
+    	width: 20%;
+    	font-weight: bold;
+    	line-height: 40px;
+    	align-items: center;
+    	font-size: 1.2em;
+
+    }
+}
+@media screen and (max-width:1000px){
+	.words{
+    	width: 20%;
+    	font-weight: bold;
+    	line-height: 40px;
+    	align-items: center;
+    	font-size: 14px;
+    }
+}
 </style>

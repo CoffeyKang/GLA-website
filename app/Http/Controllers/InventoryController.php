@@ -118,8 +118,12 @@ class InventoryController extends Controller
 
         // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($product_list as $item) {
-               
-            $item->img_path = $item->itemImg->img_path;
+            $img = $item->itemImg;
+            if ($img) {
+                $item->img_path = $item->itemImg->img_path;
+            }else{
+                $item->img_path = '/images/default_sm.jpg';
+            }
             $item->onhand = ($item->onhand - $item->aloc)>0?($item->onhand - $item->aloc):0;
             
             if (file_exists('.'.$item->img_path)) {

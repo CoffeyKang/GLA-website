@@ -582,7 +582,7 @@
         
         
 		mounted(){
-            // this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
+            // this.userInfo = JSON.parse(this.storage.getItem('userInfo')); of
             
             this.user = JSON.parse(this.storage.getItem('user'));
 

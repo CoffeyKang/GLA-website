@@ -1,24 +1,24 @@
 <template>
 	<div class="searchBar" @keyup.enter="searchItem()">
 		<!-- search layer -->
-		<div class='searchDetails'>
+		<div class='searchDetails cat1'>
 			<span class="searchTitle">I am searching for:</span>
 			<el-form label-width="80px" size="medium" >
 				<el-form-item label="Item" >
 					<el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A " 
-					style='width:350px;' >
+					>
 					</el-input>
 				</el-form-item>
 
 				<el-form-item label="Keywords" >
-					<el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc." style='width:350px;'>
+					<el-input v-model="search.desc" placeholder="Enter a specific part, ie. Fender, Hood, Lamp, etc." >
 					</el-input>
 				</el-form-item>
 				
 
 				<el-form-item label="Make" >
 					
-					<el-select v-model="search.make" placeholder="Make" style='width:350px;'>
+					<el-select v-model="search.make" placeholder="Make" >
 						<el-option
 						v-for="item in makes"
 						:key="item.id"
@@ -30,7 +30,7 @@
 				</el-form-item>
 
 				<el-form-item label="Year" >
-					<el-select v-model="search.year" placeholder="Year" style='width:350px;'>
+					<el-select v-model="search.year" placeholder="Year" >
 						<el-option
 						v-for="a in (currentYear)"
 						:key="a"
@@ -40,13 +40,13 @@
 						</el-option>
 					</el-select >  
 				</el-form-item>
-				<el-form-item>
+				<el-form-item class='searchBtn'>
 					<el-button type="primary" @click="searchItem()">Search</el-button>
 					<el-button @click='resetSearch()'> Reset </el-button>
 				</el-form-item>
 			</el-form>
 		</div>
-		<div class='searchCatalog'>
+		<div class='searchCatalog cat2'>
 			<span class="searchTitle">Search by Catalog:</span>
 			<span class='searchTitle_D'>
 				If you don't know the particular <b>Part Name</b> or <b>Item Number</b>, you may search by browsing our online catalogue.
@@ -60,7 +60,7 @@
 				
 					<el-form-item label="Make" >
 						
-						<el-select v-model="cat_make" placeholder="Make" style='width:350px;'>
+						<el-select v-model="cat_make" placeholder="Make" >
 							<el-option
 							v-for="item in catalogs"
 							:key="item.id"
@@ -71,7 +71,7 @@
 						</el-select >		    
 					</el-form-item>
 					
-					<el-form-item>
+					<el-form-item class='searchBtn'>
 						<el-button type="primary" @click="searchItem_cat()">Search</el-button>
 						<el-button @click='resetSearch()'> Reset </el-button>
 					</el-form-item>
@@ -145,10 +145,71 @@
 </script>
 
 <style scoped>
-	.searchBar{
-		display: flex;
-		justify-content: space-between;
+	@media screen and (min-width:1300px){
+		.searchBar{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		.cat1{
+			padding-right: 30px;
+			width: 450px;
+			
+		}
+
+		.cat2{
+			padding-left: 10px;
+			width: 450px;
+		}
+		.searchCatalog{
+			display: flex;
+			width: 50%;
+			flex-direction: column;
+			border-left: 1px solid black;
+		}
+
+		.searchDetails{
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.searchBtn{
+			
+		}
 	}
+	
+	@media screen and (max-width: 1300px){
+		.searchBar{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			
+			
+		}
+		.cat1{
+			padding-bottom: 30px;
+		}
+
+		.cat2{
+			padding-top: 10px;
+		}
+		.searchCatalog{
+			display: flex;
+			
+			flex-direction: column;
+			border-top: 1px solid black;
+		}
+
+		.searchDetails{
+			display: flex;
+			flex-direction: column;
+		}
+
+		.searchBtn{
+		}
+	}
+	
 	.searchTitle{
 		font-weight: bold;
 		text-align: center;
@@ -165,18 +226,9 @@
 		width: 100%;
 	}
 
-	.searchCatalog{
-		display: flex;
-		width: 50%;
-		flex-direction: column;
-		border-left: 1px solid black;
-	}
+	
 
-	.searchDetails{
-		width: 50%;
-		display: flex;
-		flex-direction: column;
-	}
+	
 
 	.img{
 		background-image: url('/images/catalogSearch.jpg');
