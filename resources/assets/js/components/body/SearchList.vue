@@ -15,8 +15,8 @@
             <tbody>
 				
                 <tr v-for="thing in list" :key="thing.item">
-                    <td  style='height:80px; vertical-align:middle !important'>{{thing.item}}</td>
-                    <td>{{thing.descrip}}</td>
+                    <td class='linkHover' style='height:80px; vertical-align:middle !important;cursor:pointer' @click="goToItem(thing.item)">{{thing.item}}</td>
+                    <td class='linkHover' style='cursor:pointer' @click="goToItem(thing.item)">{{thing.descrip}}</td>
 					<td :style="{ backgroundImage: 'url(' + thing.img_path + ')' }"
 						style='
 							padding:5px;
@@ -26,8 +26,10 @@
 							background-position:center'
 					></td>
                     <td>
-						<span v-for="item_make in makes" :key="item_make.row_id" v-if="item_make.item == thing.item"> 
-							{{item_make.make}} &nbsp; 
+						<span v-for="item_make in makes" :key="item_make.row_id" v-if="item_make.item == thing.item" style='cursor:pointer;margin-right:15px;
+						' 
+						 @click="goToMake(item_make.make)" class='linkHover'> 
+							{{item_make.make}} 
 						</span>
 					</td>
                     <td class='text-right' v-if="thing.onhand-thing.aloc > thing.orderpt && discount">CAD ${{(thing.pricel*0.9).toFixed(2)}}<br>
@@ -44,19 +46,31 @@
         </table>
 
         <div class="container paginate_btn" v-if='result'>
-				<div class="text-left">
-					{{data.total}}   Products found, Page {{page}} of {{data.last_page}}
-				</div>
-				<div>
+
+			<div class='col-xs-4 text-right'>
 					<!-- pre page -->
 					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
 						Previous Page
 					</button>
+				</div>
+				<div class='col-xs-4 text-center'>
+					{{data.total}}  Products found, Page 
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in data.last_page"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select> / of {{data.last_page}}
+				</div>
+				<div class='col-xs-4'>
 					<!-- next page -->
-					<button class="btn btn-default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
 						Next Page
 					</button>
 				</div>
+				
 				
 			</div>
 
@@ -145,6 +159,10 @@
             goToItem(id){
                 this.$router.push({ name: 'ItemDetails', params: { id:id }})
 			},
+
+			goToMake(make){
+				this.$router.push({ name: 'Pruduct_list', query: { make:make }});
+			},
 			
             nextPage(){
 				this.page +=1;
@@ -167,6 +185,20 @@
 							page:this.page,
 						}});
 			},
+
+			toPage(page){
+				this.page =page;
+				
+				this.$router.push({name:'SearchList',query:{
+							item:this.item, 
+							make:this.make,
+							year:this.year,
+							desc:this.desc,
+							page:this.page,
+						}});
+			}
+
+			  
         },
 		watch: {
 			
@@ -209,6 +241,10 @@
 	td{
 		height:80px; 
 		vertical-align:middle !important;
+	}
+
+	.linkHover:hover{
+		text-decoration: underline;
 	}
 	
 </style>

@@ -308,8 +308,13 @@ class InventoryController extends Controller
         $items = $items->paginate(10);
 
         foreach ($items as $item) {
+                $img_path = $item->itemImg;
+                if ($img_path) {
+                    $item->img_path = $item->itemImg->img_path;
+                }else{
+                     $item->img_path = '/images/default_sm.jpg';
+                }
                 
-                $item->img_path = $item->itemImg->img_path;
                 $item->onsale = $item->onsale();
                 
                 if (file_exists('.'.$item->img_path)) {
