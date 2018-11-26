@@ -1,7 +1,7 @@
 <template>
 	<div class='container ItemDetails'>
 		<div class="nav" id='top'>
-			<span @click='backToSearch()' class='backToSearch' v-if="search">RETURN TO SEARCH RESAULT</span>
+			<span @click='backToSearch()' class='backToSearch' v-if="search">RETURN TO SEARCH RESULT</span>
 		</div>
 		<div class="item" v-if='showItem'>
 			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click="dialogVisible = true"> 

@@ -7,9 +7,16 @@
 			<div class="title">
 				<span>Products - {{ make.replace('_', ' ').toUpperCase() }}</span>
 			</div>
+			
 		</div>
-
+		<div class="container">
+			<div class='searchBar'>
+				<app-search :make='make'></app-search>
+			</div>
+		</div>
+		
 		<div class="container paginate_btn alert">
+			
 				<div class='col-xs-4 text-right'>
 					<!-- pre page -->
 					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
@@ -105,11 +112,10 @@
 		
 </template>
 <script>
-
+	import SearchBar from './parts/SearchBar.vue';
 	export default {
 		data (){
 			return {
-				
 				lists:{},
 				data:{},
 				page:1,
@@ -118,8 +124,10 @@
 				// usdPrice:this.$store.state.usdPrice,
 			}
 		},
+		components:{
+			appSearch: SearchBar
+		},
 		mounted(){
-			
 			this.$http.get('/api/product_list/'+ this.make+ '/'+this.page).then(response => {
 			    // get body data
 				// 
@@ -303,6 +311,12 @@
 	.item{
 		margin: 0px 50px;
 	}
+	.searchBar{
+        background-color: black;
+        padding: 10px 0;
+		
+		
+    }
 	.shoppingCart{
 		color:  #FFE512;
 		cursor: pointer;

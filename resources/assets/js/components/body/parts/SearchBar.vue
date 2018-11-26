@@ -41,6 +41,7 @@
 
 <script>
 	export default{
+		props:['make'],
 		data(){
 			return {
 				search:{},
@@ -51,6 +52,9 @@
 			}
 		},
 		mounted(){
+			if (this.make) {
+				this.search.make = this.make;
+			}
 			this.$http.get('/api/makes').then(response => {
 			    this.makes = response.body;
 			    
