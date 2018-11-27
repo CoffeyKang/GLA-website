@@ -19,7 +19,7 @@
 				<table>
 					<tr>
 						<td class='left'>ADDRESS <span class='glyphicon glyphicon-play'></span>	</td>
-						<td class='right'>70 Zenway Blvd. Unit 2<br>		
+						<td class='right'>170 Zenway Blvd. Unit 2<br>		
 						Woodbridge, ON., L4H 2Y7 CANADA</td>
 					</tr>
 					<tr>

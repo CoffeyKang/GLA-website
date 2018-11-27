@@ -7,7 +7,8 @@
 				<span>On Sale Products</span>
 			</div>
 			<div class='searchBar'>
-				<search-special :search='search' v-on:updateSearch = "updateSearch($event)"></search-special>
+				<search-special :search='search' v-on:updateSearch = "updateSearch($event)"
+				v-on:resetSearch = "resetSearch($event)"></search-special>
 			</div>
 		</div>
 		<div class="container paginate_btn alert" v-if="lists.length>=1"> 
@@ -78,7 +79,7 @@
 				</div>
 			</div>
 
-			<div v-if='lists.length<=1' class='alert alert-warning container' style='margin-top:30px;margin-bottom:100px'>
+			<div v-if='lists.length<1' class='alert alert-warning container' style='margin-top:30px;margin-bottom:100px'>
 				<b>Your search did not match any special products.<br></b>
 				Try something like<br>
 				<ul>
@@ -165,6 +166,7 @@
 		},
 		methods:{
 			nextPage(){
+				this.loading=1,
 				this.page +=1;
 				this.$http.post('/api/searchSpecial',{
 					item:this.search.item, 
@@ -178,7 +180,7 @@
 				this.lists.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});	
-							window.scrollTo(0,0);
+				window.scrollTo(0,0);
 			    this.page = this.data.current_page;
 			    // finish ladding screen
 			    this.loading = 0;
@@ -188,6 +190,7 @@
 			  });
 			},
 			prePage(){
+				this.loading=1,
 				this.page -=1;
 				this.$http.post('/api/searchSpecial',{
 					item:this.search.item, 
@@ -212,6 +215,7 @@
 			},
 
 			toPage(page){
+				this.loading=1,
 				this.page =page;
 				
 				this.$http.post('/api/searchSpecial',{
@@ -279,8 +283,12 @@
 					});
 				}
 			},
+			resetSearch(){
+				this.search ={};
+			},
 
 			updateSearch(value){
+				this.loading=1,
 				this.$http.post('/api/searchSpecial',{
 					item:value.item, 
 					make:value.make,
@@ -295,6 +303,7 @@
 				});	
 			    this.page = this.data.current_page;
 				window.scrollTo(0,0);
+				this.loading=0,
 			    // finish ladding screen
 			    this.loading = 0;
 			  }, response => {

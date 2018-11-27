@@ -33,7 +33,7 @@
 												</el-select >
 				</div>
 				<button class='btn btn-primary findBTN' @click="searchItem()">FIND</button>
-				<button class='btn btn-warning findBTN' @click="search={}">Reset</button>
+				<button class='btn btn-warning findBTN' @click="resetSearch()">Reset</button>
 			</div>
                   
 		</form>
@@ -77,9 +77,10 @@
 			},
 
 			resetSearch(){
-				return this.search={};
-				}
+				this.$emit('resetSearch');
 			}
+
+		}	
 
 		
 	}

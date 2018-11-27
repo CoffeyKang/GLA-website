@@ -12,7 +12,7 @@
 						<el-option
 							v-for="p in total"
 							:key="p"
-							:label="(p - cover)<=0?'Index':(p-cover)"
+							:label="displayLabel(p,cover)"
 							:value="p">
 						</el-option>
 					</el-select> / <el-input :value='total-cover' style='width:100px; ' readonly="readonly"></el-input>
@@ -36,7 +36,7 @@
 						<el-option
 							v-for="p in total"
 							:key="p"
-							:label="(p - cover)<=0?'Index':(p-cover)"
+							:label="displayLabel(p,cover)"
 							:value="p">
 						</el-option>
 					</el-select>
@@ -77,7 +77,8 @@
                 var n = this.pic_array[this.num-1];
                 // var pageNum = '/images/catalog/'+this.make+'/2018 GLA '+this.make+'Catalog_Page_'+n+'.jpg';
                 return n;
-            }
+            },
+        
         },
         components:{
           appSearch:SearchBar
@@ -96,7 +97,17 @@
                     })
                 }
             },
-            
+            displayLabel(p,c){
+                if (p==1) {
+                    return "Cover";
+                }else{}
+                if (p-c <=0) {
+                    return "Index";
+                }else{
+                    return p-c;
+                }
+
+            },
             previousPage(){
                 if (this.num>1) {
                     this.num--;
