@@ -61,8 +61,13 @@ class Inventory extends Model
      * get item information with img_path and viewed
      */
     public function itemFullInfo(){
-        
-        $this->img_path = $this->itemImg->img_path;
+        $img = $this->itemImg;
+
+        if ($img) {
+            $this->img_path = $this->itemImg->img_path;
+        }else{
+            $this->img_path = "/images/default_bg.jpg"; 
+        }
 
         if (file_exists('.'.$this->img_path)) {
                 

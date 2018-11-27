@@ -93,7 +93,7 @@
         </tr>
 
         <tr>
-            <td class='footer' colspan=2>70 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br> &copy; {{date("Y")}} Golden Leaf Automotive.
+            <td class='footer' colspan=2>170 Zenway Blvd. Unit 2, Woodbridge, ON., L4H 2Y7 CANADA | 905-850-3433<br> &copy; {{date("Y")}} Golden Leaf Automotive.
                 All rights reserved.</td>
         </tr>
     </table>

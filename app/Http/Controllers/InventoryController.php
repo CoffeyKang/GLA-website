@@ -1731,7 +1731,13 @@ class InventoryController extends Controller
         $directory = "./images/catalog/".$make.'/';
         $pic_num = count(glob($directory."*.jpg"));
         $pic_array = glob($directory."*.jpg");
-        return response()->json(['pageNum'=>$pic_num, 'pic_array'=>$pic_array],200);
+        $cover = Catalog::where('name',$make)->first();
+        if ($cover) {
+            $cover = $cover->cover;
+        }else{
+            $cover = 2;
+        }
+        return response()->json(['pageNum'=>$pic_num, 'pic_array'=>$pic_array, 'cover'=>$cover],200);
        
     }
 
@@ -2094,6 +2100,107 @@ class InventoryController extends Controller
 
         
         
+        
+        return response()->json(['special'=>$special],200);
+    }
+
+
+    public function searchSpecial(Request $request){
+
+        
+        $mycurrentPage = $request->page?$request->page:1;
+
+        Paginator::currentPageResolver(function () use ($mycurrentPage) {
+            return $mycurrentPage;
+        });
+        $special = Inventory::whereColumn('onhand','>','orderpt')->get()->toArray();
+
+        $arr = [];
+
+        foreach ($special as $item) {
+            if ($item['onhand'] - $item['aloc'] > $item['orderpt']) {
+                array_push($arr,$item['item']);
+            }else{
+                
+            }
+        }  
+
+        $special = Inventory::whereIn('item',$arr);
+        
+        if ($request->item) {
+            if (in_array($request->item,$arr)) {
+                
+                $special = $special->where('item',$request->item)->paginate(20);
+
+                foreach ($special as $item) {
+                    $img = $item->itemImg;
+                    if ($img) {
+                        $item->img_path = $item->itemImg->img_path;
+                    }else{
+                    $item->img_path = '/images/default_sm.jpg'; 
+                    }
+                    
+                    
+                    if (file_exists('.'.$item->img_path)) {
+                        
+                    }else{
+                        $item->img_path = '/images/default_sm.jpg';
+                    }
+                    
+                }
+                
+                return response()->json(['special'=>$special],200);
+
+                
+            }else{
+                $special = $special->where('descrip','LIKE',"%".$request->item."%");
+            }
+            
+        
+        }else{
+
+        }
+
+        if ($request->make) {
+
+            $item_from_make_table = Item_make::where('make',$request->make)->get();
+
+            $from_make_table_item = [];
+            
+            foreach ($item_from_make_table as $i) {
+                
+                array_push($from_make_table_item,$i->item);
+            }
+
+            $special = $special->whereIn('item',$from_make_table_item);
+        }else{
+
+        }
+
+        if ($request->year) {
+            $special = $special->where('year_from','<=',$request->year)->where('year_end','>=',$request->year);
+        }else{
+
+        }
+
+        $special = $special->paginate(20);
+        // join('inventory_img','inventory.item','inventory_img.item')
+        foreach ($special as $item) {
+            $img = $item->itemImg;
+            if ($img) {
+                $item->img_path = $item->itemImg->img_path;
+            }else{
+               $item->img_path = '/images/default_sm.jpg'; 
+            }
+            
+            
+            if (file_exists('.'.$item->img_path)) {
+                 
+            }else{
+            	$item->img_path = '/images/default_sm.jpg';
+            }
+            
+        }
         
         return response()->json(['special'=>$special],200);
     }

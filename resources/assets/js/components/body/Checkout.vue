@@ -208,7 +208,7 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>HST/GST/QST:</span><span class='text-right'>CAD ${{ hst }}
+                            <span>TAX:</span><span class='text-right'>CAD ${{ hst }}
                                 <br>
                              <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(hst))/$store.state.exchange).toFixed(2) }}</span>
                             </span>

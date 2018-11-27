@@ -81,7 +81,7 @@
             </tbody>
             
         </table>
-        <table class="table table-bordered table-striped">
+        <!-- <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Shipping</th>
@@ -98,6 +98,29 @@
                     <th>{{statusCode}}</th>
                 </tr>
             </thead>
+        </table> -->
+
+        <table style='width:100%;font-size:18px;'>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Shipping:</td>
+                    <td style='width:10%' class='text-right'>${{somast.shipping}}</td>
+                </tr>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Subtotal:</td>
+                    <td style='width:10%' class='text-right'>${{somast.subtotal|decimal}}</td>
+                    
+                </tr>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Tax:</td>
+                    <td style='width:10%' class='text-right'>${{somast.tax|decimal}}</td>
+                    
+                </tr>
+                <tr class='row'>
+                    <th style='width:90%' class='text-right'>Total:</th>
+                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal + somast.shipping)|decimal}}</th></th>
+                    
+                </tr>
+               
         </table>
         <div class="text-right" style='margin-bottom:10px;'>
             <el-button type='success' @click='downPDF(somast.order_num)'>Print Order</el-button>

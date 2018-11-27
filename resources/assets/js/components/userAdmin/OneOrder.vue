@@ -7,7 +7,7 @@
     </div>
     <div v-if="!empty">
         <div class="edit_title" >
-            <span>Order Number : {{so}}</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
+            <span>Order Number : {{so}}</span><span v-if="show" >Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
         <div class='row'>
             <div class="col-xs-6">
@@ -72,25 +72,29 @@
             </tbody>
             
         </table>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Shipping</th>
-                    <th>Estimate Shipping Days</th>
-                    <th>Subtotal</th>
-                    <th>Tax</th>
-                    <th>Status</th>
+        <table style='width:100%;font-size:18px;'>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Shipping:</td>
+                    <td style='width:10%' class='text-right'>${{somast.shipping}}</td>
                 </tr>
-                <tr>
-                    <th>${{somast.shipping}}</th>
-                    <th>{{somast.shippingdays}}</th>
-                    <th>${{somast.subtotal|decimal}}</th>
-                    <th>${{somast.tax|decimal}}</th>
-                    <th>{{statusCode}}</th>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Subtotal:</td>
+                    <td style='width:10%' class='text-right'>${{somast.subtotal|decimal}}</td>
+                    
                 </tr>
-            </thead>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Tax:</td>
+                    <td style='width:10%' class='text-right'>${{somast.tax|decimal}}</td>
+                    
+                </tr>
+                <tr class='row'>
+                    <th style='width:90%' class='text-right'>Total:</th>
+                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal + somast.shipping)|decimal}}</th></th>
+                    
+                </tr>
+               
         </table>
-        <div class="text-right">
+        <div class="text-right" style='margin-top:30px'>
             <el-button type='success' @click='downPDF(somast.order_num)'>Print Order</el-button>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>    

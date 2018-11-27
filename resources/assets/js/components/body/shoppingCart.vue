@@ -98,7 +98,7 @@
                         </div>
                         <div class="summary_list">
                             <div class='summary_amount'>
-                                <span>HST/GST/QST:</span><span>${{ hst }}</span>
+                                <span>TAX:</span><span>${{ hst }}</span>
                             </div>
                         </div>
                         <div class="summary_list">

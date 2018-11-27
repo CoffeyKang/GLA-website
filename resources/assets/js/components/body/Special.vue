@@ -6,8 +6,11 @@
 			<div class="title">
 				<span>On Sale Products</span>
 			</div>
+			<div class='searchBar'>
+				<search-special :search='search' v-on:updateSearch = "updateSearch($event)"></search-special>
+			</div>
 		</div>
-		<div class="container paginate_btn alert">
+		<div class="container paginate_btn alert" v-if="lists.length>=1"> 
 				<div class='col-xs-4 text-right'>
 					<!-- pre page -->
 					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
@@ -31,10 +34,11 @@
 						Next Page
 					</button>
 				</div>
-			</div>
+		</div>
+		
 		<div class='container' id='car_makes'>
 		
-			<div class='car_make' v-for='item in lists' :key='item.item' v-if="item.onhand - item.aloc - item.orderpt >0">
+			<div class='car_make' v-for='item in lists' :key='item.item' v-if="lists.length>=1">
 			
 				<div class='item'>
 					<div class="car_img" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click='goToItem(item.item)'>
@@ -73,40 +77,50 @@
 					</div>
 				</div>
 			</div>
-			<div class="container paginate_btn alert">
-				<div class='col-xs-4 text-right'>
-					<!-- pre page -->
-					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
-						Previous Page
-					</button>
-				</div>
-				<div class='col-xs-4 text-center'>
-					{{data.total}}  Products found, Page 
-					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
-						<el-option
-							v-for="p in pages"
-							:key="p"
-							:label="p"
-							:value="p">
-						</el-option>
-					</el-select> / of {{data.last_page}}
-				</div>
-				<div class='col-xs-4'>
-					<!-- next page -->
-					<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
-						Next Page
-					</button>
-				</div>
+
+			<div v-if='lists.length<=1' class='alert alert-warning container' style='margin-top:30px;margin-bottom:100px'>
+				<b>Your search did not match any special products.<br></b>
+				Try something like<br>
+				<ul>
+					<li>Using more general terms</li>
+					<li>Checking your spelling</li>
+				</ul>
 			</div>
-		</div>	
+		<div class="container paginate_btn alert" v-if="lists.length>=1">
+			<div class='col-xs-4 text-right'>
+				<!-- pre page -->
+				<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
+					Previous Page
+				</button>
+			</div>
+			<div class='col-xs-4 text-center'>
+				{{data.total}}  Products found, Page 
+				<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+					<el-option
+						v-for="p in pages"
+						:key="p"
+						:label="p"
+						:value="p">
+					</el-option>
+				</el-select> / of {{data.last_page}}
+			</div>
+			<div class='col-xs-4'>
+				<!-- next page -->
+				<button class="btn btn default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+					Next Page
+				</button>
+			</div>
+		</div>
+		</div>
 	</div>
 		
 </template>
 <script>
-
+	import SearchSpecial from './parts/SearchSpecial.vue';
 	export default {
 		data (){
 			return {
+				search:{},
 				lists:{},
 				data:{},
 				page:1,
@@ -115,9 +129,18 @@
 				// usdPrice:this.$store.state.usdPrice,
 			}
 		},
+		components:{
+			SearchSpecial,
+		},
 		mounted(){
 			/**	get special list */
-			this.$http.get('/api/special/'+this.page).then(response => {
+			this.$http.post('/api/searchSpecial',{
+					item:this.search.item, 
+					make:this.search.make,
+					year:this.search.year,
+					desc:this.search.desc,
+					page:this.page,
+				}).then(response => {
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
@@ -132,8 +155,6 @@
 			     
 			  });
 
-
-
 			  /**	 check if it is dealer */
 
 			  if (this.ifDealer()) {
@@ -145,7 +166,13 @@
 		methods:{
 			nextPage(){
 				this.page +=1;
-				this.$http.get('/api/special/'+this.page).then(response => {
+				this.$http.post('/api/searchSpecial',{
+					item:this.search.item, 
+					make:this.search.make,
+					year:this.search.year,
+					desc:this.search.desc,
+					page:this.page,
+				}).then(response => {
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
@@ -162,14 +189,20 @@
 			},
 			prePage(){
 				this.page -=1;
-				this.$http.get('/api/special/'+this.page).then(response => {
+				this.$http.post('/api/searchSpecial',{
+					item:this.search.item, 
+					make:this.search.make,
+					year:this.search.year,
+					desc:this.search.desc,
+					page:this.page,
+				}).then(response => {
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
 					element.pricel = this.Dealerprice(element);
 				});	
 			    this.page = this.data.current_page;
-window.scrollTo(0,0);
+				window.scrollTo(0,0);
 			    // finish ladding screen
 			    this.loading = 0;
 			  }, response => {
@@ -181,7 +214,13 @@ window.scrollTo(0,0);
 			toPage(page){
 				this.page =page;
 				
-				this.$http.get('/api/special/'+this.page).then(response => {
+				this.$http.post('/api/searchSpecial',{
+					item:this.search.item, 
+					make:this.search.make,
+					year:this.search.year,
+					desc:this.search.desc,
+					page:this.page,
+				}).then(response => {
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
@@ -240,6 +279,29 @@ window.scrollTo(0,0);
 					});
 				}
 			},
+
+			updateSearch(value){
+				this.$http.post('/api/searchSpecial',{
+					item:value.item, 
+					make:value.make,
+					year:value.year,
+					desc:value.desc,
+					page:1
+				}).then(response => {
+			    this.lists = response.data.special.data;
+				this.data = response.data.special;
+				this.lists.forEach(element => {
+					element.pricel = this.Dealerprice(element);
+				});	
+			    this.page = this.data.current_page;
+				window.scrollTo(0,0);
+			    // finish ladding screen
+			    this.loading = 0;
+			  }, response => {
+			  	// error 
+			     
+			  });
+			},
 			
 		},
 		computed:{
@@ -268,6 +330,10 @@ window.scrollTo(0,0);
 	
 </script>
 <style scoped>
+	.searchBar{
+        background-color: black;
+        padding: 10px 0;
+    }
 	.item{
 		margin: 0px 50px;
 	}

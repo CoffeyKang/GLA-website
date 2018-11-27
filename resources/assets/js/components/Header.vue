@@ -314,6 +314,43 @@
 }
 
 
+@media screen and (max-width:768px){
+	.gla-nav{
+		background-color:  #FFE512;
+	}
+
+	.black .active a,
+	.black .active a:visited,
+	.black .active a:hover{
+		background-color: black;
+	}
+	.nav-pills > .active > a, .nav-pills > .active > a:hover,.black .active a:visited {
+		background-color: black;
+	}
+	li a{
+		border-radius: 0;
+		font-size: 14px;
+		color: black;
+		padding:10px 0;
+
+	}
+	.logo{
+		padding: 20px 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		
+	}
+	.logo ul li{
+		display: inline;
+		padding-left: 10px;
+		font-size: 14px;
+		cursor:pointer;
+
+	}
+}
+
+
 
 
 

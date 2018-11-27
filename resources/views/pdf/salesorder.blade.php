@@ -117,7 +117,44 @@
         </tbody>
 
     </table>
-    <table class="table table-bordered" style='font-size:10px;'>
+     <table>
+            <tr>
+                <td style='width:90%; text-align: right'>
+                    <b style='font-size:12px'>Subtotal:</b>
+                </td>
+                <td style='width:10%; text-align: right'>
+                    <b style='font-size:12px'>${{$somast->subtotal}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style='width:90%; text-align: right'>
+                    <b style='font-size:12px'>Shipping:</b>
+                </td>
+                <td style='width:10%; text-align: right'>
+                    <b style='font-size:12px'>${{$somast->shipping}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style='width:90%; text-align: right'>
+                    <b style='font-size:12px'>Tax:</b>
+                </td>
+                <td style='width:10%; text-align: right'>
+                    <b style='font-size:12px'>${{$somast->tax}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style='width:90%; text-align: right'>
+                    <b style='font-size:14px'>Total:</b>
+                </td>
+                <td style='width:10%; text-align: right'>
+                    <b style='font-size:14px'>${{$somast->tax + $somast->shipping + $somast->subtotal }}</b>
+                </td>
+            </tr>
+    </table>
+    {{-- <table class="table table-bordered" style='font-size:10px;'>
         <thead>
             <tr>
                 <th>Shipping</th>
@@ -136,7 +173,7 @@
                 @else Shipped @endif</th>
             </tr>
         </thead>
-    </table>
+    </table> --}}
     
 </div>
         

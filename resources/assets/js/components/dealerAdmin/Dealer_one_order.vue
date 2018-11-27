@@ -84,7 +84,7 @@
             </tbody>
             
         </table>
-        <table class="table table-bordered table-striped">
+        <!-- <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Dealer Account</th>
@@ -99,8 +99,27 @@
                     <th>${{somast.subtotal + somast.tax |decimal}}</th>
                 </tr>
             </thead>
+        </table> -->
+        <table style='width:100%;font-size:18px;'>
+                
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Subtotal:</td>
+                    <td style='width:10%' class='text-right'>${{somast.subtotal|decimal}}</td>
+                    
+                </tr>
+                <tr class='row'>
+                    <td style='width:90%' class='text-right'>Tax:</td>
+                    <td style='width:10%' class='text-right'>${{somast.tax|decimal}}</td>
+                    
+                </tr>
+                <tr class='row'>
+                    <th style='width:90%' class='text-right'>Total:</th>
+                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal)|decimal}}</th></th>
+                    
+                </tr>
+               
         </table>
-        <div class="text-right">
+        <div class="text-right" style='margin-top:30px'>
             <el-button type='success' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>Print Order</el-button>
             <el-button type='primary' @click='$router.push({name:"OrderHistory_dealer"})'>Check History Order</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>        
