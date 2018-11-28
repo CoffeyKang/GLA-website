@@ -111,10 +111,25 @@ class InventoryController extends Controller
      * @return [type]       [description]
      */
     public function product_list($make,$mycurrentPage){
+        
         Paginator::currentPageResolver(function () use ($mycurrentPage) {
             return $mycurrentPage;
         });
-        $product_list = Inventory::where('make',$make)->paginate(20) ;
+
+        // $product_list = Inventory::where('make',$make)->paginate(20) ;
+
+        $items = Inventory::orderBy('item','asc');
+
+        $item_from_make_table = Item_make::where('make',$make)->get();
+
+        $from_make_table_item = [];
+        
+        foreach ($item_from_make_table as $i) {
+            
+            array_push($from_make_table_item,$i->item);
+        }
+
+        $product_list = $items->whereIn('item',$from_make_table_item)->paginate(20);
 
         // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($product_list as $item) {
@@ -2128,6 +2143,9 @@ class InventoryController extends Controller
         $special = Inventory::whereIn('item',$arr);
         
         if ($request->item) {
+
+            $request->item = strtoupper($request->item);
+
             if (in_array($request->item,$arr)) {
                 
                 $special = $special->where('item',$request->item)->paginate(20);
@@ -2162,6 +2180,8 @@ class InventoryController extends Controller
         }
 
         if ($request->make) {
+            
+            
 
             $item_from_make_table = Item_make::where('make',$request->make)->get();
 

@@ -18,6 +18,6 @@ class STKCODE implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('stkcode', "Y");
+        $builder->where('stkcode', "Y")->where('display',1);
     }
 }

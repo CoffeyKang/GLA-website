@@ -50,7 +50,7 @@
                     <div class="form-group row ">
                         <div class="col-sm-12 text-right">
 
-                            <span><a href="#" class='forget'> Forget password? </a></span>
+                            {{-- <span><a href="#" class='forget'> Forget password? </a></span> --}}
 
                             <button type="submit" class="btn btn-success" style='width:100px;'>Login</button>
 
@@ -70,7 +70,7 @@
             </div>
             @endif
             <div class="copyright text-center">
-                &copy; 2018 Golden Leaf Automotive. All rights reserved.
+                &copy; {{date('Y')}} Golden Leaf Automotive. All rights reserved.
             </div>
         </div>
         

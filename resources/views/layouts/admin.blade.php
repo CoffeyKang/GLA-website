@@ -137,7 +137,7 @@
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Account Details</a> --}}
                             {{-- <a class="nav-link" id="updateInfo"  href="/updateInfo" role="tab">Edit Profile</a> --}}
                             {{-- <a class="nav-link" id="uploadCatalog" href="/uploadCatalog" role="tab">UploadCatalog</a> --}}
-                            <a class="nav-link" id="changePassword" href="/changePassword" role="tab">Change Password</a>
+                            {{-- <a class="nav-link" id="changePassword" href="/changePassword" role="tab">Change Password</a> --}}
                         </div>
                     </div>
             

@@ -33,7 +33,7 @@
 												</el-select >
 				</div>
 				<button class='btn btn-primary findBTN' @click="searchItem()">FIND</button>
-				<button class='btn btn-warning findBTN' @click="resetSearch()">Reset</button>
+				<a class='btn btn-warning findBTN' @click="resetSearch()">Reset</a>
 			</div>
                   
 		</form>

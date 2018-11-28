@@ -14,8 +14,55 @@
 				show-icon>
 			</el-alert>
 		</div>
-		<div class="address ">
-			<div class="words col-xs-6" >
+		<div class="address">
+			<div class="col-xs-6 address_details" style='height:387px;'>
+				<div>
+					<span style='font-size:24px'>CONTACT US</span>
+				</div>
+				<div>
+					<table class='table address_table'>
+						<tr>
+							<td>
+								ADDRESS:
+							</td>
+							<td>
+								170 Zenway Blvd. Unit 2<br> Woodbridge, ON., L4H 2Y7 CANADA
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								TELEPHONE:
+							</td>
+							<td>
+								905-850-3433
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								FAX:
+							</td>
+							<td>
+								905-850-1722
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								BUSINESS HOURS:
+							</td>
+							<td>
+								Monday-Friday: 8:30am-5pm <br>Saturday: Appointment Only
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="img">
+					<img src="/images/loc_01.jpg" alt="">
+				</div>
+			</div>
+			<!-- <div class="words col-xs-6" >
 				<table>
 					<tr>
 						<td class='left'>ADDRESS <span class='glyphicon glyphicon-play'></span>	</td>
@@ -39,9 +86,9 @@
 					</tr>
 				</table>
 				<div class="img">
-					<img src="/images/loc_01.jpg" alt="">
+					
 				</div>
-			</div>
+			</div> -->
 
 			<div class="form col-xs-6" >
 				
@@ -224,5 +271,16 @@
 		flex-direction: row;
 		align-items: flex-end;
 		justify-content: space-between;
+	}
+	.address_table td{
+		padding:1px 0;
+		font-size: 16px;
+		vertical-align: top !important;
+	}
+	.address_details{
+		/* display: flex;
+		flex-direction: column;
+		justify-content: space-between; */
+
 	}
 </style>
