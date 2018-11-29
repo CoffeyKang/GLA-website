@@ -1,6 +1,7 @@
 <template>
 	<div v-loading='loading'  
-		 element-loading-text="Loading ..."
+		 element-loading-text="Loading ... "
+		 
 		 
 		  >
 		<div class="container">

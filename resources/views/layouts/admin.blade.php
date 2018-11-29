@@ -113,7 +113,7 @@
                             
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Member Managenment</b></a>
                             <a class="nav-link" id="customerList"   href="/customerList" role="tab">Member List </a>
-                            <a class="nav-link" id="" href="#v" role="tab">Sales Records</a>
+                            {{-- <a class="nav-link" id="" href="#v" role="tab">Sales Records</a> --}}
                             <a class="nav-link" id="orderHistory"   href="/orderHistory" role="tab">Order History</a>
                             <a class="nav-link" id="pendingQuotes" href="/pendingQuotes" role="tab">
                             Pending Quotes Profile 
@@ -148,7 +148,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer pt-3">
         <div class="container">
             <b>©Golden Leaf Automotive Inc.. All rights reserved.<br>
                 All data listed here are confidential. Do not Share the information without consent. Developed by </b><b style='color:#FFBA00'>Visual Elements Image Studio Inc.</b>

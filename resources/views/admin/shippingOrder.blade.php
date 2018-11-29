@@ -33,11 +33,11 @@
     
         <div class="card col-sm-5">
             <div class="card-body">
-                <h5 class="card-title">Shipping Address</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{$shippingArray['name']}}</h6>
-                <p class="card-text">{{$shippingArray['address_line1']}}, {{$shippingArray['city']}}, {{$shippingArray['province']}},
-                    {{$shippingArray['postal_code']}}, {{$shippingArray['country']}}<br>
-                    {{$shippingArray['phone_number']}},
+                <h5 class="card-title">Billing Address</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{$billing->firstname}} {{$billing->lastname}}</h6>
+                <p class="card-text">{{$billing->address1}}, {{$billing->city}}, {{$billing->province}},
+                    {{$billing->postalcode}}, {{$billing->country}}<br>
+                    {{$billing->phone}},
                 </p>
 
             </div>

@@ -116,8 +116,26 @@ class AdminController extends Controller
 
     public function dealerList(){
         $dealers = Dealer::orderBy('account','asc')->paginate(18);
-        return view('admin.dealerList',compact('dealers'));
-    }  
+        
+        $quickSearch = [];
+        foreach(range('A','Z') as $i){
+            $quickSearch[$i] = count(Dealer::orderBy('account','asc')->where('account','like',$i.'%')->get());
+        }
+
+        return view('admin.dealerList',compact('dealers', 'quickSearch'));
+    }
+    
+    
+    public function dealerListQuickSearch($a){
+
+        $quickSearch = [];
+        foreach(range('A','Z') as $i){
+            $quickSearch[$i] = count(Dealer::orderBy('account','asc')->where('account','like',$i.'%')->get());
+        }
+
+        $dealers = Dealer::orderBy('account','asc')->where('account','like',$a.'%')->paginate(10);
+        return view('admin.dealerList',compact('dealers','quickSearch'));
+    }
 
     public function dealerHistory(){
 
@@ -247,6 +265,8 @@ class AdminController extends Controller
         
         $customer = $somast->customer;
 
+        $billing = $customer->BillingAddress;
+
         $customerInfo = $somast->customerInfo;
 
         if ($somast->addressID!=0) {
@@ -287,7 +307,7 @@ class AdminController extends Controller
             );
         }
 
-        return view('admin.shippingOrder',compact('somast','sotran','customer','customerInfo','shippingArray'));
+        return view('admin.shippingOrder',compact('somast','sotran','customer','customerInfo','shippingArray','billing'));
     }
 
     public function updateShipping(Request $request){
@@ -395,4 +415,155 @@ class AdminController extends Controller
                 return redirect()->back()->withErrors('Item not find.');
             }
         }
+
+    public function findDealer(Request $request){
+        
+        $this->validate($request,[
+            'account'=>'required|exists:dealer_main',
+        ]);
+        $dealer = Dealer::where('account',$request->account)->first();
+        
+        $dealerHistory = $dealer->orderHis()->orderBy('id','desc')->paginate(18);
+        
+        return view('admin.dealerHistory_oneDealer',compact('dealer','dealerHistory'));
+        
+    }
+
+    public function findCustomer(Request $request){
+        if ($request->email
+        ||$request->firstname
+        ||$request->lastname
+        ||$request->tel){
+           
+        }else{
+            $customerList = UserInfo::orderBy('m_id','asc')->paginate(18);
+
+            return view('admin.customerList',compact('customerList'));
+        }
+
+        if ($request->tel) {
+            /** search by telephone ....how to ignor charts */
+            $arr = [];
+
+            $userarray = UserInfo::all();
+
+            foreach ($userarray as $user) {
+                
+                preg_match_all('!\d+!', $user->m_tel, $newTel);
+
+                $string = implode(" ",$newTel[0]);
+
+                $str = str_replace(' ','',$string);
+
+                $arr[$user->m_id] = $str;
+                
+            }
+            $result = [];
+            while (in_array($request->tel, $arr)) {
+                
+                $key = array_search($request->tel, $arr);
+                array_push($result, $key );
+                unset($arr[$key]);
+
+            }
+            
+            if (count($result)>=1) {
+                
+                $customerList = UserInfo::whereIn('m_id',$result)->get();
+            
+                return view('admin.customerSearch',compact('customerList'));
+            
+            }else{
+                
+                
+                return redirect()->back()->with('notFound','Customer Not Found.');
+            }
+            
+        }else{
+
+        }
+
+
+        if ($request->email) {
+            
+            $customerList = User::where('email',$request->email)->first();
+
+            if ($customerList) {
+                
+                $customerList = $customerList->userDetails()->get();
+
+                return view('admin.customerSearch',compact('customerList'));
+            }else{
+                return redirect()->back()->with('notFound','Customer Not Found.');
+            }
+            
+            
+        }else{
+
+            $customerList = UserInfo::orderBy('m_id','asc');
+            if ($request->firstname) {
+                
+                $customerList = $customerList->where('m_forename',$request->firstname);
+
+            }else{
+
+            }
+
+            if ($request->lastname) {
+                
+
+                $customerList = $customerList->where('m_surname',$request->lastname);
+            }else{
+
+            }
+            if (count($customerList)>0) {
+
+                $customerList = $customerList->get();
+
+                return view('admin.customerSearch',compact('customerList'));
+            }else{
+                
+            }
+        }
+    }
+
+
+    public function CustomerHistory($id){
+
+        $customer = User::find($id);
+        
+        if ($customer) {
+            
+            $customer = $customer->userDetails;
+
+            $customerHistory = $customer->somast()->orderBy('order_num','desc')->paginate(20);
+
+            return view('admin.oneCustomer',compact('customer','customerHistory'));
+
+        }else{
+            return redirect()->back()->with('notFound','Customer Order History Not Found.');
+        }
+        
+    }
+
+    public function oneOrder($sono){
+        $somast = SOMAST::where('order_num',$sono)->first();
+
+        if ($somast) {
+            $c = $somast->customer;
+            $customer = $somast->customerInfo;
+            $sotran = $somast->sotran;
+            $billing = $c->BillingAddress;
+            $add = $somast->address;
+
+            if ($add==0) {
+                $address = 0;
+            }else{
+                $address = AddressBook::find($add);
+            }
+            return view('admin.oneOrder',compact('somast','customer','sotran','billing','address'));
+        }else{
+            return redirect()->back()->with('notFound','Customer Order History Not Found.');
+        }
+    }
 }

@@ -1,18 +1,20 @@
 @extends('layouts.admin') 
 @section('content')
 <div>
-    <div class="alert alert-dark">
-        <b>Customer List</b>
-    </div>
-    @if (session()->has('notFound'))
-        <div class='alert alert-danger'>{{session()->get('notFound')}}</div>
-    @endif
 
+    <div class="alert alert-dark d-flex justify-content-between">
+        <b>Customer Search Result</b>
+        <b><a href="/customerList">Back To All Customer</a></b>
+    </div>
+    
+    @if (session()->has('notFound'))
+    <div class='alert alert-danger'>{{session()->get('notFound')}}</div>
+    @endif
     <div>
-        <form class="form-inline d-flex justify-content-center" action='/findCustomer'>
+        <form class="form-inline d-flex justify-content-center" action='/findCustomer' >
             <div class="form-group mb-2">
                 <label for="email" class="form-label col">Email:</label>
-                <input type="email" class="form-control col" id="email" name='email' placeholder="Email">
+            <input type="email" class="form-control col" id="email" name='email' placeholder="Email" value="{{old('email')}}" >
                 <label for="firstname" class="form-label col">Firstname:</label>
                 <input type="text" class="form-control col" id="firstname" name='firstname' placeholder="Firstname" >
                 <label for="lastname" class="form-label col">Lastname:</label>
@@ -61,9 +63,7 @@
             @endforeach
         </tbody>
     </table>
-    <div class="d-flex justify-content-center">
-        {{ $customerList->links() }}
-    </div>
+    
 
 
 
@@ -74,6 +74,9 @@
         $('.nav-link').removeClass('active');
         $('#customerList').addClass('active');
     });
+    
+        
+        
 
 </script>
 @endsection

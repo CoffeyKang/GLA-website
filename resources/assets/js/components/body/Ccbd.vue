@@ -20,6 +20,7 @@
 
 <style scoped>
 	.ccbd{
+		padding:30px 0;
 		display: flex;
 
 	}

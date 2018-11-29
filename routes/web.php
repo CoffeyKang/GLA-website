@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/checkout', 'HomeController@index')->name('home');
 
-Route::get('/GLAAdmin','AdminController@index')->name('index');
+Route::get('/admin','AdminController@index')->name('index');
 
 
 
@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateInfo','AdminController@updateUser');
 
     Route::get('/dealerList','AdminController@dealerList');
+
+    Route::get('/dealerList/{A}','AdminController@dealerListQuickSearch');
 
     Route::get('/dealerHistory','AdminController@dealerHistory');
 
@@ -80,4 +82,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/addNewFeatureProduct','AdminController@addNewFeatureProduct');
 
     Route::get('/deletefeatureItem/{id}','AdminController@deletefeatureItem');
+
+    Route::get('/findDealer','AdminController@findDealer');
+
+    Route::get('/findCustomer','AdminController@findCustomer');
+
+    Route::get('/CustomerHistory/{id}','AdminController@CustomerHistory');
+
+    Route::get('/oneOrder/{sono}','AdminController@oneOrder');
 });

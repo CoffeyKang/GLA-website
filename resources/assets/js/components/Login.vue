@@ -43,7 +43,7 @@
                 
             </div>
         </div>
-        <div class="panel panel-default col-xs-12">
+        <!-- <div class="panel panel-default col-xs-12">
             <div class="panel-heading">
                 <h3 class="panel-title">Log In Help</h3>
             </div>
@@ -57,7 +57,7 @@
             </div>
             
             
-        </div>
+        </div> -->
         
     </div>
 </template>

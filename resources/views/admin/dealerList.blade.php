@@ -5,16 +5,44 @@
     <div class="alert alert-dark">
         <b>Dealer List</b>
     </div>
+    @if (count($errors)>=1)
+        <div class=' alert alert-danger'>
+            <ul>
+                @foreach ($errors->all() as $item)
+                    <li>{{$item}}</li>
+                @endforeach    
+            </ul>    
+        </div> 
+    @endif
+    <div >
+        <form class="form-inline d-flex justify-content-center" action='/findDealer'>
+            <div class="form-group  mb-2">
+                <label for="account" class="form-label col">Account:</label>
+                <input type="text" class="form-control col" id="account" name='account' placeholder="Dealer Account" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 ml-3">Find Dealer History</button>
+        </form>
+    </div>
+    
+    <div class='d-flex justify-content-around'>
+        @foreach(range('A','Z') as $v)
+            @if ($quickSearch[$v])
+                <span><a href="/dealerList/{{$v}}"> <b>{{$v}}</b></a></span>
+            @else
+                <span>{{$v}}</span>
+            @endif
+        @endforeach
+    </div>
+
+    
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Dealer Id</th>
-                <th scope="col">Dealer name</th>
+                <th scope="col">Company name</th>
                 <th scope="col"># of Orders</th>
                 <th scope='col'>price plan</th>
                 <th scope='col'class='text-center'>History</th>
-                
-                
             </tr>
         </thead>
         <tbody>
