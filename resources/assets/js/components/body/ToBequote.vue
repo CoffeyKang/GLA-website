@@ -1,15 +1,23 @@
 <template>
-<div>
+<div class='container' style='margin:30px auto;'>
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
         </div>
     </div>
     <div v-if="!empty">
+        
         <div class="edit_title" >
-            <span>Order Number : {{so}}</span><span v-if="show" style='padding-right:30px'>Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
+            <span>Order Number : {{so}} Panding Quotation</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
-        <div class='row'>
+
+        <el-steps :active="3" finish-status="success">
+            <el-step title="Step 1"></el-step>
+            <el-step title="Step 2"></el-step>
+            <el-step title="Step 3"></el-step>
+            <el-step title="Step 4"></el-step>
+        </el-steps>
+        <div>
             <div class="col-xs-6">
                 <h1><i>GOLDEN LEAF AUTOMOTIVE</i></h1>
                 <h4>
@@ -19,6 +27,7 @@
                     GST/HST # 864767512RT0001
                 </h4>
             </div>
+
             <div class="col-xs-6">
                 <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
                 <h4><br><br><br><br>
@@ -31,7 +40,7 @@
             <div class="col-xs-6 addessLabel">
                 <el-card class="box-card" >
                             <h4>Bill To</h4>
-                            <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}},  {{billing.city}},<br> {{billing.postalcode}}, {{billing.province}}, {{billing.country}}<br>{{billing.phone}}</h4>
+                            <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}},  {{billing.city}}, {{billing.postalcode}}<br>{{billing.province}}, {{billing.country}}<br>{{billing.phone}}</h4>
                     </el-card>
             </div>
             <div class="col-xs-6 addessLabel" >
@@ -39,14 +48,14 @@
                     
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{userInfo.m_forename + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},  {{userInfo.m_city}},<br> {{userInfo.m_zipcode}},{{userInfo.m_state}}, {{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
+                            <h4>{{userInfo.m_forename + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>{{userInfo.m_state}}, {{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
                     </el-card>
                 </div>
 
                 <div v-if="address!=0" >
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{address.surname + ' ' + address.surname}} <br> <br>{{address.address}},  {{address.city}}, <br>{{address.zipcode}},{{address.state}}, {{address.country}}<br>{{address.tel}}</h4>
+                            <h4>{{address.surname + ' ' + address.surname}} <br> <br>{{address.address}},  {{address.city}}, {{address.zipcode}}<br>{{address.state}}, {{address.country}}<br>{{address.tel}}</h4>
                     </el-card>
                 </div>
             </div>
@@ -72,6 +81,25 @@
             </tbody>
             
         </table>
+        <!-- <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Shipping</th>
+                    <th>Estimate Shipping Days</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <th>${{somast.shipping}}</th>
+                    <th>{{somast.shippingdays}}</th>
+                    <th>${{somast.subtotal|decimal}}</th>
+                    <th>${{somast.tax|decimal}}</th>
+                    <th>{{statusCode}}</th>
+                </tr>
+            </thead>
+        </table> -->
+
         <table style='width:100%;font-size:18px;'>
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Shipping:</td>
@@ -94,11 +122,9 @@
                 </tr>
                
         </table>
-        <div class="text-right" style='margin-top:30px'>
-            <el-button type='success' @click='makePayment(somast.order_num)' v-if="somast.sales_status==5">Make Payment</el-button>
-            <el-button type='success' @click='downPDF(somast.order_num)' v-if="somast.sales_status!=3">Print Order</el-button>
+        <div class="text-right" style='margin-bottom:10px;'>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
-            <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>    
+            <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>        
         </div>  
     </div>
 </div>        
@@ -108,7 +134,7 @@
 export default {
     data(){
         return {
-            so:this.$route.params.order_num,
+            so:this.$route.params.sono,
             storage:window.localStorage,
             account:0,
             oneOrder:[],
@@ -162,11 +188,7 @@ export default {
     methods:{
         downPDF(sono){
 				window.open('/PDF/salesOrder/'+sono+'.pdf');
-            },
-            
-        makePayment(sono){
-            this.$router.push({name:'makePayment',parmas:{'sono':sono}});
-        }
+			},
     },
     mounted(){
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));

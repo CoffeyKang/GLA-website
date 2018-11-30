@@ -102,20 +102,7 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <input type="number"  class="form-control" id ='cardMonth' v-model='card.month' autocomplete="off" minlength="2" maxlength="2"  placeholder="MM" required >
-                                    <!-- <select class="form-control" name="cc_exp_mo" v-model='card.month'>
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select> -->
+                                    
                                 </div>
                                 <div class="col-md-1" style='font-size:32px; line-height:36px;'> / </div>
                                 <div class="col-md-6">
@@ -246,7 +233,6 @@ export default {
                 sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
                 production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
             },
-            
             myStyle: {
                 label: 'checkout',
                 size:  'responsive',

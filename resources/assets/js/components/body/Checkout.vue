@@ -239,7 +239,7 @@
                 </div>
 
                 <div class=" text-center" v-if="shippingRate!='quotable'">
-                    <button class='mybtn btn btn-success' >Get a Quote</button>
+                    <button class='mybtn btn btn-success' @click="getQuote()">Get a Quote</button>
                     <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
                 
@@ -749,7 +749,6 @@ export default {
                 this.$http.post('/api/changeAddress',{"id":id}).then(response=>{
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
-                    this.userInfo = response.data.userInfo;
                     this.shippingRate = response.data.shippingRate;
                     this.quotes = response.data.quotes;
                     this.shipping = this.quotes['ground'];
@@ -761,6 +760,7 @@ export default {
                     this.loading = 0;
                     $('.addressBox').css("border",'none');
                     $("#box"+id).css("border",'3px solid green');
+                    
                 });        
             },
 
@@ -799,6 +799,24 @@ export default {
                 // })
                 
             },
+
+            getQuote(){
+                
+                this.$http.post('/api/getQuote',{
+                    "id":this.userInfo.m_id,
+                    "addressID":this.addressID,
+                    "subtotal":this.subtotal,
+                    "hst":this.hst,
+                }).then(response=>{
+                    
+                    if (response.data.sono) {
+                        var sono = response.data.sono;
+                        this.$router.push({ name: 'toBequote', params: { sono: sono }});
+                        
+                    }
+                });
+                
+            }
         },
         watch:{
         }

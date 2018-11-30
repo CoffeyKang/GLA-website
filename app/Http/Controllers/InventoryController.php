@@ -972,52 +972,6 @@ class InventoryController extends Controller
 
             $oversize = 1;
 
-            // switch ($userInfo->state)
-            // {
-            //     case "AB":
-            //         $tax = 5;
-            //         break;  
-            //     case "BC":
-            //         $tax = 12;
-            //         break;
-            //     case "MB":
-            //         $tax = 13;
-            //         break;  
-            //     case "NB":
-            //         $tax = 15;
-            //         break;
-            //     case "NL":
-            //         $tax = 5;
-            //         break; 
-            //     case "NT":
-            //         $tax = 5;
-            //         break; 
-            //     case "NS":
-            //         $tax = 15;
-            //         break;
-            //     case "NU":
-            //         $tax = 5;
-            //         break;
-            //     case "ON":
-            //         $tax = 13;
-            //         break;  
-            //     case "PE":
-            //         $tax = 15;
-            //         break;
-            //     case "QC":
-            //         $tax = 14.975;
-            //         break;
-            //     case "SK":
-            //         $tax = 11;
-            //         break;  
-            //     case "YT":
-            //         $tax = 5;
-            //     break;
-                
-            //     default:
-            //         $tax = 0;
-            // }
-
             $tax = $user->getRate();
 
 
@@ -1226,7 +1180,7 @@ class InventoryController extends Controller
                 }else{
                     $shippingRate = 'TBD';
                     return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
+                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'addressID'=>$oneAdd->id,
                     'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
                 }    
         }else{
@@ -1241,7 +1195,7 @@ class InventoryController extends Controller
 
         $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->get();
 
-        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[0,1,3,5,7])->orderBy('order_num','desc')->get();
+        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[3])->orderBy('order_num','desc')->get();
         
         return response()->json(['history'=>$history,'pending'=>$pending],200);
     }
@@ -1971,6 +1925,138 @@ class InventoryController extends Controller
     }
 
 
+    /** finish quote order */
+    public function finishOrder_quote(Request $request){
+
+        $cardNum = $request->card['card'];
+
+        $month = $request->card['month'];
+
+        $year = substr($request->card['year'],-2);
+
+        $cvv = $request->card['cvv'];
+
+        $name = $request->card['name'];
+
+        $customer = User::find($request->custno);
+        
+        $somast = SOMAST::where('order_num',$request->sono)->first();
+
+        $total = $somast->tax + $somast->shipping + $somast->subtotal;
+
+        $orderNumber = $somast->order_num;
+
+        if ($somast&&$customer) {
+            if ($somast->addressID!=0) {
+                $addr = AddressBook::find($request->addressID);
+                
+                if ($addr) {
+                    $shippingArray =  array(
+                        'name' => $addr->forename.' '.$addr->forename,
+                        'phone_number' =>$addr->tel,
+                        'address_line1' => $addr->address,
+                        'city' => $addr->city,
+                        'province' => $addr->state,
+                        'postal_code' =>$addr->zipcode,
+                        'country' => $addr->country,
+                );
+                }else{
+                    $addr = $customer->userDetails;
+                    $shippingArray =  array(
+                        'name' => $addr->m_forename.' '.$addr->m_forename,
+                        'phone_number' =>$addr->m_tel,
+                        'address_line1' => $addr->m_address,
+                        'city' => $addr->m_city,
+                        'province' => $addr->m_state,
+                        'postal_code' =>$addr->m_zipcode,
+                        'country' => $addr->m_country,
+                    ); 
+                }
+                
+            }else{
+                $addr = $customer->userDetails;
+                $shippingArray =  array(
+                        'name' => $addr->m_forename.' '.$addr->m_forename,
+                        'phone_number' =>$addr->m_tel,
+                        'address_line1' => $addr->m_address,
+                        'city' => $addr->m_city,
+                        'province' => $addr->m_state,
+                        'postal_code' =>$addr->m_zipcode,
+                        'country' => $addr->m_country,
+                );
+            }
+
+            $billing = $customer->BillingAddress;
+            /** payment api config */
+            $merchant_id = '117686147'; //INSERT MERCHANT ID (must be a 9 digit string)
+            $api_key = 'B452F4E8020a4746aDa2FC5c468Ab17a'; //INSERT API ACCESS PASSCODE
+            $api_version = 'v1'; //default
+            $platform = 'api'; //default
+            //Create Beanstream Gateway
+            $beanstream = new \Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
+            //Example Card Payment Data
+            $payment_data = array(
+                    'order_number' => $orderNumber,
+                    'amount' => $total,
+                    'payment_method' => 'card',
+                    'card' => array(
+                        'name' => 'Mr. Card Testerson',
+                        'number' => $cardNum,
+                        'expiry_month' => $month,
+                        'expiry_year' => $year,
+                        'cvd' => $cvv 
+                    ),
+                    'billing' => array(
+                        'name' => $billing['firstname'].' '.$billing['lastname'],
+                        'phone_number' => $billing['phone'],
+                        'address_line1' => $billing['address1'],
+                        'city' => $request->billing['city'],
+                        'province' => $billing['province'],
+                        'postal_code' => $billing['postalcode'],
+                        'country' => $billing['country'],
+                    ),
+                    'shipping' => $shippingArray,
+            );
+            
+            
+            $complete = TRUE; 
+
+            try {
+
+                $result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
+
+                $somast->sales_status = 1;
+
+                $somast->save();
+
+                soSendemail($somast);
+
+                SO_PDF($somast->order_num);
+
+                return response()->json(['result'=>$result],200);
+
+            }catch (\Beanstream\Exception $e) {
+            /*
+            * Handle transaction error, $e->code can be checked for a
+            * specific error, e.g. 211 corresponds to transaction being
+            * DECLINED, 314 - to missing or invalid payment information
+            * etc.
+            */  
+
+            
+            $errors = $e;
+
+
+            return $errors;
+        }
+            
+        }else{
+            // error handle
+        }
+
+    }
+
+
     public function placeOrder_paypal(Request $request){
 
         $customer = User::find($request->custno);
@@ -2082,6 +2168,28 @@ class InventoryController extends Controller
 
                 $item->delete();
             }
+            soSendemail($somast);
+            SO_PDF($somast->order_num);
+            return response()->json(['result'=>$somast],200);
+            
+           
+            
+            
+    }
+
+
+    public function finishOrder_paypal_quote(Request $request){
+
+        $customer = User::find($request->custno);
+        
+
+            $somast = SOMAST::where('order_num',$request->sono)->first();
+
+
+            $somast->sales_status = 1;
+
+            $somast->save();
+            
             soSendemail($somast);
             SO_PDF($somast->order_num);
             return response()->json(['result'=>$somast],200);
@@ -2237,5 +2345,80 @@ class InventoryController extends Controller
         }
         
         return response()->json(['special'=>$special],200);
+    }
+
+
+    public function getQuote(Request $request){
+            
+        $id = $request->id;
+
+        $addressID = $request->addressID;
+        
+        $orderNumber = SOMAST::all()->max('order_num')+1;
+
+        $somast = new SOMAST;
+
+        $somast->order_num = $orderNumber;
+
+        $somast->m_id = $request->id;
+
+        $somast->subtotal = $request->subtotal;
+
+        $somast->tax = $request->hst;
+
+        $somast->currency = "CAD";
+
+        $somast->shipping = 0;
+
+        $somast->address = $addressID;
+
+        $somast->shippingdays = 0;
+
+        $somast->date_order = date('Y-m-d');
+
+        $somast->sales_status = 3;
+
+        $somast->save();
+
+
+        $shortlist = Temp_SO::where('cust_id',$id)->get();
+
+        /** store to sotran  */
+        foreach ($shortlist as $item) {
+
+            $info = $item->itemInfo;
+
+            $sotran = new SOTRAN;
+
+            $sotran->order_num = $somast->order_num;
+
+            $sotran->m_id = $request->id;
+
+            $sotran->item = $item->item;
+
+            $sotran->qty = $item->qty;
+
+            if ($info->onsale()) {
+                
+                $sotran->price = round($item->itemInfo->pricel * 0.9, 2);
+                $sotran->sale = 1;
+                # code...
+            }else{
+                $sotran->price = round($item->itemInfo->pricel, 2);
+                $sotran->sale = 0;
+            }
+
+
+            $sotran->make = $item->itemInfo->make;
+
+            $sotran->date_sold = date("Y-m-d");
+
+            $sotran->save();
+
+            $item->delete();
+        }
+
+
+        return response()->json(['sono'=>$orderNumber],200);
     }
 }

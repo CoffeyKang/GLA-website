@@ -24,12 +24,13 @@ import PendingOrder from './components/userAdmin/PendingOrder.vue';
 import OneOrder from './components/userAdmin/OneOrder.vue';
 import ChangeProfile from './components/userAdmin/ChangeProfile.vue';
 import ChangePassword from './components/userAdmin/ChangePassword.vue';
+import MakePayment from './components/userAdmin/MakePayment.vue';
 import ShoppingCart from './components/body/shoppingCart.vue';
 import Checkout from './components/body/Checkout.vue';
 import DealerCheckout from './components/body/DealerCheckout.vue';
 import ConfirmOrder from './components/body/ConfirmOrder.vue';
 import FinishOrder from './components/body/FinishOrder.vue';
-
+import ToBequote from './components/body/ToBequote.vue';
 import Booklet from './components/body/parts/Booklet.vue';
 
 // dealer admin
@@ -38,6 +39,7 @@ import OrderHistory_dealer from './components/dealerAdmin/OrderHistory.vue';
 import PendingOrder_dealer from './components/dealerAdmin/PendingOrder.vue';
 import OneOrder_dealer from './components/dealerAdmin/OneOrder.vue';
 import Dealer_one_order from './components/dealerAdmin/Dealer_one_order.vue';
+
 import dealHome from './components/dealerAdmin/dealerHome.vue';
 import DealerInquiry from './components/dealerAdmin/Inquiry.vue';
 
@@ -55,6 +57,7 @@ export const routes = [
   {path: '/wishlist',component: Wishlist, name: 'Wishlist'},
   {path: '/login',component: Login, name: 'Login'},
   { path: '/orderComplate/:sono', component: Dealer_one_order, name: 'Dealer_one_order' },
+
   {path: '/Dealer', component: Dealer, name: 'Dealer',
     children: [
       { path: '', component: dealHome, name: 'dealHome' },
@@ -67,6 +70,7 @@ export const routes = [
     ]
   },
   {path: '/forgetPassword', component: Forget, name: 'Forget'},
+  { path: '/makePayment/:sono', component: MakePayment, name: 'makePayment' },
   {path: '/register', component: Register, name: 'Register'},
   {
     path: '/customerinfo', component: CustomerInfo, name: 'CustomerInfo',
@@ -80,6 +84,8 @@ export const routes = [
       { path: 'TrackOrder', component: TrackOrder, name: 'TrackOrder' },
       { path: 'ChangeProfile', component: ChangeProfile, name: 'ChangeProfile'},
       { path: 'ChangePassword', component: ChangePassword, name: 'ChangePassword' }
+
+
     ]
   },
   {path: '/SearchList',component: SearchList, name: 'SearchList'},
@@ -87,6 +93,7 @@ export const routes = [
   { path: '/checkout', component: Checkout, name: 'checkout' },
   { path: '/ConfirmOrder', component: ConfirmOrder, name: 'ConfirmOrder' },
   { path: '/finishOrder/:order_num', component: FinishOrder, name: 'FinishOrder' },
+  { path: '/toBequote/:sono', component: ToBequote, name: 'toBequote' },
   {
     path: '/dealer_checkout', component: DealerCheckout, name: 'DealerCheckout'
   },
