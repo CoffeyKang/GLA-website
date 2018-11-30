@@ -36,8 +36,13 @@
             </div>
 
             <div class="form-group">
-                <label for="password"><b>name</b></label>
-                <input type="test" class="form-control" id="name" name='name' value='{{Auth::user()->name}}'>
+                <label for="firstname"><b>Firstname</b></label>
+                <input type="test" class="form-control" id="firstname" name='firstname' >
+            </div>
+
+            <div class="form-group">
+                <label for="lastname"><b>Lastname</b></label>
+                <input type="test" class="form-control" id="lastname" name='lastname'>
             </div>
 
             <div class="form-group">

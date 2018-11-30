@@ -28,6 +28,7 @@
     <title>GLA Inventory Website Admin</title>
 </head>
 <body>
+    
     <div class="container login_main">
         <div class="login_div card ">
             <div class="login_logo">

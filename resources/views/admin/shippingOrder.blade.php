@@ -11,8 +11,8 @@
                 <th scope='col'>Order Date</th>
                 <th scope="col">Order Number</th>
                 <th scope="col">Customer Name</th>
-                <th scope="col">Subtotal</th>
-                <th scope="col">Sales Status</th>
+                <th scope="col">Payment Total</th>
+                <th scope="col">Shipment Status</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                 <td>
                     {{$customerInfo->fullname()}}
                 </td>
-                <td>${{number_format($somast->subtotal,2)}}</td>
+                <td>${{number_format($somast->subtotal+$somast->shipping+$somast->tax,2)}}</td>
                 <td>{{$somast->statusCode()}}</td>
             </tr>
         </tbody>
@@ -87,6 +87,25 @@
         </tbody>
     
     </table>
+
+    <div class='d-flex'>
+        <div class="col-10 text-right">
+            <b>Subtotal:</b><br>
+            <b>Shipping:</b><br>
+            <b>Tax:</b><br>
+            <b>Total:</b><br>
+        </div>
+        <div class="col-1 text-right">
+            <b>${{number_format($somast->subtotal,2)}}</b><br>
+    
+            <b>${{number_format($somast->shipping,2)}}</b><br>
+    
+            <b>${{number_format($somast->tax,2)}}</b><br>
+    
+            <b>${{number_format(($somast->tax + $somast->shipping + $somast->subtotal),2) }}</b>
+        </div>
+    
+    </div>
     
     
     <div class='d-flex justify-content-center'>
@@ -112,7 +131,7 @@
             
             <div class='row '>
                 <div class="col-md-12 d-flex flex-row-reverse">
-                    <button class="btn btn-success" type='submit'>Shipping</button>
+                    <button class="btn btn-success" type='submit'>Update</button>
                 </div>
             </div>
                     

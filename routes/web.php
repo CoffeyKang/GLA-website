@@ -25,11 +25,7 @@ Route::get('/checkout', 'HomeController@index')->name('home');
 
 Route::get('/admin','AdminController@index')->name('index');
 
-
-
-
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','prevent-back-history'])->group(function () {
     
     Route::get('/home','AdminController@home');
 
@@ -56,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dealerHistory','AdminController@dealerHistory');
 
     Route::get('/dealerHistory/{id}','AdminController@dealerHistory_oneDealer');
+
+    Route::get('/dealerDetails/{id}','AdminController@dealerDetails');
 
     Route::get('/newDealer','AdminController@newDealer');
 
@@ -90,4 +88,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/CustomerHistory/{id}','AdminController@CustomerHistory');
 
     Route::get('/oneOrder/{sono}','AdminController@oneOrder');
+
+    Route::post('/updateDealerPass','AdminController@updateDealerPass');
 });

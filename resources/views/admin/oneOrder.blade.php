@@ -86,7 +86,7 @@
     </table>
     
     <div class='d-flex'>
-        <div class="col-11 text-right">
+        <div class="col-10 text-right">
             <b>Subtotal:</b><br>
             <b>Shipping:</b><br>
             <b>Tax:</b><br>

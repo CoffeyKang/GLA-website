@@ -55,7 +55,8 @@
                     <td>{{$d->orderNum()}}</td>
                     <td>{{$d->dealerInfo()->first()?"Price".$d->dealerInfo()->first()->pricecode:"Price4"}}</td>
                     <td class='d-flex justify-content-around'>
-                    <a class="btn btn-success btn-sm" style='width:71px;' href="/dealerHistory/{{$d->id}}">History</a>
+                        <a class="btn btn-primary btn-sm" style='width:71px;' href="/dealerDetails/{{$d->id}}">Details</a>
+                        <a class="btn btn-success btn-sm" style='width:71px;' href="/dealerHistory/{{$d->id}}">History</a>
                         {{-- <button class="btn btn-danger btn-sm delete_btn" style='width:71px;' @if($d->orderNum()>0) disabled @endif  
                             >Delete</button>
                         <a class="btn btn-warning btn-sm" style='width:71px;' href="/editDealer/{{$d->id}}">Edit</a> --}}

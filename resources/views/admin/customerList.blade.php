@@ -34,8 +34,9 @@
                 <th scope='col'>Address</th>
                 <th scope='col'>City</th>
                 <th scope="col">Province</th>
-                <th scope="col">Telephone Number</th>
+                <th scope="col">Telephone</th>
                 <th scope="col">Country</th>
+                <th scope='col'>Orders</th>
                 <th scope='col'>History</th>
             </tr>
         </thead>
@@ -54,7 +55,8 @@
                 <td>{{$so->m_state}}</td>
                 <td>{{$so->m_tel}}</td>
                 <td>{{$so->m_country}}</td>
-                <td><a class="btn btn-success btn-sm" style='width:71px;' href="/CustomerHistory/{{$so->m_id}}">History</a></td>
+                <td>{{count($so->somast)}}</td>
+                <td><a class="btn btn-success btn-sm" style='width:71px;' href="/CustomerHistory/{{$so->m_id}}">Details</a></td> 
             </tr>
             
 

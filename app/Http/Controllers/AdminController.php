@@ -28,7 +28,12 @@ use App\TaxRate;
 class AdminController extends Controller
 {
     public function index(){
-        return view('admin.index');
+        if (Auth::user()) {
+            return view('admin.home');
+        }else{
+             return view('admin.index');
+        }
+        
     }
 
     public function home(){
@@ -564,6 +569,35 @@ class AdminController extends Controller
             return view('admin.oneOrder',compact('somast','customer','sotran','billing','address'));
         }else{
             return redirect()->back()->with('notFound','Customer Order History Not Found.');
+        }
+    }
+
+    public function dealerDetails($id){
+
+        $dealer = Dealer::find($id);
+
+        if ($dealer) {
+           $dealerInfo = $dealer->dealerInfo;
+        }else{
+            return redirect()->back()->with('notFound','Customer Order History Not Found.');
+        }
+        return view('admin.dealerDetails',compact('dealer','dealerInfo'));
+    }
+
+    public function updateDealerPass(Request $request){
+        
+        $this->validate($request,[
+            'password'=>'required|alpha_num'
+        ]);
+
+        $dealer = Dealer::find($request->id);
+
+        if ($dealer) {
+            $dealer->pass = $request->password;
+            $dealer->save();
+            return redirect()->back()->with('status','Password changed.');
+        }else{
+            return redirect()->back()->with('status','Dealer not found.');
         }
     }
 }

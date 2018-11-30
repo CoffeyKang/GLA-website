@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
@@ -111,12 +111,12 @@
                             {{-- <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a> --}}
                             <a class="nav-link" id="dealerHistory" href="/dealerHistory" role="tab">Dealer Order History</a>
                             
-                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Member Managenment</b></a>
-                            <a class="nav-link" id="customerList"   href="/customerList" role="tab">Member List </a>
+                            <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Customer Managenment</b></a>
+                            <a class="nav-link" id="customerList"   href="/customerList" role="tab">Customer List </a>
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Sales Records</a> --}}
                             <a class="nav-link" id="orderHistory"   href="/orderHistory" role="tab">Order History</a>
                             <a class="nav-link" id="pendingQuotes" href="/pendingQuotes" role="tab">
-                            Pending Quotes Profile 
+                            Pending Shipment 
                             <span class="badge badge-light float-right">
                                 {{count(App\SOMAST::where('sales_status','!=',9)->get())}}
                             </span>
@@ -154,6 +154,7 @@
                 All data listed here are confidential. Do not Share the information without consent. Developed by </b><b style='color:#FFBA00'>Visual Elements Image Studio Inc.</b>
         </div>
     </footer>
+    
     <!-- Scripts -->
 <script>
     

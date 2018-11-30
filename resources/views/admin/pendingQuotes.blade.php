@@ -16,12 +16,12 @@
             <tr>
                 <th scope="col">Order number</th>
                 <th scope="col">customer</th>
-                <th scope='col'>subtotal</th>
+                <th scope='col'>Payment Total</th>
                 <th scope='col'>tax</th>
                 <th scope='col'>Shipping</th>
                 <th scope="col">Order Date</th>
                 <th scope="col">Order Status</th>
-                <th scope="col">Shipping</th>
+                <th scope="col">Shipping Status</th>
             </tr>
         </thead>
         <tbody>
@@ -34,16 +34,15 @@
                     @else
                         Customer
                     @endif
-                    
                 </td>
-                <td>$ {{number_format($so->subtotal,2)}}</td>
+                <td>$ {{number_format(($so->subtotal+$so->tax+$so->shipping),2)}}</td>
                 <td>$ {{number_format($so->tax,2)}}</td>
                 <td>$ {{number_format($so->shipping,2)}}</td>
-                <td>{{$so->date_order}}</td>
+                <td>{{substr($so->date_order,0,10)}}</td>
                 <td>{{$so->statusCode()}}</td>
                 @if ($so->sales_status==1)
                     <td><a class="btn btn-success" href="/shippingOrder/{{$so->order_num}}">
-                        shipping
+                        Update
                     </a></td>
                 @else 
                     <td>
