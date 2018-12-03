@@ -1193,9 +1193,9 @@ class InventoryController extends Controller
 
         $id = $request->id;
 
-        $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->get();
+        $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->whereNotIn('sales_status',[3,5])->get();
 
-        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[3])->orderBy('order_num','desc')->get();
+        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[3,5])->orderBy('order_num','desc')->get();
         
         return response()->json(['history'=>$history,'pending'=>$pending],200);
     }
@@ -2183,16 +2183,18 @@ class InventoryController extends Controller
         $customer = User::find($request->custno);
         
 
-            $somast = SOMAST::where('order_num',$request->sono)->first();
+        $somast = SOMAST::where('order_num',$request->sono)->first();
 
 
-            $somast->sales_status = 1;
+        $somast->sales_status = 1;
 
-            $somast->save();
-            
-            soSendemail($somast);
-            SO_PDF($somast->order_num);
-            return response()->json(['result'=>$somast],200);
+        $somast->save();
+        
+        soSendemail($somast);
+        
+        SO_PDF($somast->order_num);
+
+        return response()->json(['result'=>$somast],200);
             
            
             

@@ -1,5 +1,6 @@
 <template>
-<div>
+<div v-loading='loading'  
+		element-loading-text="Calculating ...">
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
@@ -75,7 +76,7 @@
         <table style='width:100%;font-size:18px;'>
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Shipping:</td>
-                    <td style='width:10%' class='text-right'>${{somast.shipping}}</td>
+                    <td style='width:10%' class='text-right'>${{somast.shipping |decimal}}</td>
                 </tr>
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Subtotal:</td>
@@ -96,7 +97,7 @@
         </table>
         <div class="text-right" style='margin-top:30px'>
             <el-button type='success' @click='makePayment(somast.order_num)' v-if="somast.sales_status==5">Make Payment</el-button>
-            <el-button type='success' @click='downPDF(somast.order_num)' v-if="somast.sales_status!=3">Print Order</el-button>
+            <el-button type='success' @click='downPDF(somast.order_num)' v-if="somast.sales_status!=3&&somast.sales_status!=5">Print Order</el-button>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>    
         </div>  
@@ -118,6 +119,7 @@ export default {
             address:[],
             userInfo:[],
             billing:[],
+            loading:1,
         }
     },
     computed:{
@@ -163,9 +165,9 @@ export default {
         downPDF(sono){
 				window.open('/PDF/salesOrder/'+sono+'.pdf');
             },
-            
         makePayment(sono){
-            this.$router.push({name:'makePayment',parmas:{'sono':sono}});
+            console.log(sono);
+            this.$router.push({name:'makePayment', params:{'sono':sono}});
         }
     },
     mounted(){
@@ -192,6 +194,7 @@ export default {
             this.oneOrder.forEach(element => {
                 this.storage.removeItem(element.item);
             });
+            this.loading=0;
         }
         
       },function(){

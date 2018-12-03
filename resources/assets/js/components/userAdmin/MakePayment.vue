@@ -1,5 +1,6 @@
 <template>
-<div class='container' style='margin:30px auto;'>
+<div class='container' style='margin:30px auto;' v-loading='loading'  
+		element-loading-text="Calculating ...">
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
@@ -11,30 +12,6 @@
             <span>Make Payment For Order Number : {{so}} Complate</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
 
-        <!-- <el-steps :active="4" finish-status="success">
-            <el-step title="Step 1"></el-step>
-            <el-step title="Step 2"></el-step>
-            <el-step title="Step 3"></el-step>
-            <el-step title="Step 4"></el-step>
-        </el-steps>
-        <div>
-            <div class="col-xs-6">
-                <h1><i>GOLDEN LEAF AUTOMOTIVE</i></h1>
-                <h4>
-                    170 ZENWAY BLVD UNIT#2<br>
-                    WOODBRIDGE, ONTARIO L4H 2Y7<br>
-                    TELEPHONE 905/850-3433<br>
-                    GST/HST # 864767512RT0001
-                </h4>
-            </div>
-
-            <div class="col-xs-6">
-                <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
-                <h4><br><br><br><br>
-                    
-                </h4>
-            </div>
-        </div> -->
         <div class="col-xs-8">
             <div>
                 <div class="col-xs-6 addessLabel">
@@ -192,7 +169,7 @@
                     
                 </fieldset>
 
-                <fieldset  v-if="opt_paypal_status">
+                 <fieldset  v-if="opt_paypal_status">
                     <legend>Pay with Paypal and Accept our shipping policy.</legend>
                     <!-- <div id="paypal-button" ></div> -->
                     <PayPal
@@ -208,6 +185,7 @@
                         v-on:payment-cancelled="paymentCancelled"
                         >
                     </PayPal>
+                    
                 </fieldset>
             </div>
         </div>
@@ -231,15 +209,17 @@ export default {
             address:[],
             userInfo:[],
             billing:[],
-            credentials:{
-                sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-                production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
-            },
+            
             card:{
                
             },
             paymentError:false,
             error:'',
+
+            credentials:{
+                sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
+            },
             myStyle: {
                 label: 'checkout',
                 size:  'responsive',
@@ -250,6 +230,7 @@ export default {
             opt_paypal_status:false,
             myItems:[],
             accept:false,
+            loading:1,
         }
     },
     components: {
@@ -297,68 +278,42 @@ export default {
     },
     methods:{
         placeOrder(){
-                this.loading = 1;
-                if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<4) {
-                    if (!this.card.name) {
-                        $('#cardName').css('border','1px solid red');
-                    }else{}
-                    
-                    if (!this.card.card || this.card.card.length<16){
-                        $('#cardNumber').css('border','1px solid red');
-                    }else{
-                    }
-
-                    if (!this.card.month || this.card.card.month<2){
-                        $('#cardMonth').css('border','1px solid red');
-                    }else{
-                    }
-
-                    if (!this.card.year || this.card.card.year<4){
-                        $('#cardYear').css('border','1px solid red');
-                    }else{
-                    }
-
-                    if (!this.card.cvv){
-                       
-                        $('#cardCVV').css('border','1px solid red');
-                    }else{
-
-                    }
-                    this.loading = 0;
-                    return false;
-                }else{
-                    
-                    this.$http.post('/api/finishOrder_quote',
-                        {   
-                            custno:JSON.parse(this.storage.getItem('user')).id,
-                            sono:this.so,
-                            card:this.card,
-                        }
-                        ).then(response=>{
-                        this.loading = 0;
-                        if (response.data.result) {
-                            this.oneOrder.forEach(element => {
-                                this.storage.removeItem(element.item);
-                                this.$store.commit('carts_number',0);
-                            });
-
-                            this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
-                        }else{
-                            this.paymentError = true;
-
-                            this.error='Declined please try again';
-                        }
-                    });
-                }
+            this.loading = 1;
+            if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<4) {
+                if (!this.card.name) {
+                    $('#cardName').css('border','1px solid red');
+                }else{}
                 
-            },
-        paymentAuthorized: function (data) {
-            },
-            paymentCompleted: function (data) {
-                this.$http.post('/api/finishOrder_paypal_quote',
+                if (!this.card.card || this.card.card.length<16){
+                    $('#cardNumber').css('border','1px solid red');
+                }else{
+                }
+
+                if (!this.card.month || this.card.card.month<2){
+                    $('#cardMonth').css('border','1px solid red');
+                }else{
+                }
+
+                if (!this.card.year || this.card.card.year<4){
+                    $('#cardYear').css('border','1px solid red');
+                }else{
+                }
+
+                if (!this.card.cvv){
+                    
+                    $('#cardCVV').css('border','1px solid red');
+                }else{
+
+                }
+                this.loading = 0;
+                return false;
+            }else{
+                
+                this.$http.post('/api/finishOrder_quote',
                     {   
                         custno:JSON.parse(this.storage.getItem('user')).id,
                         sono:this.so,
+                        card:this.card,
                     }
                     ).then(response=>{
                     this.loading = 0;
@@ -368,30 +323,61 @@ export default {
                             this.$store.commit('carts_number',0);
                         });
 
-                        this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_num}});
+                        this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
                     }else{
                         this.paymentError = true;
 
                         this.error='Declined please try again';
                     }
                 });
-            },
-            paymentCancelled: function (data) {
-            },
-            opt_paypal(){
-                this.opt_paypal_status = true;
-                this.opt_card_status = false;
-            },
-            opt_card(){
-                this.opt_card_status = true;
-                this.opt_paypal_status = false;
             }
+            
+        },
+        paymentAuthorized: function (data) {
+
+        },
+        paymentCompleted: function (data) {
+            this.loading =1;
+            this.$http.post('/api/finishOrder_paypal_quote',
+                {   
+                    custno:JSON.parse(this.storage.getItem('user')).id,
+                    sono:this.so,
+                }
+                ).then(response=>{
+                this.loading = 0;
+                if (response.data.result) {
+                    this.oneOrder.forEach(element => {
+                        this.storage.removeItem(element.item);
+                        this.$store.commit('carts_number',0);
+                    });
+
+                    this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_num}});
+                }else{
+                    this.paymentError = true;
+
+                    this.error='Declined please try again';
+                }
+            });
+        },
+        paymentCancelled: function (data) {
+        },
+        opt_paypal(){
+            this.opt_paypal_status = true;
+            this.opt_card_status = false;
+        },
+        opt_card(){
+            this.opt_card_status = true;
+            this.opt_paypal_status = false;
+        }
     },
     mounted(){
+        var that = this;
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.billing = JSON.parse(this.storage.getItem('billing'));
         this.id = JSON.parse(this.storage.getItem('user')).id;
+        
         this.$http.get('/api/oneOrder', { params: { 'so': this.so,'id': this.id } }).then(response => {
+            
         if (response.data.status=='invalid') {
             this.empty=true;
             this.$message(
@@ -402,7 +388,6 @@ export default {
             );
             // this.$router.push({name:'userHome'});
         }else{
-            
             this.oneOrder = response.data.oneOrder;
             this.somast = response.data.somast;
             this.total = this.somast.shipping + this.somast.tax +this.somast.subtotal;
@@ -410,38 +395,28 @@ export default {
             this.show = true;
             this.shippingDays = this.somast.shippingdays;
             this.address = response.data.address;
-            
-            this.oneOrder.forEach(element => {
-                this.storage.removeItem(element.item);
-            });
-        }
-        
-      },function(){
-          this.empty=true;
-      });
 
-
-       /**  set my items */
-           this.myItems = [
+            /**  set my items */
+            this.myItems = [
                 {
                     "name": "Tax",
                     "description": "Tax.",
                     "quantity": "1",
-                    "price": this.$route.params.hst,
+                    "price": response.data.somast.tax,
                     "currency": "CAD"
                 },
                 {
                     "name": "Shipping",
                     "description": "Shipping Fee.",
                     "quantity": "1",
-                    "price": this.$route.params.shipping,
+                    "price": response.data.somast.shipping,
                     "currency": "CAD"
                 }
-               
-            ]
-
-           
+                
+            ];
+            
             this.oneOrder.forEach(element => {
+                
                 var i = {
                     "name": element.item,
                     "description": element.descrip,
@@ -449,10 +424,23 @@ export default {
                     "price": element.price,
                     "currency": "CAD"
                 };
-
                 this.myItems.unshift(i);
                 
             });
+            
+        }
+        
+      },function(){
+          this.empty=true;
+      });
+
+
+       
+        this.loading=0;
+
+        
+
+        
     }
 
 

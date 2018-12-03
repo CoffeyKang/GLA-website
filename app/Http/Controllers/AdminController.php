@@ -76,9 +76,16 @@ class AdminController extends Controller
 
     public function pendingQuotes(){
 
-        $pendingQuotes = SOMAST::orderBy('order_num','desc')->where('sales_status','!=',9)->get();
+        $pendingQuotes = SOMAST::orderBy('order_num','desc')->whereNotIn('sales_status',[3,5,9])->get();
 
         return view('admin.pendingQuotes',compact('pendingQuotes'));
+    }
+
+    public function toBeQuotes(){
+
+        $pendingQuotes = SOMAST::orderBy('order_num','desc')->whereIn('sales_status',[3,5])->get();
+
+        return view('admin.toBeQuote',compact('pendingQuotes'));
     }
 
     public function changePassword(){
@@ -315,6 +322,59 @@ class AdminController extends Controller
         return view('admin.shippingOrder',compact('somast','sotran','customer','customerInfo','shippingArray','billing'));
     }
 
+    public function QuoteOrder($order_num){
+        
+        $somast = SOMAST::where('order_num',$order_num)->first();
+
+        $sotran = $somast->sotran;
+        
+        $customer = $somast->customer;
+
+        $billing = $customer->BillingAddress;
+
+        $customerInfo = $somast->customerInfo;
+
+        if ($somast->addressID!=0) {
+            $addr = AddressBook::find($request->addressID);
+            if ($addr) {
+                $shippingArray =  array(
+                    'name' => $addr->forename.' '.$addr->forename,
+                    'phone_number' =>$addr->tel,
+                    'address_line1' => $addr->address,
+                    'city' => $addr->city,
+                    'province' => $addr->state,
+                    'postal_code' =>$addr->zipcode,
+                    'country' => $addr->country,
+            );
+            }else{
+                $addr = $customerInfo;
+                $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+                ); 
+            }
+            
+        }else{
+            $addr = $customerInfo;
+            $shippingArray =  array(
+                    'name' => $addr->m_forename.' '.$addr->m_forename,
+                    'phone_number' =>$addr->m_tel,
+                    'address_line1' => $addr->m_address,
+                    'city' => $addr->m_city,
+                    'province' => $addr->m_state,
+                    'postal_code' =>$addr->m_zipcode,
+                    'country' => $addr->m_country,
+            );
+        }
+
+        return view('admin.quoteOrder',compact('somast','sotran','customer','customerInfo','shippingArray','billing'));
+    }
+
     public function updateShipping(Request $request){
         $this->validate($request,[
             'courier'=>'required',
@@ -335,7 +395,29 @@ class AdminController extends Controller
         }else{
 
         }
-        return redirect('/pendingQuotes')->with('status', "Order $sono shipped.");
+        return redirect('/pendingShipment')->with('status', "Order $sono shipped.");
+    }
+
+    public function updateQuote(Request $request){
+        $this->validate($request,[
+            'shipping'=>'required',
+            'takedays'=>'required',
+        ]);
+
+
+        $sono = $request->sono;
+
+        $somast = SOMAST::where('order_num',$sono)->first();
+
+        if ($somast) {
+            $somast->shipping = $request->shipping;
+            $somast->shippingdays = $request->takedays;
+            $somast->sales_status = 5;
+            $somast->save();
+        }else{
+
+        }
+        return redirect('/pendingQuotes')->with('status', "Order $sono quoted.");
     }
 
     public function exchangeRate(){

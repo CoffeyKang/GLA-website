@@ -1,5 +1,6 @@
 <template>
-<div class='container' style='margin:30px auto;'>
+<div class='container' style='margin:30px auto;'  v-loading='loading'  
+		element-loading-text="Calculating ...">
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
@@ -103,7 +104,7 @@
         <table style='width:100%;font-size:18px;'>
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Shipping:</td>
-                    <td style='width:10%' class='text-right'>${{somast.shipping}}</td>
+                    <td style='width:10%' class='text-right'>${{somast.shipping |decimal}}</td>
                 </tr>
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Subtotal:</td>
@@ -145,6 +146,7 @@ export default {
             address:[],
             userInfo:[],
             billing:[],
+            loading:1,
         }
     },
     computed:{
@@ -215,6 +217,8 @@ export default {
             this.oneOrder.forEach(element => {
                 this.storage.removeItem(element.item);
             });
+
+            this.loading=0;
         }
         
       },function(){

@@ -123,7 +123,7 @@
                     <b style='font-size:12px'>Subtotal:</b>
                 </td>
                 <td style='width:10%; text-align: right'>
-                    <b style='font-size:12px'>${{$somast->subtotal}}</b>
+                    <b style='font-size:12px'>${{number_format($somast->subtotal,2)}}</b>
                 </td>
             </tr>
 
@@ -132,7 +132,7 @@
                     <b style='font-size:12px'>Shipping:</b>
                 </td>
                 <td style='width:10%; text-align: right'>
-                    <b style='font-size:12px'>${{$somast->shipping}}</b>
+                    <b style='font-size:12px'>${{number_format($somast->shipping,2)}}</b>
                 </td>
             </tr>
 
@@ -141,7 +141,7 @@
                     <b style='font-size:12px'>Tax:</b>
                 </td>
                 <td style='width:10%; text-align: right'>
-                    <b style='font-size:12px'>${{$somast->tax}}</b>
+                    <b style='font-size:12px'>${{number_format($somast->tax,2)}}</b>
                 </td>
             </tr>
 

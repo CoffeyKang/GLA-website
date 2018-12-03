@@ -275,7 +275,6 @@ export default {
             if (this.addressID!=0) {
                 this.$http.get('/api/address/'+this.addressID).then((response)=>{
                     if (response.data.address=='notFound') {
-                        
                     }else{
                         this.address = response.data.address;
 

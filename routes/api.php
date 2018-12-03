@@ -161,7 +161,6 @@ Route::post('/finishOrder','InventoryController@placeOrder');
 
 Route::post('/finishOrder_quote','InventoryController@finishOrder_quote');
 
-
 Route::post('/finishOrder_paypal','InventoryController@placeOrder_paypal');
 
 Route::post('/finishOrder_paypal_quote','InventoryController@finishOrder_paypal_quote');

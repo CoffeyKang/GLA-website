@@ -35,7 +35,9 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
 
     Route::get('/customerList', 'AdminController@customerList');
 
-    Route::get('/pendingQuotes', 'AdminController@pendingQuotes');
+    Route::get('/pendingShipment', 'AdminController@pendingQuotes');
+
+    Route::get('/pendingQuotes', 'AdminController@toBeQuotes');
 
     Route::get('/changePassword', 'AdminController@changePassword');
 
@@ -67,7 +69,11 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
 
     Route::get('/shippingOrder/{order_num}','AdminController@shippingOrder');
 
+    Route::get('/QuoteOrder/{order_num}','AdminController@QuoteOrder');
+
     Route::post('/updateShipping','AdminController@updateShipping');
+
+    Route::post('/updateQuote','AdminController@updateQuote');
 
     Route::get('/exchangeRate','AdminController@exchangeRate');
     
