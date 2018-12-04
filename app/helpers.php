@@ -6,6 +6,7 @@ use App\Billing;
 use App\User;
 use App\Mail\registration;
 use App\Mail\SalesOrder;
+use App\Mail\FinishQuotation;
 
     function InventoryExcelFile(){
         // Generate and return the spreadsheet price 
@@ -107,6 +108,24 @@ use App\Mail\SalesOrder;
         }
 
         Mail::to("$user->email")->send(new SalesOrder($user,$somast,$billing,$address));
+        
+    }
+
+    function finishQuotation(SOMAST $somast){
+        
+        $user = $somast->customer;
+
+        $billing = $user->BillingAddress;
+
+        $add_id = $somast->address;
+
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
+
+        Mail::to("$user->email")->send(new FinishQuotation($user,$somast,$billing,$address));
         
     }
 

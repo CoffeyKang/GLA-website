@@ -409,11 +409,19 @@ class AdminController extends Controller
 
         $somast = SOMAST::where('order_num',$sono)->first();
 
+        $user = $somast->customer;
+
+        $tax =$user->getRate();
+
         if ($somast) {
             $somast->shipping = $request->shipping;
             $somast->shippingdays = $request->takedays;
+            $somast->tax += $request->shipping * $tax;
             $somast->sales_status = 5;
             $somast->save();
+
+            finishQuotation($somast);
+            
         }else{
 
         }

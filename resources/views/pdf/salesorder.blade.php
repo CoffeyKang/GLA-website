@@ -110,7 +110,7 @@
                     <td>{{$item->item}}</td>
                     <td>{{$item->qty}}</td>
                     <th>{{$item->descrip}}</th>
-                    <td>${{$item->price}}</td>
+                    <td>${{number_format($item->price,2)}}</td>
                 </tr>
             @endforeach
             
@@ -150,30 +150,11 @@
                     <b style='font-size:14px'>Total:</b>
                 </td>
                 <td style='width:10%; text-align: right'>
-                    <b style='font-size:14px'>${{$somast->tax + $somast->shipping + $somast->subtotal }}</b>
+                    <b style='font-size:14px'>${{number_format(($somast->tax + $somast->shipping + $somast->subtotal),2) }}</b>
                 </td>
             </tr>
     </table>
-    {{-- <table class="table table-bordered" style='font-size:10px;'>
-        <thead>
-            <tr>
-                <th>Shipping</th>
-                <th>Estimate Shipping Days</th>
-                <th>Subtotal</th>
-                <th>Tax</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <th>${{$somast->shipping}}</th>
-                <th>{{$somast->shippingdays}}</th>
-                <th>${{$somast->subtotal}}</th>
-                <th>${{$somast->tax}}</th>
-                <th>@if ($somast->sales_status==1)
-                    Paid
-                @else Shipped @endif</th>
-            </tr>
-        </thead>
-    </table> --}}
+    
     
 </div>
         

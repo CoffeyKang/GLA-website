@@ -3,7 +3,7 @@
 <div>
 
     <div class="alert alert-dark">
-        <b>Pending Quotes</b>
+        <b>Pending Shipment</b>
     </div>
 
     @if (session('status'))
