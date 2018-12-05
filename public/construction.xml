@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:ws="http://ws.rating.uss.transforce.ca" 
+    xmlns:xsd="http://ws.rating.uss.transforce.ca/xsd" 
+    xmlns:xsd1="http://dto.uss.transforce.ca/xsd">
+
+<soapenv:Header/>
+<soapenv:Body>
+<ws:getRates>
+<ws:request>
+<xsd:password>uss</xsd:password>
+<xsd:user_id>admin@uss.com</xsd:user_id>
+<xsd:shipment>
+<xsd1:delivery_address_line_1>170 Zenway Blvd. Unit 2</xsd1:delivery_address_line_1>
+<xsd1:delivery_city>Woodbridge</xsd1:delivery_city>
+<xsd1:delivery_country>CA</xsd1:delivery_country>
+<xsd1:delivery_name>Golden Leaf Automotive.</xsd1:delivery_name>
+<xsd1:delivery_postal_code>L4H2Y7</xsd1:delivery_postal_code>
+<xsd1:delivery_province>ON</xsd1:delivery_province>
+<xsd1:dimension_unit>I</xsd1:dimension_unit>
+<xsd1:packages>
+    <xsd1:package_info_num>18</xsd1:package_info_num>
+    <xsd1:package_info_num>18</xsd1:package_info_num>
+    <xsd1:package_info_num>3</xsd1:package_info_num>
+    <xsd1:reported_weight>22</xsd1:reported_weight>
+</xsd1:packages>
+<xsd1:packages>
+    <xsd1:package_info_num>7</xsd1:package_info_num>
+    <xsd1:package_info_num>4</xsd1:package_info_num>
+    <xsd1:package_info_num>3</xsd1:package_info_num>
+    <xsd1:reported_weight>22</xsd1:reported_weight>
+</xsd1:packages>
+
+<xsd1:pickup_address_line_1>5555 DIXIE RD</xsd1:pickup_address_line_1>
+<xsd1:pickup_city>MONTREAL LAKE</xsd1:pickup_city>
+<xsd1:pickup_name>PICK up add</xsd1:pickup_name>
+<xsd1:pickup_postal_code>S0J1Y0</xsd1:pickup_postal_code>
+<xsd1:pickup_province>SK</xsd1:pickup_province>
+<xsd1:reported_weight_unit>L</xsd1:reported_weight_unit>
+<xsd1:service_type>DD</xsd1:service_type>
+<xsd1:shipment_info_str>
+    <xsd1:name>fragile</xsd1:name>
+    <xsd1:value>FALSE</xsd1:value>
+</xsd1:shipment_info_str>
+<xsd1:shipment_info_str>
+    <xsd1:name>sat_delivery</xsd1:name>
+    <xsd1:value>FALSE</xsd1:value>
+</xsd1:shipment_info_str>
+<xsd1:shipment_info_num>
+    <xsd1:name>declared_value</xsd1:name>
+    <xsd1:value>200</xsd1:value>
+</xsd1:shipment_info_num>
+<xsd1:shipper_num>HB4499</xsd1:shipper_num>
+<xsd1:shipping_date>20181210</xsd1:shipping_date>
+</xsd:shipment>
+</ws:request>
+</ws:getRates>
+</soapenv:Body>
+</soapenv:Envelope>

@@ -791,109 +791,7 @@ class InventoryController extends Controller
 
     
 
-    public function test(){
-        $myXml = file_get_contents("shipping/eshipping_18.xml");
-
-            $client = new \GuzzleHttp\Client([
-                
-            ]);
-            
-            $response = $client->POST('http://web.eshipper.com/rpc2',[
-            'body'=>$myXml,
-            ]);
-            
-            $res = $response->getBody();
-            
-            $r = new \SimpleXMLElement($res);
-            
-            $quotes = $r->QuoteReply->Quote;
-        
-
-            $myQuotes = [];
-
-            $quoteOpt = [];
-
-            $groundDay= 1;
-            
-            $expressDay= 1;
-            
-            foreach ($quotes as $q) {
-                
-                $arr = (array)$q[0];
-                
-                $carrierName = $arr['@attributes']['carrierName'];
-
-                $serviceName = $arr['@attributes']['serviceName'];
-
-                $totalCost = $arr['@attributes']['totalCharge'];
-
-                $transitDays = $arr['@attributes']['transitDays'];
-
-                array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
-            
-                }
-                
-
-                
-                foreach ($myQuotes as $quote) {
-                    if ($quote[0]=="Purolator" && $quote[1]=="Purolator Ground") {
-                        $quoteOpt['ground'] = $quote[2];
-                        $groundDay = $quote[3]; 
-                    }elseif($quote[0]=="Purolator" && $quote[1]=="Purolator Express"){
-                        $quoteOpt['express'] = $quote[2]; 
-                        $expressDay = $quote[3];
-                    }
-                }
-
-                
-                
-                if (!isset($quoteOpt['ground'])) {
-                    $quoteOpt['ground']=1000000000;
-                    foreach ($myQuotes as $quote) {
-                        if ($quoteOpt['ground']>=$quote[2]) {
-                            $quoteOpt['ground'] = $quote[2];
-                            $groundDay = $quote[3];
-                            
-                        }else{
-
-                        }
-                    }
-                }
-                if (!isset($quoteOpt['express'])) {
-                    $quoteOpt['express']=0;
-                    foreach ($myQuotes as $quote) {
-                        if ($quoteOpt['express']<=$quote[2]) {
-                            $quoteOpt['express'] = $quote[2];
-                            $expressDay = $quote[3];
-                        }else{
-
-                        }
-                    }
-                }
-
-                $shippingRate = 'quotable';
-                return response()->json([
-                "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,'groundDay'=>$groundDay,'expressDay'=>$expressDay],200);
-            
-
-
-
-        
-        
-        
-        
-        
-        
-
-        
-
-        
-
-        
-        
-
-
-    }
+    
 
     /***    addd new shipping address */
     public function newShippingAdd(Request $request){
@@ -2422,5 +2320,181 @@ class InventoryController extends Controller
 
 
         return response()->json(['sono'=>$orderNumber],200);
+    }
+
+
+
+    /** test area */
+    public function test(){
+        createShippingXML(18,0);
+                
+
+        dd('------------');
+
+
+        $myXml = file_get_contents("shipping/test.xml");
+
+        
+
+        $client = new \GuzzleHttp\Client([
+            
+        ]);
+        
+        $response = $client->POST('https://sandbox.loomis-express.com/axis2/services/USSRatingService?wsdl',[
+        'body'=>$myXml,
+        ]);
+
+        
+        
+        $res = $response->getBody();
+
+        $r = new \SimpleXMLElement($res);
+
+        $namespaces = $r->getNamespaces(true);
+
+            $r->asXML('230.xml');
+
+        $result = $r->children($namespaces['soapenv'])
+                    ->Body
+                    ->children($namespaces['ns'])
+                    ->getRatesResponse
+                    ->children($namespaces['ns'])
+                    ->return
+                    ->children($namespaces['ax29'])
+                    ->getRatesResult
+                    ->children($namespaces['ax211'])
+                    ->shipment;
+
+        echo $result->billed_weight;
+        $shipmentNumDetails = $result->shipment_info_num;
+        /** time */
+        $takedays =  $result->estimated_delivery_date;
+        /** TOTAL_CHARGE 516.73
+         * freight_charge 163.96
+         * fuel_surcharge 39.76
+         * BASE_CHARGE 97.05
+         * ADD_SER_CHARGE 153.51 *
+         * VALUATION_CHARGE 3.00
+         * CHARGE_SD （Saturday:） 23
+         * CHARGE_FR （ Fragile: ） 130.51
+         * tax_charge 59.45
+         * OV
+         * OS
+         * 
+        */
+        
+        dd($result);
+
+
+
+        $quote = $result->shipment_info_num[4]->children($namespaces['ax211'])->value[0];
+        
+        
+        
+        dd($quote);
+
+        dd(1);
+        
+        
+
+        $quotes = $rx->Envelope;
+        
+        
+        var_dump($quotes);
+            
+        dd($quotes);
+        
+
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        $myQuotes = [];
+
+            $quoteOpt = [];
+
+            $groundDay= 1;
+            
+            $expressDay= 1;
+            
+            foreach ($quotes as $q) {
+                
+                $arr = (array)$q[0];
+                
+                $carrierName = $arr['@attributes']['carrierName'];
+
+                $serviceName = $arr['@attributes']['serviceName'];
+
+                $totalCost = $arr['@attributes']['totalCharge'];
+
+                $transitDays = $arr['@attributes']['transitDays'];
+
+                array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+            
+                }
+                
+
+                
+                foreach ($myQuotes as $quote) {
+                    if ($quote[0]=="Purolator" && $quote[1]=="Purolator Ground") {
+                        $quoteOpt['ground'] = $quote[2];
+                        $groundDay = $quote[3]; 
+                    }elseif($quote[0]=="Purolator" && $quote[1]=="Purolator Express"){
+                        $quoteOpt['express'] = $quote[2]; 
+                        $expressDay = $quote[3];
+                    }
+                }
+
+                
+                
+                if (!isset($quoteOpt['ground'])) {
+                    $quoteOpt['ground']=1000000000;
+                    foreach ($myQuotes as $quote) {
+                        if ($quoteOpt['ground']>=$quote[2]) {
+                            $quoteOpt['ground'] = $quote[2];
+                            $groundDay = $quote[3];
+                            
+                        }else{
+
+                        }
+                    }
+                }
+                if (!isset($quoteOpt['express'])) {
+                    $quoteOpt['express']=0;
+                    foreach ($myQuotes as $quote) {
+                        if ($quoteOpt['express']<=$quote[2]) {
+                            $quoteOpt['express'] = $quote[2];
+                            $expressDay = $quote[3];
+                        }else{
+
+                        }
+                    }
+                }
+
+                $shippingRate = 'quotable';
+                return response()->json([
+                "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,'groundDay'=>$groundDay,'expressDay'=>$expressDay],200);
+            
     }
 }
