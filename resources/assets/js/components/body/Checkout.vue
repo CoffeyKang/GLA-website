@@ -199,9 +199,9 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ parseFloat(shipping).toFixed(2) }}
+                            <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ parseFloat(total_shipping).toFixed(2) }}
                                 <br>
-                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(shipping))/$store.state.exchange).toFixed(2) }}</span>
+                             <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(total_shipping))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
                             <span v-if="shippingRate!='quotable'">TBD</span>
                         </div>
@@ -226,21 +226,32 @@
                     </div>
                 </div>
 
+                <div class="text-center shippingOPT " v-if="shippingRate=='quotable'">
+                    
+                        Take Days: {{takedays}} Days
+                    
+                </div>
                 <div class=" text-center" v-if="shippingRate=='quotable'">
                     <button class='mybtn btn btn-success' @click='confirm()'>Confirm Order</button>
                     <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
 
-                <div class="text-center shippingOPT ">
-                    <el-radio-group v-model="shippingOPT" v-if="shippingRate=='quotable'">
-                        <el-radio :label="1">Ground Shipping, taking <b>{{parseInt(groundDay) +3}}</b> days</el-radio><br>
-                        <el-radio :label="2">Express Shipping, taking <b>{{parseInt(expressDay) +1}}</b> days</el-radio>
-                    </el-radio-group>
+                
+    
+                <div class=" text-center" v-if="shippingRate!='quotable'">
+                    
+                    <button class='mybtn btn btn-success' @click="getQuote()">Get a Quote</button>
+                    <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
+
                 </div>
 
                 <div class=" text-center" v-if="shippingRate!='quotable'">
-                    <button class='mybtn btn btn-success' @click="getQuote()">Get a Quote</button>
-                    <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
+                    
+                    <el-alert
+                        title="Invalid province and postal code combination."
+                        type="error">
+                    </el-alert>
+                    
                 </div>
                 
             </div>
@@ -262,12 +273,14 @@ export default {
             carts:[],
             subtotal:0,
             hst:0,
+            total_shipping:0,
             addressID:0,
             quotes:[],
             shippingOPT:1,
             expressDay:1,
             groundDay:1,
             shippingRate:'',
+            takedays:1,
             // shipping:0,
             country:[
                         {name:'Canada',Code:"CA"},
@@ -564,33 +577,11 @@ export default {
     },
         computed:{
             total:function(){
-                
-                return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.shipping);
-
+                return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.total_shipping);
             },
-            shipping:{
+            
 
-                get:function () {
-                    if (this.shippingOPT==1) {
-                        return this.quotes['ground'];
-                    }else{
-                        return this.quotes['express'];
-                    }
-                },
-
-                set:function() {
-                    
-                }
-                
-            },
-
-            shippingDays(){
-                if (this.shippingOPT=='1') {
-                    return parseInt(this.groundDay)+3;
-                }else{
-                    return parseInt(this.expressDay)+1;
-                }
-            }
+            
         },
         mounted(){
             // determin if user has login
@@ -603,15 +594,11 @@ export default {
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
                     this.userInfo = response.data.userInfo;
-                    
+                    this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
-                    this.quotes = response.data.quotes;
-                    this.shipping = this.quotes['ground'];
-                    this.groundDay = response.data.groundDay;
-                    this.expressDay = response.data.expressDay;
+                    this.total_shipping = response.data.total_shipping[0];
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
-
                     if (this.carts.length<1) {
                         this.$router.push({name:'ShoppingCart'});
                     }else{
@@ -624,21 +611,7 @@ export default {
 				this.$router.push('Login');
             }
 
-            // if (this.$store.state.confirm) {
-            //     this.loading = 0;
-
-            //     this.$router.push({name:"ConfirmOrder", 
-            //         params:{
-            //             carts:this.carts,
-            //             addressID:this.addressID,
-            //             subtotal:this.subtotal,
-            //             hst:this.hst,
-            //             total:this.total,
-            //             shippingDays:this.shippingDays,
-            //             shipping:this.shipping,
-            //         }
-            //     });
-            // }
+            
         },
         methods:{
             myalert(value){
@@ -709,13 +682,7 @@ export default {
                         
 
                     }else{
-                        // this.$message({
-                        //     showClose:true,
-                        //     message:"Error Submit",
-                        //     type:"error",
-                        //     duration:5000,
-                        // });
-                        // return false;
+                        
                     }
                 });
             },
@@ -747,16 +714,25 @@ export default {
                 this.loading = 1;
                 window.scrollTo(0,0);   
                 this.$http.post('/api/changeAddress',{"id":id}).then(response=>{
+                    // this.subtotal = response.data.subtotal.toFixed(2);
+                    // this.hst = response.data.tax_total.toFixed(2);
+                    // this.shippingRate = response.data.shippingRate;
+                    // this.quotes = response.data.quotes;
+                    // this.shipping = this.quotes['ground'];
+                    // this.groundDay = response.data.groundDay;
+                    // this.expressDay = response.data.expressDay;
+                    // this.addressBook = response.data.addressBook;
+                    this.otherAddress = true;
+                    // this.addressID = response.data.addressID,
+                    
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
+                    this.userInfo = response.data.userInfo;
+                    this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
-                    this.quotes = response.data.quotes;
-                    this.shipping = this.quotes['ground'];
-                    this.groundDay = response.data.groundDay;
-                    this.expressDay = response.data.expressDay;
+                    this.total_shipping = response.data.total_shipping[0];
+                    this.loading = 0;
                     this.addressBook = response.data.addressBook;
-                    this.otherAddress = true;
-                    this.addressID = response.data.addressID,
                     this.loading = 0;
                     $('.addressBox').css("border",'none');
                     $("#box"+id).css("border",'3px solid green');
@@ -774,29 +750,10 @@ export default {
                         subtotal:this.subtotal,
                         hst:this.hst,
                         total:this.total,
-                        shippingDays:this.shippingDays,
-                        shipping:this.shipping,
+                        shippingDays:this.takedays,
+                        shipping:this.total_shipping,
                     }
                 });
-
-                // this.$http.post('/api/confirmOrder',{
-                //         userId:this.userInfo.m_id,
-                //         shippingOPT:this.shippingOPT,
-                //         shippingFee:this.shipping,
-                //         shippingDays:this.shippingDays,
-                //         hst:this.hst,
-                //         subtotal:this.subtotal,
-                //         addressID:this.addressID,
-
-                //     }).then(response=>{
-                        
-                //         this.$router.push({name:"ConfirmOrder", 
-                //             params:{
-                //                 sono:response.data.sono,
-                //                 userId:this.userInfo.m_id,
-                //             }
-                //         });
-                // })
                 
             },
 

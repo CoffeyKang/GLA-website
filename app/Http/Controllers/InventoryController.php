@@ -593,201 +593,268 @@ class InventoryController extends Controller
 
             // length + (2 x width) + (2 x height), may not exceed 165 in. 
 
-            if ($info->length + (2*$info->width) + (2*$info->height)>=165) {
-                $oversize = true;
-            }
+            // if ($info->length + (2*$info->width) + (2*$info->height)>=165) {
+            //     $oversize = true;
+            // }
         }
 
         $tax_total = $subtotal * $tax;
 
+        createShippingXML($userID,0);
         
         // calculate shipping
 
-        if (!$oversize) {
-            # code...
+        // if (!$oversize) {
+        //     # code...
         
 
-            $xml = new \DomDocument("1.0","UTF-8");
-            $Eshipper = $xml->createElement("Eshipper");
-            $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
-            $Eshipper->setAttribute('username',"veistrading");
-            $Eshipper->setAttribute('password',"229280");
-            $Eshipper->setAttribute('version',"3.0.0");
-            $Eshipper = $xml->appendChild($Eshipper);
+        //     $xml = new \DomDocument("1.0","UTF-8");
+        //     $Eshipper = $xml->createElement("Eshipper");
+        //     $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
+        //     $Eshipper->setAttribute('username',"veistrading");
+        //     $Eshipper->setAttribute('password',"229280");
+        //     $Eshipper->setAttribute('version',"3.0.0");
+        //     $Eshipper = $xml->appendChild($Eshipper);
 
 
-            $QuoteRequest = $xml->createElement("QuoteRequest");
-            $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
+        //     $QuoteRequest = $xml->createElement("QuoteRequest");
+        //     $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
 
-            $From = $xml->createElement("From");
-            $From->setAttribute("id",$userID);
-            $From->setAttribute("company","Veis Trading Inc.");
-            $From->setAttribute("address1","200 Riviera Drive, Unit 2");
-            $From->setAttribute("city","Toronto");
-            $From->setAttribute("state","ON");
-            $From->setAttribute("country","CA");
-            $From->setAttribute("zip","L3R5M1");
-            $From = $QuoteRequest->appendChild($From);
+        //     $From = $xml->createElement("From");
+        //     $From->setAttribute("id",$userID);
+        //     $From->setAttribute("company","Veis Trading Inc.");
+        //     $From->setAttribute("address1","200 Riviera Drive, Unit 2");
+        //     $From->setAttribute("city","Toronto");
+        //     $From->setAttribute("state","ON");
+        //     $From->setAttribute("country","CA");
+        //     $From->setAttribute("zip","L3R5M1");
+        //     $From = $QuoteRequest->appendChild($From);
 
-            $To = $xml->createElement("To");
-            $To->setAttribute("company",$fullName);
-            $To->setAttribute("address1",$userInfo->m_address);
-            $To->setAttribute("city",$userInfo->m_city);
-            $To->setAttribute("state",$userInfo->m_state);
-            $To->setAttribute("country",$userInfo->m_country);
-            $To->setAttribute("zip",$userInfo->m_zipcode);
-            $To = $QuoteRequest->appendChild($To);
+        //     $To = $xml->createElement("To");
+        //     $To->setAttribute("company",$fullName);
+        //     $To->setAttribute("address1",$userInfo->m_address);
+        //     $To->setAttribute("city",$userInfo->m_city);
+        //     $To->setAttribute("state",$userInfo->m_state);
+        //     $To->setAttribute("country",$userInfo->m_country);
+        //     $To->setAttribute("zip",$userInfo->m_zipcode);
+        //     $To = $QuoteRequest->appendChild($To);
 
-            $Packages = $xml->createElement("Packages");
-            $Packages->setAttribute("type","Package");
+        //     $Packages = $xml->createElement("Packages");
+        //     $Packages->setAttribute("type","Package");
 
-            /** need foreach every items */
+        //     /** need foreach every items */
 
-            foreach ($shortlist as $item) {
-                $item_info = $item->itemInfo()->first();
+        //     foreach ($shortlist as $item) {
+        //         $item_info = $item->itemInfo()->first();
 
-                if ($item_info->length<=1) {
-                    $item_info->length=1;
-                }
-                if ($item_info->width<=1) {
-                    $item_info->width=1;
-                }
-                if ($item_info->height<=1) {
-                    $item_info->height=1;
-                }
-                if ($item_info->weight<=1) {
-                    $item_info->weight=1;
-                }
+        //         if ($item_info->length<=1) {
+        //             $item_info->length=1;
+        //         }
+        //         if ($item_info->width<=1) {
+        //             $item_info->width=1;
+        //         }
+        //         if ($item_info->height<=1) {
+        //             $item_info->height=1;
+        //         }
+        //         if ($item_info->weight<=1) {
+        //             $item_info->weight=1;
+        //         }
 
-                for ($i=0; $i < $item->qty ; $i++) { 
-                    // calculate shipping fee by every item
+        //         for ($i=0; $i < $item->qty ; $i++) { 
+        //             // calculate shipping fee by every item
 
-                    $Package = $xml->createElement("Package");
-                        $Package->setAttribute("length",$item_info->length);
-                        $Package->setAttribute("width",$item_info->width);
-                        $Package->setAttribute("height",$item_info->height);
-                        $Package->setAttribute("weight",$item_info->weight);
-                    $Package=$Packages->appendChild($Package);
+        //             $Package = $xml->createElement("Package");
+        //                 $Package->setAttribute("length",$item_info->length);
+        //                 $Package->setAttribute("width",$item_info->width);
+        //                 $Package->setAttribute("height",$item_info->height);
+        //                 $Package->setAttribute("weight",$item_info->weight);
+        //             $Package=$Packages->appendChild($Package);
 
-                    $Packages = $QuoteRequest->appendChild($Packages);
+        //             $Packages = $QuoteRequest->appendChild($Packages);
 
-                }
+        //         }
 
-            }
+        //     }
 
-            $xml->FormatOutput = true;
+        //     $xml->FormatOutput = true;
 
-            $string_value = $xml->saveXML();
+        //     $string_value = $xml->saveXML();
             
-            $xml->save("shipping/eshipping_$userID.xml");
+        //     $xml->save("shipping/eshipping_$userID.xml");
 
             // call api
 
-            $myXml = file_get_contents("shipping/eshipping_$userID.xml");
+        $myXml = file_get_contents("shipping/loomis_".$userID.".xml");
 
-            $client = new \GuzzleHttp\Client([
+        
+
+        $client = new \GuzzleHttp\Client([
+            
+        ]);
+        
+        $response = $client->POST('https://sandbox.loomis-express.com/axis2/services/USSRatingService?wsdl',[
+        'body'=>$myXml,
+        ]);
+
+        
+        $res = $response->getBody();
+
+        $r = new \SimpleXMLElement($res);
+
+        $namespaces = $r->getNamespaces(true);
+
+        $error = $r->children($namespaces['soapenv'])
+                ->Body
+                ->children($namespaces['ns'])
+                ->getRatesResponse
+                ->children($namespaces['ns'])
+                ->return
+                ->children($namespaces['ax29'])
+                ->error;
+        
+        if (strlen($error)>=1) {
+            $shippingRate = 'TBD';
+            return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
+                'addressBook'=>$addressBook],200);
+
+            
+        }
+
+        $result = $r->children($namespaces['soapenv'])
+                    ->Body
+                    ->children($namespaces['ns'])
+                    ->getRatesResponse
+                    ->children($namespaces['ns'])
+                    ->return
+                    ->children($namespaces['ax29'])
+                    ->getRatesResult
+                    ->children($namespaces['ax211'])
+                    ->shipment;
+
+        
+            $shipmentNumDetails = $result->shipment_info_num;
+            /** time */
+            $takedays =  $result->transit_time;
+
+            $quotes = $result->shipment_info_num;
+
+            $total_shipping = 0;
+
+            foreach ($quotes as $i) {
                 
-            ]);
-            
-            $response = $client->POST('http://web.eshipper.com/rpc2',[
-            'body'=>$myXml,
-            ]);
-            
-            $res = $response->getBody();
-            
-            $r = new \SimpleXMLElement($res);
-            
-            $quotes = $r->QuoteReply->Quote;
-                
-            if (count($quotes)<1) {
-                     $shippingRate = 'TBD';
-                    return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
-                    'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
+                if ($i->name =='TOTAL_CHARGE') {
+                    $total_shipping = $i->value;
                 }else{
                     
                 }
+            }
 
-            $myQuotes = [];
+            // $myXml = file_get_contents("shipping/eshipping_$userID.xml");
 
-            $quoteOpt = [];
-
-            $groundDay= 1;
+            // $client = new \GuzzleHttp\Client([
+                
+            // ]);
             
-            $expressDay= 1;
+            // $response = $client->POST('http://web.eshipper.com/rpc2',[
+            // 'body'=>$myXml,
+            // ]);
             
-            foreach ($quotes as $q) {
-                
-                $arr = (array)$q[0];
-                
-                $carrierName = $arr['@attributes']['carrierName'];
-
-                $serviceName = $arr['@attributes']['serviceName'];
-
-                $totalCost = $arr['@attributes']['totalCharge'];
-
-                $transitDays = $arr['@attributes']['transitDays'];
-
-                array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+            // $res = $response->getBody();
             
-                }
+            // $r = new \SimpleXMLElement($res);
+            
+            // $quotes = $r->QuoteReply->Quote;
+                
+            // if (count($quotes)<1) {
+            //          $shippingRate = 'TBD';
+            //         return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            //         'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
+            //         'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
+            //     }else{
+                    
+            //     }
+
+            // $myQuotes = [];
+
+            // $quoteOpt = [];
+
+            // $groundDay= 1;
+            
+            // $expressDay= 1;
+            
+            // foreach ($quotes as $q) {
+                
+            //     $arr = (array)$q[0];
+                
+            //     $carrierName = $arr['@attributes']['carrierName'];
+
+            //     $serviceName = $arr['@attributes']['serviceName'];
+
+            //     $totalCost = $arr['@attributes']['totalCharge'];
+
+            //     $transitDays = $arr['@attributes']['transitDays'];
+
+            //     array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+            
+            //     }
 
                 
-                foreach ($myQuotes as $quote) {
-                    if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
-                        $quoteOpt['ground'] = $quote[2];
-                        $groundDay = $quote[3]; 
-                    }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
-                        $quoteOpt['express'] = $quote[2]; 
-                        $expressDay = $quote[3];
-                    }
-                }
+                // foreach ($myQuotes as $quote) {
+                //     if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
+                //         $quoteOpt['ground'] = $quote[2];
+                //         $groundDay = $quote[3]; 
+                //     }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
+                //         $quoteOpt['express'] = $quote[2]; 
+                //         $expressDay = $quote[3];
+                //     }
+                // }
                 
-                if (!isset($quoteOpt['ground'])) {
-                    $quoteOpt['ground']=1000000000;
-                    foreach ($myQuotes as $quote) {
-                        if ($quoteOpt['ground']>=$quote[2]) {
-                            $quoteOpt['ground'] = $quote[2];
-                            $groundDay = $quote[3];
+                // if (!isset($quoteOpt['ground'])) {
+                //     $quoteOpt['ground']=1000000000;
+                //     foreach ($myQuotes as $quote) {
+                //         if ($quoteOpt['ground']>=$quote[2]) {
+                //             $quoteOpt['ground'] = $quote[2];
+                //             $groundDay = $quote[3];
                             
-                        }else{
+                //         }else{
 
-                        }
-                    }
-                }
+                //         }
+                //     }
+                // }
 
-                if (!isset($quoteOpt['express'])) {
-                    $quoteOpt['express']=0;
-                    foreach ($myQuotes as $quote) {
-                        if ($quoteOpt['express']<=$quote[2]) {
-                            $quoteOpt['express'] = $quote[2];
-                            $expressDay = $quote[3];
-                        }else{
+                // if (!isset($quoteOpt['express'])) {
+                //     $quoteOpt['express']=0;
+                //     foreach ($myQuotes as $quote) {
+                //         if ($quoteOpt['express']<=$quote[2]) {
+                //             $quoteOpt['express'] = $quote[2];
+                //             $expressDay = $quote[3];
+                //         }else{
 
-                        }
-                    }
-                }
+                //         }
+                //     }
+                // }
 
                 
 
                 $shippingRate = 'quotable';
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,
-                'groundDay'=>$groundDay,'expressDay'=>$expressDay,'addressBook'=>$addressBook],200);
+                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,'total_shipping'=>$total_shipping,'takedays'=>$takedays, 
+                'addressBook'=>$addressBook],200);
             }
             
-            else{
-                $shippingRate = 'TBD';
-                return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
-                'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
-            }
+            // else{
+            //     $shippingRate = 'TBD';
+            //     return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            //     'tax_total'=>$tax_total, "shippingRate"=>$total_shipping,'takedays'=>$takedays, 
+            //     'addressBook'=>$addressBook],200);
+            // }
         
 
         
 
         
-    }
+    
 
     
 
@@ -902,188 +969,354 @@ class InventoryController extends Controller
             }
 
             $tax_total = $subtotal * $tax;
+
+            createShippingXML($userID,$id);
+
+            $myXml = file_get_contents("shipping/loomis_".$userID.".xml");
+
+        
+
+        $client = new \GuzzleHttp\Client([
             
-            // calculate shipping
-            if ($oversize==1) {
+        ]);
+        
+        $response = $client->POST('https://sandbox.loomis-express.com/axis2/services/USSRatingService?wsdl',[
+        'body'=>$myXml,
+        ]);
 
-                
-                $xml = new \DomDocument("1.0","UTF-8");
-                $Eshipper = $xml->createElement("Eshipper");
-                $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
-                $Eshipper->setAttribute('username',"veistrading");
-                $Eshipper->setAttribute('password',"229280");
-                $Eshipper->setAttribute('version',"3.0.0");
-                $Eshipper = $xml->appendChild($Eshipper);
+        
+        $res = $response->getBody();
 
+        $r = new \SimpleXMLElement($res);
 
-                $QuoteRequest = $xml->createElement("QuoteRequest");
-                $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
+        $namespaces = $r->getNamespaces(true);
 
-                $From = $xml->createElement("From");
-                $From->setAttribute("id",$userID);
-                $From->setAttribute("company","Veis Trading Inc.");
-                $From->setAttribute("address1","200 Riviera Drive, Unit 2");
-                $From->setAttribute("city","Toronto");
-                $From->setAttribute("state","ON");
-                $From->setAttribute("country","CA");
-                $From->setAttribute("zip","L3R5M1");
-                $From = $QuoteRequest->appendChild($From);
-
-                $To = $xml->createElement("To");
-                $To->setAttribute("company",$fullName);
-                $To->setAttribute("address1",$userInfo->address);
-                $To->setAttribute("city",$userInfo->city);
-                $To->setAttribute("state",$userInfo->state);
-                $To->setAttribute("country",$userInfo->country);
-                $To->setAttribute("zip",$userInfo->zipcode);
-                $To = $QuoteRequest->appendChild($To);
-
-                $Packages = $xml->createElement("Packages");
-                $Packages->setAttribute("type","Package");
-
-                /** need foreach every items */
-
-                foreach ($shortlist as $item) {
-                    $item_info = $item->itemInfo()->first();
-
-                    if ($item_info->length<=1) {
-                        $item_info->length=1;
-                    }
-                    if ($item_info->width<=1) {
-                        $item_info->width=1;
-                    }
-                    if ($item_info->height<=1) {
-                        $item_info->height=1;
-                    }
-                    if ($item_info->weight<=1) {
-                        $item_info->weight=1;
-                    }
-
-                    $Package = $xml->createElement("Package");
-                        $Package->setAttribute("length",$item_info->length);
-                        $Package->setAttribute("width",$item_info->width);
-                        $Package->setAttribute("height",$item_info->height);
-                        $Package->setAttribute("weight",$item_info->weight);
-                    $Package=$Packages->appendChild($Package);
-
-                    $Packages = $QuoteRequest->appendChild($Packages);
-
-                }
-
-                $xml->FormatOutput = true;
-
-                $string_value = $xml->saveXML();
-                
-                $xml->save("shipping/eshipping_$userID.xml");
-
-                
-                // call api
-
-                
-
-                
-
-                $myXml = file_get_contents("shipping/eshipping_$userID.xml");
-
-                $client = new \GuzzleHttp\Client([
-                    
-                ]);
-                
-                $response = $client->POST('http://web.eshipper.com/rpc2',[
-                'body'=>$myXml,
-                ]);
-                
-                $res = $response->getBody();
-                
-                $r = new \SimpleXMLElement($res);
-                
-                $quotes = $r->QuoteReply->Quote;
-                
-                if (count($quotes)<1) {
-                     $shippingRate = 'TBD';
-                    return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
-                    'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
-                }else{
-
-                }
+        $error = $r->children($namespaces['soapenv'])
+                ->Body
+                ->children($namespaces['ns'])
+                ->getRatesResponse
+                ->children($namespaces['ns'])
+                ->return
+                ->children($namespaces['ax29'])
+                ->error;
+        
+        if (strlen($error)>=1) {
             
-                $myQuotes = [];
+            $shippingRate = 'TBD';
+            return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
+                'addressBook'=>$addressBook],200);
 
-                $quoteOpt = [];
-
-                $groundDay= 1;
-                
-                $expressDay= 1;
-                
-                foreach ($quotes as $q) {
-                    
-                    $arr = (array)$q[0];
-                    
-                    $carrierName = $arr['@attributes']['carrierName'];
-
-                    $serviceName = $arr['@attributes']['serviceName'];
-
-                    $totalCost = $arr['@attributes']['totalCharge'];
-
-                    $transitDays = $arr['@attributes']['transitDays'];
-
-                    array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
-                
-                    }
-
-                    
-
-                    
-                    foreach ($myQuotes as $quote) {
-                        if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
-                            $quoteOpt['ground'] = $quote[2];
-                            $groundDay = $quote[3]; 
-                        }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
-                            $quoteOpt['express'] = $quote[2]; 
-                            $expressDay = $quote[3];
-                        }
-                    }
-                    
-                    if (!isset($quoteOpt['ground'])) {
-                        $quoteOpt['ground']=1000000000;
-                        foreach ($myQuotes as $quote) {
-                            if ($quoteOpt['ground']>=$quote[2]) {
-                                $quoteOpt['ground'] = $quote[2];
-                                $groundDay = $quote[3];
-                            }else{
-
-                            }
-                        }
-                    }
-
-                    if (!isset($quoteOpt['express'])) {
-                        $quoteOpt['express']=0;
-                        foreach ($myQuotes as $quote) {
-                            if ($quoteOpt['express']<=$quote[2]) {
-                                $quoteOpt['express'] = $quote[2];
-                                $expressDay = $quote[3];
-                            }else{
-
-                            }
-                        }
-                    }
-                    
-                    $shippingRate = 'quotable';
-
-                    return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'addressID'=>$oneAdd->id, 'quotes'=>$quoteOpt,
-                    'groundDay'=>$groundDay,'expressDay'=>$expressDay,'addressBook'=>$addressBook],200);
-                
-                }else{
-                    $shippingRate = 'TBD';
-                    return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-                    'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'addressID'=>$oneAdd->id,
-                    'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
-                }    
-        }else{
             
         }
+            
+
+
+
+        $result = $r->children($namespaces['soapenv'])
+                ->Body
+                ->children($namespaces['ns'])
+                ->getRatesResponse
+                ->children($namespaces['ns'])
+                ->return
+                ->children($namespaces['ax29'])
+                ->getRatesResult
+                ->children($namespaces['ax211'])
+                ->shipment;
+        
+
+        
+
+        
+            $shipmentNumDetails = $result->shipment_info_num;
+            /** time */
+            $takedays =  $result->transit_time;
+
+            $quotes = $result->shipment_info_num;
+
+            $total_shipping = 0;
+
+            foreach ($quotes as $i) {
+                
+                if ($i->name =='TOTAL_CHARGE') {
+                    $total_shipping = $i->value;
+                }else{
+                    
+                }
+            }
+
+            // $myXml = file_get_contents("shipping/eshipping_$userID.xml");
+
+            // $client = new \GuzzleHttp\Client([
+                
+            // ]);
+            
+            // $response = $client->POST('http://web.eshipper.com/rpc2',[
+            // 'body'=>$myXml,
+            // ]);
+            
+            // $res = $response->getBody();
+            
+            // $r = new \SimpleXMLElement($res);
+            
+            // $quotes = $r->QuoteReply->Quote;
+                
+            // if (count($quotes)<1) {
+            //          $shippingRate = 'TBD';
+            //         return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            //         'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
+            //         'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
+            //     }else{
+                    
+            //     }
+
+            // $myQuotes = [];
+
+            // $quoteOpt = [];
+
+            // $groundDay= 1;
+            
+            // $expressDay= 1;
+            
+            // foreach ($quotes as $q) {
+                
+            //     $arr = (array)$q[0];
+                
+            //     $carrierName = $arr['@attributes']['carrierName'];
+
+            //     $serviceName = $arr['@attributes']['serviceName'];
+
+            //     $totalCost = $arr['@attributes']['totalCharge'];
+
+            //     $transitDays = $arr['@attributes']['transitDays'];
+
+            //     array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+            
+            //     }
+                
+                // foreach ($myQuotes as $quote) {
+                //     if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
+                //         $quoteOpt['ground'] = $quote[2];
+                //         $groundDay = $quote[3]; 
+                //     }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
+                //         $quoteOpt['express'] = $quote[2]; 
+                //         $expressDay = $quote[3];
+                //     }
+                // }
+                
+                // if (!isset($quoteOpt['ground'])) {
+                //     $quoteOpt['ground']=1000000000;
+                //     foreach ($myQuotes as $quote) {
+                //         if ($quoteOpt['ground']>=$quote[2]) {
+                //             $quoteOpt['ground'] = $quote[2];
+                //             $groundDay = $quote[3];
+                            
+                //         }else{
+
+                //         }
+                //     }
+                // }
+
+                // if (!isset($quoteOpt['express'])) {
+                //     $quoteOpt['express']=0;
+                //     foreach ($myQuotes as $quote) {
+                //         if ($quoteOpt['express']<=$quote[2]) {
+                //             $quoteOpt['express'] = $quote[2];
+                //             $expressDay = $quote[3];
+                //         }else{
+
+                //         }
+                //     }
+                // }
+
+                
+
+                $shippingRate = 'quotable';
+                return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+                'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,'total_shipping'=>$total_shipping,'takedays'=>$takedays, 
+                'addressBook'=>$addressBook],200);
+            
+            // calculate shipping
+        //     if ($oversize==1) {
+
+                
+        //         $xml = new \DomDocument("1.0","UTF-8");
+        //         $Eshipper = $xml->createElement("Eshipper");
+        //         $Eshipper->setAttribute('xmlns',"http://www.eshipper.net/XMLSchema");
+        //         $Eshipper->setAttribute('username',"veistrading");
+        //         $Eshipper->setAttribute('password',"229280");
+        //         $Eshipper->setAttribute('version',"3.0.0");
+        //         $Eshipper = $xml->appendChild($Eshipper);
+
+
+        //         $QuoteRequest = $xml->createElement("QuoteRequest");
+        //         $QuoteRequest = $Eshipper->appendChild($QuoteRequest);
+
+        //         $From = $xml->createElement("From");
+        //         $From->setAttribute("id",$userID);
+        //         $From->setAttribute("company","Veis Trading Inc.");
+        //         $From->setAttribute("address1","200 Riviera Drive, Unit 2");
+        //         $From->setAttribute("city","Toronto");
+        //         $From->setAttribute("state","ON");
+        //         $From->setAttribute("country","CA");
+        //         $From->setAttribute("zip","L3R5M1");
+        //         $From = $QuoteRequest->appendChild($From);
+
+        //         $To = $xml->createElement("To");
+        //         $To->setAttribute("company",$fullName);
+        //         $To->setAttribute("address1",$userInfo->address);
+        //         $To->setAttribute("city",$userInfo->city);
+        //         $To->setAttribute("state",$userInfo->state);
+        //         $To->setAttribute("country",$userInfo->country);
+        //         $To->setAttribute("zip",$userInfo->zipcode);
+        //         $To = $QuoteRequest->appendChild($To);
+
+        //         $Packages = $xml->createElement("Packages");
+        //         $Packages->setAttribute("type","Package");
+
+        //         /** need foreach every items */
+
+        //         foreach ($shortlist as $item) {
+        //             $item_info = $item->itemInfo()->first();
+
+        //             if ($item_info->length<=1) {
+        //                 $item_info->length=1;
+        //             }
+        //             if ($item_info->width<=1) {
+        //                 $item_info->width=1;
+        //             }
+        //             if ($item_info->height<=1) {
+        //                 $item_info->height=1;
+        //             }
+        //             if ($item_info->weight<=1) {
+        //                 $item_info->weight=1;
+        //             }
+
+        //             $Package = $xml->createElement("Package");
+        //                 $Package->setAttribute("length",$item_info->length);
+        //                 $Package->setAttribute("width",$item_info->width);
+        //                 $Package->setAttribute("height",$item_info->height);
+        //                 $Package->setAttribute("weight",$item_info->weight);
+        //             $Package=$Packages->appendChild($Package);
+
+        //             $Packages = $QuoteRequest->appendChild($Packages);
+
+        //         }
+
+        //         $xml->FormatOutput = true;
+
+        //         $string_value = $xml->saveXML();
+                
+        //         $xml->save("shipping/eshipping_$userID.xml");
+
+                
+        //         // call api
+
+                
+
+                
+
+        //         $myXml = file_get_contents("shipping/eshipping_$userID.xml");
+
+        //         $client = new \GuzzleHttp\Client([
+                    
+        //         ]);
+                
+        //         $response = $client->POST('http://web.eshipper.com/rpc2',[
+        //         'body'=>$myXml,
+        //         ]);
+                
+        //         $res = $response->getBody();
+                
+        //         $r = new \SimpleXMLElement($res);
+                
+        //         $quotes = $r->QuoteReply->Quote;
+                
+        //         if (count($quotes)<1) {
+        //              $shippingRate = 'TBD';
+        //             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+        //             'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
+        //             'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
+        //         }else{
+
+        //         }
+            
+        //         $myQuotes = [];
+
+        //         $quoteOpt = [];
+
+        //         $groundDay= 1;
+                
+        //         $expressDay= 1;
+                
+        //         foreach ($quotes as $q) {
+                    
+        //             $arr = (array)$q[0];
+                    
+        //             $carrierName = $arr['@attributes']['carrierName'];
+
+        //             $serviceName = $arr['@attributes']['serviceName'];
+
+        //             $totalCost = $arr['@attributes']['totalCharge'];
+
+        //             $transitDays = $arr['@attributes']['transitDays'];
+
+        //             array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
+                
+        //             }
+
+                    
+
+                    
+        //             foreach ($myQuotes as $quote) {
+        //                 if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
+        //                     $quoteOpt['ground'] = $quote[2];
+        //                     $groundDay = $quote[3]; 
+        //                 }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
+        //                     $quoteOpt['express'] = $quote[2]; 
+        //                     $expressDay = $quote[3];
+        //                 }
+        //             }
+                    
+        //             if (!isset($quoteOpt['ground'])) {
+        //                 $quoteOpt['ground']=1000000000;
+        //                 foreach ($myQuotes as $quote) {
+        //                     if ($quoteOpt['ground']>=$quote[2]) {
+        //                         $quoteOpt['ground'] = $quote[2];
+        //                         $groundDay = $quote[3];
+        //                     }else{
+
+        //                     }
+        //                 }
+        //             }
+
+        //             if (!isset($quoteOpt['express'])) {
+        //                 $quoteOpt['express']=0;
+        //                 foreach ($myQuotes as $quote) {
+        //                     if ($quoteOpt['express']<=$quote[2]) {
+        //                         $quoteOpt['express'] = $quote[2];
+        //                         $expressDay = $quote[3];
+        //                     }else{
+
+        //                     }
+        //                 }
+        //             }
+                    
+        //             $shippingRate = 'quotable';
+
+        //             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+        //             'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'addressID'=>$oneAdd->id, 'quotes'=>$quoteOpt,
+        //             'groundDay'=>$groundDay,'expressDay'=>$expressDay,'addressBook'=>$addressBook],200);
+                
+        //         }else{
+        //             $shippingRate = 'TBD';
+        //             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+        //             'tax_total'=>$tax_total, "shippingRate"=>$shippingRate, 'addressID'=>$oneAdd->id,
+        //             'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
+        //         }    
+        // }else{
+            
+         }
     }
 
     // get customer order history
@@ -1506,51 +1739,7 @@ class InventoryController extends Controller
 
         $tax_total = 0;
 
-        // switch ($dealerInfo->terr)
-        // {
-        //     case "AB":
-        //         $tax = 5;
-        //         break;  
-        //     case "BC":
-        //         $tax = 12;
-        //         break;
-        //     case "MB":
-        //         $tax = 13;
-        //         break;  
-        //     case "NB":
-        //         $tax = 15;
-        //         break;
-        //     case "NL":
-        //         $tax = 5;
-        //         break; 
-        //     case "NT":
-        //         $tax = 5;
-        //         break; 
-        //     case "NS":
-        //         $tax = 15;
-        //         break;
-        //     case "NU":
-        //         $tax = 5;
-        //         break;
-        //     case "ON":
-        //         $tax = 13;
-        //         break;  
-        //     case "PE":
-        //         $tax = 15;
-        //         break;
-        //     case "QC":
-        //         $tax = 14.975;
-        //         break;
-        //     case "SK":
-        //         $tax = 11;
-        //         break;  
-        //     case "YT":
-        //         $tax = 5;
-        //         break;
-            
-        //     default:
-        //         $tax = 0;
-        // }
+        
 
         $tax = $dealer->getRate();
         // Log::useFiles(storage_path('/logs/GLAlog.log'));
@@ -2326,13 +2515,13 @@ class InventoryController extends Controller
 
     /** test area */
     public function test(){
-        createShippingXML(18,0);
+        createShippingXML(18,22);
                 
 
-        dd('------------');
+        
 
 
-        $myXml = file_get_contents("shipping/test.xml");
+        $myXml = file_get_contents("shipping/loomis_18.xml");
 
         
 
@@ -2365,33 +2554,25 @@ class InventoryController extends Controller
                     ->children($namespaces['ax211'])
                     ->shipment;
 
-        echo $result->billed_weight;
+        
         $shipmentNumDetails = $result->shipment_info_num;
         /** time */
         $takedays =  $result->estimated_delivery_date;
-        /** TOTAL_CHARGE 516.73
-         * freight_charge 163.96
-         * fuel_surcharge 39.76
-         * BASE_CHARGE 97.05
-         * ADD_SER_CHARGE 153.51 *
-         * VALUATION_CHARGE 3.00
-         * CHARGE_SD （Saturday:） 23
-         * CHARGE_FR （ Fragile: ） 130.51
-         * tax_charge 59.45
-         * OV
-         * OS
-         * 
-        */
+
+        $quote = $result->shipment_info_num;
+
+        foreach ($quote as $i) {
+            print_r($i);
+            
+            echo '<br>';
+            if ($i->name =='TOTAL_CHARGE') {
+                echo $i->name, '111111111';
+            }else{
+                echo $i->name, '5555555555';
+            }
+        }
         
         dd($result);
-
-
-
-        $quote = $result->shipment_info_num[4]->children($namespaces['ax211'])->value[0];
-        
-        
-        
-        dd($quote);
 
         dd(1);
         
@@ -2430,71 +2611,7 @@ class InventoryController extends Controller
         
         
         
-        $myQuotes = [];
-
-            $quoteOpt = [];
-
-            $groundDay= 1;
-            
-            $expressDay= 1;
-            
-            foreach ($quotes as $q) {
-                
-                $arr = (array)$q[0];
-                
-                $carrierName = $arr['@attributes']['carrierName'];
-
-                $serviceName = $arr['@attributes']['serviceName'];
-
-                $totalCost = $arr['@attributes']['totalCharge'];
-
-                $transitDays = $arr['@attributes']['transitDays'];
-
-                array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
-            
-                }
-                
-
-                
-                foreach ($myQuotes as $quote) {
-                    if ($quote[0]=="Purolator" && $quote[1]=="Purolator Ground") {
-                        $quoteOpt['ground'] = $quote[2];
-                        $groundDay = $quote[3]; 
-                    }elseif($quote[0]=="Purolator" && $quote[1]=="Purolator Express"){
-                        $quoteOpt['express'] = $quote[2]; 
-                        $expressDay = $quote[3];
-                    }
-                }
-
-                
-                
-                if (!isset($quoteOpt['ground'])) {
-                    $quoteOpt['ground']=1000000000;
-                    foreach ($myQuotes as $quote) {
-                        if ($quoteOpt['ground']>=$quote[2]) {
-                            $quoteOpt['ground'] = $quote[2];
-                            $groundDay = $quote[3];
-                            
-                        }else{
-
-                        }
-                    }
-                }
-                if (!isset($quoteOpt['express'])) {
-                    $quoteOpt['express']=0;
-                    foreach ($myQuotes as $quote) {
-                        if ($quoteOpt['express']<=$quote[2]) {
-                            $quoteOpt['express'] = $quote[2];
-                            $expressDay = $quote[3];
-                        }else{
-
-                        }
-                    }
-                }
-
-                $shippingRate = 'quotable';
-                return response()->json([
-                "shippingRate"=>$shippingRate, 'quotes'=>$quoteOpt,'groundDay'=>$groundDay,'expressDay'=>$expressDay],200);
+        
             
     }
 }

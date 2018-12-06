@@ -394,6 +394,7 @@ export default {
             paymentAuthorized: function (data) {
             },
             paymentCompleted: function (data) {
+                this.loading = 1;
                 this.$http.post('/api/finishOrder_paypal',
                     {   
                         custno:JSON.parse(this.storage.getItem('user')).id,

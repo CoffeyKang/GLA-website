@@ -239,7 +239,7 @@ use App\Temp_SO;
 
 
 
-
+        /** xml node */
         $envelopeHeader = $envelope->appendChild($envelopeHeader);
         $body = $xml->createElement('soapenv:Body');
         $getRates = $xml->createElement('ws:getRates');
@@ -287,8 +287,9 @@ use App\Temp_SO;
                 $w = $iteminfo->width?:1;
                 $l = $iteminfo->length?:1;
                 $lb = $iteminfo->weight?:1;
-            
-        
+                $h_label = $xml->createTextNode("HEIGHT");
+                $w_label = $xml->createTextNode("WIDTH");;           
+                $l_label = $xml->createTextNode("LENGTH");
                 $packages = $xml->createElement('xsd1:packages');
                 $packages = $shipment->appendChild($packages);
                 $package_info_num_l = $xml->createElement('xsd1:package_info_num');
@@ -299,45 +300,94 @@ use App\Temp_SO;
                 $package_info_num_w = $packages->appendChild($package_info_num_w);
                 $package_info_num_h = $packages->appendChild($package_info_num_h);
                 $reported_weight = $packages->appendChild($reported_weight);
-
+                $xsd1_name_height = $xml->createElement('xsd1:name');
+                $xsd1_value_height = $xml->createElement('xsd1:value');
+                $xsd1_name_width = $xml->createElement('xsd1:name');
+                $xsd1_value_width = $xml->createElement('xsd1:value');
+                $xsd1_name_length = $xml->createElement('xsd1:name');
+                $xsd1_value_length = $xml->createElement('xsd1:value');
+                $package_info_num_h->appendChild($xsd1_name_height);
+                $package_info_num_w->appendChild($xsd1_name_width);
+                $package_info_num_l->appendChild($xsd1_name_length);
+                $package_info_num_h->appendChild($xsd1_value_height);
+                $package_info_num_w->appendChild($xsd1_value_width);
+                $package_info_num_l->appendChild($xsd1_value_length);
                 /** set l w g lb  working on packages */
                 $height = $xml->createTextNode($h);
                 $width = $xml->createTextNode($w);
                 $length = $xml->createTextNode($l);
                 $weigth = $xml->createTextNode($lb);
+                $xsd1_name_height->appendChild($h_label);
+                $xsd1_name_width->appendChild($w_label);
+                $xsd1_name_length->appendChild($l_label);
+                $xsd1_value_height->appendChild($height);
+                $xsd1_value_width->appendChild($width);
+                $xsd1_value_length->appendChild($length);
+                $reported_weight->appendChild($weigth);
 
-                $height = $package_info_num_h->appendChild($height);
-                $width = $package_info_num_w->appendChild($width);
-                $length = $package_info_num_l->appendChild($length);
-                $weigth = $reported_weight->appendChild($weigth);
+                
+
             }else{
 
             }
 
         }
+
+
+        $pickup_address_line1_label = $xml->createTextNode($shippingArray['address_line1']);
+        $pickup_city_label = $xml->createTextNode($shippingArray['city']);
+        $pickup_name_label = $xml->createTextNode($shippingArray['name']);
+        $pickup_postal_code_label = $xml->createTextNode($shippingArray['postal_code']);
+        $pickup_province_label = $xml->createTextNode($shippingArray['province']);
+        $reported_weight_unit_label = $xml->createTextNode("L");// l pound, K kilogram
+        $service_type_label = $xml->createTextNode("DD"); // api pdf document page80 DD loomis ground
+
+        $pickup_address_line_1 = $xml->createElement('xsd1:pickup_address_line_1');
+        $pickup_city = $xml->createElement('xsd1:pickup_city');
+        $pickup_name = $xml->createElement('xsd1:pickup_name');
+        $pickup_postal_code = $xml->createElement('xsd1:pickup_postal_code');
+        $pickup_province = $xml->createElement('xsd1:pickup_province');
+        $reported_weight_unit = $xml->createElement('xsd1:reported_weight_unit');
+        $service_type = $xml->createElement('xsd1:service_type');
+
+        $pickup_address_line_1->appendChild($pickup_address_line1_label);
+        $pickup_city->appendChild($pickup_city_label);
+        $pickup_name->appendChild($pickup_name_label);
+        $pickup_postal_code->appendChild($pickup_postal_code_label);
+        $pickup_province->appendChild($pickup_province_label);
+        $reported_weight_unit->appendChild($reported_weight_unit_label);
+        $service_type->appendChild($service_type_label);
+
+
+        $shipment->appendChild($pickup_address_line_1);
+        $shipment->appendChild($pickup_city);
+        $shipment->appendChild($pickup_name);
+        $shipment->appendChild($pickup_postal_code);
+        $shipment->appendChild($pickup_province);
+        $shipment->appendChild($reported_weight_unit);
+        $shipment->appendChild($service_type);
+
+        /** shipping options */
+        // $shipment_info_str1 = $xml->createElement('xsd1:shipment_info_str');
+        // $shipment_info_str2 = $xml->createElement('xsd1:shipment_info_str');
+
+
+
+        /** shiping date and account */
+        $shipper_num = $xml->createElement("xsd1:shipper_num");
+        $shipping_date = $xml->createElement("xsd1:shipper_date");
+        $shipper_num_label = $xml->createTextNode("HB4499");
+        $shipping_date_label = $xml->createTextNode(date('Y-m-d'));
+        $shipper_num->appendChild($shipper_num_label);
+        $shipping_date->appendChild($shipping_date_label);
+        $shipment->appendChild($shipper_num);
+        $shipment->appendChild($shipping_date);
         
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $xml->FormatOutput = true;
 
         $string_value = $xml->saveXML();
         
-        $xml->save("construction.xml");
+        $xml->save('shipping/loomis_'.$customer->id.'.xml');
     }
     
 ?>
