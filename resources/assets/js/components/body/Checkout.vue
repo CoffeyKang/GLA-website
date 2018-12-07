@@ -248,7 +248,7 @@
                 <div class=" text-center" v-if="shippingRate!='quotable'">
                     
                     <el-alert
-                        title="Invalid province and postal code combination."
+                        :title="errorMessage"
                         type="error">
                     </el-alert>
                     
@@ -281,6 +281,7 @@ export default {
             groundDay:1,
             shippingRate:'',
             takedays:1,
+            errorMessage:'Invalid province and postal code combination.',
             // shipping:0,
             country:[
                         {name:'Canada',Code:"CA"},
@@ -599,6 +600,13 @@ export default {
                     this.total_shipping = response.data.total_shipping[0];
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
+                    if (this.total_shipping/this.subtotal>=0.3) {
+                        this.shippingRate = "TBD";
+                        this.errorMessage = 'Please get a quote.';
+                        
+                    }else{
+
+                    }
                     if (this.carts.length<1) {
                         this.$router.push({name:'ShoppingCart'});
                     }else{
@@ -723,16 +731,22 @@ export default {
                     // this.expressDay = response.data.expressDay;
                     // this.addressBook = response.data.addressBook;
                     this.otherAddress = true;
+                    this.userInfo = response.data.userInfo;
                     // this.addressID = response.data.addressID,
-                    
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
-                    this.userInfo = response.data.userInfo;
                     this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
                     this.total_shipping = response.data.total_shipping[0];
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
+                    if (this.total_shipping/this.subtotal>=0.3) {
+                        this.shippingRate = "TBD";
+                        this.errorMessage = 'Please get a quote.';
+                        
+                    }else{
+                        
+                    }
                     this.loading = 0;
                     $('.addressBox').css("border",'none');
                     $("#box"+id).css("border",'3px solid green');
@@ -758,18 +772,17 @@ export default {
             },
 
             getQuote(){
-                
+                this.loading = 1;
                 this.$http.post('/api/getQuote',{
-                    "id":this.userInfo.m_id,
+                    "id":this.userInfo.cust_id,
                     "addressID":this.addressID,
                     "subtotal":this.subtotal,
                     "hst":this.hst,
                 }).then(response=>{
-                    
                     if (response.data.sono) {
                         var sono = response.data.sono;
+                        this.$store.commit('carts_total',0);
                         this.$router.push({ name: 'toBequote', params: { sono: sono }});
-                        
                     }
                 });
                 

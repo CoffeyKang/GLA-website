@@ -24,6 +24,7 @@ use App\Catalog;
 use App\ExchangeRate;
 use Auth;
 use App\TaxRate;
+use App\NewProducts;
 
 class AdminController extends Controller
 {
@@ -506,6 +507,42 @@ class AdminController extends Controller
             if ($item) {
                 $item->delete();
                 return redirect()->back()->with('status',"Feature item $item->item removed.");
+            }else{
+                return redirect()->back()->withErrors('Item not find.');
+            }
+        }
+
+    public function newProducts(){
+        
+        $fitems = NewProducts::all();
+
+        return view('admin.newProducts',compact('fitems'));
+    }
+
+    public function addNewnewProduct(Request $request){
+        $this->validate($request, [
+            'item'=>'required|exists:inventory|unique:new_items',
+        ]);
+        $fitems = NewProducts::all();
+        
+
+        $item = new NewProducts;
+
+        $item->item = $request->item;
+
+        $item->save();
+        
+        return redirect()->back()->with('status','New item added.');
+
+       
+        
+    }
+     public function deletenewItem($id){
+            $item = NewProducts::find($id);
+
+            if ($item) {
+                $item->delete();
+                return redirect()->back()->with('status',"New item $item->item removed.");
             }else{
                 return redirect()->back()->withErrors('Item not find.');
             }

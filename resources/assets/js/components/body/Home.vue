@@ -149,7 +149,7 @@
 
           goto(id){
             if (id==1) {
-              this.$router.push({name:'Pruduct_list', query:{make: "WHEEL"}});
+              this.$router.push('/newItems');
             }else if(id==2){
               this.$router.push('/special');
             }else{

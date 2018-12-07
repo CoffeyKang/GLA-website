@@ -26,6 +26,7 @@ use Excel;
 use Mail;
 use App\Mail\registration;
 use App\Mail\SalesOrder;
+use App\NewProducts;
 /** use LOG */
 use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
@@ -365,6 +366,43 @@ class InventoryController extends Controller
             
     }
 
+    public function newProducts(Request $request){
+        $mycurrentPage = $request->page?$request->page:1;
+
+        Paginator::currentPageResolver(function () use ($mycurrentPage) {
+            return $mycurrentPage;
+        });
+        
+        $special = NewProducts::all();
+
+
+        $result = [];
+        foreach ($special as $f) {
+            array_push($result, $f->item);
+        }
+         
+        $special = Inventory::whereIn('item',$result)->paginate(20);
+        // join('inventory_img','inventory.item','inventory_img.item')
+        foreach ($special as $item) {
+            $img = $item->itemImg;
+            $item->onsale = $item->onsale();
+            if ($img) {
+                $item->img_path = $item->itemImg->img_path;
+            }else{
+               $item->img_path = '/images/default_sm.jpg'; 
+            }
+            
+            
+            if (file_exists('.'.$item->img_path)) {
+                 
+            }else{
+            	$item->img_path = '/images/default_sm.jpg';
+            }
+            
+        }
+        
+        return response()->json(['special'=>$special],200);
+    }
     // getItems_carts
     public function getItems_carts(Request $request){
         
@@ -598,7 +636,7 @@ class InventoryController extends Controller
             // }
         }
 
-        $tax_total = $subtotal * $tax;
+        
 
         createShippingXML($userID,0);
         
@@ -713,14 +751,12 @@ class InventoryController extends Controller
                 ->error;
         
         if (strlen($error)>=1) {
+            $tax_total = $subtotal * $tax;
             $shippingRate = 'TBD';
             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
             'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
                 'addressBook'=>$addressBook],200);
-
-            
         }
-
         $result = $r->children($namespaces['soapenv'])
                     ->Body
                     ->children($namespaces['ns'])
@@ -749,6 +785,8 @@ class InventoryController extends Controller
                     
                 }
             }
+            $subtotal += $total_shipping;
+            $tax_total = $subtotal * $tax;
 
             // $myXml = file_get_contents("shipping/eshipping_$userID.xml");
 
@@ -968,7 +1006,7 @@ class InventoryController extends Controller
                 }
             }
 
-            $tax_total = $subtotal * $tax;
+            // $tax_total = $subtotal * $tax;
 
             createShippingXML($userID,$id);
 
@@ -1001,6 +1039,7 @@ class InventoryController extends Controller
                 ->error;
         
         if (strlen($error)>=1) {
+            $tax_total = $subtotal * $tax;
             
             $shippingRate = 'TBD';
             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
@@ -1044,6 +1083,9 @@ class InventoryController extends Controller
                     
                 }
             }
+
+            $subtotal += $total_shipping;
+            $tax_total = $subtotal * $tax;
 
             // $myXml = file_get_contents("shipping/eshipping_$userID.xml");
 
@@ -2438,9 +2480,10 @@ class InventoryController extends Controller
 
 
     public function getQuote(Request $request){
-            
+        
         $id = $request->id;
 
+        
         $addressID = $request->addressID;
         
         $orderNumber = SOMAST::all()->max('order_num')+1;
@@ -2449,7 +2492,7 @@ class InventoryController extends Controller
 
         $somast->order_num = $orderNumber;
 
-        $somast->m_id = $request->id;
+        $somast->m_id = $id;
 
         $somast->subtotal = $request->subtotal;
 
@@ -2508,7 +2551,7 @@ class InventoryController extends Controller
         }
 
 
-        return response()->json(['sono'=>$orderNumber],200);
+        return response()->json(['sono'=>$somast->order_num],200);
     }
 
 

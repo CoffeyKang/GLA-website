@@ -1,5 +1,6 @@
 <template>
-<div class='container' style='margin:30px auto;'>
+<div class='container' style='margin:30px auto;' v-loading='loading'  
+		element-loading-text="Calculating ...">
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
@@ -29,7 +30,7 @@
             </div>
 
             <div class="col-xs-6">
-                <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
+                <h1><b style='font-size:80%'>Pending Order Number: {{somast.order_num}}</b></h1>
                 <h4><br><br><br><br>
                     
                 </h4>
@@ -144,6 +145,7 @@ export default {
             address:[],
             userInfo:[],
             billing:[],
+            loading:1,
         }
     },
     computed:{
@@ -211,6 +213,7 @@ export default {
             this.status = response.data.status;
             this.show = true;
             this.address = response.data.address;
+            this.loading = 0;
             this.oneOrder.forEach(element => {
                 this.storage.removeItem(element.item);
             });

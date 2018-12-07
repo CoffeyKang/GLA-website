@@ -31,6 +31,8 @@ Route::get('/ads','AdController@index');
 // get feature products
 Route::get('/featureProducts','InventoryController@featureProducts');
 
+/** get new items */
+Route::post('/newItems','InventoryController@newProducts');
 // get most popular products
 Route::get('/popular','InventoryController@popularProducts');
 

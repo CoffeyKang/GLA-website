@@ -49,6 +49,10 @@ class Inventory extends Model
         return $this->belongsTo('App\FeatureProduct','item','item');
     }
 
+    public function newItem(){
+        return $this->belongsTo('App\NewProduct','item','item');
+    }
+
     public function itemMake(){
         return $this->hasMany('App\Item_make','item','item');
     }

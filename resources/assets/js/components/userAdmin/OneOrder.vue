@@ -8,7 +8,8 @@
     </div>
     <div v-if="!empty">
         <div class="edit_title" >
-            <span>Order Number : {{so}}</span><span v-if="show" style='padding-right:30px'>Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
+            <span>Order Number : {{so}}</span><span v-if="show" 
+            style='padding-right:30px'>Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
         <div class='row'>
             <div class="col-xs-6">
@@ -21,7 +22,8 @@
                 </h4>
             </div>
             <div class="col-xs-6">
-                <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
+                <h1><b style='font-size:80%' v-if="somast.sales_status!=3">Receipt Number: {{somast.order_num}}</b>
+                <b style='font-size:80%' v-if="somast.sales_status==3">Order Number: {{somast.order_num}}</b></h1>
                 <h4><br><br><br><br>
                     
                 </h4>

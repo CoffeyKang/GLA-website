@@ -87,6 +87,12 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
 
     Route::get('/deletefeatureItem/{id}','AdminController@deletefeatureItem');
 
+    Route::get('/NewProducts','AdminController@newProducts');
+
+    Route::post('/addNewnewProduct','AdminController@addNewnewProduct');
+
+    Route::get('/deletenewItem/{id}','AdminController@deletenewItem');
+
     Route::get('/findDealer','AdminController@findDealer');
 
     Route::get('/findCustomer','AdminController@findCustomer');
