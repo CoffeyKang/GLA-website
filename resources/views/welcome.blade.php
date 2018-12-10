@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="http://www.goldenleafautomotive.com/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="https://www.goldenleafautomotive.com/favicon.ico" type="image/x-icon">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="author" content="Visual Elements Images Studio Inc. www.velements.com" />
         <META NAME="description" CONTENT="Golden Leaf Automotive is the Canadian based extension of Dynacorn International Inc. For over 18 years DII has been producing all the hard to find parts for your classic cars. Because of the abilities of our manufacturing facilities, our product development is without peer in the classic car industry. 

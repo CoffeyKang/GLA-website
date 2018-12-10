@@ -171,6 +171,8 @@ Route::get('/special/{page}','InventoryController@special');
 
 Route::post('/searchSpecial','InventoryController@searchSpecial');
 
+Route::post('/searchNewItem','InventoryController@searchNewItem');
+
 Route::post('/inquiry','AccessControl@inquiry');
 
 Route::post('/inquiryOnline','AccessControl@inquiryOnline');

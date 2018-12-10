@@ -228,7 +228,7 @@
 
                 <div class="text-center shippingOPT " v-if="shippingRate=='quotable'">
                     
-                        Take Days: {{takedays}} Days
+                        Estimated Shipping Time: {{takedays}} Days
                     
                 </div>
                 <div class=" text-center" v-if="shippingRate=='quotable'">

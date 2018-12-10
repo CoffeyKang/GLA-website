@@ -289,7 +289,7 @@
 
 			updateSearch(value){
 				this.loading=1,
-				this.$http.post('/api/searchSpecial',{
+				this.$http.post('/api/searchNewItem',{
 					item:value.item, 
 					make:value.make,
 					year:value.year,

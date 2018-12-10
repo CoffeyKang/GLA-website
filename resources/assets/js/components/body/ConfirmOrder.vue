@@ -182,7 +182,7 @@
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <h5>Estimate Shipping Date : {{ shippingDays }} Days</h5>
+                        <h5>Estimate Shipping Time : {{ shippingDays }} Days</h5>
                     </div>
 
                     <div class=' summary_list text-center' v-if="opt_card_status">

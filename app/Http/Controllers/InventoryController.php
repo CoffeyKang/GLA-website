@@ -785,93 +785,11 @@ class InventoryController extends Controller
                     
                 }
             }
-            $subtotal += $total_shipping;
-            $tax_total = $subtotal * $tax;
+            // $subtotal += $total_shipping;
+            $tax_total = ($subtotal+$total_shipping) * $tax;
 
-            // $myXml = file_get_contents("shipping/eshipping_$userID.xml");
-
-            // $client = new \GuzzleHttp\Client([
-                
-            // ]);
             
-            // $response = $client->POST('http://web.eshipper.com/rpc2',[
-            // 'body'=>$myXml,
-            // ]);
-            
-            // $res = $response->getBody();
-            
-            // $r = new \SimpleXMLElement($res);
-            
-            // $quotes = $r->QuoteReply->Quote;
-                
-            // if (count($quotes)<1) {
-            //          $shippingRate = 'TBD';
-            //         return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
-            //         'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,
-            //         'quotes'=>"tbd",'groundDay'=>0,'expressDay'=>0,'addressBook'=>$addressBook],200);
-            //     }else{
-                    
-            //     }
 
-            // $myQuotes = [];
-
-            // $quoteOpt = [];
-
-            // $groundDay= 1;
-            
-            // $expressDay= 1;
-            
-            // foreach ($quotes as $q) {
-                
-            //     $arr = (array)$q[0];
-                
-            //     $carrierName = $arr['@attributes']['carrierName'];
-
-            //     $serviceName = $arr['@attributes']['serviceName'];
-
-            //     $totalCost = $arr['@attributes']['totalCharge'];
-
-            //     $transitDays = $arr['@attributes']['transitDays'];
-
-            //     array_push($myQuotes,[$carrierName,$serviceName,$totalCost,$transitDays]);
-            
-            //     }
-
-                
-                // foreach ($myQuotes as $quote) {
-                //     if ($quote[0]=="Purolator" &&$quote[1]=="Purolator Ground") {
-                //         $quoteOpt['ground'] = $quote[2];
-                //         $groundDay = $quote[3]; 
-                //     }elseif($quote[0]=="Purolator" &&$quote[1]=="Purolator Express"){
-                //         $quoteOpt['express'] = $quote[2]; 
-                //         $expressDay = $quote[3];
-                //     }
-                // }
-                
-                // if (!isset($quoteOpt['ground'])) {
-                //     $quoteOpt['ground']=1000000000;
-                //     foreach ($myQuotes as $quote) {
-                //         if ($quoteOpt['ground']>=$quote[2]) {
-                //             $quoteOpt['ground'] = $quote[2];
-                //             $groundDay = $quote[3];
-                            
-                //         }else{
-
-                //         }
-                //     }
-                // }
-
-                // if (!isset($quoteOpt['express'])) {
-                //     $quoteOpt['express']=0;
-                //     foreach ($myQuotes as $quote) {
-                //         if ($quoteOpt['express']<=$quote[2]) {
-                //             $quoteOpt['express'] = $quote[2];
-                //             $expressDay = $quote[3];
-                //         }else{
-
-                //         }
-                //     }
-                // }
 
                 
 
@@ -1047,7 +965,7 @@ class InventoryController extends Controller
                 'addressBook'=>$addressBook],200);
 
             
-        }
+        }else{}
             
 
 
@@ -1084,8 +1002,8 @@ class InventoryController extends Controller
                 }
             }
 
-            $subtotal += $total_shipping;
-            $tax_total = $subtotal * $tax;
+            // $subtotal += $total_shipping;
+            $tax_total = ($subtotal+$total_shipping) * $tax;
 
             // $myXml = file_get_contents("shipping/eshipping_$userID.xml");
 
@@ -2391,6 +2309,109 @@ class InventoryController extends Controller
             }else{
                 
             }
+        }  
+
+        $special = Inventory::whereIn('item',$arr);
+        
+        if ($request->item) {
+
+            $request->item = strtoupper($request->item);
+
+            if (in_array($request->item,$arr)) {
+                
+                $special = $special->where('item',$request->item)->paginate(20);
+
+                foreach ($special as $item) {
+                    $img = $item->itemImg;
+                    if ($img) {
+                        $item->img_path = $item->itemImg->img_path;
+                    }else{
+                    $item->img_path = '/images/default_sm.jpg'; 
+                    }
+                    
+                    
+                    if (file_exists('.'.$item->img_path)) {
+                        
+                    }else{
+                        $item->img_path = '/images/default_sm.jpg';
+                    }
+                    
+                }
+                
+                return response()->json(['special'=>$special],200);
+
+                
+            }else{
+                $special = $special->where('descrip','LIKE',"%".$request->item."%");
+            }
+            
+        
+        }else{
+
+        }
+
+        if ($request->make) {
+            
+            
+
+            $item_from_make_table = Item_make::where('make',$request->make)->get();
+
+            $from_make_table_item = [];
+            
+            foreach ($item_from_make_table as $i) {
+                
+                array_push($from_make_table_item,$i->item);
+            }
+
+            $special = $special->whereIn('item',$from_make_table_item);
+        }else{
+
+        }
+
+        if ($request->year) {
+            $special = $special->where('year_from','<=',$request->year)->where('year_end','>=',$request->year);
+        }else{
+
+        }
+
+        $special = $special->paginate(20);
+        // join('inventory_img','inventory.item','inventory_img.item')
+        foreach ($special as $item) {
+            $img = $item->itemImg;
+            if ($img) {
+                $item->img_path = $item->itemImg->img_path;
+            }else{
+               $item->img_path = '/images/default_sm.jpg'; 
+            }
+            
+            
+            if (file_exists('.'.$item->img_path)) {
+                 
+            }else{
+            	$item->img_path = '/images/default_sm.jpg';
+            }
+            
+        }
+        
+        return response()->json(['special'=>$special],200);
+    }
+
+    public function searchNewItem(Request $request){
+
+        
+        $mycurrentPage = $request->page?$request->page:1;
+
+        Paginator::currentPageResolver(function () use ($mycurrentPage) {
+            return $mycurrentPage;
+        });
+        $special = newProducts::all()->toArray();
+
+        $arr = [];
+
+        foreach ($special as $item) {
+            
+            array_push($arr,$item['item']);
+                
         }  
 
         $special = Inventory::whereIn('item',$arr);

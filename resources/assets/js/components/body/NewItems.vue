@@ -6,10 +6,10 @@
 			<div class="title">
 				<span>New Products</span>
 			</div>
-			<!-- <div class='searchBar'>
-				<search-special :search='search' v-on:updateSearch = "updateSearch($event)"
-				v-on:resetSearch = "resetSearch($event)"></search-special>
-			</div> -->
+			<div class='searchBar'>
+				<search-newItem :search='search' v-on:updateSearch = "updateSearch($event)"
+				v-on:resetSearch = "resetSearch($event)"></search-newItem>
+			</div>
 		</div>
 		<div class="container paginate_btn alert" v-if="lists.length>=1"> 
 				<div class='col-xs-4 text-right'>
@@ -113,7 +113,7 @@
 		
 </template>
 <script>
-	// import SearchSpecial from './parts/SearchSpecial.vue';
+	import SearchNewItem from './parts/SearchNewItem.vue';
 	export default {
 		data (){
 			return {
@@ -127,7 +127,7 @@
 			}
 		},
 		components:{
-			// SearchSpecial,
+			SearchNewItem,
 		},
 		mounted(){
 			/**	get special list */
@@ -193,7 +193,6 @@
 			    this.loading = 0;
 			  }, response => {
 			  	// error 
-			     
 			  });
 			},
 
@@ -201,11 +200,7 @@
 				this.loading=1,
 				this.page =page;
 				
-				this.$http.post('/api/searchSpecial',{
-					item:this.search.item, 
-					make:this.search.make,
-					year:this.search.year,
-					desc:this.search.desc,
+				this.$http.post('/api/newItems',{
 					page:this.page,
 				}).then(response => {
 			    this.lists = response.data.special.data;
@@ -272,13 +267,15 @@
 
 			updateSearch(value){
 				this.loading=1,
-				this.$http.post('/api/searchSpecial',{
+				
+				this.$http.post('/api/searchNewItem',{
 					item:value.item, 
 					make:value.make,
 					year:value.year,
 					desc:value.desc,
 					page:1
 				}).then(response => {
+					console.log(response);
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
