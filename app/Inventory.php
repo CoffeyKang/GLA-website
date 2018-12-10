@@ -69,6 +69,7 @@ class Inventory extends Model
 
         if ($img) {
             $this->img_path = $this->itemImg->img_path;
+            
         }else{
             $this->img_path = "/images/default_bg.jpg"; 
         }
@@ -77,6 +78,13 @@ class Inventory extends Model
                 
             }else{
                 $this->img_path = "/images/default_bg.jpg";
+            }
+
+        if (file_exists('./images/products/large/'.$this->item.'.jpg')) {
+
+                $this->big = "/images/products/large/".$this->item.".jpg";
+            }else{
+                $this->big = "/images/default_bg.jpg";
             }
         return $this;
     }
