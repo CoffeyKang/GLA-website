@@ -1,7 +1,7 @@
 <template>
 	<div class='container'>
 		<div class='wishBody'>
-			<div class='wishilist-items container-fuild col-sm-8'>
+			<div class='wishilist-items container-fuild col-xs-12 col-sm-8'>
 				<div class="container-fulid oneItem" v-for="item in items" :key="item.item" >
                 <div class='singleItem'>
                     <div class="itemImg" >
@@ -40,7 +40,7 @@
             </div>
 
 			</div>
-			<div class="wishlist-action col-sm-4">
+			<div class="wishlist-action col-xs-12 col-sm-4">
 				<table class='col-xs-12'>
 					<tr>
 						<td class='action-title' >MANAGE MY LIST</td>
@@ -276,6 +276,38 @@
 		font-size: 1.2em;
 		padding: 10px;
 		cursor: pointer;
+	}
+
+	@media screen and (max-width: 768px){
+		.singleItem{
+			display: flex;
+			flex-direction: column;
+		}
+
+		.itemImg{
+			width: 100%;
+    	}
+		#itemImg{
+			margin-top: 30px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			height: 250px;
+		}
+		.itemDetails{
+			width: 100%;
+			padding: 30px;
+			height: 250px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.item_action{
+			width: 100%;
+			padding: 30px;
+			height: 1w50px;
+		}
 	}
 	
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="gla-footer">
 		<div class="gla-footer-details">
-			<div>
+			<div class='mobile_no'>
 				<ul>
 					<router-link to='/' tag='li' class='footer-title' exact><a>Customer Service</a></router-link>
 					<router-link to='/allProducts' tag='li' ><a>All Products</a></router-link>
@@ -10,10 +10,9 @@
 					<router-link to='/Dealer' tag='li' ><a>Dealers Area</a></router-link>
 					<router-link to='/contact' tag='li' ><a>Contact</a></router-link>
 					<router-link to='/special' tag='li' ><a>Special</a></router-link>
-
 				</ul>
 			</div>
-			<div>
+			<div  class='mobile_no'>
 				<ul>
 					<li class='footer-title'>My Account</li>
 					<li v-if="!loginStatus" @click="goto('Login')">Login / Register</li>
@@ -22,19 +21,18 @@
 
 				</ul>
 			</div>
-			<div>
+			<div class='mobile_no'>
 				<ul>
 					<li class='footer-title'>Shopping Policies</li>
 					<router-link to='/policy/price' tag='li'> Pricing Policy</router-link>
 					<router-link to='/policy/returnPolicy' tag='li'> Return Policy</router-link>
 					<router-link to='/policy/shipping' tag='li'> Shipping and Delivery</router-link>
 					<router-link to='/policy/warranty' tag='li'> Warranty and Damage</router-link>
-
 				</ul>
 			</div>
 			<div class='payment'>
-				<div>
-				<img src="images/paymentOption.png" alt="payment_logo">
+				<div class='mobile_no'>
+					<img src="images/paymentOption.png" alt="payment_logo">
 				</div>
 				<div class='copyright'>
 					&copy; 2018 Golden Leaf Automotive. All rights reserved.
@@ -60,10 +58,6 @@
 		},
 
 		mounted(){
-			
-
-			
-
 			
 		},
 
@@ -127,6 +121,18 @@
 
 	@media screen and (max-width: 768px) {
 		/*mobile footer empty now*/
+		.gla-footer{
+			background-color: black;
+			color: white;
+			text-align: center;
+		padding: 30px 0;
+
+		}
+		.mobile_no{
+			display: none;
+		}
+		
+		
 	}
 
 	

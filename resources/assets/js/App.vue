@@ -59,6 +59,7 @@
 		watch: {
 	    '$route' (to, from) {
 				window.scrollTo(0,0);
+				$('.gla-nav').addClass('mobile_hide');
 				
 			}
 		},

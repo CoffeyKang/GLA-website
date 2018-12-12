@@ -1,6 +1,6 @@
 <template>
 	<div class='container' id='car_makes'>
-		<div class='car_make col-xs-3' v-for='make in makes' :key="make.make">
+		<div class='car_make col-xs-12 col-sm-3' v-for='make in makes' :key="make.make">
 			<router-link :to="{
 				name:'Pruduct_list', 
 				query:{ make: make.make }

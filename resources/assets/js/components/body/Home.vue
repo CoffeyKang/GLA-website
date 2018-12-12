@@ -1,6 +1,6 @@
 <template>
     <div class="container-fuild container"  v-loading="loading">
-        <div class="images_change">
+        <div class="images_change mobile_no">
             <el-carousel indicator-position="inside" height='400px' arrow="always">
                 <el-carousel-item v-for="banner in banners" :key='banner.id'  >
                   <router-link :to="banner.link" tag='div' class="banner" :style="{ backgroundImage: 'url(' + banner.img_path + ')' }">
@@ -8,9 +8,15 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
+
+        <div class="container mobile_banner mobile_show">
+            
+        </div>
+
+        
         <app-search></app-search>
-        <div class="ads row" >
-        <div v-for="ad in ads " class='col-xs-4' :key="ad.id" >
+        <div class="ads " >
+        <div v-for="ad in ads " class=' col-xs-12 col-sm-4' :key="ad.id" >
           <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }" @click="goto(ad.id)">
           </div>
         </div>
@@ -54,13 +60,7 @@
             </div> 
         </div>
 
-          <!-- <div class='feature_item container-fluid popular'>
-            
-            <div v-for="a in popular" :key='a.id' >
-                <app-item :item="a"></app-item>
-            </div>
-            
-          </div> -->
+          
         </div>
     </div>
 </template>
@@ -297,6 +297,74 @@
         height: 50px !important;
         width: 50px !important;
         background-position: center !important;
+      }
+
+      .mobile_show{
+        display: none;
+      }
+ 
+
+      @media screen and (max-width: 768px) {
+        .mobile_no{
+          display: none;
+        }
+
+        .mobile_banner{
+          height: 400px;
+          background-image: url('/images/default_sm.jpg');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        .mobile_show{
+          display: block;
+        }
+
+        .GLA_banner{
+          background-color: #FFE512;
+          
+        }
+
+        .banner{
+          height: 400px;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          cursor:pointer;
+        }
+
+        .ads{
+          margin-top: 20px;
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .left, .right{
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          min-width: 20px;
+        }
+
+        .pleft, .pright{
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          min-width: 20px
+        }
+
+        .sub_title{
+          margin-top: 20px;
+          margin-bottom: 20px;
+          padding: 10px 30px;
+          color: black;
+          background-color: #FFE512;
+          font-size: 1.5em;
+          font-weight: bold;
+          text-align:center;
+        }
       }
       
 

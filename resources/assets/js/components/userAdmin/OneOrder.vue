@@ -76,9 +76,14 @@
             
         </table>
         <table style='width:100%;font-size:18px;'>
-                <tr class='row'>
+                <tr class='row' v-if="somast.shipping>0">
                     <td style='width:90%' class='text-right'>Shipping:</td>
                     <td style='width:10%' class='text-right'>${{somast.shipping |decimal}}</td>
+                </tr>
+
+                <tr class='row' v-if="somast.shipping==0">
+                    <td style='width:90%' class='text-right'>Shipping:</td>
+                    <td style='width:10%' class='text-right'>TBD</td>
                 </tr>
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Subtotal:</td>

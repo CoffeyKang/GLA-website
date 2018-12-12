@@ -1,8 +1,8 @@
 <template>
 	<div class='container'>
-		<div class="logo_top" id='page_top'>
+		<div class="logo_top mobile_hide" id='page_top'>
 			<div class='logo'>
-				<div >
+				<div class=''>
 					<img src="images/header_logo.png" alt="Logo" @click="$router.push('/')" style='cursor:pointer'>
 				</div>
 
@@ -35,11 +35,34 @@
 
 			</el-dialog>
 		</div>
-		<div class='gla-nav'>
-			
+		
+		<div class="mobile_show">
+			<div class=''>
+				<button class='btn btn-clear' @click='showNav()'>三</button>
+			</div>
+
+			<div>
+				<ul class='right-header mobile_ul'>
+					<!-- <li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span> | </li> -->
+					<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register | </router-link>
+					<li v-if="loginStatus" @click="logOut()"> Log Out  | </li>
+					<li v-if="loginStatus" @click='customerInfo()'>My Account  | </li>
+					<router-link to='/wishList' tag='li'>Wish List  | </router-link>
+					<router-link to='/shoppingCart' tag='li'> 
+						<el-badge :value="carts_total" class="item">
+							<span class="glyphicon glyphicon-shopping-cart"></span>
+						</el-badge>
+					</router-link>
+				</ul>
+			</div>
+		</div>
+
+
+
+		<div class='gla-nav mobile_hide'>
 			<div class='gla-nav-details'>
 				<ul class='nav nav-pills black nav-justified'>
-					<router-link to='/' tag='li' active-class='active ' exact><a>Home </a></router-link>
+					<router-link to='/' tag='li' active-class='active' exact><a>Home </a></router-link>
 					<router-link to='/allProducts' tag='li' active-class='active' ><a>All Products</a></router-link>
 					<router-link to='/catalog' tag='li' active-class='active'><a>Catalog</a></router-link>
 					<router-link to='/classicBody' tag='li' active-class='active' ><a>Classic Body</a></router-link>
@@ -49,6 +72,8 @@
 				</ul>
 			</div>
 		</div>
+
+		
 	</div>
 </template>
 
@@ -64,6 +89,7 @@
 				usdPrice:this.$store.state.usdPrice,
 				userInfo:{},
 				username:'',
+				btn:false,
 			}
 		},
 		components:{
@@ -80,6 +106,10 @@
 			customerInfo(){
 				this.$router.push({path:'/CustomerInfo/HomePage'});
 			},
+
+			showNav(){
+				$('.gla-nav').removeClass('mobile_hide');
+			}
 
 			
 
@@ -198,6 +228,10 @@
 </script>
 
 <style scoped>
+.mobile_show,mobile_shows{
+	display: none;
+}
+
 
 
 
@@ -319,6 +353,25 @@
 		background-color:  #FFE512;
 	}
 
+	.mobile_ul{
+		line-height: 36px;
+	}
+	.mobile_hide{
+		display: none;
+	}
+	
+
+	.mobile_show{
+		display: inline;
+		display: flex;
+		justify-content: space-between;
+		padding: 10px 0;
+	}
+	
+	.right-header{
+		display: flex;
+		list-style: none;
+	}
 	.black .active a,
 	.black .active a:visited,
 	.black .active a:hover{

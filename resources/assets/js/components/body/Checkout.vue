@@ -772,9 +772,15 @@ export default {
             },
 
             getQuote(){
+                if (this.otherAddress) {
+                    var custId = this.userInfo.cust_id;
+                }else{
+                    var custId = this.userInfo.m_id;
+                }
+               
                 this.loading = 1;
                 this.$http.post('/api/getQuote',{
-                    "id":this.userInfo.cust_id,
+                    "id":custId,
                     "addressID":this.addressID,
                     "subtotal":this.subtotal,
                     "hst":this.hst,

@@ -1,7 +1,7 @@
 <template>
 	<div class="searchBar">
 		<!-- home page search bar -->
-       <form class='searchForm'>
+       <form class='searchForm' >
 			<div class='words'>
 				FIND IN SPECIALS:
 			</div>

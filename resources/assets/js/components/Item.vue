@@ -127,5 +127,42 @@
 		text-transform: uppercase;
 	}
 
+
+	@media screen and (max-width: 768px) {
+		.item{
+			padding:5px 0 10px 0;
+			width: 250px;
+		}
+
+		.img{
+			background-position: center;
+			background-size: 80%;
+			background-repeat: no-repeat;
+			height: 250px;
+			cursor: pointer;
+		}
+		.words{
+			font-size: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		button{
+			width:150px;
+		}
+		.price{
+			color: red;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 10px 0 ;
+			min-height: 80px;
+		}
+		.description{
+			color: black;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+	}
 	
 </style>

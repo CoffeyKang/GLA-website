@@ -15,7 +15,7 @@
 			</el-alert>
 		</div>
 		<div class="address">
-			<div class="col-xs-6 address_details" style='height:387px;'>
+			<div class=" col-xs-12 col-sm-6 address_details" style='height:387px;'>
 				<div>
 					<span style='font-size:24px'>CONTACT US</span>
 				</div>
@@ -90,7 +90,7 @@
 				</div>
 			</div> -->
 
-			<div class="form col-xs-6" >
+			<div class="form  col-xs-12  col-sm-6" >
 				
 				<el-form ref="form" :model="email" label-width="80px" :rules="rules" size='mini'>
 					<el-form-item label="Name" prop='name'>
@@ -278,9 +278,20 @@
 		vertical-align: top !important;
 	}
 	.address_details{
-		/* display: flex;
-		flex-direction: column;
-		justify-content: space-between; */
+		
 
+	}
+
+	@media screen and (max-width:768px){
+		.btnArear{
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			justify-content: space-between;
+		}
+
+		.address_details{
+			height:450px !important;
+		}
 	}
 </style>

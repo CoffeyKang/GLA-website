@@ -4,10 +4,12 @@
 			<span @click='backToSearch()' class='backToSearch' v-if="search">RETURN TO SEARCH RESULT </span>
 		</div>
 		<div class="item" v-if='showItem'>
-			<div class="itemImages col-xs-6" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click="dialogVisible = true"> 
+			<div class="itemImages col-xs-12 col-sm-6 mobile_no" :style="{ backgroundImage: 'url(' + item.img_path + ')' }" @click="dialogVisible = true"> 
 			</div>
-			
-			<div class="words col-xs-offset-1 col-xs-5">
+
+			<div class="itemImages col-xs-12 col-sm-6 mobile_show" :style="{ backgroundImage: 'url(' + item.img_path + ')' }"> 
+			</div>
+			<div class="words col-xs-12 col-sm-offset-1 col-sm-5">
 				<div class="descrip">
 					<span style=' text-transform: uppercase'>{{ item.descrip }}</span>
 				</div>
@@ -31,10 +33,10 @@
 						<div class='action_left'>
 							<div class="inStock">In-Stock: <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0">Not In Stock</span></div>
 							<div class="quantity row">
-								<div class="col-xs-4" style='font-size:20px;'>
+								<div class="col-sm-4" style='font-size:20px;'>
 									Quantity:
 								</div>
-								<div class="col-xs-5">
+								<div class="col-sm-5">
 									<el-select v-model="quantity" size='mini' popper-class='text-center' >
 										<el-option
 											v-for="a in item.onhand"
@@ -44,7 +46,7 @@
 										</el-option>
 									</el-select>
 								</div>
-								<div class="col-xs-3">
+								<div class="col-sm-3">
 									 
 								</div>
 								
@@ -190,7 +192,6 @@
 				if (this.item.onhand<1) {
 					this.$alert('Out of stock', 'Warning', {
 						confirmButtonText: 'OK',
-						
 					});
 				}else{
 					if (window.localStorage.getItem(item)) {
@@ -260,6 +261,9 @@
 
 </script>
 <style scoped>
+.mobile_show{
+	display: none;
+}
 	.backToSearch{
 		font-size: 12px;
 		cursor: pointer;
@@ -384,6 +388,26 @@
 		align-items: flex-end;
 	}
 
-
+	@media screen and (max-width: 768px) {
+		.related_products{
+			display: flex;
+			flex-direction: column;
+			justify-content:space-between;
+			margin-bottom: 25px;
+		}
+		.item{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+		.mobile_show{
+			display: inline;
+		
+		}
+		.mobile_no{
+			display: none;
+		}
+		
+	}
 
 </style>

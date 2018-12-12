@@ -4,9 +4,9 @@
             <app-search ></app-search>
         </div>
         
-        <div class="btnBar">
-            <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
-            <span>
+        <div class="btnBar mobile_no">
+            <span class='mobile_no'><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
+            <span class='mobile_no'>
                 <!-- <el-input v-model='num' id='numInput' style='width:60px;'></el-input> -->
                  <el-select v-model="num" placeholder="Change Page" style='width:100px;'>
 						<el-option
@@ -17,19 +17,37 @@
 						</el-option>
 					</el-select> / <el-input :value='total-cover' style='width:100px; ' readonly="readonly"></el-input>
             </span>
-            <span><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
+            <span class='mobile_no'><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
+        </div>
+
+        <div class="btnBar mobile_show btnBar_mobile" >
+            <br>
+            <span><button class="btn btn-primary" @click='previousPage()'>Previous</button></span>
+            <span>
+                <!-- <el-input v-model='num' id='numInput' style='width:60px;'></el-input> -->
+                 <el-select v-model="num" placeholder="Change Page" style='width:100px;'>
+						<el-option
+							v-for="p in total"
+							:key="p"
+							:label="displayLabel(p,cover)"
+							:value="p">
+						</el-option>
+					</el-select> 
+                    
+            </span>
+            <span><button class="btn btn-primary" @click='nextPage()'>Next</button></span>
         </div>
 
         <div class="viewOnline">
             <img :src="page" alt="" style='width:100%' @click='nextPage()'>
         </div>
 
-        <div class='searchBar'>
+        <div class='searchBar mobile_no'>
             <app-search ></app-search>
         </div>
-        <div class="btnBar">
-            <span><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
-            <span>
+        <div class="btnBar mobile_no">
+            <span class='mobile_no'><button class="btn btn-primary" @click='previousPage()'>Previous Page</button></span>
+            <span class='mobile_no'>
                 <!-- <el-input v-model='num' id='numInput' style='width:60px;'></el-input>
                  -->
                  <el-select v-model="num" placeholder="Change Page" style='width:100px;'>
@@ -42,7 +60,25 @@
 					</el-select>
                  / <el-input :value='total-cover' style='width:100px; ' readonly="readonly"></el-input>
             </span>
-            <span><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
+            <span class='mobile_no'><button class="btn btn-primary" @click='nextPage()'>Next Page</button></span>
+        </div>
+
+        <div class="btnBar mobile_show btnBar_mobile" >
+            <br>
+            <span><button class="btn btn-primary" @click='previousPage()'>Previous</button></span>
+            <span>
+                <!-- <el-input v-model='num' id='numInput' style='width:60px;'></el-input> -->
+                 <el-select v-model="num" placeholder="Change Page" style='width:100px;'>
+						<el-option
+							v-for="p in total"
+							:key="p"
+							:label="displayLabel(p,cover)"
+							:value="p">
+						</el-option>
+					</el-select> 
+                    
+            </span>
+            <span><button class="btn btn-primary" @click='nextPage()'>Next</button></span>
         </div>
     </div>
 </template>
@@ -156,6 +192,28 @@
         height: 1475px;
         background-color: white;
         
+    }
+
+    .mobile_show{
+        display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        .viewOnline{
+            height: 500px;
+            background-color: white;
+            
+        }
+        .mobile_no{
+            display: none;
+        }
+        .mobile_show{
+            display: inline;
+        }
+        .btnBar_mobile{
+            display: flex;
+            justify-content: space-between;
+        }
     }
     
 

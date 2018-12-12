@@ -286,7 +286,11 @@ use App\Temp_SO;
                 $h = $iteminfo->height?:1;
                 $w = $iteminfo->width?:1;
                 $l = $iteminfo->length?:1;
-                $lb = $iteminfo->weight?:1;
+                $lb = $iteminfo->lbs?:1;
+
+                for ($i=0; $i <$item->qty ; $i++) { 
+                    # code...
+                
                 $h_label = $xml->createTextNode("HEIGHT");
                 $w_label = $xml->createTextNode("WIDTH");;           
                 $l_label = $xml->createTextNode("LENGTH");
@@ -325,7 +329,7 @@ use App\Temp_SO;
                 $xsd1_value_length->appendChild($length);
                 $reported_weight->appendChild($weigth);
 
-                
+                }
 
             }else{
 

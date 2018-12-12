@@ -3,19 +3,19 @@
         <div v-if="!loginStatus||customerLogin">
 
         
-            <div class="col-xs-8 col-xs-offset-2 text-center" id='loginDev'>
+            <div class="col-sm-8 col-sm-offset-2 text-center" id='loginDev'>
                 <div class="text-center container-fluid" id='loginForm'>
                     <div class='title'>Dealer Login</div>
-                    <div class="col-xs-8 col-xs-offset-2 form-group">
+                    <div class="col-sm-8 col-sm-offset-2 form-group">
                         <input type="text" placeholder="Account" class="form-control" v-model='account'>
                     </div>
-                    <div class="col-xs-8 col-xs-offset-2 form-group">
+                    <div class="col-sm-8 col-sm-offset-2 form-group">
                         <input type="password" placeholder="Password" class="form-control" v-model='password'>
                     </div>
-                    <div class="col-xs-8 col-xs-offset-2 form-group">
-                        <button class="btn btn-primary col-xs-12" id='loginBtn' @click="loginDealer()">Login</button>
+                    <div class="col-sm-8 col-sm-offset-2 form-group">
+                        <button class="btn btn-primary col-sm-12" id='loginBtn' @click="loginDealer()">Login</button>
                     </div>
-                    <div class="col-xs-8 col-xs-offset-2 form-group remeber">
+                    <div class="col-sm-8 col-sm-offset-2 form-group remeber">
                         <div>
                             <span class='forgetPassword'>If you require or have forgotten your dealer login information please contact us at 905-850-3433</span>
                         </div>
@@ -281,6 +281,11 @@ export default {
         #loginDev{
             border-bottom: 1px solid black;
         }
+
+        .loginPage{
+            min-height: 750px;
+        }
+
     }
     
 </style>
