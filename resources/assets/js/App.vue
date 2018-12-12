@@ -48,6 +48,16 @@
                 }, response => {
                         // error 
 				});
+
+				var hei = $(window).height();
+				if (window.innerWidth<768) {
+					hei -= 130;
+					$('#body').css('min-height',hei+'px');
+				}else{
+					hei -= 450;
+					$('#body').css('min-height',hei+'px');
+				}
+				
 				
 			// check if the use log in
 			
@@ -74,7 +84,7 @@
 </script>
 
 <style scoped>
-	#body{
+	/* #body{
 		min-height: 500px;
-	}
+	} */
 </style>

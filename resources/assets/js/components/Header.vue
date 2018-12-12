@@ -38,7 +38,7 @@
 		
 		<div class="mobile_show">
 			<div class=''>
-				<button class='btn btn-clear' @click='showNav()'>三</button>
+				<button class='btn btn-clear gla_btn' @click='showNav()'>三</button>
 			</div>
 
 			<div>
@@ -108,7 +108,12 @@
 			},
 
 			showNav(){
-				$('.gla-nav').removeClass('mobile_hide');
+				if ($('.gla-nav').hasClass('mobile_hide')) {
+					$('.gla-nav').removeClass('mobile_hide');
+				}else{
+					$('.gla-nav').addClass('mobile_hide');
+				}
+				
 			}
 
 			
@@ -358,6 +363,11 @@
 	}
 	.mobile_hide{
 		display: none;
+	}
+
+	.gla_btn{
+		background-color: #FFE512;
+		
 	}
 	
 

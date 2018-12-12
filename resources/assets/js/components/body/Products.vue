@@ -1,5 +1,8 @@
 <template>
 	<div class='container' id='car_makes'>
+		<div class="title">
+			<span>All Products</span>
+		</div>
 		<div class='car_make col-xs-12 col-sm-3' v-for='make in makes' :key="make.make">
 			<router-link :to="{
 				name:'Pruduct_list', 
@@ -99,5 +102,17 @@ a:hover{
 		background-color: black;
 		color: white;
 		font-size: 20px;
+	}
+
+	.title{
+		margin-top: 10px;
+		background-color: black;
+		padding: 5px 20px;
+
+	}
+	.title span{
+		font-size: 20px;
+		color: white;
+		font-weight: bold;
 	}
 </style>
