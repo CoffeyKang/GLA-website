@@ -9,7 +9,7 @@
         </el-steps>
         <div class="container-fluid body">
         
-            <div class="col-sm-8" style='padding:0;'>
+            <div class="col-xs-12 col-sm-8" style='padding:0;'>
                 <div class="container-fulid oneItem" v-for="item in carts" :key="item.item" v-if="carts.length>=1">
                     <div class='singleItem'>
                         <div class="itemImg" >
@@ -78,7 +78,7 @@
                     
                 </div>
             </div>
-            <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px;'>
+            <div class=" col-xs-12 col-sm-4 mobile_total" style='padding-right:0;padding-top:15px; padding-left:30px;'>
                 <div class="summary" >
                     <div class="summary_title">
                         ORDER SUMMARY
@@ -518,7 +518,45 @@ export default {
        width: 190px;
     }
     .fakeLink{
-        cursor: pointer;
+        cursor: pointer;    
+    }
+
+    @media screen and (max-width: 768px){
+        .mobile_total{
+            padding: 0 !important;
+        }
+
+        .singleItem{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .itemImg{
+            width: 100%;
+            height: 150px;
+        }
+        #itemImg{
+            margin-top: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 150px;
+        }
+
+        .itemDetails{
+            width: 100%;
+            padding: 30px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .item_action{
+            width: 100%;
+            padding: 30px;
+            height: 200px;
+        }
+
         
     }
     

@@ -58,7 +58,7 @@ class User extends Authenticatable
             $province = "OT";
         }
 
-        $taxRate = TaxRate::where('province',$province)->first()->tax/100;
+        $taxRate = TaxRate::where('province',$province)->first()?TaxRate::where('province',$province)->first()->tax/100:0;
 
         return $taxRate;
     }

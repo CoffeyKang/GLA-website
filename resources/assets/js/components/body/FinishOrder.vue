@@ -19,7 +19,7 @@
             <el-step title="Step 4"></el-step>
         </el-steps>
         <div>
-            <div class="col-xs-6">
+            <div class="col-sm-6">
                 <h1><i>GOLDEN LEAF AUTOMOTIVE</i></h1>
                 <h4>
                     170 ZENWAY BLVD UNIT#2<br>
@@ -29,7 +29,7 @@
                 </h4>
             </div>
 
-            <div class="col-xs-6">
+            <div class="col-sm-6">
                 <h1><b style='font-size:80%'>Receipt Number: {{somast.order_num}}</b></h1>
                 <h4><br><br><br><br>
                     
@@ -37,14 +37,14 @@
             </div>
         </div>
         
-        <div>
-            <div class="col-xs-6 addessLabel">
+        <div >
+            <div class="col-sm-6 addessLabel">
                 <el-card class="box-card" >
                             <h4>Bill To</h4>
                             <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}},  {{billing.city}}, {{billing.postalcode}}<br>{{billing.province}}, {{billing.country}}<br>{{billing.phone}}</h4>
                     </el-card>
             </div>
-            <div class="col-xs-6 addessLabel" >
+            <div class="col-sm-6 addessLabel" >
                 <div  v-if="address==0" >
                     
                     <el-card class="box-card" >
@@ -63,7 +63,7 @@
         </div>
         
         
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover mobile_table" >
             <thead>
                 <tr>
                 <th>Item</th>
@@ -77,7 +77,7 @@
                     <td>{{item.item}}</td>
                     <td>{{item.qty}}</td>
                     <th>{{item.descrip.toUpperCase()}}</th>
-                    <td >$ {{item.price.toFixed(2)}}</td>
+                    <td >${{item.price.toFixed(2)}}</td>
                 </tr>
             </tbody>
             
@@ -101,7 +101,7 @@
             </thead>
         </table> -->
 
-        <table style='width:100%;font-size:18px;'>
+        <table style='width:100%;font-size:18px;' >
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Shipping:</td>
                     <td style='width:10%' class='text-right'>${{somast.shipping |decimal}}</td>
@@ -123,10 +123,10 @@
                 </tr>
                
         </table>
-        <div class="text-right" style='margin-bottom:10px;'>
-            <el-button type='success' @click='downPDF(somast.order_num)'>Print Order</el-button>
-            <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
-            <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>        
+        <div class="text-right mobile_btn" style='margin-bottom:10px;'>
+            <el-button type='success' @click='downPDF(somast.order_num)' class='cs_btn'>Print Order</el-button>
+            <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})' class='cs_btn'>OrderHistory</el-button>
+            <el-button type='primary' @click='$router.push({path:"/allProducts"})' class='cs_btn'>Continue Shopping</el-button>        
         </div>  
     </div>
 </div>        
@@ -243,5 +243,42 @@ export default {
         margin-bottom:20px;
         display: flex;
         justify-content: space-between;
+    }
+    @media screen and (max-width: 768px) {
+        .edit_title{
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom:20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 18px;
+        }
+        h1{
+            font-size: 20px;
+        }
+        h4{
+           font-size: 18px; 
+        }
+        box-card{
+            margin-bottom: 10px;
+        }
+        .mobile_btn{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            
+
+        }
+        .cs_btn{
+            margin-top: 10px;
+        }
+        .mobile_table{
+            margin: 30px 0;
+            font-size: 12px;
+        }
     }
 </style>

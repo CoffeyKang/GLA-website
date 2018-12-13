@@ -49,6 +49,8 @@ new Vue({
   mode: 'history',
   router,
   store,
-  
+  beforeCreate() {
+    
+  },
   render: h => h(App)
 });

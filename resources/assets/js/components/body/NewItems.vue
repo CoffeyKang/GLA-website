@@ -11,7 +11,7 @@
 				v-on:resetSearch = "resetSearch($event)"></search-newItem>
 			</div>
 		</div>
-		<div class="container paginate_btn alert" v-if="lists.length>=1"> 
+		<div class="container paginate_btn alert mobile_no" v-if="lists.length>=1"> 
 				<div class='col-xs-4 text-right'>
 					<!-- pre page -->
 					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
@@ -35,6 +35,32 @@
 						Next Page
 					</button>
 				</div>
+		</div>
+
+		<div class="container paginate_btn alert mobile_show ">
+			<div class='container' style='display:flex; justify-content:space-around'>
+				<div class='mobile_show col-xs-3'>
+					<!-- pre page -->
+					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
+						Previous
+					</button>
+				</div>
+				<div class='text-center mobile_show col-xs-3'>
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in pages"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select>
+				</div>
+				<div class='text-left mobile_show col-xs-3'>
+					<button class="btn btn-default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+						Next Page
+					</button>
+				</div>
+			</div>
 		</div>
 		
 		<div class='container' id='car_makes'>
@@ -83,7 +109,7 @@
 				<b>Not any new item found<br></b>
 				
 			</div>
-		<div class="container paginate_btn alert" v-if="lists.length>=1">
+		<div class="container paginate_btn alert mobile_no" v-if="lists.length>=1">
 			<div class='col-xs-4 text-right'>
 				<!-- pre page -->
 				<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
@@ -108,6 +134,34 @@
 				</button>
 			</div>
 		</div>
+
+		
+		</div>
+
+		<div class="container paginate_btn alert mobile_show ">
+			<div class='container' style='display:flex; justify-content:space-around'>
+				<div class='mobile_show col-xs-3'>
+					<!-- pre page -->
+					<button class="btn btn-default" @click='prePage()' 	v-if="data.current_page!=1">
+						Previous
+					</button>
+				</div>
+				<div class='text-center mobile_show col-xs-3'>
+					<el-select v-model="page" placeholder="Change Page" style='width:80px;' @change='toPage(page)'>
+						<el-option
+							v-for="p in pages"
+							:key="p"
+							:label="p"
+							:value="p">
+						</el-option>
+					</el-select>
+				</div>
+				<div class='text-left mobile_show col-xs-3'>
+					<button class="btn btn-default" @click="nextPage()" v-if="data.current_page!=data.last_page">
+						Next Page
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 		
@@ -400,6 +454,23 @@
 	.description{
 		min-height: 70px;
 	}
+
+	.mobile_show{
+		display: none;
+	}
+
+	@media screen and (max-width: 768px) {
+		.mobile_no{
+			display: none;
+		}
+		.mobile_show{
+			display: block;
+		}
+
+		.paginate_btn .btn{
+			min-width: 50px;
+		}
+	}	
 
 	
 

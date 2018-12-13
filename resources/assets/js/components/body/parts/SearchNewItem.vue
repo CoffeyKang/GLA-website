@@ -1,7 +1,7 @@
 <template>
 	<div class="searchBar">
 		<!-- home page search bar -->
-       <form class='searchForm'>
+       <form class='searchForm mobile_no'>
 			<div class='words'>
 				FIND IN New Item:
 			</div>
@@ -36,6 +36,47 @@
 				<a class='btn btn-warning findBTN' @click="resetSearch()">Reset</a>
 			</div>
                   
+		</form>
+
+
+		<form class='searchForm mobile_show'>
+			<div class='words'>
+				FIND IN NEW PRODUCTS:
+			</div>
+			<div class="inputSearch mobile_show">
+				<el-input v-model="search.item" placeholder="Enter a specific item number, ie. 1000A, 1860, M1035B, etc.">
+
+								</el-input>
+				<div class='mySelect'>
+				<el-select v-model="search.make" placeholder="Make" >
+					<el-option
+						v-for="item in makes"
+						:key="item.id"
+						:label="item.make.replace('_',' ').toUpperCase()"
+						:value="item.make">
+					</el-option>
+				</el-select >
+				</div>
+				<div class='mySelect'>	
+				<el-select v-model="search.year" placeholder="Year" >
+					<el-option
+						v-for="a in (currentYear)"
+						:key="a"
+						:label="a"
+						:value="a"			
+						v-if="a>1949">
+									</el-option>
+												</el-select >
+				</div>
+			</div>
+			
+			
+			<div style='display:flex; justify-content:space-around'>
+				<a class='btn btn-warning findBTN' @click="resetSearch()">Reset</a>
+				<button class='btn btn-primary findBTN' @click="searchItem()">FIND</button>
+
+			</div>
+			
 		</form>
 	</div>
 </template>
@@ -114,6 +155,10 @@
     	margin-left: 20px;
     }
 
+	.mobile_show{
+		display: none;
+	}
+
 @media screen and (min-width:1000px){
 	.words{
     	width: 20%;
@@ -123,6 +168,9 @@
     	font-size: 1.2em;
 
     }
+	.mobile_show{
+		display: none;
+	}
 }
 @media screen and (max-width:1000px){
 	.words{
@@ -131,6 +179,60 @@
     	line-height: 40px;
     	align-items: center;
     	font-size: 14px;
+    }
+	.mobile_show{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 768px){
+	.mobile_no{
+		display: none !important;
+	}
+	.mobile_show{
+		display: block;
+	}
+	.searchForm{
+      width: 80%;
+      margin: auto;
+      display: flex;
+	  flex-direction: column;
+      color: white;
+    }
+	.inputSearch{
+		display: flex;
+		flex-direction: column;
+    	justify-content: space-between;
+	}
+	
+	.words{
+    	width: 100%;
+    	font-weight: bold;
+    	line-height: 40px;
+    	text-align: left;
+    	font-size: 1.2em;
+    }
+
+	.mySelect{
+    	margin-left: 0;
+		margin-top: 30px;
+    }
+
+	.findBTN{
+      margin-left: 0px;
+      height: 40px;
+      padding-left: 20px;
+      padding-right: 20px;
+      line-height: 30px;
+	  margin-top: 30px;
+    }
+
+	.searchForm{
+      width: 95%;
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
+      color: white;
     }
 }
 </style>

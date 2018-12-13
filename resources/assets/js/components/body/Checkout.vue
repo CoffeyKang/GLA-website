@@ -10,16 +10,16 @@
             <el-step title="Step 3"></el-step>
             <el-step title="Step 4"></el-step>
         </el-steps>
-        <div class="col-sm-8" style='padding:0; margin-bottom:40px;'>
+        <div class="col-xs-12 col-sm-8" style='padding:0; margin-bottom:40px;'>
             <div>
-                <table class="table table-striped table-justified">
+                <table class=" table table-striped table-justified">
                     <thead>
                         <tr>
                             <th>Description</th>
                             <th>Item</th>
                             <th>Make</th>
                             <th>QTY</th>
-                            <th style='min-width:120px;'>Price</th>
+                            <th >Price</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,22 +57,22 @@
 
                     <div class='col-xs-12'  style='margin-top:20px;'>
                         <h4>Shipping To another address</h4>
-                        <div style='display:flex; justify-content:space-between'> 
-                        <el-select v-model="selectAdd" placeholder="To default address.">
-                            <el-option
-                            v-for="item in addressBook"
-                            :key="item.id"
-                            :label="item.forename + ' '+ item.surname "
-                            :value="item.id">
-                            </el-option>
-                        </el-select>
-                        <div>
-                            <button class="btn btn-primray" @click='defaultShipping()' v-if="otherAddress">Ship To Default Address</button>
-                            <button class="btn btn-success" @click='showNewAddress=!showNewAddress'>
-                                <span v-if="!showNewAddress">Add new address</span>
-                                <span v-if="showNewAddress">Hide new address form</span>
-                            </button>
-                        </div>
+                        <div style='display:flex; justify-content:space-between' class='mobile_btn'> 
+                            <el-select v-model="selectAdd" placeholder="To default address.">
+                                <el-option
+                                v-for="item in addressBook"
+                                :key="item.id"
+                                :label="item.forename + ' '+ item.surname "
+                                :value="item.id">
+                                </el-option>
+                            </el-select>
+                            <div >
+                                <button class="btn btn-primray" @click='defaultShipping()' v-if="otherAddress">Default Address</button>
+                                <button class="btn btn-success" @click='showNewAddress=!showNewAddress'>
+                                    <span v-if="!showNewAddress">Add new address</span>
+                                    <span v-if="showNewAddress">Hide new address form</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 <div class='addressBook col-xs-12' >
@@ -95,7 +95,7 @@
 
                 
                 
-                <div class="newShipping col-xs-12" @keyup.enter='submitForm(newAdd)' v-if="showNewAddress==true">
+                <div class="newShipping col-xs-12 mobile_no" @keyup.enter='submitForm(newAdd)' v-if="showNewAddress==true">
                     <h4 >New Shipping Address</h4>
                     <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
@@ -176,6 +176,83 @@
                         </el-form>                
                     </el-card>    
                 </div>
+
+                <div class="newShipping col-xs-12 mobile_show" @keyup.enter='submitForm(newAdd)' v-if="showNewAddress==true">
+                    <h4 >New Shipping Address</h4>
+                    <div>
+                        <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
+                            
+                                <el-form-item label="First Name" prop='forename'>
+                                    <el-input v-model="newAdd.forename"></el-input>
+                                </el-form-item>
+
+                                 <el-form-item label="Last Name" prop='surname' component:input>
+                                    <el-input v-model="newAdd.surname"></el-input>
+                                </el-form-item>
+                            <el-form-item label="Address" prop='address'>
+                                <el-input v-model="newAdd.address"></el-input>
+                            </el-form-item>
+                            
+                                
+                                
+
+                            
+                                <el-form-item label="Postal Code"  label-width="120px" prop='zipcode'>
+                                    <el-input v-model="newAdd.zipcode"></el-input>
+                                </el-form-item>
+                                <el-form-item label="City" prop='city'>
+                                    <el-input v-model="newAdd.city" placeholder="City"  ></el-input>
+                                </el-form-item>
+
+                        
+
+                                <el-form-item label="Country" prop='country'>
+                                    <!-- <el-input v-model="details.country" placeholder="Country" ></el-input> -->
+                                    <el-select v-model="newAdd.country" placeholder="Country" @change='newAdd.state=""'>
+                                        <el-option
+                                        v-for="item in country"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='CA'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in privince"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.Code" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                                <el-form-item label="Province" prop='state' v-if="newAdd.country=='US'">
+                                    <el-select v-model="newAdd.state" placeholder="Province">
+                                        <el-option
+                                        v-for="item in US_states"
+                                        :key="item.name"
+                                        :label="item.name"
+                                        :value="item.abbreviation" >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            
+                            <el-form-item label="Telphone" prop='tel'>
+                                <el-input type='number' v-model="newAdd.tel"></el-input>
+                            </el-form-item>
+
+                            <el-form-item class='text-center'>
+                                <el-button type="success" @click="submitForm(newAdd)">Add New Address</el-button>
+                                
+                            </el-form-item>
+                            
+                        </el-form>                
+                    </div>    
+                </div>
             </div>
 
             
@@ -184,7 +261,7 @@
             
             
         </div>
-        <div class="col-sm-4" style='padding-right:0;padding-top:15px; padding-left:30px; margin-bottom:40px;'>
+        <div class="col-xs-12 col-sm-4 mobile_total" style='padding-right:0;padding-top:15px; padding-left:30px; margin-bottom:40px;'>
             <div class="summary" >
                 <div class="summary_title">
                     ORDER SUMMARY
@@ -940,6 +1017,32 @@ export default {
         display: flex;
         justify-content: space-between;
         
+    }
+
+    .mobile_show{
+        display: none;
+    }
+
+    @media screen and (max-width:768px){
+        .mobile_total{
+            padding: 0 !important;
+        }
+        .mobile_btn button{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .address{
+            min-width: 320px;
+            margin-top:20px;
+        }
+        .mobile_no{
+            display: none;
+        }
+        .mobile_show{
+            display: block;
+        }
     }
     
 </style>
