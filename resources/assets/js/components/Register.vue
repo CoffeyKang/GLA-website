@@ -1,12 +1,12 @@
 <template>
     <div class='container' @keyup.enter='register()'>
         <div class="text-center col-xs-12 " id='registerForm' >
-                <div class="col-xs-8 col-xs-offset-2 form-group title-span" >
+                <div class="col-sm-8 col-sm-offset-2 form-group title-span" >
                     <span class='title'>NEW CUSTOMER<br>EXPRESS REGISTRATION</span>
                     <span class='haveAccount'>Already have an account? <router-link tag='a' to='/login'>Sign in</router-link></span>
                 </div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-8 col-xs-offset-2">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 col-sm-offset-2">
                 
                     <el-form :rules="rules" :model="details" ref="details" size="medium">
                         <div class="inRow" >
@@ -42,8 +42,8 @@
                                 </el-form-item>
                             </div>
                         </div>
-                        <div class="inRow">
-                            <div class="col-xs-6">
+                        <div class="inRow mobile_google">
+                            <div class=" col-xs-12 col-sm-6">
                                 <div>
                                     <!-- <el-input type="checkbox"  value='RemeberPassword' placeholder="remeber" v-model='receiveEmail'></el-input>
                                     -->
@@ -51,8 +51,8 @@
                                     <span class='checkboxDiv' @click='details.checked = !details.checked'>I agree to receive updates on offers, promotions and deals.</span>
                                 </div>
                             </div>
-                            <div class="col-xs-1"></div>
-                            <div class="col-xs-5">
+                            <div class="col-xs-12  col-sm-1"></div>
+                            <div class="col-xs-12 col-sm-5">
                                 <div id="myCaptcha"></div>
                             </div>
                         </div>
@@ -316,6 +316,13 @@
 
     .checkboxDiv{
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+        .mobile_google{
+            display: flex;
+            flex-direction: column !important;
+        }
     }
 </style>
 
