@@ -49,9 +49,19 @@ export const myMixin = {
     // addToCart
     addToCart_common(item) {
       if (item.onhand < 1) {
-        this.$alert('Out of stock', 'Warning', {
-          confirmButtonText: 'OK'
-        });
+        if (window.innerWidth < 768) {
+          const h = this.$createElement;
+          console.log('mobile alert');
+          this.$notify({
+            title: 'Warning.',
+            message: h('b', { style: 'color: red'}, 'The item is out of stock')
+
+          });
+        }else {
+          this.$alert('Out of stock', 'Warning', {
+            confirmButtonText: 'OK'
+          });
+        }
       } else {
         if (window.localStorage.getItem(item.item)) {
           var qty = parseInt(window.localStorage.getItem(item.item)) + 1;
@@ -68,17 +78,26 @@ export const myMixin = {
         //   title: 'Succsesfully.',
         //   message: h('b', { style: 'color: teal' }, 'The item has been already put into shopping cart')
         // })
-
-        this.$confirm('', 'Congratulation', {
-          confirmButtonText: 'Continue Shopping',
-          cancelButtonText: 'Go to Shopping Cart',
-          type: 'success',
-          center: true
-        }).then(() => {
-          this.$router.push({ path: '/allProducts' });
-        }).catch(() => {
-          this.$router.push({ name: 'ShoppingCart' });
-        });
+        if (window.innerWidth < 768) {
+          const h = this.$createElement;
+          console.log('mobile alert');
+          this.$notify({
+            title: 'Succsesfully.',
+            message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
+          });
+          
+        }else {
+          this.$confirm('', 'Congratulation', {
+            confirmButtonText: 'Continue Shopping',
+            cancelButtonText: 'Go to Shopping Cart',
+            type: 'success',
+            center: true
+          }).then(() => {
+            this.$router.push({ path: '/allProducts' });
+          }).catch(() => {
+            this.$router.push({ name: 'ShoppingCart' });
+          });
+        }
       }
     },
 

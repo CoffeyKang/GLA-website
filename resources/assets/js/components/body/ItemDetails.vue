@@ -190,7 +190,7 @@
 			// addToCart
 			addToCart(item){ 
 				if (this.item.onhand<1) {
-					this.$alert('Out of stock', 'Warning', {
+					this.$alert('Out of stock1', 'Warning', {
 						confirmButtonText: 'OK',
 					});
 				}else{
