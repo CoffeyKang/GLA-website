@@ -51,7 +51,6 @@ export const myMixin = {
       if (item.onhand < 1) {
         if (window.innerWidth < 768) {
           const h = this.$createElement;
-          console.log('mobile alert');
           this.$notify({
             title: 'Warning.',
             message: h('b', { style: 'color: red'}, 'The item is out of stock')

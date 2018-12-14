@@ -15,7 +15,7 @@
 
         
         <app-search></app-search>
-        <div class="ads " >
+        <div class="ads ">
         <div v-for="ad in ads " class=' col-xs-12 col-sm-4' :key="ad.id" >
           <div class="ad " :style="{ backgroundImage: 'url(' + ad.img_path + ')' }" @click="goto(ad.id)">
           </div>

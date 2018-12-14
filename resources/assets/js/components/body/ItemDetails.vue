@@ -199,6 +199,7 @@
 						window.localStorage.setItem(item,qty);
 					}else{
 						window.localStorage.setItem(item,this.quantity);
+						
 						var newNumber = this.carts_number+1;
 						
 						this.$store.commit('carts_number',newNumber);
