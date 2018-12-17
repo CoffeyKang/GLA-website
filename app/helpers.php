@@ -227,8 +227,8 @@ use App\Temp_SO;
 
         /** text node */
 
-        $pass = $xml->createTextNode("uss");
-        $userID = $xml->createTextNode("admin@uss.com");
+        $pass = $xml->createTextNode("vs6Dp5Iw");
+        $userID = $xml->createTextNode("LSHIPM34538@GLACANADA.COM");
         $delivery_address = $xml->createTextNode("170 Zenway Blvd. Unit 2");
         $delivery_city_text = $xml->createTextNode("Woodbridge");
         $delivery_country_text = $xml->createTextNode("CA");
@@ -380,7 +380,7 @@ use App\Temp_SO;
         /** shiping date and account */
         $shipper_num = $xml->createElement("xsd1:shipper_num");
         $shipping_date = $xml->createElement("xsd1:shipper_date");
-        $shipper_num_label = $xml->createTextNode("HB4499");
+        $shipper_num_label = $xml->createTextNode("M34538");
         $shipping_date_label = $xml->createTextNode(date('Y-m-d'));
         $shipper_num->appendChild($shipper_num_label);
         $shipping_date->appendChild($shipping_date_label);

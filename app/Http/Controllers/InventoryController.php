@@ -652,7 +652,7 @@ class InventoryController extends Controller
             
         ]);
         
-        $response = $client->POST('https://sandbox.loomis-express.com/axis2/services/USSRatingService?wsdl',[
+        $response = $client->POST('https://webservice.loomis-express.com/LShip/services/USSRatingService?wsdl',[
         'body'=>$myXml,
         ]);
 
@@ -858,7 +858,7 @@ class InventoryController extends Controller
             
         ]);
         
-        $response = $client->POST('https://sandbox.loomis-express.com/axis2/services/USSRatingService?wsdl',[
+        $response = $client->POST('https://webservice.loomis-express.com/LShip/services/USSRatingService?wsdl',[
         'body'=>$myXml,
         ]);
 
@@ -2515,7 +2515,7 @@ class InventoryController extends Controller
             
         ]);
         
-        $response = $client->POST('https://sandbox.loomis-express.com/axis2/services/USSRatingService?wsdl',[
+        $response = $client->POST('https://webservice.loomis-express.com/LShip/services/USSRatingService?wsdl',[
         'body'=>$myXml,
         ]);
 
