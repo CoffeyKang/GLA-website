@@ -32,6 +32,8 @@
                         </tr>
                     </tbody>
                 </table>
+
+                
             </div>
             <div class='shipingTo'>
                     <div class='col-xs-12' >
@@ -42,12 +44,16 @@
                                 {{dealerInfo.terr}}, {{dealerInfo.country}}<br>{{dealerInfo.phone}}</h5>
                         </el-card>
                     </div>
-
-                    
-
-
+                    <div class="col-xs-12" style='margin-top:20px;'>
+                        <h4>Notes:</h4>
+                        <el-form>
+                            <el-form-item >
+                                <el-input type="textarea" v-model="note" :rows="5"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </div>
                     <div class='col-xs-12'  style='margin-top:20px;'>
-                        <h4>Shipping To Another Address</h4>
+                        
                         <div style='display:flex; justify-content:space-between'> 
                             <el-card class="box-card" >
                         <el-form label-position="left" label-width="100px" :model="newAdd"  :rules="rules" ref='newAdd'>
@@ -179,6 +185,7 @@ export default {
             carts:[],
             subtotal:0,
             hst:0,
+            note:'',
             addressID:0,
             quotes:[],
             shippingOPT:1,
@@ -338,6 +345,7 @@ export default {
                         {
                             dealerId:dealerId,
                             address:this.newAdd,
+                            note:this.note,
                         }).then((response)=>{
                         if (response.data.status=='ok') {
                             this.$store.commit('carts_number',0);

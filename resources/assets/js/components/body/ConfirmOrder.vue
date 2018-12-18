@@ -179,6 +179,10 @@
                         </div>
                     </div>
 
+                    <div class="summary_list">
+                        <h4>NOTES: {{notes}}</h4>
+                    </div>
+
                     <div class=' summary_list text-center'>
                         <h5>Estimate Shipping Time : {{ shippingDays }} Days</h5>
                     </div>
@@ -213,6 +217,7 @@ export default {
             subtotal:this.$route.params.subtotal,
             hst:this.$route.params.hst,
             total:this.$route.params.total,
+            notes:this.$route.params.notes,
             amount:'',
             subtotal:this.$route.params.subtotal,
             shippingDays:this.$route.params.shippingDays,
@@ -369,6 +374,7 @@ export default {
                             shipping:this.shipping,
                             card:this.card,
                             addressID:this.addressID,
+                            notes:this.notes,
                         }
                         ).then(response=>{
                         this.loading = 0;
@@ -404,6 +410,7 @@ export default {
                         shippingDays:this.shippingDays,
                         shipping:this.shipping,
                         addressID:this.addressID,
+                        notes:this.notes,
                     }
                     ).then(response=>{
                     this.loading = 0;

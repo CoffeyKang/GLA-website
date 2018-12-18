@@ -81,9 +81,11 @@
                     <th>{{item.make.replace('_ca','').toUpperCase()}}</th>
                     <td >$ {{item.price.toFixed(2)}}</td>
                 </tr>
+                
             </tbody>
             
         </table>
+        <h4>NOTES: {{somast.notes}}</h4>
         <!-- <table class="table table-bordered table-striped">
             <thead>
                 <tr>

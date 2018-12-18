@@ -117,6 +117,7 @@
         </tbody>
 
     </table>
+        <h4>NOTES: {{$somast->notes}}</h4>
      <table>
             <tr>
                 <td style='width:90%; text-align: right'>

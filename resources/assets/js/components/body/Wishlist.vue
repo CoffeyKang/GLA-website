@@ -18,7 +18,7 @@
                         </div>
                         
                         <div class="instock">
-                            In-stock: {{item.onhand}}
+                            <span v-if="item.onhand>0">In-stock: {{item.onhand}}</span> <span v-if="item.onhand<=0">Not in stock</span>
                         </div>
                     </div>
                     <div class="item_action text-right">
@@ -180,9 +180,13 @@
 				}
 				this.$http.get('/api/'+url, {params:{userid:userID}}).then(response=>{
 					this.items = response.data.items;
-
+					console.log(this.items);
 					this.items.forEach(element => {
 						element.pricel = this.Dealerprice(element);
+						element.onhand -= element.aloc;
+						if (element.onhand<0) {
+							element.onhand=0;
+						}else{}
 					});
 				}, response=>{
 				});

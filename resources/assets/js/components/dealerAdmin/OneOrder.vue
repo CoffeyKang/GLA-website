@@ -102,7 +102,7 @@
                 </tr>
             </thead>
         </table> -->
-
+        <h4>NOTES: {{somast.notes}}</h4>
         <table style='width:100%;font-size:18px;'>
                 
                 <tr class='row'>

@@ -31,7 +31,7 @@
 					</div>
 					<div class="action">
 						<div class='action_left'>
-							<div class="inStock">In-Stock: <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0">Not In Stock</span></div>
+							<div class="inStock"><span v-if="item.onhand>0">In-Stock:</span> <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0">Not In Stock</span></div>
 							<div class="quantity row">
 								<div class="col-sm-4" style='font-size:20px;'>
 									Quantity:

@@ -1828,6 +1828,8 @@ class InventoryController extends Controller
 
             $somast->sales_status = 1;
 
+            $somast->notes = $request->notes;
+
             $somast->save();
 
 
@@ -2097,6 +2099,8 @@ class InventoryController extends Controller
             $somast->date_order = date('Y-m-d');
 
             $somast->sales_status = 1;
+
+            $somast->notes = $request->notes;
 
             $somast->save();
 

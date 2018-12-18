@@ -54,6 +54,15 @@
                         </el-card>
                     </div>
 
+                    <div class="col-xs-12" style='margin-top:20px;'>
+                        <h4>Notes:</h4>
+                        <el-form>
+                            <el-form-item >
+                                <el-input type="textarea" v-model="notes" :rows="5"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+
 
                     <div class='col-xs-12'  style='margin-top:20px;'>
                         <h4>Shipping To another address</h4>
@@ -257,6 +266,8 @@
 
             
 
+            
+
 
             
             
@@ -358,6 +369,7 @@ export default {
             groundDay:1,
             shippingRate:'',
             takedays:1,
+            notes:'',
             errorMessage:'Invalid province and postal code combination.',
             // shipping:0,
             country:[
@@ -843,6 +855,7 @@ export default {
                         total:this.total,
                         shippingDays:this.takedays,
                         shipping:this.total_shipping,
+                        notes:this.notes,
                     }
                 });
                 

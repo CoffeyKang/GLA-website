@@ -124,6 +124,8 @@ class DealerController extends Controller
             $somast->notes = '';
 
             $somast->address = '';
+
+            $somast->notes = $request->note;
             
             $somast->save();
 
