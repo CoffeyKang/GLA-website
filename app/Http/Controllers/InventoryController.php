@@ -629,12 +629,30 @@ class InventoryController extends Controller
             $item->make=$info->make;
             $subtotal += $item->price * $item->qty;
 
-            // length + (2 x width) + (2 x height), may not exceed 165 in. 
 
-            // if ($info->length + (2*$info->width) + (2*$info->height)>=165) {
-            //     $oversize = true;
-            // }
+            /** check if any item over size
+             * length, width, height any aspect over 90 inch or lbs over 100 lbs
+             */
+            if ($info->oversize()) {
+                $oversize = true;
+            }else{
+
+            }
+           
         }
+        
+        /** oversize */
+        if ($oversize) {
+            $tax_total = $subtotal * $tax;
+            $shippingRate = 'TBD';
+            return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
+                'addressBook'=>$addressBook, 'oversize'=>$oversize],200);
+        }else{
+
+        }
+        
+        
 
         
 
@@ -677,7 +695,7 @@ class InventoryController extends Controller
             $shippingRate = 'TBD';
             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
             'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
-                'addressBook'=>$addressBook],200);
+                'addressBook'=>$addressBook, 'oversize'=>$oversize],200);
         }
         $result = $r->children($namespaces['soapenv'])
                     ->Body
@@ -718,7 +736,7 @@ class InventoryController extends Controller
                 $shippingRate = 'quotable';
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
                 'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,'total_shipping'=>$total_shipping,'takedays'=>$takedays, 
-                'addressBook'=>$addressBook],200);
+                'addressBook'=>$addressBook, 'oversize'=>$oversize],200);
             }
             
             // else{
@@ -840,11 +858,25 @@ class InventoryController extends Controller
 
                 
 
-                if ($info->length + (2*$info->width) + (2*$info->height) >= 165) {
+                if ($info->oversize()) {
                     
-                    $oversize = 2;
+                    $oversize = true;
+                }else{
+
                 }
             }
+
+             /** oversize */
+        if ($oversize) {
+            $tax_total = $subtotal * $tax;
+            
+            $shippingRate = 'TBD';
+            return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
+            'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
+                'addressBook'=>$addressBook, 'oversize'=>$oversize],200);
+        }else{
+
+        }
 
             // $tax_total = $subtotal * $tax;
 
@@ -884,7 +916,7 @@ class InventoryController extends Controller
             $shippingRate = 'TBD';
             return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
             'tax_total'=>$tax_total,'total_shipping'=>0,'takedays'=>0,
-                'addressBook'=>$addressBook],200);
+                'addressBook'=>$addressBook, 'oversize'=>$oversize],200);
 
             
         }else{}
@@ -1016,7 +1048,7 @@ class InventoryController extends Controller
                 $shippingRate = 'quotable';
                 return response()->json(['userInfo'=>$userInfo,'carts'=>$shortlist,'subtotal'=>$subtotal,
                 'tax_total'=>$tax_total, "shippingRate"=>$shippingRate,'total_shipping'=>$total_shipping,'takedays'=>$takedays, 
-                'addressBook'=>$addressBook],200);
+                'addressBook'=>$addressBook, 'oversize'=>$oversize],200);
             
             // calculate shipping
         //     if ($oversize==1) {

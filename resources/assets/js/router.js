@@ -6,6 +6,7 @@ import Policy from './components/body/Policy.vue';
 import Catalog from './components/body/Catalog.vue';
 import Products from './components/body/Products.vue';
 import Ccbd from './components/body/Ccbd.vue';
+import ShippingInquiry from './components/body/ShippingInquiry.vue';
 import Product_list from './components/body/Product_list.vue';
 import ItemDetails from './components/body/ItemDetails.vue';
 import SearchResualt from './components/body/SearchResualt.vue';
@@ -53,6 +54,7 @@ export const routes = [
   {path: '/Catalog',component: Catalog},
   {path: '/allProducts',component: Products},
   {path: '/classicBody',component: Ccbd},
+  {path: '/ShippingInquiry/:item',component: ShippingInquiry, name:'shippingInquiry'},
   {path: '/Product_list',component: Product_list, name: 'Pruduct_list'},
   {path: '/SearchResualt',component: SearchResualt, name: 'SearchResualt'},
   {path: '/Item/:id',component: ItemDetails, name: 'ItemDetails'},

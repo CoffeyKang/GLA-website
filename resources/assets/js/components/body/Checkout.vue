@@ -689,6 +689,12 @@ export default {
                     this.total_shipping = response.data.total_shipping[0];
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
+                    if (response.data.oversize) {
+                        this.shippingRate = "TBD";
+                        this.errorMessage = 'Due to exceed shipping size/weight limit, please click the button to get a quote.';
+                    }else{
+
+                    }
                     if (this.total_shipping/this.subtotal>=0.3) {
                         this.shippingRate = "TBD";
                         this.errorMessage = 'Please get a quote.';
@@ -829,6 +835,12 @@ export default {
                     this.total_shipping = response.data.total_shipping[0];
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
+                    if (response.data.oversize) {
+                        this.shippingRate = "TBD";
+                        this.errorMessage = 'Due to exceed shipping size/weight limit, please click the button to get a quote.';
+                    }else{
+                        
+                    }
                     if (this.total_shipping/this.subtotal>=0.3) {
                         this.shippingRate = "TBD";
                         this.errorMessage = 'Please get a quote.';

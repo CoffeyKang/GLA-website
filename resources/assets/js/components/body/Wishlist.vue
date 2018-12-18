@@ -18,7 +18,7 @@
                         </div>
                         
                         <div class="instock">
-                            <span v-if="item.onhand>0">In-stock: {{item.onhand}}</span> <span v-if="item.onhand<=0">Not in stock</span>
+                            <span v-if="item.onhand>0">In-stock: {{item.onhand}}</span> <span v-if="item.onhand<=0" style='color:red'>Out of stock</span>
                         </div>
                     </div>
                     <div class="item_action text-right">

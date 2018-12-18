@@ -292,7 +292,13 @@
 			
 
 			addToCart_common_list(item) {
-				if (item.onhand < 1) {
+				var u = JSON.parse(this.storage.getItem('user'));
+				if (u) {
+					var type = JSON.parse(this.storage.getItem('user')).level;
+				}else{
+					var type = 99;
+				}
+				if (item.onhand < 1 && type !=2) {
 					this.$alert('Out of stock', 'Warning', {
 					confirmButtonText: 'OK'
 					});

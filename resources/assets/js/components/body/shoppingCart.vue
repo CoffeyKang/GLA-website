@@ -248,7 +248,12 @@ export default {
             
         methods:{
             reloadElement(){
-                var type = JSON.parse(this.storage.getItem('user')).level;
+                var u = JSON.parse(this.storage.getItem('user'));
+                if (u) {
+                    var type = JSON.parse(this.storage.getItem('user')).level;
+                }else{
+                    var type = 99;
+                }
 
                 // get items # from localstorage 
                 for (let i = 0; i < this.storage.length; i++) {

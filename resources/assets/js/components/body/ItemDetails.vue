@@ -13,10 +13,11 @@
 				<div class="descrip">
 					<span style=' text-transform: uppercase'>{{ item.descrip }}</span>
 				</div>
-				<div class="details text-left">
+				<div class="details text-left" style='display:flex; flex-direction:column'>
 					<li><span class='column_name'>Item Number:</span> <b >{{item.item}}</b></li>
 					<li><span class='column_name'>Year Fit: </span><b>{{item.year_from}} -- {{item.year_end}}</b></li>
 					<li><span class='column_name'>Compatible Make: </span><b v-for="item_make in item_makes" :key="item_make.row_id"> {{item_make.make}} &nbsp;</b></li>
+					<li><span class='column_name inquiry' @click="$router.push({name:'shippingInquiry',params:{item:item.item}})"><u>Shipping Inquiry</u></span></li>
 				</div>
 				<div class="priceDiv">
 					
@@ -31,7 +32,7 @@
 					</div>
 					<div class="action">
 						<div class='action_left'>
-							<div class="inStock"><span v-if="item.onhand>0">In-Stock:</span> <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0">Not In Stock</span></div>
+							<div class="inStock"><span v-if="item.onhand>0">In-Stock:</span> <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0" style='color:red' >Out of Stock</span></div>
 							<div class="quantity row">
 								<div class="col-sm-4" style='font-size:20px;'>
 									Quantity:
@@ -189,7 +190,12 @@
 
 			// addToCart
 			addToCart(item){ 
-				var type = JSON.parse(this.storage.getItem('user')).level;
+				var u = JSON.parse(this.storage.getItem('user'));
+				if (u) {
+					var type = JSON.parse(this.storage.getItem('user')).level;
+				}else{
+					var type = 99;
+				}
 				if (this.item.onhand<1 && type !=2 ) {
 					this.$alert('Out of stock1', 'Warning', {
 						confirmButtonText: 'OK',
@@ -277,6 +283,11 @@
 	.item{
 		display: flex;
 		justify-content: space-between;
+	}
+	.inquiry{
+		text-underline-position: below;
+		cursor: pointer;
+		color: blue;
 	}
 	.itemImages{
 		

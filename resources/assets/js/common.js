@@ -48,9 +48,13 @@ export const myMixin = {
 
     // addToCart
     addToCart_common(item) {
-      var type = JSON.parse(this.storage.getItem('user')).level;
-      console.log(type);
-      if (item.onhand < 1 && type!=2) {
+      var u = JSON.parse(this.storage.getItem('user'));
+      if (u) {
+        var type = JSON.parse(this.storage.getItem('user')).level;
+      }else{
+        var type = 99;
+      }
+      if (item.onhand < 1 && type != 2) {
         if (window.innerWidth < 768) {
           const h = this.$createElement;
           this.$notify({

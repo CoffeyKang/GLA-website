@@ -152,8 +152,8 @@
                         <tr style='border-bottom:1px solid lightgray'>
                             <td  class='p60'>{{$item->item}}</td>
                             <td style='word-wrap: break-word; width:"290px"'>{{$item->itemInfo->descrip}}</td>
-                            <td  class='p60'>{{$item->qty}}</td>
-                            <td class='p60'>${{number_format($item->price,2)}}</td>
+                            <td class='p60' @if($item->sale==1) style='color:red' @endif>${{number_format($item->price,2)}}</td>
+                            <td class='p60'>{{$item->qty}}</td>                            
                             <td class='p60 text-right' >${{number_format($item->price * $item->qty,2)}}</td>
                         </tr>
                     @endforeach

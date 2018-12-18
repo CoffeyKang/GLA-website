@@ -136,4 +136,16 @@ class Inventory extends Model
             return false;
         }
     }
+
+    /** check if oversize */
+
+    public function oversize(){
+        if ($this->lbs>100) {
+            return true;
+        }elseif ($this->length>90 || $this->width>90||$this->height>90) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

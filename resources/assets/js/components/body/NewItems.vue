@@ -187,6 +187,7 @@
 			/**	get special list */
 			this.$http.post('/api/newItems',{
 				}).then(response => {
+					console.log(response);
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
