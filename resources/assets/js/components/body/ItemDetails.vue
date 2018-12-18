@@ -189,7 +189,8 @@
 
 			// addToCart
 			addToCart(item){ 
-				if (this.item.onhand<1) {
+				var type = JSON.parse(this.storage.getItem('user')).level;
+				if (this.item.onhand<1 && type !=2 ) {
 					this.$alert('Out of stock1', 'Warning', {
 						confirmButtonText: 'OK',
 					});

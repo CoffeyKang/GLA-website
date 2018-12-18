@@ -29,14 +29,18 @@
                                 <b style='width:50px; height:28px;line-height:28px;'> QTY: </b>
                                 
                                 <input type="number" :value="parseInt(storage.getItem(item.item))"
-                                    style='width:50px;' min="0" :max="parseInt(item.onhand)" :id="item.item">
+                                    style='width:50px;' min="0" :max="parseInt(item.onhand)" :id="item.item" 
+                                    v-if="user.level!=2">
+
+                                <input type="number" :value="parseInt(storage.getItem(item.item))"
+                                    style='width:50px;' min="0"  :id="item.item" 
+                                    v-if="user.level==2">
                                 <div style='height:28px; padding-left:15px;' class='update_link'>
                                     <button class='btn btn-link' @click="updateCart(item)">Update</button>
                                 </div>
                                 
-                                
                             </div>
-                            <div class="instock">
+                            <div class="instock" v-if="user.level!=2">
                                 In-stock: {{item.onhand}}
                             </div>
                         </div>
@@ -244,6 +248,8 @@ export default {
             
         methods:{
             reloadElement(){
+                var type = JSON.parse(this.storage.getItem('user')).level;
+
                 // get items # from localstorage 
                 for (let i = 0; i < this.storage.length; i++) {
                     this.items.push(this.storage.key(i));
@@ -257,7 +263,7 @@ export default {
                         
                         element.pricel = this.Dealerprice(element);
                         let short_num = parseInt(this.storage.getItem(element.item));
-                        if ( short_num >element.onhand) {
+                        if ( short_num >element.onhand && type !=2) {
                             this.storage.setItem(element.item, element.onhand);
                         }
                         if (this.ifDealer()) {
@@ -301,18 +307,19 @@ export default {
             updateCart(item){
                 var value = $("#"+item.item+"").val();
 
-                
                 if (value==0) {
                     this.removeFromCart(item);
                     return false;
                 }
-                if (value>item.onhand) {
+                if (value>item.onhand && this.user.level!=2) {
+                    
                     this.$alert('The quantity you request exceeds our stock.', 'Warning', {
 						confirmButtonText: 'OK',
 					});
                     
                 }else{
                     this.storage.removeItem(item.item);
+                    console.log(value);
                     this.storage.setItem(item.item,value);
                     this.items = [];
                     this.reloadElement();  

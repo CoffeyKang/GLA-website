@@ -48,7 +48,9 @@ export const myMixin = {
 
     // addToCart
     addToCart_common(item) {
-      if (item.onhand < 1) {
+      var type = JSON.parse(this.storage.getItem('user')).level;
+      console.log(type);
+      if (item.onhand < 1 && type!=2) {
         if (window.innerWidth < 768) {
           const h = this.$createElement;
           this.$notify({
@@ -84,7 +86,6 @@ export const myMixin = {
             title: 'Succsesfully.',
             message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
           });
-          
         }else {
           this.$confirm('', 'Congratulation', {
             confirmButtonText: 'Continue Shopping',
