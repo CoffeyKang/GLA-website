@@ -874,6 +874,7 @@ export default {
                     "addressID":this.addressID,
                     "subtotal":this.subtotal,
                     "hst":this.hst,
+                    'notes':this.notes,
                 }).then(response=>{
                     if (response.data.sono) {
                         var sono = response.data.sono;

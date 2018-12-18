@@ -2457,6 +2457,8 @@ class InventoryController extends Controller
 
         $somast->sales_status = 3;
 
+        $somast->notes = $request->notes;
+
         $somast->save();
 
 
