@@ -99,7 +99,7 @@
                 </tr>
                 <tr class='row'>
                     <th style='width:90%' class='text-right'>Total:</th>
-                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal + somast.shipping)|decimal}}</th></th>
+                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal + somast.shipping)|decimal}}</th>
                     
                 </tr>
                

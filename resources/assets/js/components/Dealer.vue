@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-8 col-sm-offset-2 form-group remeber">
                         <div>
-                            <span class='forgetPassword'>If you require or have forgotten your dealer login information please contact us at 905-850-3433</span>
+                            <span class='forgetPassword'>If you require or have forgotten your dealer login information, please contact us at 905-850-3433.</span>
                         </div>
                     </div>
                 </div>
@@ -223,9 +223,7 @@ export default {
     }
     
     @media screen and (min-width:768px){
-        #loginDev{
-            
-        }
+        
 
         #loginDev, #registerDev{
             min-height:400px;
