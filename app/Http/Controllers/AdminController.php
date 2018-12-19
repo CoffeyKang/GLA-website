@@ -729,6 +729,7 @@ class AdminController extends Controller
     }
 
     public function uploadNewImages(){
+        
         return view('admin.uploadNewImages');
     }
 
@@ -742,6 +743,29 @@ class AdminController extends Controller
         $target_dir_lg = '/images/products/large/';
         
         move_uploaded_file($_FILES["image"]["tmp_name"],$temp.$_FILES["image"]["name"]);
+        
+        $filename = $_FILES['image']['name'];
+
+        // when in luinx system, need to delete magick 
+        $execStr = "cd images && cd products && cd original && magick convert $filename -resize 300x300 -background white -flatten $request->item.jpg";
+        
+        exec($execStr, $errMsg);
+
+        copy("images/products/original/$request->item.jpg","images/products/thumb/$request->item.jpg");
+
+        exec("cd images && cd products && cd original && rm $request->item.jpg");
+
+
+        // when in luinx system, need to delete magick 
+        $execStr = "cd images && cd products && cd original && magick convert $filename -resize 600x600 -background white -flatten $request->item.jpg";
+        
+        exec($execStr, $errMsg);
+
+        copy("images/products/original/$request->item.jpg","images/products/large/$request->item.jpg");
+
+        exec("cd images && cd products && cd original && rm $request->item.jpg");
+
+        exec("cd images && cd products && cd original && rm $filename");
 
         return redirect()->back()->with('status','Successfully uploaded new images.');
     }
