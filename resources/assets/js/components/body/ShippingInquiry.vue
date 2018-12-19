@@ -120,7 +120,7 @@
 									subject:this.email.subject,
 									name:this.email.name,
 									email:this.email.email,
-									messege:"Hello, I want inquiry about item "+ this.item.item +" "+ this.email.messege,
+									messege:"Hello, I want to inquiry about item "+ this.item.item +" "+ this.email.messege,
 								}).then(response=>{
 									if (response.data.status) {
 										this.success = true;

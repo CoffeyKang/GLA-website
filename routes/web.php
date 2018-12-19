@@ -102,4 +102,8 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::get('/oneOrder/{sono}','AdminController@oneOrder');
 
     Route::post('/updateDealerPass','AdminController@updateDealerPass');
+
+    Route::get('/uploadNewImages','AdminController@uploadNewImages');
+
+    Route::post('/uploadImages','AdminController@uploadImages');
 });

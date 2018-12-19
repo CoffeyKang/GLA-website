@@ -393,5 +393,9 @@ use App\Temp_SO;
         
         $xml->save('shipping/loomis_'.$customer->id.'.xml');
     }
+
+
+
     
+ 
 ?>

@@ -727,4 +727,22 @@ class AdminController extends Controller
             return redirect()->back()->with('status','Dealer not found.');
         }
     }
+
+    public function uploadNewImages(){
+        return view('admin.uploadNewImages');
+    }
+
+    public function uploadImages(Request $request){
+        $this->validate($request,[
+            'item'=>'required|exists:inventory',
+            'image'=>'required'
+        ]);
+        $temp = 'images/products/original/';
+        $target_dir_sm = '/images/products/thumb/';
+        $target_dir_lg = '/images/products/large/';
+        
+        move_uploaded_file($_FILES["image"]["tmp_name"],$temp.$_FILES["image"]["name"]);
+
+        return redirect()->back()->with('status','Successfully uploaded new images.');
+    }
 }
