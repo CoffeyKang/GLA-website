@@ -115,7 +115,7 @@
 						<div  class='btnArear'>
 							<div id="myCaptcha"></div>
 							<div>
-								<el-button type='success' @click="sendMessage()"> Send Messege </el-button>
+								<el-button type='success' @click="sendMessage()"> Send Message </el-button>
 							</div>
 						</div>
 						
@@ -258,11 +258,7 @@
 	.right{
 		text-align: left;
 	}
-	.form{
-		
-	}
-	.words{
-	}
+	
 	.button{
 		width: 120px;
 	}
@@ -277,10 +273,7 @@
 		font-size: 16px;
 		vertical-align: top !important;
 	}
-	.address_details{
-		
-
-	}
+	
 
 	@media screen and (max-width:768px){
 		.btnArear{

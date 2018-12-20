@@ -39,7 +39,7 @@
 				// error log
 			});
 
-			console.log(this.$root);
+			
 		},
 		methods:{
 			download(name){

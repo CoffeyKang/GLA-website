@@ -226,14 +226,29 @@ export default {
 
                     
                 });
+    
 
-                this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
-                    if (response.data.deleteOldShortlist=='deletedOld') {
-                        // 'shortlist has been delete');
-                    }else{
+                 if (this.user.level!=2) {
+                   this.$http.get('/api/deleteShortlist/'+cust_id).then((response=>{
+                        if (response.data.deleteOldShortlist=='deletedOld') {
+                            // 'shortlist has been delete');
+                            
+                        }else{
 
-                    }
-                }));
+                        }
+                    }));
+                }else{
+                    this.$http.get('/api/deleteShortlist_dealer/'+cust_id).then((response=>{
+                        if (response.data.deleteOldShortlist=='deletedOld') {
+                            // 'shortlist has been delete');
+                        }else{
+
+                        }
+                    }));
+                }
+
+
+                
             }else{
             }
             // this.$http.get('/api/getShortlist/'+)

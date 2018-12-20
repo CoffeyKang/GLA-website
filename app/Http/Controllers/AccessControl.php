@@ -421,7 +421,26 @@ class AccessControl extends Controller
             array_push($notIn,$i->item);
         }
 
-        dd($notIn);
+        
+       $i=0;
+
+        $handle = opendir('./Imagebank/');
+
+        while ($file = readdir($handle)) {
+            if ($file!='.'&&$file!='..') {
+                $nameOnly = substr($file, 0, -4);
+                if (in_array($nameOnly, $not)) {
+                    echo $nameOnly,'<br>';
+                    $i++;
+                }else{
+                    unlink("./Imagebank/$file");
+                }
+            }else{}
+            
+            
+        }
+
+        echo $i;
     }
 
     

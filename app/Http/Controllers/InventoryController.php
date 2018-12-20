@@ -1546,6 +1546,13 @@ class InventoryController extends Controller
         return response()->json(['deleteOldShortlist'=>"deletedOld"],200);
     }
 
+    public function deleteShortlist_dealer($id){
+
+        $deleteOldShortlist = Temp_SO_dealer::where('cust_id',$id)->delete();
+        
+        return response()->json(['deleteOldShortlist'=>"deletedOld"],200);
+    }
+
 
     public function checkCaptcha(Request $request){
         

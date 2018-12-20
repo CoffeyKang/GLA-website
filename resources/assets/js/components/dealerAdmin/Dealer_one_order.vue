@@ -116,13 +116,13 @@
                 </tr>
                 <tr class='row'>
                     <th style='width:90%' class='text-right'>Total:</th>
-                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal)|decimal}}</th></th>
+                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal)|decimal}}</th>
                     
                 </tr>
                
         </table>
         <div class="text-right" style='margin-top:30px'>
-            <el-button type='success' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>Print Order</el-button>
+            <!-- <el-button type='success' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>Print Order</el-button> -->
             <el-button type='primary' @click='$router.push({name:"OrderHistory_dealer"})'>Check History Order</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>        
         </div>  
