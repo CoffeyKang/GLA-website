@@ -79,6 +79,10 @@
 						<span>Year Fit: {{ item.year_from }} - {{ item.year_end }}</span>
 					</div>
 
+					<div class="car_make_name text-center">
+						<span>MAKE: {{ item.make }}</span>
+					</div>
+
 					<div class="car_make_name text-center" v-if="disc">
 						<span class='price_label'>CAD: <b class='price'>  <span style='text-decoration:line-through; color:#800000' >${{item.pricel.toFixed(2) }}</span> ${{ item.pricel | discount10 }}</b><br>
 							<span v-if='usdPrice' class='usdPrice'>USD  <span style='text-decoration:line-through; color:#800000' >${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span> ${{ ((item.pricel)/$store.state.exchange) | discount10 }}</span>

@@ -311,7 +311,7 @@
 
         .mobile_banner{
           height: 400px;
-          background-image: url('/images/default_sm.jpg');
+          background-image: url('/images/default_bg_logo.jpg');
           background-position: center;
           background-size: contain;
           background-repeat: no-repeat;
