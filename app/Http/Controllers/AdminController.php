@@ -735,9 +735,16 @@ class AdminController extends Controller
 
     public function uploadImages(Request $request){
         $this->validate($request,[
-            'item'=>'required|exists:inventory',
-            'image'=>'required'
+            'image'=>'required',
         ]);
+
+        $exists = Inventory::where('item',$request->item)->first();
+        if ($exists) {
+            # code...
+        }else{
+            return redirect()->back()->withErrors("Item $request->item not exists.");
+        }
+        
         $temp = 'images/products/original/';
         $target_dir_sm = '/images/products/thumb/';
         $target_dir_lg = '/images/products/large/';

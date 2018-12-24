@@ -22,6 +22,8 @@
 
 @endif
 
+
+
 <div class="d-flex p2 justify-content-center m-y-5">
 
     <form action="/uploadImages" enctype="multipart/form-data" method='POST' class='col-6'>
