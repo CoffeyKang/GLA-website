@@ -736,6 +736,7 @@ class AdminController extends Controller
     public function uploadImages(Request $request){
         $this->validate($request,[
             'image'=>'required',
+            'item'=>'exists:mysql2.is.inventory|required',
         ]);
 
         $exists = Inventory::where('item',$request->item)->first();

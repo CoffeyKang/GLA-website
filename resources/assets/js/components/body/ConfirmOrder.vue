@@ -129,13 +129,13 @@
                 </fieldset>
 
                 <fieldset  v-if="opt_paypal_status">
-                    <legend>Pay with Paypal and Accept our shipping policy.</legend>
+                    <legend>Pay with Paypal and Accept our shipping policy.1</legend>
                     <!-- <div id="paypal-button" ></div> -->
                     <PayPal
                         :amount="parseFloat(total).toFixed(2).toString()"
                         currency="CAD"
                         :client="credentials"
-                        env="sandbox"
+                        env="production"
                         locale="en_CA"
                         :button-style="myStyle"
                         :items="myItems"
@@ -233,8 +233,8 @@ export default {
             paymentError:false,
             error:'',
             credentials:{
-                sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-                production: 'AXdmzqlqYR9_nWr9pGUkq55LgvJ9SRELnW3VqXSnGUSTRxXvI-tBAtnPk7XNrHuOtlIswLvE_qdm-vyY'
+                sandbox: 'ATfV_6npMrMesyae6j79hpW_CL34aDZ53aP7gtQPmAs2TE7d_DghKrGr3CGTyZpzl-HRpUAtaM1ipZNU',
+                production: 'Abv1eXljwmAwPW8de4uPkNR1no0sqfvLvKdQ22X4a2E0vbYamqgFWMeMzyJLtl8K5wOyNhEC8dRYc3FS'
             },
             myStyle: {
                 label: 'checkout',

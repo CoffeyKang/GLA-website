@@ -406,41 +406,44 @@ class AccessControl extends Controller
     }
     /** test page */
     public function kang(){
-        $arr = scandir('./images/products/large');
-        $len = count($arr);
-        $name = [];
-        foreach ($arr as $i){ 
-            array_push($name,basename($i,'.jpg')) ;
-        }
+        // $user = User::find(3)
+
+
+    //     $arr = scandir('./images/products/large');
+    //     $len = count($arr);
+    //     $name = [];
+    //     foreach ($arr as $i){ 
+    //         array_push($name,basename($i,'.jpg')) ;
+    //     }
         
-        $inventory = Inventory::whereNotIn('item',$name)->get();
+    //     $inventory = Inventory::whereNotIn('item',$name)->get();
 
-        $notIn = [];
+    //     $notIn = [];
 
-        foreach ($inventory as $i) {
-            array_push($notIn,$i->item);
-        }
+    //     foreach ($inventory as $i) {
+    //         array_push($notIn,$i->item);
+    //     }
 
         
-       $i=0;
+    //    $i=0;
 
-        $handle = opendir('./Imagebank/');
+    //     $handle = opendir('./Imagebank/');
 
-        while ($file = readdir($handle)) {
-            if ($file!='.'&&$file!='..') {
-                $nameOnly = substr($file, 0, -4);
-                if (in_array($nameOnly, $not)) {
-                    echo $nameOnly,'<br>';
-                    $i++;
-                }else{
-                    unlink("./Imagebank/$file");
-                }
-            }else{}
+    //     while ($file = readdir($handle)) {
+    //         if ($file!='.'&&$file!='..') {
+    //             $nameOnly = substr($file, 0, -4);
+    //             if (in_array($nameOnly, $not)) {
+    //                 echo $nameOnly,'<br>';
+    //                 $i++;
+    //             }else{
+    //                 unlink("./Imagebank/$file");
+    //             }
+    //         }else{}
             
             
-        }
+    //     }
 
-        echo $i;
+    //     echo $i;
     }
 
     
