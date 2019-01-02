@@ -53,6 +53,18 @@ class AccessControl extends Controller
         }else{
             return response()->json([], 401);
         };
+        /** log in use md5 encrypt, and also need to change register and reset password */
+        // $user = User::where('email', $request->email)
+        //             ->where('password',md5($request->password))
+        //             ->first();
+
+        // if($user){
+        //     $userInfo = UserInfo::where('m_id',$user->id)->first();
+        //     $userBilling = Billing::where('cust_id',$user->id)->first();
+        //     return response()->json(['user'=>$user, 'userInfo'=>$userInfo,'billing'=>$userBilling],200);
+        // }else{
+        //     return response()->json([], 401);
+        // };
          
     }
 
@@ -406,9 +418,10 @@ class AccessControl extends Controller
     }
     /** test page */
     public function kang(){
+       
+        
+            
         // $user = User::find(3)
-
-
     //     $arr = scandir('./images/products/large');
     //     $len = count($arr);
     //     $name = [];

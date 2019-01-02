@@ -35,7 +35,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class='shipingTo'>
+            <div class='shipingTo' v-if="!pickupInstore">
                     <div class='col-xs-12' v-if="!otherAddress">
                         <h4>Shipping To</h4>
                         <el-card class="box-card" >
@@ -264,6 +264,36 @@
                 </div>
             </div>
 
+            <div class='shipingTo' v-if="pickupInstore">
+                    <div class='col-xs-12' v-if="!otherAddress">
+                        <h4>Shipping To</h4>
+                        <el-card class="box-card" >
+                                <h5><b>GOLDEN LEAF AUTOMOTIVE</b> <br> <br>
+                                170 ZENWAY BLVD UNIT#2 WOODBRIDGE,<br> ONTARIO L4H 2Y7<br>
+                                TELEPHONE 905/850-3433</h5>
+                        </el-card>
+                    </div>
+
+                    <div class="col-xs-12" style='margin-top:20px;'>
+                        <h4>Notes:</h4>
+                        <el-form>
+                            <el-form-item >
+                                <el-input type="textarea" v-model="notes" :rows="5"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+
+
+                    
+                
+
+                
+                
+                
+
+                
+            </div>
+
             
 
             
@@ -313,11 +343,14 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="text-center shippingOPT " v-if="shippingRate=='quotable'">
                     
                         Estimated Shipping Time: {{takedays}} Days
                     
+                </div>
+                <div class="text-center">
+                    <el-checkbox v-model="pickupInstore" @change='pickup()'>In Store Pickup</el-checkbox>
                 </div>
                 <div class=" text-center" v-if="shippingRate=='quotable'">
                     <button class='mybtn btn btn-success' @click='confirm()'>Confirm Order</button>
@@ -354,6 +387,7 @@ export default {
         return {
             usdPrice:this.$store.state.usdPrice,
             items:[],
+            pickupInstore:false,
             showNewAddress:false,
             qtys:[],
             otherAddress:false,
@@ -665,14 +699,20 @@ export default {
             },
         }
     },
-        computed:{
+
+    
+            computed:{
             total:function(){
                 return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.total_shipping);
             },
+
+            
             
 
             
         },
+
+        
         mounted(){
             // determin if user has login
 			if(this.storage.getItem('user')){
@@ -686,19 +726,18 @@ export default {
                     this.userInfo = response.data.userInfo;
                     this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
-                    this.total_shipping = response.data.total_shipping[0];
+                    this.total_shipping = Math.ceil(response.data.total_shipping[0]);
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
                     if (response.data.oversize) {
                         this.shippingRate = "TBD";
-                        this.errorMessage = 'Due to exceed shipping size/weight limit, please click the button to get a quote.';
+                        this.errorMessage = 'Due to the size of item(s) you ordered, we need to manually quote you the best possible price.  Please click “Get a Quote” and we will quote you the best shipping option.';
                     }else{
 
                     }
                     if (this.total_shipping/this.subtotal>=0.3) {
                         this.shippingRate = "TBD";
-                        this.errorMessage = 'Please get a quote.';
-                        
+                        this.errorMessage = 'Due to the size of item(s) you ordered, we need to manually quote you the best possible price.  Please click “Get a Quote” and we will quote you the best shipping option.';
                     }else{
 
                     }
@@ -813,6 +852,7 @@ export default {
                     });          
                 });
             },
+
             changeAddress(id){
                 this.loading = 1;
                 window.scrollTo(0,0);   
@@ -825,6 +865,7 @@ export default {
                     // this.groundDay = response.data.groundDay;
                     // this.expressDay = response.data.expressDay;
                     // this.addressBook = response.data.addressBook;
+                    console.log(response);
                     this.otherAddress = true;
                     this.userInfo = response.data.userInfo;
                     // this.addressID = response.data.addressID,
@@ -832,16 +873,18 @@ export default {
                     this.hst = response.data.tax_total.toFixed(2);
                     this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
-                    this.total_shipping = response.data.total_shipping[0];
+                    this.total_shipping = Math.ceil(response.data.total_shipping[0]);
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
                     if (response.data.oversize) {
+                        console.log('oversize');
                         this.shippingRate = "TBD";
-                        this.errorMessage = 'Due to exceed shipping size/weight limit, please click the button to get a quote.';
+                        this.errorMessage = 'Due to the size of item(s) you ordered, we need to manually quote you the best possible price.  Please click “Get a Quote” and we will quote you the best shipping option.';
                     }else{
                         
                     }
                     if (this.total_shipping/this.subtotal>=0.3) {
+                        console.log('too expensive');
                         this.shippingRate = "TBD";
                         this.errorMessage = 'Please get a quote.';
                         
@@ -868,11 +911,24 @@ export default {
                         shippingDays:this.takedays,
                         shipping:this.total_shipping,
                         notes:this.notes,
+                        pickupInstore:this.pickupInstore,
                     }
                 });
                 
             },
 
+
+            pickup(){
+                if (this.pickupInstore) {
+                    this.storage.setItem('oldShipping',this.total_shipping);
+                    this.total_shipping=0;
+                    this.notes = '[ Pickup in store ] ' + this.notes;
+
+                }else{
+                    this.total_shipping = parseFloat(this.storage.getItem('oldShipping'));
+                    this.notes =  this.notes.replace('[ Pickup in store ] ','');
+                }
+            },
             getQuote(){
                 if (this.otherAddress) {
                     var custId = this.userInfo.cust_id;
@@ -897,8 +953,7 @@ export default {
                 
             }
         },
-        watch:{
-        }
+       
     
 
 }

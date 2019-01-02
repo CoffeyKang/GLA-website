@@ -59,10 +59,34 @@ class AdminController extends Controller
         $id = $request->item;
         
         $item = Popular::where('item',$id)->first();
+
+        if ($item) {
+            
+            $item->viewed++;
         
-        $item->viewed++;
+            $item->save();
+        }else{
+            $newView = new Popular;
+
+            $newView->item = $id;
+
+            $inv = Inventory::where('item',$id)->first();
+
+            if ($inv) {
+                $newView->make = $inv->make;
+                
+            }else{
+                $newView->make = 'mustang';
+            }
+
+            $newView->viewed = 1;
+
+            $newView->sold = 0;
+
+            $newView->save();
+        }
         
-        $item->save();
+        
         
         return response()->json(['message'=>'item viewed plus one'],200);
     }
@@ -740,7 +764,7 @@ class AdminController extends Controller
         ]);
 
         $exists = Inventory::where('item',$request->item)->first();
-        if ($exists) {
+        if (count($exists)>=1) {
             # code...
         }else{
             return redirect()->back()->withErrors("Item $request->item not exists.");

@@ -47,7 +47,7 @@
                     
             </div>
             <div class='shipingTo col-xs-12 col-sm-6'>
-                    <div class='' >
+                    <div class='' v-if="!pickupInstore">
                         <h4>Shipping Address</h4>
                         <el-card class="box-card" v-if="addressID!=0">
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
@@ -59,6 +59,16 @@
                                 {{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>
                                 {{userInfo.m_state}}, {{userInfo.m_country}}</h5>
                         </el-card>
+                    </div>
+
+                    <div class='' v-if="pickupInstore">
+                        <h4>Shipping Address</h4>
+                        <el-card class="box-card">
+                                <h5><b>GOLDEN LEAF AUTOMOTIVE</b> <br> <br>
+                                170 ZENWAY BLVD UNIT#2 WOODBRIDGE, ONTARIO L4H 2Y7<br>
+                                TELEPHONE 905/850-3433</h5>
+                        </el-card>
+                        
                     </div>
             </div>
 
@@ -129,13 +139,13 @@
                 </fieldset>
 
                 <fieldset  v-if="opt_paypal_status">
-                    <legend>Pay with Paypal and Accept our shipping policy.1</legend>
+                    <legend>Pay with Paypal and Accept our shipping policy.</legend>
                     <!-- <div id="paypal-button" ></div> -->
                     <PayPal
                         :amount="parseFloat(total).toFixed(2).toString()"
                         currency="CAD"
                         :client="credentials"
-                        env="production"
+                        env="sandbox"
                         locale="en_CA"
                         :button-style="myStyle"
                         :items="myItems"
@@ -218,6 +228,7 @@ export default {
             hst:this.$route.params.hst,
             total:this.$route.params.total,
             notes:this.$route.params.notes,
+            pickupInstore:this.$route.params.pickupInstore,
             amount:'',
             subtotal:this.$route.params.subtotal,
             shippingDays:this.$route.params.shippingDays,
@@ -284,7 +295,17 @@ export default {
                     }
 
                 });
-            }
+            }else{}
+
+            if (this.pickupInstore) {
+                this.address.forename = 'GOLDEN LEAF';
+                this.address.surname = 'AUTOMOTIVE';
+                this.address.address = '170 ZENWAY BLVD UNIT#2';
+                this.address.city = 'WOODBRIDGE';
+                this.address.zipcode = 'L4H 2Y7';
+                this.address.state = 'ONTARIO ';
+                this.address.country = 'CA';
+            }else{}
 
            if (this.card.month<10) {
                this.card.month = "0" + toString(this.card.month);
@@ -375,6 +396,7 @@ export default {
                             card:this.card,
                             addressID:this.addressID,
                             notes:this.notes,
+                            pickupInstore:this.pickupInstore,
                         }
                         ).then(response=>{
                         this.loading = 0;
@@ -411,6 +433,7 @@ export default {
                         shipping:this.shipping,
                         addressID:this.addressID,
                         notes:this.notes,
+                        pickupInstore:this.pickupInstore,
                     }
                     ).then(response=>{
                     this.loading = 0;

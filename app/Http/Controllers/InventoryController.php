@@ -342,22 +342,26 @@ class InventoryController extends Controller
         $items = $items->paginate(10);
 
         foreach ($items as $item) {
-                $img_path = $item->itemImg;
-                if ($img_path) {
-                    $item->img_path = $item->itemImg->img_path;
-                }else{
-                     $item->img_path = '/images/default_sm.jpg';
-                }
+
+            $item->itemFullInfo();
+            // $img_path = $item->itemImg;
+            // if ($img_path) {
+            //     $item->img_path = $item->itemImg->img_path;
+            // }else{
+            //         $item->img_path = '/images/default_sm.jpg';
+            // }
+            
+            $item->onsale = $item->onsale();
+
+            
+            
+            // if (file_exists('.'.$item->img_path)) {
                 
-                $item->onsale = $item->onsale();
-                
-                if (file_exists('.'.$item->img_path)) {
-                    
-                }else{
-                    $item->img_path = '/images/default_sm.jpg';
-                }
-                
-            }
+            // }else{
+            //     $item->img_path = '/images/default_sm.jpg';
+            // }
+            
+        }
         
         
 
@@ -831,7 +835,7 @@ class InventoryController extends Controller
 
             $subtotal = 0;
 
-            $oversize = 1;
+            $oversize = false;
 
             $tax = $user->getRate();
 
@@ -1808,6 +1812,22 @@ class InventoryController extends Controller
             );
         }
 
+
+        if ($request->pickupInstore) {
+            $shippingArray =  array(
+                    'name' => "GOLDEN LEAF AUTOMOTIVE",
+                    'phone_number' =>'905/850-3433',
+                    'address_line1' => "170 ZENWAY BLVD UNIT#2",
+                    'city' => "WOODBRIDGE",
+                    'province' => "ONTARIO",
+                    'postal_code' =>" L4H 2Y7",
+                    'country' => "CANADA",
+            );
+
+            /** 1 means to pickup instore */
+            $request->addressID = 1;
+        }else{}
+
         
         /** payment api config */
         $merchant_id = '117686147'; //INSERT MERCHANT ID (must be a 9 digit string)
@@ -2115,6 +2135,21 @@ class InventoryController extends Controller
                     'postal_code' =>$addr->m_zipcode,
                     'country' => $addr->m_country,
             );
+        }
+
+        if ($request->pickupInstore) {
+            $shippingArray =  array(
+                    'name' => "GOLDEN LEAF AUTOMOTIVE",
+                    'phone_number' =>'905/850-3433',
+                    'address_line1' => "170 ZENWAY BLVD UNIT#2",
+                    'city' => "WOODBRIDGE",
+                    'province' => "ONTARIO",
+                    'postal_code' =>" L4H 2Y7",
+                    'country' => "CANADA",
+            );
+
+            /** 1 means to pickup instore */
+            $request->addressID = 1;
         }
 
             $somast = new SOMAST;

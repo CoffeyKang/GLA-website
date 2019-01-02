@@ -56,7 +56,7 @@
                 <div v-if="address!=0" >
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{address.surname + ' ' + address.surname}} <br> <br>{{address.address}},  {{address.city}}, {{address.zipcode}}<br>{{address.state}}, {{address.country}}<br>{{address.tel}}</h4>
+                            <h4>{{address.forename + ' ' + address.surname}} <br> <br>{{address.address}},  {{address.city}}, {{address.zipcode}}<br>{{address.state}}, {{address.country}}<br>{{address.tel}}</h4>
                     </el-card>
                 </div>
             </div>
