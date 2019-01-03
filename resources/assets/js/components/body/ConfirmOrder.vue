@@ -39,8 +39,8 @@
                         <h4 style='display:flex;justify-content:space-between'><div>Billing Address</div> <div style='font-size:80%;cursor:pointer' @click='$router.push({path:"/CustomerInfo/ChangeProfile"})'>Edit</div></h4>
                         <el-card class="box-card">
                                 <h5><b>{{billing.firstname}} {{billing.lastname}}</b> <br> <br>
-                                {{billing.address1}},{{billing.address2}}, {{billing.city}}, {{billing.postalcode}}<br>
-                                {{billing.province}}, {{billing.country}}</h5>
+                                {{billing.address1}},{{billing.address2}}, <br>{{billing.city}}, {{billing.province}}, {{billing.postalcode}}<br>
+                                 {{billing.country}}</h5>
                         </el-card>
                     </div>
 
@@ -51,8 +51,8 @@
                         <h4>Shipping Address</h4>
                         <el-card class="box-card" v-if="addressID!=0">
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
-                                {{address.address}}, {{address.city}}, {{address.zipcode}}<br>
-                                {{address.state}}, {{address.country}}</h5>
+                                {{address.address}}, <br>{{address.city}}, {{address.state}}, {{address.zipcode}}<br>
+                                {{address.country}}</h5>
                         </el-card>
                         <el-card class="box-card" v-if="addressID==0">
                                 <h5><b>{{userInfo.m_forename}} {{userInfo.m_surname}}</b> <br> <br>
@@ -194,7 +194,7 @@
                     </div>
 
                     <div class=' summary_list text-center'>
-                        <h5>Estimate Shipping Time : {{ shippingDays }} Days</h5>
+                        <h5 v-if="!pickupInstore">Estimate Shipping Time : {{ shippingDays }} Days</h5>
                     </div>
 
                     <div class=' summary_list text-center' v-if="opt_card_status">

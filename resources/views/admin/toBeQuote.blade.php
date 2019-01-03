@@ -46,7 +46,7 @@
                     </a></td>
                 @else 
                     <td><a class="btn btn-success" href="/QuoteOrder/{{$so->order_num}}">
-                        Panding for reply
+                        Pending for reply
                     </a></td>
                 @endif
             </tr>

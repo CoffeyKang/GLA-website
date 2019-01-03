@@ -40,8 +40,8 @@
                         <h4>Shipping To</h4>
                         <el-card class="box-card" >
                                 <h5><b>{{userInfo.m_forename}} {{userInfo.m_surname}}</b> <br> <br>
-                                {{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>
-                                {{userInfo.m_state}}, {{userInfo.m_country}}</h5>
+                                {{userInfo.m_address}},  <br>{{userInfo.m_city}}, {{userInfo.m_state}},  {{userInfo.m_zipcode}}<br>
+                                {{userInfo.m_country}}</h5>
                         </el-card>
                     </div>
 
@@ -49,8 +49,8 @@
                         <h4>Shipping To</h4>
                         <el-card class="box-card" >
                                 <h5><b>{{userInfo.forename}} {{userInfo.surname}}</b> <br> <br>
-                                {{userInfo.address}},  {{userInfo.city}}, {{userInfo.zipcode}}<br>
-                                {{userInfo.state}}, {{userInfo.country}}</h5>
+                                {{userInfo.address}},  <br>{{userInfo.city}}, {{userInfo.state}},  {{userInfo.zipcode}}<br>
+                                {{userInfo.country}}</h5>
                         </el-card>
                     </div>
 
@@ -88,8 +88,8 @@
                     <div class='address' v-for="address in addressBook" :key="address.id" v-if="address.id==selectAdd">
                         <el-card class="box-card addressBox" :id="'box'+address.id" >
                                 <h5><b>{{address.forename}} {{address.surname}}</b> <br> <br>
-                                {{address.address}},  {{address.city}}, {{address.zipcode}}<br>
-                                {{address.state}}, {{address.country}}</h5>
+                                {{address.address}},  <br>{{address.city}}, {{address.state}}, {{address.zipcode}}<br>
+                                 {{address.country}}</h5>
                                 <div class='shipToAddress'>
                                     <button class=" btn btn-success text-center" @click='changeAddress(address.id)'>
                                         Deliver to address
@@ -269,7 +269,7 @@
                         <h4>Shipping To</h4>
                         <el-card class="box-card" >
                                 <h5><b>GOLDEN LEAF AUTOMOTIVE</b> <br> <br>
-                                170 ZENWAY BLVD UNIT#2 WOODBRIDGE,<br> ONTARIO L4H 2Y7<br>
+                                170 ZENWAY BLVD UNIT#2 <br>WOODBRIDGE, ONTARIO L4H 2Y7<br>
                                 TELEPHONE 905/850-3433</h5>
                         </el-card>
                     </div>
@@ -317,11 +317,11 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ parseFloat(total_shipping).toFixed(2) }}
+                            <span>SHIPPING:</span><span class='text-right' v-if="shippingRate=='quotable' || pickupInstore">CAD ${{ parseFloat(total_shipping).toFixed(2) }}
                                 <br>
                              <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(total_shipping))/$store.state.exchange).toFixed(2) }}</span>
                             </span>
-                            <span v-if="shippingRate!='quotable'">TBD</span>
+                            <span v-if="shippingRate!='quotable'  && !pickupInstore ">TBD</span>
                         </div>
                     </div>
                     <div class="summary_list">
@@ -334,25 +334,25 @@
                     </div>
                     <div class="summary_list">
                         <div class='summary_amount'>
-                            <span>TOTAL:</span><span class='text-right' v-if="shippingRate=='quotable'">CAD ${{ total.toFixed(2) }}
+                            <span>TOTAL:</span><span class='text-right' v-if="shippingRate=='quotable' || pickupInstore ">CAD ${{ total.toFixed(2) }}
                                 <br>
                              <span v-if='usdPrice' class='usdPrice'>USD ${{ ((parseFloat(total))/$store.state.exchange).toFixed(2) }}</span>
 
                             </span>
-                            <span v-if="shippingRate!='quotable'">TBD</span>
+                            <span v-if="shippingRate!='quotable' && !pickupInstore">TBD</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="text-center shippingOPT " v-if="shippingRate=='quotable'">
                     
-                        Estimated Shipping Time: {{takedays}} Days
+                        <span v-if="!pickupInstore">Estimated Shipping Time: {{takedays}} Days</span>
                     
                 </div>
                 <div class="text-center">
-                    <el-checkbox v-model="pickupInstore" @change='pickup()'>In Store Pickup</el-checkbox>
+                    <el-checkbox v-model="pickupInstore" @change='pickup()' ><span style='font-size:20px;'>In Store Pickup</span></el-checkbox>
                 </div>
-                <div class=" text-center" v-if="shippingRate=='quotable'">
+                <div class=" text-center" v-if="shippingRate=='quotable'" style='margin-top:10px;'>
                     <button class='mybtn btn btn-success' @click='confirm()'>Confirm Order</button>
                     <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
                 </div>
@@ -360,10 +360,15 @@
                 
     
                 <div class=" text-center" v-if="shippingRate!='quotable'">
-                    
-                    <button class='mybtn btn btn-success' @click="getQuote()">Get a Quote</button>
-                    <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
+                    <div v-if="!pickupInstore">
+                        <button class='mybtn btn btn-success' @click="getQuote()">Get a Quote</button>
+                        <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
+                    </div>
 
+                    <div v-if="pickupInstore">
+                        <button class='mybtn btn btn-success' @click='confirm()'>Confirm Order</button>
+                        <button class='mybtn btn btn-warning' @click='$router.push("shoppingCart")'>Edit Order</button>
+                    </div>
                 </div>
 
                 <div class=" text-center" v-if="shippingRate!='quotable'">
@@ -699,16 +704,10 @@ export default {
             },
         }
     },
-
-    
             computed:{
             total:function(){
                 return parseFloat(this.subtotal) + parseFloat(this.hst) + parseFloat(this.total_shipping);
             },
-
-            
-            
-
             
         },
 
@@ -921,13 +920,27 @@ export default {
             pickup(){
                 if (this.pickupInstore) {
                     this.storage.setItem('oldShipping',this.total_shipping);
+                    this.storage.setItem('oldTax',this.hst);
                     this.total_shipping=0;
                     this.notes = '[ Pickup in store ] ' + this.notes;
 
+                    var billing = JSON.parse(this.storage.getItem('billing')).province;
+                    var subtotal_ = this.subtotal;
+                    
+                    this.$http.get('/api/taxRate/'+billing).then(response=>{
+                        this.hst = (subtotal_ * response.data.taxRate).toFixed(2) ;
+                    });
+                    
+
                 }else{
                     this.total_shipping = parseFloat(this.storage.getItem('oldShipping'));
+                    this.hst = parseFloat(this.storage.getItem('oldTax'));
                     this.notes =  this.notes.replace('[ Pickup in store ] ','');
                 }
+            },
+            PureTax(instore, subtotal){
+                
+
             },
             getQuote(){
                 if (this.otherAddress) {

@@ -41,7 +41,7 @@
             <div class="col-sm-6 addessLabel">
                 <el-card class="box-card" >
                             <h4>Bill To</h4>
-                            <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}},  {{billing.city}}, {{billing.postalcode}}<br>{{billing.province}}, {{billing.country}}<br>{{billing.phone}}</h4>
+                            <h4>{{billing.firstname + ' ' +billing.lastname}}<br><br>{{billing.address1}}, <br> {{billing.city}}, {{billing.province}},{{billing.postalcode}}<br>{{billing.country}}<br>{{billing.phone}}</h4>
                     </el-card>
             </div>
             <div class="col-sm-6 addessLabel" >
@@ -49,14 +49,14 @@
                     
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{userInfo.m_forename + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},  {{userInfo.m_city}}, {{userInfo.m_zipcode}}<br>{{userInfo.m_state}}, {{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
+                            <h4>{{userInfo.m_forename + ' ' + userInfo.m_surname}} <br> <br>{{userInfo.m_address}},<br>  {{userInfo.m_city}}, {{userInfo.m_state}}, {{userInfo.m_zipcode}}<br>{{userInfo.m_country}}<br>{{userInfo.m_tel}}</h4>
                     </el-card>
                 </div>
 
                 <div v-if="address!=0" >
                     <el-card class="box-card" >
                             <h4>Ship To</h4>
-                            <h4>{{address.forename + ' ' + address.surname}} <br> <br>{{address.address}},  {{address.city}}, {{address.zipcode}}<br>{{address.state}}, {{address.country}}<br>{{address.tel}}</h4>
+                            <h4>{{address.forename + ' ' + address.surname}} <br> <br>{{address.address}}, <br>{{address.city}}, {{address.state}}, {{address.zipcode}}<br> {{address.country}}<br>{{address.tel}}</h4>
                     </el-card>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                 </tr>
                
         </table>
-        <div class="text-right mobile_btn" style='margin-bottom:10px;'>
+        <div class="text-right mobile_btn" style='margin-bottom:10px; margin-top:30px'>
             <el-button type='success' @click='downPDF(somast.order_num)' class='cs_btn'>Print Order</el-button>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})' class='cs_btn'>OrderHistory</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})' class='cs_btn'>Continue Shopping</el-button>        

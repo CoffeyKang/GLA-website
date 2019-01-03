@@ -181,6 +181,10 @@ Route::post('/inquiryOnline','AccessControl@inquiryOnline');
 
 Route::post('/getQuote','InventoryController@getQuote');
 
+Route::get('/taxRate/{province}','InventoryController@taxRate');
+
+
+
 
 
 

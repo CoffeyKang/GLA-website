@@ -9,7 +9,7 @@
     <div v-if="!empty">
         
         <div class="edit_title" >
-            <span>Order Number : {{so}} Panding Quotation</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
+            <span>Order Number : {{so}} Pending Quotation</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
 
         <el-steps :active="3" finish-status="success">
@@ -119,12 +119,10 @@
                 <tr class='row'>
                     <td style='width:90%' class='text-right'>Tax:</td>
                     <td style='width:10%' class='text-right'>${{somast.tax|decimal}}</td>
-                    
                 </tr>
                 <tr class='row'>
                     <th style='width:90%' class='text-right'>Total:</th>
-                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal + somast.shipping)|decimal}}</th></th>
-                    
+                    <th style='width:10%' class='text-right'>${{(somast.tax + somast.subtotal + somast.shipping)|decimal}}</th>
                 </tr>
                
         </table>

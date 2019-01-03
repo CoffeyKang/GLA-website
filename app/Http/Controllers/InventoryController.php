@@ -27,6 +27,7 @@ use Mail;
 use App\Mail\registration;
 use App\Mail\SalesOrder;
 use App\NewProducts;
+use App\TaxRate;
 /** use LOG */
 use Illuminate\Support\Facades\Log;
 class InventoryController extends Controller
@@ -134,19 +135,21 @@ class InventoryController extends Controller
 
         // join('inventory_img','inventory.item','inventory_img.item')
         foreach ($product_list as $item) {
-            $img = $item->itemImg;
-            if ($img) {
-                $item->img_path = $item->itemImg->img_path;
-            }else{
-                $item->img_path = '/images/default_sm.jpg';
-            }
-            $item->onhand = ($item->onhand - $item->aloc)>0?($item->onhand - $item->aloc):0;
+            // $img = $item->itemImg;
+            // if ($img) {
+            //     $item->img_path = $item->itemImg->img_path;
+            // }else{
+            //     $item->img_path = '/images/default_sm.jpg';
+            // }
+            // $item->onhand = ($item->onhand - $item->aloc)>0?($item->onhand - $item->aloc):0;
             
-            if (file_exists('.'.$item->img_path)) {
+            // if (file_exists('.'.$item->img_path)) {
                  
-            }else{
-            	$item->img_path = '/images/default_sm.jpg';
-            }
+            // }else{
+            // 	$item->img_path = '/images/default_sm.jpg';
+            // }
+
+            $item->itemFullInfo();
 
             if (($item->onhand) > $item->orderpt) {
                 $item->onsale = true;
@@ -2578,6 +2581,19 @@ class InventoryController extends Controller
     }
 
 
+
+    /** to taxRate */
+    public function taxRate($province){
+        $taxrate = TaxRate::where('province',$province)->first();
+
+        if ($taxrate === null) {
+            $taxR = 0;
+        }else{
+            $taxR = $taxrate->tax / 100;
+        }
+
+        return response()->json(['taxRate'=>$taxR],200);
+    }
 
     /** test area */
     public function test(){

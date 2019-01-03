@@ -778,6 +778,8 @@ class AdminController extends Controller
         
         $filename = $_FILES['image']['name'];
 
+        $request->item = strtoupper($request->item);
+
         // when in luinx system, need to delete magick 
         $execStr = "cd images && cd products && cd original && magick convert $filename -resize 300x300 -background white -flatten $request->item.jpg";
         
@@ -785,7 +787,7 @@ class AdminController extends Controller
 
         copy("images/products/original/$request->item.jpg","images/products/thumb/$request->item.jpg");
 
-        exec("cd images && cd products && cd original && rm $request->item.jpg");
+        // exec("cd images && cd products && cd original && rm $request->item.jpg");
 
 
         // when in luinx system, need to delete magick 
