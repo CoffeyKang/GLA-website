@@ -31,6 +31,7 @@ class InquiryOnline extends Mailable
     public function build()
     {
         return $this->subject("Email messege from retals website.")
+        ->cc('ayeh@goldenleafautomotive.com')
         ->view('emails.inquiryOnline');
     }
 }

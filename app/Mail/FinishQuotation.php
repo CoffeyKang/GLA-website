@@ -51,6 +51,7 @@ class FinishQuotation extends Mailable
     public function build()
     {
         return $this->view('emails.finishQuotation')
+        ->cc('ayeh@goldenleafautomotive.com')
         ->subject('Golden Leaf automotive. (DO NOT REPLY)');
     }
 }

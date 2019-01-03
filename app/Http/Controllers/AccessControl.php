@@ -45,26 +45,26 @@ class AccessControl extends Controller
         
         $password = $request->password;
 
-        if(Auth::attempt(['email'=>$email,'password'=>$password])){
-            $user = Auth::user();
-            $userInfo = UserInfo::where('m_id',$user->id)->first();
-            $userBilling = Billing::where('cust_id',$user->id)->first();
-            return response()->json(['user'=>$user, 'userInfo'=>$userInfo,'billing'=>$userBilling],200);
-        }else{
-            return response()->json([], 401);
-        };
-        /** log in use md5 encrypt, and also need to change register and reset password */
-        // $user = User::where('email', $request->email)
-        //             ->where('password',md5($request->password))
-        //             ->first();
-
-        // if($user){
+        // if(Auth::attempt(['email'=>$email,'password'=>$password])){
+        //     $user = Auth::user();
         //     $userInfo = UserInfo::where('m_id',$user->id)->first();
         //     $userBilling = Billing::where('cust_id',$user->id)->first();
         //     return response()->json(['user'=>$user, 'userInfo'=>$userInfo,'billing'=>$userBilling],200);
         // }else{
         //     return response()->json([], 401);
         // };
+        /** log in use md5 encrypt, and also need to change register and reset password */
+        $user = User::where('email', $request->email)
+                    ->where('password',md5($request->password))
+                    ->first();
+
+        if($user){
+            $userInfo = UserInfo::where('m_id',$user->id)->first();
+            $userBilling = Billing::where('cust_id',$user->id)->first();
+            return response()->json(['user'=>$user, 'userInfo'=>$userInfo,'billing'=>$userBilling],200);
+        }else{
+            return response()->json([], 401);
+        };
          
     }
 
@@ -114,7 +114,7 @@ class AccessControl extends Controller
             'lastname' => $lastname,
             'email' => $email,
             'receiveEmail'=>$check,
-            'password' => bcrypt($password),
+            'password' => md5($password),
         ]);
         
         @Mail::to("$user->email")->send(new registration($user));
@@ -159,7 +159,7 @@ class AccessControl extends Controller
 
         $password = $request->password;
 
-        $user->password = bcrypt($password);
+        $user->password = md5($password);
         
         $user->save();
         
@@ -366,9 +366,15 @@ class AccessControl extends Controller
         $password = $data['oldPass'];
 
         
-        if(Auth::attempt(['id'=>$userID,'password'=>$password])){
-            $user = Auth::user();
-            $user ->password = bcrypt($data['newPass']);
+
+        $user = User::where('id', $userID)
+                    ->where('password',md5($password))
+                    ->first();
+
+
+        if($user){
+            // $user = Auth::user();
+            $user ->password = md5($data['newPass']);
             $user->save();
             return response()->json(['user'=>$user,'status'=>'OK'],200);
         }else{
@@ -388,10 +394,10 @@ class AccessControl extends Controller
 
         if ($request->type=='customer') {
 
-            Mail::to('fkang@velements.com')->send(new LeaveMessege($email));
+            Mail::to('info@goldenleafautomotive.com')->send(new LeaveMessege($email));
             # code...
         }else{
-            Mail::to('fkang@velements.com')->send(new DealerMessege($email));
+            Mail::to('info@goldenleafautomotive.com')->send(new DealerMessege($email));
         }
 
 
@@ -407,7 +413,7 @@ class AccessControl extends Controller
         $email['subject'] = $request->subject;
         $email['messege'] = $request->messege;
 
-        Mail::to('fkang@velements.com')->send(new InquiryOnline($email));
+        Mail::to('info@goldenleafautomotive.com')->send(new InquiryOnline($email));
     
 
 

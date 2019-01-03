@@ -145,7 +145,7 @@
                         :amount="parseFloat(total).toFixed(2).toString()"
                         currency="CAD"
                         :client="credentials"
-                        env="sandbox"
+                        env="production"
                         locale="en_CA"
                         :button-style="myStyle"
                         :items="myItems"

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -38,12 +41,22 @@ class LoginController extends Controller
     }
 
 
-    // public function login(Request $request)
-    // {
-    //     $user = User::where('email', $request->email)
-    //                 ->where('password',md5($request->password))
-    //                 ->first();
-    //     Auth::login($user);
-    //     return redirect('/');
-    // }
+    public function login(Request $request)
+    {
+        $user = User::where('email', $request->email)
+                    ->where('password',md5($request->password))
+                    ->first();
+
+        if ($user === null) {
+            return redirect()->back()->withErrors('Password incorrect.');
+        }else{
+            if ($user->level == 1) {
+                Auth::login($user);
+                return redirect('/home');
+            }else{
+                return redirect()->back()->withErrors('Permission denied.');
+            }
+            
+        }
+    }
 }

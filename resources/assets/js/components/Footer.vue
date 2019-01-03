@@ -35,7 +35,7 @@
 					<img src="images/paymentOption.png" alt="payment_logo">
 				</div>
 				<div class='copyright'>
-					&copy; 2018 Golden Leaf Automotive. All rights reserved.
+					&copy; {{year}} Golden Leaf Automotive. All rights reserved.
 				</div>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 	export default{
 		data(){
 			return {
-				
+				year : new Date().getFullYear(),
 			}
 		},
 		computed:{

@@ -130,7 +130,7 @@ class AdminController extends Controller
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])) {
             $user = Auth::user();
             $user->name = $request->name;
-            $user->password = bcrypt($request->newPass);
+            $user->password = md5($request->newPass);
             $user->save();
         }else{
             return redirect()->back()->with('status_fail','Password is not validate.');
