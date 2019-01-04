@@ -315,7 +315,7 @@
 					}
 					const h = this.$createElement;
 					this.$notify({
-						title: 'Succsesfully.',
+						title: 'Success',
 						message: h('b', { style: 'color: teal'}, 'Item successfully added to cart')
 					});
 				}

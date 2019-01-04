@@ -30,6 +30,11 @@
 						CAD ${{ item.pricel.toFixed(2) }}<br>
 						<span v-if='usdPrice' class='usdPrice'>USD ${{ ((item.pricel)/$store.state.exchange).toFixed(2) }}</span>
 					</div>
+
+					<div class="" v-if="!disc">
+						<span style='color:black; font-size:20px'><b>MSRP: ${{ msrp.toFixed(2) }}</b></span><br>
+						
+					</div>
 					<div class="action">
 						<div class='action_left'>
 							<div class="inStock"><span v-if="item.onhand>0">In-Stock:</span> <span v-if="item.onhand>0">{{item.onhand}}</span> <span v-if="item.onhand==0" style='color:red' >Out of Stock</span></div>
@@ -119,6 +124,8 @@
 				showItem :false,
 				quantity:1,
 				disc:true,
+				msrp:0,
+				
 
 			}
 		},
@@ -130,13 +137,14 @@
 			    // get body data
 			    
 				this.item = response.body.singleItem;
+				
+				this.msrp = parseFloat(response.body.singleItem.pricel);
 
 				this.item.pricel = this.Dealerprice(this.item);
 				
 				this.item_makes = response.body.item_makes;
 
-				
-
+			
 			    this.showItem = true;
 				
 			  }, response => {

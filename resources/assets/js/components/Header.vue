@@ -8,9 +8,9 @@
 
 				<div>
 					<ul class='right-header'>
-						<li @click='centerDialogVisible = true' ><span class="glyphicon glyphicon-search"></span> | </li>
+						<li @click="$store.commit('changecenterDialogVisible',!$store.state.centerDialogVisible)" ><span class="glyphicon glyphicon-search"></span> | </li>
 						<router-link to='/login' tag='li' v-if="!loginStatus">Log In or Register | </router-link>
-						<li v-if="loginStatus" @click="logOut()"> Log Out  | </li>
+						<li v-if="loginStatus" @click="logOut()"> Log Out | </li>
 
 						<li v-if="loginStatus" style='cursor:default'>Hello,{{name}}  | </li>
 						<li v-if="loginStatus" @click='customerInfo()'>My Account  | </li>
@@ -27,7 +27,7 @@
 
 			<el-dialog
 			  title=""
-			  :visible.sync="centerDialogVisible"
+			  :visible.sync="$store.state.centerDialogVisible"
 			  width="50%"
 			  center
 			  >
@@ -82,7 +82,7 @@
 	export default{
 		data(){
 			return {
-				centerDialogVisible:false,
+				
 				labelPosition: 'left',
 				storage:window.localStorage,
 				userID:0,
@@ -197,8 +197,16 @@
 		},
 		
 		computed:{
+			centerDialogVisible:{
+				get:function () {
+					return this.$store.state.centerDialogVisible;	
+				},
+				set:function(){
+
+				}
+				
 			
-			
+			},
 			loginStatus:{
 				get:function() {
 					return this.$store.state.loginStatus;

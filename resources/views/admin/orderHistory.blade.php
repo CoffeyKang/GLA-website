@@ -53,12 +53,12 @@
                                     <td>{{$item->item}}</td>
                                     <td>{{$item->qty}}</td>
                                     <td>$ {{number_format($item->price,2)}}</td>
-                                    
+{{--                                     
                                     @if ($item->itemInfo()->first())
                                         <td>{{$item->itemInfo()->first()->allMakes()->all_makes}}</td>
-                                    @else
+                                    @else --}}
                                         <td>{{$item->make}}</td>
-                                    @endif
+                                    {{-- @endif --}}
                                 </tr>
                             @endforeach
                         </tbody>

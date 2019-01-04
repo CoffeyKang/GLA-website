@@ -51,7 +51,7 @@ export const myMixin = {
       var u = JSON.parse(this.storage.getItem('user'));
       if (u) {
         var type = JSON.parse(this.storage.getItem('user')).level;
-      }else{
+      }else {
         var type = 99;
       }
       if (item.onhand < 1 && type != 2) {
@@ -91,15 +91,27 @@ export const myMixin = {
             message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart')
           });
         }else {
-          this.$confirm('', 'Congratulation', {
+          this.$confirm('', 'Congratulations', {
             confirmButtonText: 'Continue Shopping',
             cancelButtonText: 'Go to Shopping Cart',
             type: 'success',
             center: true
           }).then(() => {
-            this.$router.push({ path: '/allProducts' });
+
+            if (this.ifDealer()) {
+              console.log('dealer');
+              console.log(1);
+              this.$store.commit('changecenterDialogVisible', true);
+              console.log(1);
+              console.log(this.$store.state.centerDialogVisible);
+            }else {
+              this.$router.push({ path: '/allProducts' });
+            }
           }).catch(() => {
-            this.$router.push({ name: 'ShoppingCart' });
+            if (this.ifDealer()) {
+            }else {
+              this.$router.push({ name: 'ShoppingCart' });
+            }
           });
         }
       }

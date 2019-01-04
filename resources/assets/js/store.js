@@ -8,7 +8,8 @@ const searchModule = {
     item: 'thisIsItem',
     desc: 'zheshidewc',
     make: 'make',
-    year: 1970
+    year: 1970,
+    
   },
   mutations: {
     setItem(state, item) {
@@ -22,7 +23,8 @@ const searchModule = {
     },
     setYear(state, year) {
       state.year = year;
-    }
+    },
+    
   }
 };
 
@@ -38,9 +40,14 @@ export const store = new Vuex.Store({
     US_states: country.US_states,
     exchange: 1.35,
     usdPrice: false,
+    centerDialogVisible: false,
   },
 
   mutations: {
+
+    changecenterDialogVisible(state, a) {
+      state.centerDialogVisible = a;
+    },
     carts_number(state, number) {
       state.carts_total = number;
     },
@@ -61,8 +68,7 @@ export const store = new Vuex.Store({
     },
     usdPrice(state, usdPrice) {
       state.usdPrice = usdPrice;
-    },
-   
+    }
 
   },
   modules: {
