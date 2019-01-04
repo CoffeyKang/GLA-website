@@ -16,6 +16,8 @@ use App\DealerDetails;
 use App\Temp_SO_dealer;
 use App\DealerAddressBook;
 use App\DealerShipAddress;
+use Mail;
+use App\Mail\DealerSO;
 
 class DealerController extends Controller
 {
@@ -262,7 +264,8 @@ class DealerController extends Controller
             }else{
 
             }
-
+            dealerSOSendemail($somast);
+            
             return response()->json(['status'=>"ok",'sono'=>$sono],200);
         }else{
             return response()->json(['status'=>"dealerNotFound"],401);

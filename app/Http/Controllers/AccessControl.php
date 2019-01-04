@@ -8,7 +8,7 @@ use App\User;
 use App\UserInfo;
 use Validator;
 use Illuminate\Support\Facades\Log;
-
+use App\DealerHistory;
 use App\Inventory_img;
 use App\Item_make;
 use App\FeatureProduct;
@@ -424,8 +424,8 @@ class AccessControl extends Controller
     }
     /** test page */
     public function kang(){
-       
-        
+        $somast = DealerHistory::where('order_num','D1009716')->first();
+        dealerSOSendemail($somast);
             
         // $user = User::find(3)
     //     $arr = scandir('./images/products/large');

@@ -9,7 +9,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Item</th>
-                <th scope="col">Capatible Make</th>
+                <th scope="col">Compatible Make</th>
                 <th scope="col">Sold</th>
             </tr>
         </thead>

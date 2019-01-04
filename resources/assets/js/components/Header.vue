@@ -221,7 +221,7 @@
 					this.username = this.userInfo.custno;
 				}
 
-				return this.username;
+				return this.username.toUpperCase();
 			}
 
 

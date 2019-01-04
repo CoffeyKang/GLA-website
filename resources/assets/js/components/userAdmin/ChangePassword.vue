@@ -58,7 +58,7 @@ export default {
             rules:{
                 oldPass:[
                     { required: true, message: 'Password is required.', trigger: 'blur', max:99 },
-                    { min:8, message:'Minimal lenght is 8',trigger: 'blur'}
+                    { min:2, message:'Minimal lenght is 2',trigger: 'blur'}
                 ],
                 newPass:[
                     { required: true, message: 'New Password is required.', trigger: 'blur', max:99 },

@@ -393,18 +393,19 @@ class InventoryController extends Controller
         foreach ($special as $item) {
             $img = $item->itemImg;
             $item->onsale = $item->onsale();
-            if ($img) {
-                $item->img_path = $item->itemImg->img_path;
-            }else{
-               $item->img_path = '/images/default_sm.jpg'; 
-            }
+            $item->itemFullInfo();
+            // if ($img) {
+            //     $item->img_path = $item->itemImg->img_path;
+            // }else{
+            //    $item->img_path = '/images/default_sm.jpg'; 
+            // }
             
             
-            if (file_exists('.'.$item->img_path)) {
+            // if (file_exists('.'.$item->img_path)) {
                  
-            }else{
-            	$item->img_path = '/images/default_sm.jpg';
-            }
+            // }else{
+            // 	$item->img_path = '/images/default_sm.jpg';
+            // }
             
         }
         
@@ -1289,6 +1290,8 @@ class InventoryController extends Controller
             $oneOrder = $history->sotran()->get();
 
             foreach ($oneOrder as $item) {
+
+
                 $iteminfo = $item->itemInfo()->first()->allMakes();
                 $item->make = $iteminfo->all_makes;
 

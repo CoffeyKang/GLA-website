@@ -79,7 +79,7 @@
 					</div>
 
 					<div class="car_make_name text-center">
-						<span>MAKE: {{ item.make }}</span>
+						<span>MAKE: {{ item.make.toUpperCase() }}</span>
 					</div>
 
 					<div class="car_make_name text-center" v-if="item.onsale && disc">

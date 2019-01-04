@@ -545,7 +545,7 @@ class AdminController extends Controller
 
     public function addNewnewProduct(Request $request){
         $this->validate($request, [
-            'item'=>'required|exists:inventory|unique:new_items',
+            'item'=>'required|exists:mysql2.is.inventory|unique:new_items',
         ]);
         $fitems = NewProducts::all();
         

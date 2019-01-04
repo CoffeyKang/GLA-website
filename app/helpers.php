@@ -395,6 +395,15 @@ use App\Temp_SO;
     }
 
 
+    function dealerSOSendemail($dealerHistory){
+        
+        $dealer = $dealerHistory->dealer;
+
+        Mail::to("coffeykang@gmail.com")->send(new DealerSO($dealer,$dealerHistory));
+        
+    }
+
+
 
     
  
