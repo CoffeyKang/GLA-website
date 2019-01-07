@@ -28,8 +28,8 @@
 					<el-form-item label="Email" prop='email'>
 						<el-input v-model="email.email" placeholder="Email"></el-input>
 					</el-form-item>
-					<el-form-item label="Subject" prop='subject'>
-						<el-input v-model="email.subject" placeholder="Subject"></el-input>
+					<el-form-item label="Subject" prop='subject' class='hide'>
+						<el-input v-model="email.subject"></el-input>
 					</el-form-item>
 
 					<el-form-item label="Message" prop='messege'>
@@ -66,7 +66,7 @@
 				item_makes:[],
 				id:this.$route.params.item,
 				email:{
-					
+					subject:'Shipping Inquiry'
 				},
 				rules:{
 					name:[

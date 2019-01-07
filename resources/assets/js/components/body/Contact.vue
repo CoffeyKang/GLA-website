@@ -99,10 +99,19 @@
 					<el-form-item label="Email" prop='email'>
 						<el-input v-model="email.email" placeholder="Email"></el-input>
 					</el-form-item>
-					<el-form-item label="Subject" prop='subject'>
+					<!-- <el-form-item label="Subject" prop='subject'>
 						<el-input v-model="email.subject" placeholder="Subject"></el-input>
+					</el-form-item> -->
+					<el-form-item label="Subject" prop='subject'>
+						<el-select v-model="email.subject" placeholder="Subject">
+							<el-option
+							v-for="Subject in ['Parts Inquiry','Shipping Inquiry','Sales Inquiry','Other Inquiry']"
+							:key="Subject"
+							:label="Subject"
+							:value="Subject">
+							</el-option>
+						</el-select>
 					</el-form-item>
-
 					<el-form-item label="Message" prop='messege'>
 						<el-input
 							type="textarea"

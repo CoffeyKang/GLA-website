@@ -13,3 +13,8 @@
     text-align:right;
     
 }
+
+.el-message-box__title{
+    text-align: center;
+    padding: 0 30px;
+}

@@ -150,7 +150,7 @@
 					// 	message: h('b', { style: 'color: teal'}, 'The item has been already put into shopping cart<button>123<button>')
 					// });
 
-					this.$confirm('', 'Congratulations', {
+					this.$confirm('', 'Your item(s) has been successfully added to shopping cart.', {
 						confirmButtonText: 'Continue Shopping',
 						cancelButtonText: 'Go to Shopping Cart',
 						type: 'success',
