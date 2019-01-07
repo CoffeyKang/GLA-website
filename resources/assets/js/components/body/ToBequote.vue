@@ -126,7 +126,7 @@
                 </tr>
                
         </table>
-        <div class="text-right" style='margin-bottom:10px;'>
+        <div class="text-right" style='margin-bottom:10px; margin-top:30px'>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
             <el-button type='primary' @click='$router.push({path:"/allProducts"})'>Continue Shopping</el-button>        
         </div>  

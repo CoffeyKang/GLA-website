@@ -20,6 +20,9 @@ use App\SOTRAN;
 use App\Catalog;
 use App\Inventory;
 use App\Billing;
+use App\Dealer;
+use App\DealerEmail;
+
 use DB;
 use Excel;
 use Mail;
@@ -28,6 +31,7 @@ use App\Mail\SalesOrder;
 use App\Mail\LeaveMessege;
 use App\Mail\DealerMessege;
 use App\Mail\InquiryOnline;
+
 
 
 
@@ -424,8 +428,19 @@ class AccessControl extends Controller
     }
     /** test page */
     public function kang(){
-        $somast = DealerHistory::where('order_num','D1009716')->first();
-        dealerSOSendemail($somast);
+
+        echo substr("2020",-2);
+        // $D = Dealer::all();
+        
+        // foreach ($D as $a) {
+        //     $e = DealerEmail::where('account',$a->account)->first();
+        //     if ($e===null) {
+        //         echo $a->account,"<br>";
+        //     }else{
+        //         $a->email = $e->email_address;
+        //         $a->save();
+        //     }
+        // }
             
         // $user = User::find(3)
     //     $arr = scandir('./images/products/large');

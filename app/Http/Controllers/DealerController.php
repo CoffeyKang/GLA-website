@@ -184,51 +184,53 @@ class DealerController extends Controller
 
             $somast->subtotal = round($subtotal,2);
 
-            switch ($dealerInfo->terr)
-            {
-                case "AB":
-                    $tax = 5;
-                    break;  
-                case "BC":
-                    $tax = 12;
-                    break;
-                case "MB":
-                    $tax = 13;
-                    break;  
-                case "NB":
-                    $tax = 15;
-                    break;
-                case "NL":
-                    $tax = 5;
-                    break; 
-                case "NT":
-                    $tax = 5;
-                    break; 
-                case "NS":
-                    $tax = 15;
-                    break;
-                case "NU":
-                    $tax = 5;
-                    break;
-                case "ON":
-                    $tax = 13;
-                    break;  
-                case "PE":
-                    $tax = 15;
-                    break;
-                case "QC":
-                    $tax = 14.975;
-                    break;
-                case "SK":
-                    $tax = 11;
-                    break;  
-                case "YT":
-                    $tax = 5;
-                    break;
+            // switch ($dealerInfo->terr)
+            // {
+            //     case "AB":
+            //         $tax = 5;
+            //         break;  
+            //     case "BC":
+            //         $tax = 5;
+            //         break;
+            //     case "MB":
+            //         $tax = 5;
+            //         break;  
+            //     case "NB":
+            //         $tax = 15;
+            //         break;
+            //     case "NL":
+            //         $tax = 15;
+            //         break; 
+            //     case "NT":
+            //         $tax = 5;
+            //         break; 
+            //     case "NS":
+            //         $tax = 15;
+            //         break;
+            //     case "NU":
+            //         $tax = 5;
+            //         break;
+            //     case "ON":
+            //         $tax = 13;
+            //         break;  
+            //     case "PE":
+            //         $tax = 15;
+            //         break;
+            //     case "QC":
+            //         $tax = 15;
+            //         break;
+            //     case "SK":
+            //         $tax = 5;
+            //         break;  
+            //     case "YT":
+            //         $tax = 5;
+            //         break;
                 
-                default:
-                    $tax = 0;
-            }
+            //     default:
+            //         $tax = 0;
+            // }
+
+            $tax = $dealerInfo->tax?:0;
 
             $somast->tax = round(($subtotal * $tax / 100),2);
 

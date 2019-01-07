@@ -736,6 +736,13 @@ export default {
                     }
                     if (this.total_shipping/this.subtotal>=0.3) {
                         this.shippingRate = "TBD";
+                        var billing = JSON.parse(this.storage.getItem('billing')).province;
+                        var subtotal_ = this.subtotal;
+                        
+                        this.$http.get('/api/taxRate/'+billing).then(response=>{
+                            this.hst = (subtotal_ * response.data.taxRate).toFixed(2) ;
+                        });
+                        
                         this.errorMessage = 'Due to the size of item(s) you ordered, we need to manually quote you the best possible price.  Please click “Get a Quote” and we will quote you the best shipping option.';
                     }else{
 
@@ -885,6 +892,12 @@ export default {
                     if (this.total_shipping/this.subtotal>=0.3) {
                         console.log('too expensive');
                         this.shippingRate = "TBD";
+                        var billing = JSON.parse(this.storage.getItem('billing')).province;
+                        var subtotal_ = this.subtotal;
+                        
+                        this.$http.get('/api/taxRate/'+billing).then(response=>{
+                            this.hst = (subtotal_ * response.data.taxRate).toFixed(2) ;
+                        });
                         this.errorMessage = 'Please get a quote.';
                         
                     }else{

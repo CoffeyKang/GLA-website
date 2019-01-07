@@ -341,7 +341,7 @@ use App\Temp_SO;
         $pickup_address_line1_label = $xml->createTextNode($shippingArray['address_line1']);
         $pickup_city_label = $xml->createTextNode($shippingArray['city']);
         $pickup_name_label = $xml->createTextNode($shippingArray['name']);
-        $pickup_postal_code_label = $xml->createTextNode($shippingArray['postal_code']);
+        $pickup_postal_code_label = $xml->createTextNode(str_replace(' ','',$shippingArray['postal_code']));
         $pickup_province_label = $xml->createTextNode($shippingArray['province']);
         $reported_weight_unit_label = $xml->createTextNode("L");// l pound, K kilogram
         $service_type_label = $xml->createTextNode("DD"); // api pdf document page80 DD loomis ground

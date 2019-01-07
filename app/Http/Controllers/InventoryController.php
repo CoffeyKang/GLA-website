@@ -1956,7 +1956,7 @@ class InventoryController extends Controller
             $errors = $e;
 
 
-            return $errors;
+            return response()->json(['errors'=>$e]);
         }
     }
 
@@ -2078,12 +2078,10 @@ class InventoryController extends Controller
             * DECLINED, 314 - to missing or invalid payment information
             * etc.
             */  
-
             
             $errors = $e;
 
-
-            return $errors;
+            return response()->json(['errors'=>$errors],200);
         }
             
         }else{
@@ -2600,106 +2598,6 @@ class InventoryController extends Controller
 
         return response()->json(['taxRate'=>$taxR],200);
     }
-
-    /** test area */
-    public function test(){
-        createShippingXML(18,22);
-                
-
-        
-
-
-        $myXml = file_get_contents("shipping/loomis_18.xml");
-
-        
-
-        $client = new \GuzzleHttp\Client([
-            
-        ]);
-        
-        $response = $client->POST('https://webservice.loomis-express.com/LShip/services/USSRatingService?wsdl',[
-        'body'=>$myXml,
-        ]);
-
-        
-        
-        $res = $response->getBody();
-
-        $r = new \SimpleXMLElement($res);
-
-        $namespaces = $r->getNamespaces(true);
-
-            $r->asXML('230.xml');
-
-        $result = $r->children($namespaces['soapenv'])
-                    ->Body
-                    ->children($namespaces['ns'])
-                    ->getRatesResponse
-                    ->children($namespaces['ns'])
-                    ->return
-                    ->children($namespaces['ax29'])
-                    ->getRatesResult
-                    ->children($namespaces['ax211'])
-                    ->shipment;
-
-        
-        $shipmentNumDetails = $result->shipment_info_num;
-        /** time */
-        $takedays =  $result->estimated_delivery_date;
-
-        $quote = $result->shipment_info_num;
-
-        foreach ($quote as $i) {
-            print_r($i);
-            
-            echo '<br>';
-            if ($i->name =='TOTAL_CHARGE') {
-                echo $i->name, '111111111';
-            }else{
-                echo $i->name, '5555555555';
-            }
-        }
-        
-        dd($result);
-
-        dd(1);
-        
-        
-
-        $quotes = $rx->Envelope;
-        
-        
-        var_dump($quotes);
-            
-        dd($quotes);
-        
-
-            
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-            
-    }
+    
+   
 }

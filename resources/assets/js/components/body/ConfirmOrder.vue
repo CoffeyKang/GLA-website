@@ -409,7 +409,7 @@ export default {
                             this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
                         }else{
                             this.paymentError = true;
-
+                            console.log(response);
                             this.error='Declined please try again';
                         }
                     });
