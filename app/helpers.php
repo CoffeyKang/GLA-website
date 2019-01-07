@@ -8,6 +8,7 @@ use App\Mail\registration;
 use App\Mail\SalesOrder;
 use App\Mail\FinishQuotation;
 use App\Temp_SO;
+use App\Dealer;
 
     function InventoryExcelFile(){
         // Generate and return the spreadsheet price 
@@ -399,7 +400,13 @@ use App\Temp_SO;
         
         $dealer = $dealerHistory->dealer;
 
-        Mail::to("coffeykang@gmail.com")->send(new DealerSO($dealer,$dealerHistory));
+        $dealerEmail = Dealer::where('account',$dealer)->first();
+        if ($dealerEmail===null) {
+            $emailAddress = "coffeykang@gmail.com";
+        }else{
+            $emailAddress = $dealerEmail->email?:'coffeykang@gmail.com';
+        }
+        Mail::to("coffeykang@gmail.com")->cc("$emailAddress")->send(new DealerSO($dealer,$dealerHistory));
         
     }
 

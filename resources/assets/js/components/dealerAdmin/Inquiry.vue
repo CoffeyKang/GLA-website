@@ -81,6 +81,7 @@ export default {
                         this.$http.post('/api/inquiry',{
                             subject:this.email.subject,
                             user:this.email.user,
+                            custno:JSON.parse(window.localStorage.getItem('userInfo')).custno,
                             messege:this.email.messege,
                             type:"dealer"
                         }).then(response=>{

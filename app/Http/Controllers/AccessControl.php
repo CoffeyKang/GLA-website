@@ -398,10 +398,28 @@ class AccessControl extends Controller
 
         if ($request->type=='customer') {
 
-            Mail::to('info@goldenleafautomotive.com')->send(new LeaveMessege($email));
+            $custno = $request->custno;
+            $dealer = User::where('id',$custno)->first();
+
+            if ($customer===null) {
+                $emailAddress = 'info@goldenleafautomotive.com';
+            }else{
+                $emailAddress = $customer->email?:'info@goldenleafautomotive.com';
+            }
+
+            Mail::to('info@goldenleafautomotive.com')->cc("$emailAddress")->send(new LeaveMessege($email));
             # code...
         }else{
-            Mail::to('info@goldenleafautomotive.com')->send(new DealerMessege($email));
+            $custno = $request->custno;
+            $dealer = Dealer::where('account',$custno)->first();
+
+            if ($dealer===null) {
+                $emailAddress = 'info@goldenleafautomotive.com';
+            }else{
+                $emailAddress = $dealer->email?:'info@goldenleafautomotive.com';
+            }
+            Mail::to('info@goldenleafautomotive.com')
+            ->cc("$emailAddress")->send(new DealerMessege($email));
         }
 
 

@@ -1770,7 +1770,7 @@ class InventoryController extends Controller
 
         $month = $request->card['month'];
 
-        $year = substr($request->card['year'],-2);
+        $year = $request->card['year'];
 
         $cvv = $request->card['cvv'];
 
@@ -1968,7 +1968,7 @@ class InventoryController extends Controller
 
         $month = $request->card['month'];
 
-        $year = substr($request->card['year'],-2);
+        $year = $request->card['year'];
 
         $cvv = $request->card['cvv'];
 
@@ -2580,6 +2580,7 @@ class InventoryController extends Controller
             $item->delete();
         }
 
+        soSendemail($somast);
 
         return response()->json(['sono'=>$somast->order_num],200);
     }

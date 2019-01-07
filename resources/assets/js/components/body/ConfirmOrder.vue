@@ -76,8 +76,8 @@
             <div class="col-xs-12 payments">
                 <fieldset class='col-xs-12' style='padding:0'>
                     <legend>Payment Options</legend>
-                    <img src="/images/card.png" alt=""  @click='opt_card()'>
-                    <img src="/images/paypal.png" alt="" @click='opt_paypal()'>
+                    <img src="/images/card.png" alt=""  class='card_opt choose' @click='opt_card()'>
+                    <img src="/images/paypal.png" alt="" class='paypal_opt' @click='opt_paypal()'>
 
                 
                 </fieldset>
@@ -109,12 +109,11 @@
                         <div class="controls">
                             <div class="row">
                                 <div class="col-xs-5 col-sm-5">
-                                    <input type="number"  class="form-control" id ='cardMonth' v-model='card.month' autocomplete="off" minlength="2" maxlength="2"  placeholder="MM" required >
-                                    
+                                    <input type="number"  class="form-control" id ='cardMonth' v-model='card.month' autocomplete="off" max=12 min=1   placeholder="MM" required >
                                 </div>
                                 <div class="col-xs-1 col-sm-1" style='font-size:32px; line-height:36px;'> / </div>
                                 <div class="col-xs-5 col-sm-6">
-                                    <input type="number" id ='cardYear'  class="form-control" v-model='card.year' autocomplete="off" minlength="4" maxlength="4"  placeholder="Year" required >
+                                    <input type="number" id ='cardYear'  class="form-control" v-model='card.year' autocomplete="off" max=99 min=0  placeholder="Year" required >
                                 </div>
                             </div>
                         </div>
@@ -198,8 +197,10 @@
                     </div>
 
                     <div class=' summary_list text-center' v-if="opt_card_status">
-                        <el-checkbox v-model="accept">Accept our shipping policy</el-checkbox>
+                        
+                        <el-checkbox v-model="accept" >By checking this box, <br>you agree to accept our shipping policy.</el-checkbox>
                     </div>
+
                     <div class=' summary_list text-center' v-if="opt_card_status">
                         
                         <button class='mybtn btn btn-success' @click="placeOrder()" :disabled='!accept'>Place Order</button>
@@ -353,24 +354,32 @@ export default {
         methods:{
             placeOrder(){
                 this.loading = 1;
-                if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<4) {
+                console.log(this.card);
+                if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<2) {
                     if (!this.card.name) {
                         $('#cardName').css('border','1px solid red');
-                    }else{}
+                    }else{
+                        $('#cardName').css('border','1px solid green');
+                    }
                     
                     if (!this.card.card || this.card.card.length<16){
                         $('#cardNumber').css('border','1px solid red');
                     }else{
+                        $('#cardNumber').css('border','1px solid green');
                     }
 
-                    if (!this.card.month || this.card.card.month<2){
+                    if (!this.card.month || this.card.month.length !=2 || this.card.month>12 ){
+                        console.log("month");
                         $('#cardMonth').css('border','1px solid red');
                     }else{
+                        $('#cardMonth').css('border','1px solid green');
                     }
 
-                    if (!this.card.year || this.card.card.year<4){
+                    if (!this.card.year || this.card.year.length !=2   ){
+                        console.log("year");
                         $('#cardYear').css('border','1px solid red');
                     }else{
+                        $('#cardYear').css('border','1px solid green');
                     }
 
                     if (!this.card.cvv){
@@ -381,6 +390,8 @@ export default {
                     }
                     this.loading = 0;
                     return false;
+                    
+                    
                 }else{
                     
                     this.$http.post('/api/finishOrder',
@@ -456,10 +467,14 @@ export default {
             opt_paypal(){
                 this.opt_paypal_status = true;
                 this.opt_card_status = false;
+                $('.card_opt').removeClass('choose');
+                $('.paypal_opt').addClass('choose');
             },
             opt_card(){
                 this.opt_card_status = true;
                 this.opt_paypal_status = false;
+                $('.paypal_opt').removeClass('choose');
+                $('.card_opt').addClass('choose');
             }
         },
         watch:{
@@ -546,7 +561,7 @@ export default {
 
     .summary{
         border:1px solid black;
-        height: 500px;
+        min-height: 500px;
     }
     .summary_details{
         padding: 15px;
@@ -634,6 +649,12 @@ export default {
         height: 100px;
         background-color: red;
     }
+
+    .choose{
+        border:green solid 2px;
+        
+    }
+    
 
     @media screen and (max-width: 768px){
         .mobile_total{

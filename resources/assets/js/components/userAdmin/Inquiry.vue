@@ -84,7 +84,8 @@ export default {
                             subject:this.email.subject,
                             user:this.email.user,
                             messege:this.email.messege,
-                            type:'customer'
+                            type:'customer',
+                            custno:JSON.parse(window.localStorage.getItem('user')).id,
                         }).then(response=>{
                             if (response.data.status) {
                                 this.success = true;

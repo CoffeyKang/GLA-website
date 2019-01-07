@@ -1060,7 +1060,7 @@ export default {
 
     .summary{
         border:1px solid black;
-        height: 500px;
+        min-height: 500px;
     }
     .summary_details{
         padding: 15px;
