@@ -99,11 +99,7 @@ export const myMixin = {
           }).then(() => {
 
             if (this.ifDealer()) {
-              console.log('dealer');
-              console.log(1);
               this.$store.commit('changecenterDialogVisible', true);
-              console.log(1);
-              console.log(this.$store.state.centerDialogVisible);
             }else {
               this.$router.push({ path: '/allProducts' });
             }

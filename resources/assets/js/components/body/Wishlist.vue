@@ -156,11 +156,18 @@
 						type: 'success',
 						center: true
 						}).then(() => {
-							this.$router.push({path:'/allProducts'});
-						}).catch(() => {
-							this.$router.push({name:'ShoppingCart'});
+							if (this.ifDealer()) {
+								this.$store.commit('changecenterDialogVisible', true);
+								}else {
+								this.$router.push({ path: '/allProducts' });
+								}
+							}).catch(() => {
+								if (this.ifDealer()) {
+								}else {
+								this.$router.push({ name: 'ShoppingCart' });
+								}
+							});
 							
-					});
 
 					this.removeFromWhishlist(item);
 

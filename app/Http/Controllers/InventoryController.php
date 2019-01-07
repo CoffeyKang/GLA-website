@@ -2299,7 +2299,7 @@ class InventoryController extends Controller
 
     public function searchSpecial(Request $request){
 
-        
+        $request->item = strtoupper($request->item);
         $mycurrentPage = $request->page?$request->page:1;
 
         Paginator::currentPageResolver(function () use ($mycurrentPage) {
@@ -2311,18 +2311,17 @@ class InventoryController extends Controller
 
         foreach ($special as $item) {
             if ($item['onhand'] - $item['aloc'] > $item['orderpt']) {
-                array_push($arr,$item['item']);
+                array_push($arr, $item['item']);
             }else{
                 
             }
         }  
-
+        
         $special = Inventory::whereIn('item',$arr);
         
         if ($request->item) {
 
-            $request->item = strtoupper($request->item);
-
+            
             if (in_array($request->item,$arr)) {
                 
                 $special = $special->where('item',$request->item)->paginate(20);
@@ -2404,7 +2403,6 @@ class InventoryController extends Controller
 
     public function searchNewItem(Request $request){
 
-        
         $mycurrentPage = $request->page?$request->page:1;
 
         Paginator::currentPageResolver(function () use ($mycurrentPage) {
@@ -2412,14 +2410,17 @@ class InventoryController extends Controller
         });
         $special = newProducts::all()->toArray();
 
+
+        
+
         $arr = [];
 
         foreach ($special as $item) {
             
-            array_push($arr,$item['item']);
+            array_push($arr,strtoupper($item['item']));
                 
         }  
-
+        
         $special = Inventory::whereIn('item',$arr);
         
         if ($request->item) {
@@ -2431,19 +2432,21 @@ class InventoryController extends Controller
                 $special = $special->where('item',$request->item)->paginate(20);
 
                 foreach ($special as $item) {
-                    $img = $item->itemImg;
-                    if ($img) {
-                        $item->img_path = $item->itemImg->img_path;
-                    }else{
-                    $item->img_path = '/images/default_sm.jpg'; 
-                    }
+                    // $img = $item->itemImg;
+                    // if ($img) {
+                    //     $item->img_path = $item->itemImg->img_path;
+                    // }else{
+                    // $item->img_path = '/images/default_sm.jpg'; 
+                    // }
                     
                     
-                    if (file_exists('.'.$item->img_path)) {
+                    // if (file_exists('.'.$item->img_path)) {
                         
-                    }else{
-                        $item->img_path = '/images/default_sm.jpg';
-                    }
+                    // }else{
+                    //     $item->img_path = '/images/default_sm.jpg';
+                    // }
+
+                    $item->itemFullInfo();
                     
                 }
                 

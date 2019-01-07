@@ -132,6 +132,31 @@
                     @endforeach
                 </table>
                 <br>
+                <table style='font-size:12px;' width="600px;" class='p530 text-center'>
+                
+                    <tr>
+                        <td class='p300 text-right'>
+                
+                        </td>
+                        <td>
+                            <table width="600px;" class='p300 text-right'>
+                                <tr>
+                                    <td>
+                                        Subtotal <br> Shipping <br> HST/GST/QST <br>
+                                        <b>Total</b> <br><br>
+                                    </td>
+                                    <td>
+                                        ${{number_format($dealerHistory->subtotal,2)}}<br> ${{number_format($dealerHistory->shipping,2)}}
+                                        <br> ${{number_format($dealerHistory->tax,2)}}
+                                        <br>
+                                        <b>${{$dealerHistory->subtotal + $dealerHistory->shipping + $dealerHistory->tax}}</b><br><br>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                
+                </table>
             </span>
             </td>
         </tr>

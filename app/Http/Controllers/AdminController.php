@@ -552,7 +552,7 @@ class AdminController extends Controller
 
         $item = new NewProducts;
 
-        $item->item = $request->item;
+        $item->item = strtoupper($request->item);
 
         $item->save();
         

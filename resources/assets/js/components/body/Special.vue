@@ -199,6 +199,8 @@
 					desc:this.search.desc,
 					page:this.page,
 				}).then(response => {
+					
+
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
@@ -346,13 +348,14 @@
 
 			updateSearch(value){
 				this.loading=1,
-				this.$http.post('/api/searchNewItem',{
+				this.$http.post('/api/searchSpecial',{
 					item:value.item, 
 					make:value.make,
 					year:value.year,
 					desc:value.desc,
 					page:1
 				}).then(response => {
+					
 			    this.lists = response.data.special.data;
 				this.data = response.data.special;
 				this.lists.forEach(element => {
