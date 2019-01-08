@@ -12,7 +12,7 @@ use App\Dealer;
 
     function InventoryExcelFile(){
         // Generate and return the spreadsheet price 
-        Excel::create("InventoryExcelPrice1", function($excel){
+        Excel::create("InventoryExcelPrice", function($excel){
             // Set the spreadsheet title, creator, and description
             $excel->setTitle('Inventory Report');
             $excel->setCreator('Visual Elements Image Studio Inc')->setCompany('Golden Leaf Automotive Inc.');
@@ -29,10 +29,10 @@ use App\Dealer;
                         'text-transform'=> 'uppercase'
                     ));
                 });
-            })->store('XLS', public_path('Excel'));
+            })->store('XLS', './Excel/1/');
         });
 
-        Excel::create("InventoryExcelPrice2", function($excel){
+        Excel::create("InventoryExcelPrice", function($excel){
             // Set the spreadsheet title, creator, and description
             $excel->setTitle('Inventory Report');
             $excel->setCreator('Visual Elements Image Studio Inc')->setCompany('Golden Leaf Automotive Inc.');
@@ -50,10 +50,10 @@ use App\Dealer;
                         'text-transform'=> 'uppercase'
                     ));
                 });
-            })->store('XLS', public_path('Excel'));
+            })->store('XLS', './Excel/2/');
         });
 
-        Excel::create("InventoryExcelPrice3", function($excel){
+        Excel::create("InventoryExcelPrice", function($excel){
             // Set the spreadsheet title, creator, and description
             $excel->setTitle('Inventory Report');
             $excel->setCreator('Visual Elements Image Studio Inc')->setCompany('Golden Leaf Automotive Inc.');
@@ -71,10 +71,10 @@ use App\Dealer;
                         'text-transform'=> 'uppercase'
                     ));
                 });
-            })->store('XLS', public_path('Excel'));
+            })->store('XLS', './Excel/3/');
         });
 
-        Excel::create("InventoryExcelPrice4", function($excel){
+        Excel::create("InventoryExcelPrice", function($excel){
             // Set the spreadsheet title, creator, and description
             $excel->setTitle('Inventory Report');
             $excel->setCreator('Visual Elements Image Studio Inc')->setCompany('Golden Leaf Automotive Inc.');
@@ -91,7 +91,7 @@ use App\Dealer;
                         'text-transform'=> 'uppercase'
                     ));
                 });
-            })->store('XLS', public_path('Excel'));
+            })->store('XLS', './Excel/4/');
         });  
     }
 

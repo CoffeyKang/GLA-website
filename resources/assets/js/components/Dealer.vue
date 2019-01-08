@@ -185,7 +185,7 @@ export default {
                 price=1;
             }else{}
 
-            window.open('/Excel/'+price+ '/InventoryExcelPrice.xls');
+            window.open('https://is.goldenleafautomotive.com/Excel/'+price+ '/InventoryExcelPrice.xls');
         }
         
     }
