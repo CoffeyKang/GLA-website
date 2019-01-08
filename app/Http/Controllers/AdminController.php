@@ -93,8 +93,8 @@ class AdminController extends Controller
 
 
     public function customerList(){
-
-        $customerList = UserInfo::orderBy('m_id','asc')->paginate(18);
+        $array = User::where('status',true)->select('id')->get()->toArray();
+        $customerList = UserInfo::orderBy('m_id','asc')->whereIn('m_id',$array)->paginate(18);
 
         return view('admin.customerList',compact('customerList'));
     }
@@ -152,11 +152,11 @@ class AdminController extends Controller
     }
 
     public function dealerList(){
-        $dealers = Dealer::orderBy('account','asc')->paginate(18);
+        $dealers = Dealer::orderBy('account','asc')->where('status',true)->paginate(18);
         
         $quickSearch = [];
         foreach(range('A','Z') as $i){
-            $quickSearch[$i] = count(Dealer::orderBy('account','asc')->where('account','like',$i.'%')->get());
+            $quickSearch[$i] = count(Dealer::orderBy('account','asc')->where('status',true)->where('account','like',$i.'%')->get());
         }
 
         return view('admin.dealerList',compact('dealers', 'quickSearch'));
@@ -167,10 +167,10 @@ class AdminController extends Controller
 
         $quickSearch = [];
         foreach(range('A','Z') as $i){
-            $quickSearch[$i] = count(Dealer::orderBy('account','asc')->where('account','like',$i.'%')->get());
+            $quickSearch[$i] = count(Dealer::orderBy('account','asc')->where('status',true)->where('account','like',$i.'%')->get());
         }
 
-        $dealers = Dealer::orderBy('account','asc')->where('account','like',$a.'%')->paginate(10);
+        $dealers = Dealer::orderBy('account','asc')->where('status',true)->where('account','like',$a.'%')->paginate(10);
         return view('admin.dealerList',compact('dealers','quickSearch'));
     }
 
@@ -198,41 +198,31 @@ class AdminController extends Controller
         
         $this->validate($request,[
             'account'=>'required|unique:dealer_main|max:8',
-            'name'=>'required|max:200',
-            'password'=>'required|confirmed|min:6',
-            'address'=>'required|max:200',
-            'city'=>'required|max:200',
-            'province'=>'required|max:200',
-            'postalcode'=>'required|max:10',
-            'country'=>'required|max:200',
-            'pplan'=>'required|max:200',
-            'email_address'=>'required|max:200',
+            'password'=>'required|confirmed',
+            'email'=>'required|max:200',
         ]);
+        
+        $deal_is = DealerInfo::where('custno',$request->account)->first();
 
+        if ($deal_is===null) {
+            return redirect()->back()->withErrors("The $request->account does not exsits in Inventory System.");
+        }else{
+            $company = $deal_is->company;
+        }
         $d = new Dealer;
 
-        $d->account = $request->account;
+        $d->account = $deal_is->custno;
 
-        $d->name = $request->name;
+        $d->email = $request->email;
+
+        $d->name = $company;
 
         $d->pass = $request->password;
 
-        
-
-        $d->dealerInfo()->create([
-            'name'=>$request->name,
-            'address'=>$request->address,
-            'city'=>$request->city,
-            'province'=>$request->province,
-            'postalcode'=>$request->postalcode,
-            'country'=>$request->country,
-            'pplan'=>$request->pplan,
-            'email_address'=>$request->email_address,
-        ]);
-
         $d->save();
 
-        return redirect()->back()->with('status','Create new dealer successfully.');
+
+        return redirect()->back()->with('status',"$request->account created.");
 
     }
 
@@ -579,6 +569,10 @@ class AdminController extends Controller
         ]);
         $dealer = Dealer::where('account',$request->account)->first();
         
+        if (!$dealer->status) {
+            return redirect()->back()->with('status',"Dealer is deleted.");
+        }
+        
         $dealerHistory = $dealer->orderHis()->orderBy('id','desc')->paginate(18);
         
         return view('admin.dealerHistory_oneDealer',compact('dealer','dealerHistory'));
@@ -802,5 +796,88 @@ class AdminController extends Controller
         exec("cd images && cd products && cd original && rm $filename");
 
         return redirect()->back()->with('status','Successfully uploaded new images.');
+    }
+
+    public function recallDealer(){
+        $dealers = Dealer::where('status',false)->get();
+        return view('admin.recallDealer',compact('dealers'));
+    }
+
+    public function dealerRecall($id){
+
+        $dealer = Dealer::find($id);
+
+        $dealer->status = true;
+
+        $dealer->save();
+
+        return redirect()->back()->with('status',"$dealer->account recalled.");
+    }
+
+    public function deleteDealer($id){
+
+
+        $dealer = Dealer::find($id);
+
+        if ($dealer===null) {
+            return redirect()->back()->with('status',"Dealer not found.");
+        }else{
+
+            $dealer->status = false;
+
+            $dealer->save();
+
+            return redirect()->action('AdminController@dealerList')->with('status',"$dealer->account deleted.");
+        }
+    }
+
+    public function deleteUser($id){
+
+
+        $customer = User::find($id);
+
+        if ($customer===null) {
+            return redirect()->back()->with('status',"Customer not found.");
+        }else{
+
+            $customer->status = false;
+
+            $customer->save();
+
+            return redirect()->action('AdminController@customerList')->with('status',"Customer deleted.");
+        }
+    }
+
+    public function recallUser(){
+        $users = User::where('status',false)->get();
+        return view('admin.recallUser',compact('users'));
+    }
+
+    public function userRecall($id){
+        $user = User::find($id);
+
+        if ($user===null) {
+            return redirect()->back()->with('status',"User not found.");
+        }else{
+
+            $user->status = true;
+
+            $user->save();
+
+            return redirect()->back()->with('status',"User recalled.");
+        }
+    }
+
+    /** delete order */
+    public function deleteOrder($sono){
+        $somast = SOMAST::where('order_num',$sono)->whereIn('sales_status',[3,5])->first();
+
+        if ($somast===null) {
+            return redirect()->back()->withErrors("$sono cannot be deleted.");
+        }else{
+            $sotran = $somast->sotran()->delete();
+            $somast->delete();
+            return redirect('/pendingQuotes')->with('status',"$sono cannot be deleted.");
+        }
     }
 }

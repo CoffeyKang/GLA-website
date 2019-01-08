@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('email', $request->email)
+        $user = User::where('email', $request->email)->where('status',true)
                     ->where('password',md5($request->password))
                     ->first();
 

@@ -1290,12 +1290,12 @@ class InventoryController extends Controller
             $oneOrder = $history->sotran()->get();
 
             foreach ($oneOrder as $item) {
-
-
-                $iteminfo = $item->itemInfo()->first()->allMakes();
-                $item->make = $iteminfo->all_makes;
-
-                $item->descrip = $item->itemInfo->descrip;
+                $iteminfo = $item->itemInfo;
+                if ($iteminfo===null) {
+                    $item->descrip = $item->item;
+                }else{
+                     $item->descrip = $iteminfo->descrip;
+                }
             }
 
             $address = $history->address;
@@ -1848,7 +1848,7 @@ class InventoryController extends Controller
                 'amount' => $request->total,
                 'payment_method' => 'card',
                 'card' => array(
-                    'name' => 'Mr. Card Testerson',
+                    'name' => $name,
                     'number' => $cardNum,
                     'expiry_month' => $month,
                     'expiry_year' => $year,

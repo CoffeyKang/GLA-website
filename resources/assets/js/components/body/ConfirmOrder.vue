@@ -393,7 +393,7 @@ export default {
                     
                     
                 }else{
-                    
+                    console.log(this.card);
                     this.$http.post('/api/finishOrder',
                         {   
                             custno:JSON.parse(this.storage.getItem('user')).id,

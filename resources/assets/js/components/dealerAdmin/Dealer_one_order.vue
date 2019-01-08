@@ -1,5 +1,6 @@
 <template>
-<div class='container' style='margin:30px auto;'>
+<div class='container' style='margin:30px auto;' v-loading='loading'  
+		element-loading-text="Calculating ...">
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
@@ -143,6 +144,7 @@ export default {
             show:false,
             address:[],
             dealerInfo:[],
+            loading:1,
         }
     },
     computed:{
@@ -203,7 +205,7 @@ export default {
             this.show = true;
             this.address = response.data.address;
             this.dealerInfo = response.data.dealerInfo;
-
+            this.loading =0;
             this.oneOrder.forEach(element => {
                 this.storage.removeItem(element.item);
             });

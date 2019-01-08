@@ -108,10 +108,12 @@
                             <a class="nav-link active" id="home"   href="/home" role="tab">Admin Home | {{Auth::user()->name}} </a>
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Dealer Managenment</b></a>
                             <a class="nav-link" id="dealerList" href="/dealerList" role="tab">Dealer List</a>
-                            {{-- <a class="nav-link" id="/newDealer" href="newDealer" role="tab">Add New Dealer</a> --}}
+                            <a class="nav-link" id="newDealer" href="/newDealer" role="tab">Add New Dealer</a>
+                            <a class="nav-link" id="recallDealer" href="/recallDealer" role="tab">recall Dealer</a>
                             <a class="nav-link" id="dealerHistory" href="/dealerHistory" role="tab">Dealer Order History</a>
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Customer Managenment</b></a>
                             <a class="nav-link" id="customerList"  href="/customerList" role="tab">Customer List </a>
+                            <a class="nav-link" id="recallUser" href="/recallUser" role="tab">recall User</a>
                             {{-- <a class="nav-link" id="" href="#v" role="tab">Sales Records</a> --}}
                             <a class="nav-link" id="orderHistory"  href="/orderHistory" role="tab">Order History</a>
                             <a class="nav-link" id="pendingQuotes" href="/pendingShipment" role="tab">
@@ -127,12 +129,7 @@
                                     {{count(App\SOMAST::whereIn('sales_status',[3,5])->get())}}
                                 </span>
                             </a>
-                            {{-- <a class="nav-link" id="" href="#v" role="tab">Awaits Reply 
-                                <span class="badge badge-light float-right">9</span>
-                            </a>
-                            <a class="nav-link" id="" href="#v" role="tab">Confirm Shipment 
-                                <span class="badge badge-light float-right">9</span>
-                            </a> --}}
+                            
 
                             <a class="nav-link" id="" href="#v" role="tab" aria-disabled="true"><b>Website Managenment</b></a>
                             <a class="nav-link" id="top10" href="/top10">Top 10 Best Sellers</a>

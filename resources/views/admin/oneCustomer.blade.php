@@ -65,6 +65,9 @@
                         <span>{{$customer->m_year}}</span>
                     </div>
                 </div>
+                <div class="container-fluid text-right">
+                <a href="/deleteUser/{{$customer->m_id}}" class='btn btn-danger'>Delete Customer</a>
+                </div>
             </div>
         </div>
             

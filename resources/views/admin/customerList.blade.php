@@ -7,7 +7,11 @@
     @if (session()->has('notFound'))
         <div class='alert alert-danger'>{{session()->get('notFound')}}</div>
     @endif
-
+    @if (session()->has('status'))
+    <div class="alert alert-success">
+        {{session()->get('status')}}
+    </div>
+    @endif
     <div>
         <form class="form-inline d-flex justify-content-center" action='/findCustomer'>
             <div class="form-group mb-2">
@@ -42,10 +46,10 @@
         </thead>
         <tbody>
             @foreach ($customerList as $so)
-            <tr>
+               <tr>
                 <td>{{$so->m_surname}}</td>
                 <td>
-                   {{$so->m_forename}} 
+                    {{$so->m_forename}}
                 </td>
                 <td>
                     {{$so->main_user()->first()?$so->main_user->email:"Email"}}
@@ -56,8 +60,10 @@
                 <td>{{$so->m_tel}}</td>
                 <td>{{$so->m_country}}</td>
                 <td>{{count($so->somast)}}</td>
-                <td><a class="btn btn-success btn-sm" style='width:71px;' href="/CustomerHistory/{{$so->m_id}}">Details</a></td> 
-            </tr>
+                <td><a class="btn btn-success btn-sm" style='width:71px;' href="/CustomerHistory/{{$so->m_id}}">Details</a></td>
+            </tr> 
+            
+            
             
 
             @endforeach

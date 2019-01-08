@@ -27,7 +27,7 @@ class DealerController extends Controller
         
         $password = $request->password;
 
-        $dealer = Dealer::where('account',$account)->where('pass',$password)->first();
+        $dealer = Dealer::where('account',$account)->where('status',true)->where('pass',$password)->first();
 
         if ($dealer) {
 
@@ -92,6 +92,8 @@ class DealerController extends Controller
 
             Log::error("Dealer Id: $request->dealerId not found");
         }
+
+
         if ($dealer&&$dealerInfo) {
             
             // somast
@@ -184,52 +186,6 @@ class DealerController extends Controller
 
             $somast->subtotal = round($subtotal,2);
 
-            // switch ($dealerInfo->terr)
-            // {
-            //     case "AB":
-            //         $tax = 5;
-            //         break;  
-            //     case "BC":
-            //         $tax = 5;
-            //         break;
-            //     case "MB":
-            //         $tax = 5;
-            //         break;  
-            //     case "NB":
-            //         $tax = 15;
-            //         break;
-            //     case "NL":
-            //         $tax = 15;
-            //         break; 
-            //     case "NT":
-            //         $tax = 5;
-            //         break; 
-            //     case "NS":
-            //         $tax = 15;
-            //         break;
-            //     case "NU":
-            //         $tax = 5;
-            //         break;
-            //     case "ON":
-            //         $tax = 13;
-            //         break;  
-            //     case "PE":
-            //         $tax = 15;
-            //         break;
-            //     case "QC":
-            //         $tax = 15;
-            //         break;
-            //     case "SK":
-            //         $tax = 5;
-            //         break;  
-            //     case "YT":
-            //         $tax = 5;
-            //         break;
-                
-            //     default:
-            //         $tax = 0;
-            // }
-
             $tax = $dealerInfo->tax?:0;
 
             $somast->tax = round(($subtotal * $tax / 100),2);
@@ -288,8 +244,13 @@ class DealerController extends Controller
             $oneOrder = $history->dealerDetails()->get();
 
             foreach ($oneOrder as $item) {
-                $iteminfo = $item->itemInfo()->first()->allMakes();
-                $item->make = $iteminfo->all_makes;
+                $iteminfo = $item->itemInfo;
+                if ($iteminfo===null) {
+                    $item->descrip = $item->item;
+                }else{
+                     $item->descrip = $iteminfo->descrip;
+                }
+                
             }
 
             $shipTo = $history->address;

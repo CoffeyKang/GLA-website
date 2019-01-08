@@ -398,7 +398,7 @@ use App\Dealer;
 
     function dealerSOSendemail($dealerHistory){
         
-        $dealer = $dealerHistory->dealer;
+        $dealer = $dealerHistory->account;
 
         $dealerEmail = Dealer::where('account',$dealer)->first();
         if ($dealerEmail===null) {

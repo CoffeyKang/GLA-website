@@ -79,7 +79,7 @@
             <div class="form-group row">
                 <label for="Province" class="col-sm-2 col-form-label">Email:</label>
                 <div class="col-sm-4">
-                    <input type="text" readonly class="form-control" id="address" value="{{$dealerInfo->email}}">
+                    <input type="text" readonly class="form-control" id="address" value="{{$dealer->email}}">
                 </div>
                 <label for="Country" class="col-sm-2 col-form-label">Tel:</label>
                 <div class="col-sm-4">
@@ -88,7 +88,8 @@
             </div>
 
             <div class="form-group text-right">
-                <button class="btn btn-default" type='reset'>Reset Password</button>
+                <button class="btn btn-default" type='reset'> Reset </button>
+                <a class="btn btn-danger" href="/deleteDealer/{{$dealer->id}}">Delete Dealer</a>
                 <button class="btn btn-success" type='submit'>Update Password</button>
             </div>
 

@@ -182,10 +182,10 @@ export default {
                 var price = PPlan.pricecode;
             }
             if (price==1) {
-                price='';
-            }
+                price=1;
+            }else{}
 
-            window.open('/Excel/InventoryExcelPrice'+price+'.xls');
+            window.open('/Excel/'+price+ '/InventoryExcelPrice.xls');
         }
         
     }

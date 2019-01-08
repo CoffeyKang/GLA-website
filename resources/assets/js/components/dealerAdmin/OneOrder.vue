@@ -1,5 +1,6 @@
 <template>
-<div >
+<div v-loading='loading'  
+		element-loading-text="Calculating ...">
     <div v-if="empty">
         <div class="alert alert-danger">
             Order not found. 
@@ -72,7 +73,7 @@
                 <tr>
                 <th>Item</th>
                 <th>QTY</th>
-                <th>Compatiable Make</th>
+                <th>Description</th>
                 <th>Price</th>
                 </tr>
             </thead>
@@ -80,7 +81,7 @@
                 <tr v-for="item in oneOrder" :key="item.order_serial">
                     <td>{{item.item}}</td>
                     <td>{{item.qty}}</td>
-                    <th>{{item.make.replace('_ca','').toUpperCase()}}</th>
+                    <th>{{item.descrip.toUpperCase()}}</th>
                     <td >$ {{item.price.toFixed(2)}}</td>
                 </tr>
             </tbody>
@@ -137,6 +138,7 @@ export default {
     data(){
         return {
             so:this.$route.params.order_num,
+            loading:1,
             storage:window.localStorage,
             account:0,
             oneOrder:[],
@@ -209,6 +211,7 @@ export default {
             this.oneOrder.forEach(element => {
                 this.storage.removeItem(element.item);
             });
+            this.loading=0;
         }
         
       },function(){

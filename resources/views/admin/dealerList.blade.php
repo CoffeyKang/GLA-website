@@ -14,6 +14,12 @@
             </ul>    
         </div> 
     @endif
+
+    @if (session()->has('status'))
+    <div class="alert alert-success">
+        {{session()->get('status')}}
+    </div>
+    @endif
     <div >
         <form class="form-inline d-flex justify-content-center" action='/findDealer'>
             <div class="form-group  mb-2">

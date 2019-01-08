@@ -106,4 +106,23 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::get('/uploadNewImages','AdminController@uploadNewImages');
 
     Route::post('/uploadImages','AdminController@uploadImages');
+
+
+    /** dealer delete and recall */
+    Route::get('/recallDealer','AdminController@recallDealer');
+
+    Route::get('/dealerRecall/{id}','AdminController@dealerRecall');
+
+    Route::get('/deleteDealer/{id}','AdminController@deleteDealer');
+
+    /**  customer delete and recall */
+    Route::get('/recallUser','AdminController@recallUser');
+
+    Route::get('/deleteUser/{id}','AdminController@deleteUser');
+
+    Route::get('/userRecall/{id}','AdminController@userRecall');
+
+    /** delete order */
+    Route::get('/deleteOrder/{sono}','AdminController@deleteOrder');
+
 });

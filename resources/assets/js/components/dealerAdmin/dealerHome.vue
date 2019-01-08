@@ -98,7 +98,7 @@ export default {
         this.userInfo = JSON.parse(this.storage.getItem('userInfo'));
         this.$http.get('/api/dealerInfo/'+this.user.account).then((response)=>{
         });
-
+        this.user.account.toUpperCase();
         this.dealerOrderHistory();
         
     },

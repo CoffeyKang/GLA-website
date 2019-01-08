@@ -13,7 +13,7 @@
                 <th scope='col'>Order Date</th>
                 <th scope="col">Subtotal</th>
                 <th scope="col">Sales Status</th>
-                <th scope="col">Note</th>
+                <th scope="col" style='max-width:300px'>Note</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                 <td>{{substr($so->date_order,0,10)}}</td>
                 <td>${{number_format($so->subtotal,2)}}</td>
                 <td>{{$so->statusCode()}}</td>
-                <td>{{$so->notes}}</td>
+                <td style='max-width:300px'>{{$so->notes}}</td>
             </tr>
             <tr id="{{$so->order_num}}" class='details'> 
                 <td colspan="6">

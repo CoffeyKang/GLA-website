@@ -47,12 +47,7 @@
                                 <td>{{$item->item}}</td>
                                 <td>{{$item->qty}}</td>
                                 <td>$ {{number_format($item->price,2)}}</td>
-
-                                {{-- @if ($item->itemInfo()->first())
-                                <td>{{$item->itemInfo()->first()->allMakes()->all_makes}}</td>
-                                @else --}}
                                 <td>{{$item->make}}</td>
-                                {{-- @endif --}}
                             </tr>
                             @endforeach
                             <tr>

@@ -338,7 +338,7 @@ export default {
 
             confirm(){
                 var dealerData = JSON.parse(this.storage.getItem('user'));
-                
+                this.loading = 1;
                 if (dealerData && dealerData.level ==2) {
                     var dealerId = dealerData.id;
                     this.$http.post('/api/dealerConfirm', 
@@ -353,6 +353,8 @@ export default {
                         }
                     })
                     
+                }else{
+
                 }
                 
                
