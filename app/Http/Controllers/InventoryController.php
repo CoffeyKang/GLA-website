@@ -2599,6 +2599,21 @@ class InventoryController extends Controller
 
         return response()->json(['taxRate'=>$taxR],200);
     }
-    
+
+    /** delete order */
+    public function deleteOrder(Request $request){
+        $sono = $request->sono;
+        $somast = SOMAST::where('order_num',$sono)->whereIn('sales_status',[3,5])->first();
+
+        if ($somast===null) {
+            return response()->json(['status'=>false],200);
+        }else{
+            $sotran = $somast->sotran()->delete();
+            $somast->delete();
+
+            return response()->json(['status'=>true],200);
+            
+        }
+    }
    
 }

@@ -183,6 +183,8 @@ Route::post('/getQuote','InventoryController@getQuote');
 
 Route::get('/taxRate/{province}','InventoryController@taxRate');
 
+Route::post('/deleteOrder','InventoryController@deleteOrder');
+
 
 
 

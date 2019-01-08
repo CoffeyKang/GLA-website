@@ -105,6 +105,7 @@
                
         </table>
         <div class="text-right" style='margin-top:30px'>
+            <el-button type='danger' @click='deleteOrder(somast.order_num)' v-if="somast.sales_status==5 || somast.sales_status==3">Delete Order</el-button>
             <el-button type='success' @click='makePayment(somast.order_num)' v-if="somast.sales_status==5">Make Payment</el-button>
             <el-button type='success' @click='downPDF(somast.order_num)' v-if="somast.sales_status!=3&&somast.sales_status!=5">Print Order</el-button>
             <el-button type='default' @click='$router.push({path:"/CustomerInfo/OrderHistory"})'>OrderHistory</el-button>
@@ -177,6 +178,27 @@ export default {
         makePayment(sono){
             console.log(sono);
             this.$router.push({name:'makePayment', params:{'sono':sono}});
+        },
+
+        deleteOrder(sono){
+            this.$confirm('This will permanently delete the order. Continue?', 'Danger', {
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                type: 'danger'
+                }).then(() => {
+                    this.$http.post('/api/deleteOrder',{'sono':sono}).then(response=>{
+                        if (response.data.status) {
+                            this.$router.push('/CustomerInfo/PendingOrder');
+                        }
+                    });
+                }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: 'Delete canceled'
+                });          
+                });
+            
+            
         }
     },
     mounted(){
