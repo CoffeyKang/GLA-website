@@ -9,6 +9,9 @@ use App\Mail\SalesOrder;
 use App\Mail\FinishQuotation;
 use App\Temp_SO;
 use App\Dealer;
+use App\Mail\DealerSO;
+use App\Mail\Reminder;
+use App\Mail\CustomerCancelledOrder;
 
     function InventoryExcelFile(){
         // Generate and return the spreadsheet price 
@@ -410,6 +413,41 @@ use App\Dealer;
         
     }
 
+    function reminder(SOMAST $somast){
+        $user = $somast->customer;
+
+        $billing = $user->BillingAddress;
+
+        $add_id = $somast->address;
+
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
+
+        Mail::to("coffeykang@gmail.com")->send(new Reminder($user,$somast,$billing,$address));
+    }
+
+
+    /** customer cancelled order */
+    function customerCancelledOrder(SOMAST $somast){
+        
+        $user = $somast->customer;
+
+        $billing = $user->BillingAddress;
+
+        $add_id = $somast->address;
+
+        if (!$add_id==0) {
+            $address = AddressBook::find($add_id);
+        }else{
+            $address =AddressBook::find(1);
+        }
+
+        Mail::to("service@goldenleafautomotive.com")->send(new CustomerCancelledOrder($user,$somast,$billing,$address));
+        
+    }
 
 
     

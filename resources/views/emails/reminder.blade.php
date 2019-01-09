@@ -104,26 +104,10 @@
         </tr>
         <tr class='content'>
             <td colspan=2 style='padding-top:30px'>
-                @if($somast->sales_status==3)
-                    <span class='hi'>Hi {{$user->firstname}}, </span><br>
-                    <p>The following order requires shipping quotation.
-                    </p>
-                @elseif($somast->sales_status==6)
                 <span class='hi'>Hi {{$user->firstname}}, </span><br>
-                <p>The Order {{$somast->order_num}} has been cancelled due to no reply or by request from the member for a period of allowed time.<br> If you still want to order these products, please place your order on our website again.
+                <p>This is a friendly reminder about your previously quoted order {{$somast->order_num}} <br>
+                    The follwoing list is a brief summary of your order :
                 </p>
-                @elseif($somast->sales_status==9)
-                    <span class='hi'>Hi {{$user->firstname}}, </span><br>
-                    <p>Congratulation, your order {{$somast->order_num}} has been shipped!
-                        <br>Shipping Courier:{{$somast->courier}}
-                        <br>Tracking Number:{{$somast->track_num}}
-                    </p>     
-                @else
-                    <span class='hi'>Hi {{$user->firstname}}, Thank you for your Order</span><br>
-                    <p>Your Order is now being processed. Please review the order details and contact us as soon as possible 
-                        if any details are incorrect.
-                    </p>
-                @endif
 
                 <b>ORDER # {{$somast->order_num}}</b><br>
                 <span>Order Placed on {{substr($somast->date_order,0,10)}}</span>
@@ -168,8 +152,8 @@
                         <tr style='border-bottom:1px solid lightgray'>
                             <td  class='p60'>{{$item->item}}</td>
                             <td style='word-wrap: break-word; width:"290px"'>{{$item->itemInfo->descrip}}</td>
-                            <td class='p60' @if($item->sale==1) style='color:red' @endif>${{number_format($item->price,2)}}</td>
-                            <td class='p60'>{{$item->qty}}</td>                            
+                            <td  class='p60'>{{$item->qty}}</td>
+                            <td class='p60'>${{number_format($item->price,2)}}</td>
                             <td class='p60 text-right' >${{number_format($item->price * $item->qty,2)}}</td>
                         </tr>
                     @endforeach
@@ -177,6 +161,7 @@
                 </table>
                 <br>
                 <table style='font-size:12px;' width="600px;" class='p530 text-center'>
+                    
                     <tr>
                         <td class='p300 text-right'>
 

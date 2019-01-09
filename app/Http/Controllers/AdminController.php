@@ -49,7 +49,7 @@ class AdminController extends Controller
     }
 
     public function orderHistory(){
-        $orderHistory = SOMAST::orderBy('sales_status','asc')->orderBy('order_num','desc')->paginate(18);
+        $orderHistory = SOMAST::orderBy('sales_status','asc')->orderBy('order_num','desc')->where('sales_status','!=',6)->paginate(18);
 
         return view('admin.orderHistory',compact('orderHistory'));
     }
@@ -410,6 +410,7 @@ class AdminController extends Controller
         }else{
 
         }
+        soSendemail($somast);
         return redirect('/pendingShipment')->with('status', "Order $sono shipped.");
     }
 
@@ -875,9 +876,21 @@ class AdminController extends Controller
         if ($somast===null) {
             return redirect()->back()->withErrors("$sono cannot be deleted.");
         }else{
-            $sotran = $somast->sotran()->delete();
-            $somast->delete();
-            return redirect('/pendingQuotes')->with('status',"$sono cannot be deleted.");
+            $somast->sales_status=6;
+            $somast->save();
+            soSendemail($somast);
+            // $sotran = $somast->sotran()->delete();
+            // $somast->delete();
+
+            return redirect('/pendingQuotes')->with('status',"$sono has been deleted.");
         }
+    }
+
+    /** send reminder */
+    public function reminder($sono){
+        $somast = SOMAST::where('order_num',$sono)->first();
+        reminder($somast);
+
+        return redirect()->back()->with('status',"Rminder sent.");
     }
 }

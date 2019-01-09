@@ -1246,9 +1246,9 @@ class InventoryController extends Controller
 
         $id = $request->id;
 
-        $history = SOMAST::where('m_id',$id)->orderBy('order_num','desc')->whereNotIn('sales_status',[3,5])->get();
+        $history = SOMAST::where('m_id',$id)->where('sales_status','!=',6)->orderBy('order_num','desc')->whereNotIn('sales_status',[3,5])->get();
 
-        $pending = SOMAST::where('m_id',$id)->whereIn('sales_status',[3,5])->orderBy('order_num','desc')->get();
+        $pending = SOMAST::where('m_id',$id)->where('sales_status','!=',6)->whereIn('sales_status',[3,5])->orderBy('order_num','desc')->get();
         
         return response()->json(['history'=>$history,'pending'=>$pending],200);
     }
@@ -1837,7 +1837,7 @@ class InventoryController extends Controller
         
         /** payment api config */
         $merchant_id = '117686147'; //INSERT MERCHANT ID (must be a 9 digit string)
-        $api_key = 'B452F4E8020a4746aDa2FC5c468Ab17a'; //INSERT API ACCESS PASSCODE
+        $api_key = '89655fC65c7545afA12c2a27E65826B1'; //INSERT API ACCESS PASSCODE
         $api_version = 'v1'; //default
         $platform = 'api'; //default
         //Create Beanstream Gateway
@@ -2608,9 +2608,12 @@ class InventoryController extends Controller
         if ($somast===null) {
             return response()->json(['status'=>false],200);
         }else{
-            $sotran = $somast->sotran()->delete();
-            $somast->delete();
-
+            $somast->sales_status = 6;
+            $somast->save();
+            customerCancelledOrder($somast);
+            // $sotran = $somast->sotran()->delete();
+            // $somast->delete();
+            
             return response()->json(['status'=>true],200);
             
         }

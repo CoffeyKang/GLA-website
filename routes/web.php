@@ -125,4 +125,7 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     /** delete order */
     Route::get('/deleteOrder/{sono}','AdminController@deleteOrder');
 
+    /** send reminder */
+    Route::get('/reminder/{sono}','AdminController@reminder');
+
 });

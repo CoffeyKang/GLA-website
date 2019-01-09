@@ -1,10 +1,17 @@
 @extends('layouts.admin') 
 @section('content')
 <div>
+    
     <div class="alert alert-dark">
         <b>Quote for {{$somast->order_num}}</b>
     </div>
 
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
+    
     <table class="table ">
         <thead>
             <tr>
@@ -134,8 +141,9 @@
             </div> --}}
             
             <div class='row '>
-                <div class="col-md-12 d-flex flex-row-reverse">
-                    <button class="btn btn-success" type='submit'>Quote</button>
+                <div class="col-md-12 d-flex justify-content-around">
+                    <a href="/reminder/{{$somast->order_num}}" class='btn btn-info col-4'>Send Reminder</a>
+                    <button class="btn btn-success col-4" type='submit'>Quote</button>
                 </div>
             </div>
 

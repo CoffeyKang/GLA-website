@@ -59,6 +59,9 @@ class SOMAST extends Model
             case 5:
                 $status = 'Pending for Reply';
                 break;
+            case 6:
+                $status = "Cancelled";
+                break;
             case 7:
                 $status = 'Under Process';
                 break;
