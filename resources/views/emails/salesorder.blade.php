@@ -123,6 +123,7 @@
                     <p>Your Order is now being processed. Please review the order details and contact us as soon as possible 
                         if any details are incorrect.
                     </p>
+                    <b>Payment Status: Success</b><br>
                 @endif
 
                 <b>ORDER # {{$somast->order_num}}</b><br>
@@ -136,11 +137,9 @@
                     </tr>
                     <tr>
                         <td style='text-align: left; text-transform:uppercase; font-weight:700'>
-                            @if ($address->id!=1) {{$address->forename}} {{$address->surname}}<br>{{$address->address}}<br> {{$address->city}} {{$address->state}}
-                            {{$address->zipcode}} @if($address->country=="CA")CANADA @else USA @endif 
-                            @else {{$user->firstname}} {{$user->lastname}}<br>
+                            {{$user->firstname}} {{$user->lastname}}<br>
                             {{$user->userDetails->m_address}}<br> {{$user->userDetails->m_city}} {{$user->userDetails->m_state}} {{$user->userDetails->m_zipcode}}
-                            @if($user->userDetails->m_country=="CA")CANADA @else USA @endif @endif
+                            @if($user->userDetails->m_country=="CA")CANADA @else USA @endif 
                             <br>
                         
                         </td>

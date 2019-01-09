@@ -9,7 +9,7 @@
     <div v-if="!empty">
         
         <div class="edit_title" >
-            <span>Make Payment For Order Number : {{so}} Complate</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
+            <span>Make Payment For Order Number : {{so}} Complete</span><span v-if="show">Order Date : {{ (somast.date_order).substring(0,10) }}  </span>
         </div>
 
         <div class="col-xs-8">

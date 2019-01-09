@@ -354,7 +354,6 @@ export default {
         methods:{
             placeOrder(){
                 this.loading = 1;
-                console.log(this.card);
                 if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<2) {
                     if (!this.card.name) {
                         $('#cardName').css('border','1px solid red');
@@ -369,14 +368,12 @@ export default {
                     }
 
                     if (!this.card.month || this.card.month.length !=2 || this.card.month>12 ){
-                        console.log("month");
                         $('#cardMonth').css('border','1px solid red');
                     }else{
                         $('#cardMonth').css('border','1px solid green');
                     }
 
                     if (!this.card.year || this.card.year.length !=2   ){
-                        console.log("year");
                         $('#cardYear').css('border','1px solid red');
                     }else{
                         $('#cardYear').css('border','1px solid green');
@@ -393,7 +390,6 @@ export default {
                     
                     
                 }else{
-                    console.log(this.card);
                     this.$http.post('/api/finishOrder',
                         {   
                             custno:JSON.parse(this.storage.getItem('user')).id,
@@ -420,7 +416,6 @@ export default {
                             this.$router.push({name:'FinishOrder', params:{order_num:response.data.result.order_number}});
                         }else{
                             this.paymentError = true;
-                            console.log(response);
                             this.error='Declined please try again';
                         }
                     });
@@ -448,6 +443,7 @@ export default {
                     }
                     ).then(response=>{
                     this.loading = 0;
+                    
                     if (response.data.result) {
                         this.carts.forEach(element => {
                             this.storage.removeItem(element.item);
