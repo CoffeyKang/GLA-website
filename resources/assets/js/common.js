@@ -47,7 +47,7 @@ export const myMixin = {
     },
 
     // addToCart
-    addToCart_common(item) {
+    addToCart_common(item, quantity) {
       var u = JSON.parse(this.storage.getItem('user'));
       if (u) {
         var type = JSON.parse(this.storage.getItem('user')).level;
@@ -69,10 +69,10 @@ export const myMixin = {
         }
       } else {
         if (window.localStorage.getItem(item.item)) {
-          var qty = parseInt(window.localStorage.getItem(item.item)) + 1;
+          var qty = parseInt(window.localStorage.getItem(item.item)) + quantity;
           window.localStorage.setItem(item.item, qty);
         } else {
-          window.localStorage.setItem(item.item, 1);
+          window.localStorage.setItem(item.item, quantity);
 
           var newNumber = this.carts_number + 1;
 
