@@ -97,10 +97,10 @@
     
     <table class='body'>
         <tr>
-            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
+            <td class='text-left'><img src="https://www.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
             <td class='text-right'> <span class='headerNav'>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="http://retail.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
+            <a href="https://www.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
         </tr>
         <tr class='content'>
             <td colspan=2 style='padding-top:30px'>
@@ -127,7 +127,8 @@
                 @endif
 
                 <b>ORDER # {{$somast->order_num}}</b><br>
-                <span>Order Placed on {{substr($somast->date_order,0,10)}}</span>
+                <span>Order Placed on {{substr($somast->date_order,0,10)}}</span><br>
+                <b>Notes # {{$somast->notes}}</b><br>
                 
                 <table width="600px" class='pd-10'>
                     <tr>
@@ -136,7 +137,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style='text-align: left; text-transform:uppercase; font-weight:700'>
+                       <td style='text-align: left; text-transform:uppercase; font-weight:700'>
                             {{$user->firstname}} {{$user->lastname}}<br>
                             {{$user->userDetails->m_address}}<br> {{$user->userDetails->m_city}} {{$user->userDetails->m_state}} {{$user->userDetails->m_zipcode}}
                             @if($user->userDetails->m_country=="CA")CANADA @else USA @endif 
@@ -176,6 +177,7 @@
                 </table>
                 <br>
                 <table style='font-size:12px;' width="600px;" class='p530 text-center'>
+                    
                     <tr>
                         <td class='p300 text-right'>
 

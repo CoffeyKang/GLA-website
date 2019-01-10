@@ -12,6 +12,7 @@ use App\Dealer;
 use App\Mail\DealerSO;
 use App\Mail\Reminder;
 use App\Mail\CustomerCancelledOrder;
+use App\Mail\forgetPassword;
 
     function InventoryExcelFile(){
         // Generate and return the spreadsheet price 
@@ -446,6 +447,14 @@ use App\Mail\CustomerCancelledOrder;
         }
 
         Mail::to("service@goldenleafautomotive.com")->send(new CustomerCancelledOrder($user,$somast,$billing,$address));
+        
+    }
+
+    function resetPass(User $user){
+        
+        
+
+        Mail::to("$user->email")->send(new forgetPassword($user));
         
     }
 

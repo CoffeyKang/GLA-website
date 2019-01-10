@@ -79,16 +79,17 @@
 
     <table class='body'>
         <tr>
-            <td class='text-left'><img src="https://www.goldenleafautomotive.com/images/header_logo.png" alt="" width="50%;"></td>
+            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="50%;"></td>
             <td class='text-right'> <span class='headerNav'>
             </span></td>
         </tr>
 
         <tr class='content'>
             <td colspan=2 style='padding-top:30px'>
-                From:  {{$email['user']}}, (Dealer)<br>
-                Subject: {{$email['subject']}}<br>
-                <p>Messege: {{$email['messege']}}</p>
+               	If you requested a password reset, please click the link below. <br><br>
+            <a href="https://www.goldenleafautomotive.com/resetPass?email={{$user->email}}&token={{$user->resetPass}}">Reset Password</a><br>
+				<br>If you have not requested a reset please ignore this email, thank you<br>. 
+            
             </td>
         </tr>
 

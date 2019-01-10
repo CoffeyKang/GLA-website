@@ -141,37 +141,19 @@ class AccessControl extends Controller
 
     public function resetPassword(Request $request){
 
-        $this->validate($request,[
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'email',
-            'password'=>'required|min:8',
-        ]);
-        
-        
+        $user = User::where('email',$request->email)->first();
 
-        $user = User::where('email',$request->email)->where('firstname',$request->firstname)
-        ->where('lastname',$request->lastname)->first();
-
-        if (!$user) {
-            
-            return response()->json(['status'=>"userNotExists"],200);
-        
+        if ($user===null) {
+            return response()->json(['status'=>"good"],200);
         }else{
-
+            /** send email */
+            $user->resetPass = str_random(40);
+            $user->save();
+            resetPass($user);
+            return response()->json(['status'=>"good"],200);
         }
 
-        $password = $request->password;
-
-        $user->password = md5($password);
         
-        $user->save();
-        
-        
-        $userInfo = UserInfo::where('m_id',$user->id)->first();
-
-
-        return response()->json(['user'=>$user,'userInfo'=>$userInfo],200);
         
     }
 
@@ -447,7 +429,7 @@ class AccessControl extends Controller
     /** test page */
     public function kang(){
 
-        echo substr("2020",-2);
+        echo str_random(40);
         // $D = Dealer::all();
         
         // foreach ($D as $a) {

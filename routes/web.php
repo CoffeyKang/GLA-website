@@ -25,6 +25,10 @@ Route::get('/checkout', 'HomeController@index')->name('home');
 
 Route::get('/admin','AdminController@index')->name('index');
 
+Route::get('/resetPass','AdminController@resetPass')->name('resetPass');
+
+Route::post('/resetPassword','AdminController@resetPassword');
+
 Route::middleware(['auth','prevent-back-history'])->group(function () {
     
     Route::get('/home','AdminController@home');

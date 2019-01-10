@@ -54,10 +54,10 @@
     
     <table class='body'>
         <tr>
-            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
+            <td class='text-left'><img src="https://www.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
             <td class='text-right'> <span class='headerNav'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="http://retail.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
+                        <a href="https://www.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
         </tr>
         
         <tr class='content'>

@@ -893,4 +893,36 @@ class AdminController extends Controller
 
         return redirect()->back()->with('status',"Rminder sent.");
     }
+
+    /** AdminController */
+    public function resetPass(){
+        return view('resetPass');
+    }
+
+    public function resetPassword(Request $request){
+        $this->validate($request,[
+            'token'=>'required',
+            'email'=>'required|exists:users',
+            'password'=>'required|min:8|confirmed|alpha_num',
+            'password_confirmation'=>'required|min:8|alpha_num'
+        ]);
+            
+        $user = User::where('email',$request->email)->where('resetPass',$request->token)->first();
+
+        if ($user===null) {
+            return redirect()->back()->withErrors("User cannot find.");
+        }else{
+
+            if (preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $request->password)){
+                $user->password = md5($request->password);
+                $user->save();
+                return  redirect()->back()->with('status',"Password has been changed, please log in.");
+            }else{
+                return redirect()->back()->withErrors("Password must contain number and alphabet.");
+            }
+        }
+        
+
+        
+    }
 }

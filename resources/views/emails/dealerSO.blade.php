@@ -97,16 +97,17 @@
     
     <table class='body'>
         <tr>
-            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
+            <td class='text-left'><img src="https://www.goldenleafautomotive.com/images/header_logo.png" alt="" width="80%;"></td>
             <td class='text-right'> <span class='headerNav'>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="http://retail.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
+            <a href="https://www.goldenleafautomotive.com/#/CustomerInfo/HomePage">Your Account</a></span></td>
         </tr>
         <tr class='content'>
             <td colspan=2 style='padding-top:30px'>
             <span class='hi'>Dealer Account {{$dealerHistory->account}} / {{$dealer}} </span><br>
 
                 <b>The dealer order number # {{$dealerHistory->order_num}}</b><br>
+                <b>Notes # {{$dealerHistory->notes}}</b><br>
 
                 <table style='font-size:10px;' width="600px;" class='p530'>
                     <tr>

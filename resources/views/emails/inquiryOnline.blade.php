@@ -79,7 +79,7 @@
 
     <table class='body'>
         <tr>
-            <td class='text-left'><img src="http://retail.goldenleafautomotive.com/images/header_logo.png" alt="" width="50%;"></td>
+            <td class='text-left'><img src="https://www..goldenleafautomotive.com/images/header_logo.png" alt="" width="50%;"></td>
             <td class='text-right'> <span class='headerNav'>
             </span></td>
         </tr>
