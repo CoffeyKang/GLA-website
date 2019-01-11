@@ -35,7 +35,8 @@
                     <router-link to='/Dealer/HistoryOrder' tag='a' class="list-group-item">Order History<span v-if="orderHistory" class='num'> ({{orderHistory.length}})</span></router-link>
                     <!-- <router-link to='/Dealer/PendingOrder' tag='a' class="list-group-item">Pending Order<span v-if="orderHistory" class='num'> ({{pending.length}})</span></router-link> -->
                     <router-link to='/Dealer/DealerInquiry' tag='a' class="list-group-item">Submit Inquiry</router-link>
-                    <a @click="priceSheet()" class='list-group-item' style='cursor:pointer'>Download Price Sheet</a>
+                    <a @click="priceSheet()" class='list-group-item' style='cursor:pointer'>Download Price Sheet 
+                        <br><small>AS of {{yesterDay}}</small></a>
                     <router-link to='/Dealer/ChangePassword' tag='a' class="list-group-item">Change Password </router-link>
                 </div>
             </div>
@@ -90,6 +91,12 @@ export default {
     computed:{
         loginStatus(){
             return this.$store.state.loginStatus;
+        },
+        yesterDay(){
+            var d = new Date();
+            var day = d.getDate() -1;
+            var str =  d.getFullYear() + '-'+d.getMonth()+1 +'-'+day;
+            return str;
         }
     },
     methods:{
@@ -194,7 +201,9 @@ export default {
 
 
 <style scoped>
-
+    small{
+        color: red;
+    }
 
     .title{
         font-size: 28px;
