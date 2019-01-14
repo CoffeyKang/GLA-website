@@ -186,13 +186,26 @@ class InventoryController extends Controller
 
     public function related($item){
         
-        $make = Inventory::where('item',$item)->first()->make;
+
+        $it = Inventory::where('item',$item)->first();
+        
+        $make = $it->make;
 
         // $related = Inventory::where('item','!=',$item)->where('make',$make)->inRandomOrder()->take(4)->get();
         
 
-        $items = Inventory::orderBy('item','asc');
+        $items = Inventory::where('year_from',$it->year_from)->where('year_end',$it->year_end)->inRandomOrder();
+        
+        if (count($items->get())>=4) {
+        }else{
+            
+            $from = substr($it->year_from,0,-1);
+            $end = substr($it->year_end,0,-1);
 
+            
+            $items = Inventory::where('year_from', 'like',$from."%")->where('year_end', 'like',$end."%")->inRandomOrder();
+            
+        }
         $item_from_make_table = Item_make::where('make',$make)->get();
 
         $from_make_table_item = [];
@@ -202,7 +215,7 @@ class InventoryController extends Controller
             array_push($from_make_table_item,$i->item);
         }
 
-        $related = $items->whereIn('item',$from_make_table_item)->inRandomOrder()->take(4)->get();
+        $related = $items->whereIn('item',$from_make_table_item)->take(4)->get();
         
         foreach ($related as $r) {
             $r->itemFullInfo();

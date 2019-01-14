@@ -50,9 +50,10 @@ class FinishQuotation extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.finishQuotation')
-        ->cc('ayeh@goldenleafautomotive.com')
-        ->cc('service@goldenleafautomotive.com')
+        return $this->view('emails.finishQuotation')->from('service@goldenleafautomotive.com')
+        ->bcc('ayeh@goldenleafautomotive.com')
+        ->bcc('service@goldenleafautomotive.com')
+        ->bcc('fkang@velements.com')
         ->subject('Golden Leaf automotive. (DO NOT REPLY)');
     }
 }

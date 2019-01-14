@@ -48,8 +48,9 @@ class CustomerCancelledOrder extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.customerCancelledOrder')
+        return $this->view('emails.customerCancelledOrder')->from('service@goldenleafautomotive.com')
         ->bcc('ayeh@goldenleafautomotive.com')
+        ->bcc('fkang@velements.com')
         ->subject('Customer Cancelled Order. (DO NOT REPLY)');
     }
 }

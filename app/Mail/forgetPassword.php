@@ -31,7 +31,7 @@ class forgetPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject("Reset Password.")
+        return $this->subject("Reset Password.")->from('service@goldenleafautomotive.com')
         // ->bcc('ayeh@goldenleafautomotive.com')
         ->bcc('fkang@velements.com')
         ->view('emails.forgetPassword');

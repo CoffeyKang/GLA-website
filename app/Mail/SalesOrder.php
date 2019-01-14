@@ -50,8 +50,10 @@ class SalesOrder extends Mailable
     public function build()
     {
         return $this->view('emails.salesorder')
-        ->cc('ayeh@goldenleafautomotive.com')
-        ->cc('service@goldenleafautomotive.com')
+        ->from('service@goldenleafautomotive.com')
+        ->bcc('ayeh@goldenleafautomotive.com')
+        ->bcc('service@goldenleafautomotive.com')
+        ->bcc('fkang@velements.com')
         ->subject('Golden Leaf automotive. (DO NOT REPLY)');
     }
 }

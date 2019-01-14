@@ -7,12 +7,12 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-
 use App\User;
 use App\SOMAST;
 use App\SOTRAN;
 use App\Billing;
 use App\AddressBook;
+
 class Reminder extends Mailable
 {
     use Queueable, SerializesModels;
@@ -51,9 +51,10 @@ class Reminder extends Mailable
     public function build()
     {
         return $this->view('emails.reminder')
-        // ->bcc('ayeh@goldenleafautomotive.com')
-        // ->bcc('service@goldenleafautomotive.com')
+        ->from('service@goldenleafautomotive.com')
+        ->bcc('ayeh@goldenleafautomotive.com')
+        ->bcc('service@goldenleafautomotive.com')
         ->bcc('fkang@velements.com')
-        ->subject("Order Quotation Reminder - $somast->order_num. (DO NOT REPLY)");
+        ->subject("Order Quotation Reminder. (DO NOT REPLY)");
     }
 }

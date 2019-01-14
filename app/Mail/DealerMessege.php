@@ -29,9 +29,10 @@ class DealerMessege extends Mailable
      */
     public function build()
     {
-        return $this->subject("Email messege from retals website -- Dealer Account.")
-        ->cc('ayeh@goldenleafautomotive.com')
-        ->cc('sales@goldenleafautomotive.com')
+        return $this->subject("Email messege from retals website -- Dealer Account.")->from('info@goldenleafautomotive.com')
+        ->bcc('ayeh@goldenleafautomotive.com')
+        ->bcc('sales@goldenleafautomotive.com')
+        ->bcc('fkang@velements.com')
         ->view('emails.dealerMessege');
     }
 }

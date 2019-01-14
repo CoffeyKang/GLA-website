@@ -45,7 +45,10 @@ class DealerSO extends Mailable
     public function build()
     {
         return $this->view('emails.dealerSO')
-        // ->cc('ayeh@goldenleafautomotive.com')
+        ->from('sales@goldenleafautomotive.com')
+        ->bcc('ayeh@goldenleafautomotive.com')
+        ->cc('sales@goldenleafautomotive.com')
+        ->bcc('fkang@velements.com')
         ->subject('Golden Leaf automotive. (DO NOT REPLY)');
     }
 }
