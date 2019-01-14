@@ -119,7 +119,7 @@
                             <a class="nav-link" id="pendingQuotes" href="/pendingShipment" role="tab">
                             Pending Shipment 
                             <span class="badge badge-light float-right">
-                                {{count(App\SOMAST::where('sales_status','!=',9)->get())}}
+                                {{count(App\SOMAST::where('sales_status',1)->get())}}
                             </span>
                             </a>
 

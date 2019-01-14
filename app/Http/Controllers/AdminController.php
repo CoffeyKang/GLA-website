@@ -925,4 +925,20 @@ class AdminController extends Controller
 
         
     }
+
+    public function manualReceive($sono){
+        $somast = SOMAST::where('order_num',$sono)->whereIn('sales_status',[3,5])->first();
+
+        if ($somast===null) {
+            return redirect()->back()->withErrors("$sono status cannot be changed.");
+        }else{
+            $somast->sales_status=1;
+            $somast->save();
+            soSendemail($somast);
+            // $sotran = $somast->sotran()->delete();
+            // $somast->delete();
+
+            return redirect('/pendingQuotes')->with('status',"$sono status has been changed.");
+        }
+    }
 }

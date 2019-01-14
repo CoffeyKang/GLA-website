@@ -746,6 +746,7 @@ class InventoryController extends Controller
                     
                 }
             }
+            $total_shipping +=6;
             // $subtotal += $total_shipping;
             $tax_total = ($subtotal+$total_shipping) * $tax;
 
@@ -976,7 +977,7 @@ class InventoryController extends Controller
                     
                 }
             }
-
+            $total_shipping +=6;
             // $subtotal += $total_shipping;
             $tax_total = ($subtotal+$total_shipping) * $tax;
 

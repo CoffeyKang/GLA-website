@@ -164,7 +164,8 @@
             
     </div> 
     <div class='clear-both container-fluid'>
-        <div class="col-md-12 d-flex flex-row-reverse">
+        <div class="col-md-12 d-flex justify-content-between">
+            <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter1">Manual Receive</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete Order</button>
         </div>
     </div>
@@ -185,7 +186,26 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a type="button" href="/deleteOrder/{{$somast->order_num}}" class="btn btn-danger">Delete Order</a>
+                    <a type="button" href="/deleteOrder/{{$somast->order_num}}" class="btn btn-danger">Delete Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Manual Receive Order {{$somast->order_num}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a type="button" href="/manualReceive/{{$somast->order_num}}" class="btn btn-danger">Manual Receive</a>
                 </div>
             </div>
         </div>

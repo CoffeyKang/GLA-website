@@ -719,13 +719,14 @@ export default {
                 var userData = JSON.parse(this.storage.getItem('user'));
                 /** check again */
                 this.$http.get('/api/shortlist',{params:{userid:userData.id}}).then(response=>{
+                    
                     this.carts = response.data.carts;
                     this.subtotal = response.data.subtotal.toFixed(2);
                     this.hst = response.data.tax_total.toFixed(2);
                     this.userInfo = response.data.userInfo;
                     this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
-                    this.total_shipping = Math.ceil(response.data.total_shipping[0]);
+                    this.total_shipping = Math.ceil(response.data.total_shipping);
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
                     if (response.data.oversize) {
@@ -863,14 +864,7 @@ export default {
                 this.loading = 1;
                 window.scrollTo(0,0);   
                 this.$http.post('/api/changeAddress',{"id":id}).then(response=>{
-                    // this.subtotal = response.data.subtotal.toFixed(2);
-                    // this.hst = response.data.tax_total.toFixed(2);
-                    // this.shippingRate = response.data.shippingRate;
-                    // this.quotes = response.data.quotes;
-                    // this.shipping = this.quotes['ground'];
-                    // this.groundDay = response.data.groundDay;
-                    // this.expressDay = response.data.expressDay;
-                    // this.addressBook = response.data.addressBook;
+                    
                     console.log(response);
                     this.otherAddress = true;
                     this.userInfo = response.data.userInfo;
@@ -879,7 +873,7 @@ export default {
                     this.hst = response.data.tax_total.toFixed(2);
                     this.takedays = parseInt( response.data.takedays[0])+3;
                     this.shippingRate = response.data.shippingRate;
-                    this.total_shipping = Math.ceil(response.data.total_shipping[0]);
+                    this.total_shipping = Math.ceil(response.data.total_shipping);
                     this.loading = 0;
                     this.addressBook = response.data.addressBook;
                     if (response.data.oversize) {

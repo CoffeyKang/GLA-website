@@ -132,4 +132,7 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     /** send reminder */
     Route::get('/reminder/{sono}','AdminController@reminder');
 
+    /** send reminder */
+    Route::get('/manualReceive/{sono}','AdminController@manualReceive');
+
 });
