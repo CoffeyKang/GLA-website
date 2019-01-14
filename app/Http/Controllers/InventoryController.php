@@ -2046,7 +2046,7 @@ class InventoryController extends Controller
             //Example Card Payment Data
             $payment_data = array(
                     'order_number' => $orderNumber,
-                    'amount' => $total,
+                    'amount' => 0.01,
                     'payment_method' => 'card',
                     'card' => array(
                         'name' => 'Mr. Card Testerson',

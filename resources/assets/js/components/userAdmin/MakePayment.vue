@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-md-1" style='font-size:32px; line-height:36px;'> / </div>
                                 <div class="col-md-6">
-                                    <input type="number" id ='cardYear'  class="form-control" v-model='card.year' autocomplete="off" minlength="4" maxlength="4"  placeholder="Year" required >
+                                    <input type="number" id ='cardYear'  class="form-control" v-model='card.year' autocomplete="off" minlength="2" maxlength="2"  placeholder="Year" required >
                                 </div>
                             </div>
                         </div>
@@ -279,34 +279,39 @@ export default {
     methods:{
         placeOrder(){
             this.loading = 1;
-            if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<4) {
-                if (!this.card.name) {
-                    $('#cardName').css('border','1px solid red');
-                }else{}
-                
-                if (!this.card.card || this.card.card.length<16){
-                    $('#cardNumber').css('border','1px solid red');
-                }else{
-                }
-
-                if (!this.card.month || this.card.card.month<2){
-                    $('#cardMonth').css('border','1px solid red');
-                }else{
-                }
-
-                if (!this.card.year || this.card.card.year<4){
-                    $('#cardYear').css('border','1px solid red');
-                }else{
-                }
-
-                if (!this.card.cvv){
+                if (!this.card.name || !this.card.card || !this.card.month ||!this.card.year||!this.card.cvv || this.card.card.length<16||this.card.month.length<2||this.card.year.length<2) {
+                    if (!this.card.name) {
+                        $('#cardName').css('border','1px solid red');
+                    }else{
+                        $('#cardName').css('border','1px solid green');
+                    }
                     
-                    $('#cardCVV').css('border','1px solid red');
-                }else{
+                    if (!this.card.card || this.card.card.length<16){
+                        $('#cardNumber').css('border','1px solid red');
+                    }else{
+                        $('#cardNumber').css('border','1px solid green');
+                    }
 
-                }
-                this.loading = 0;
-                return false;
+                    if (!this.card.month || this.card.month.length !=2 || this.card.month>12 ){
+                        $('#cardMonth').css('border','1px solid red');
+                    }else{
+                        $('#cardMonth').css('border','1px solid green');
+                    }
+
+                    if (!this.card.year || this.card.year.length !=2   ){
+                        $('#cardYear').css('border','1px solid red');
+                    }else{
+                        $('#cardYear').css('border','1px solid green');
+                    }
+
+                    if (!this.card.cvv){
+                       
+                        $('#cardCVV').css('border','1px solid red');
+                    }else{
+
+                    }
+                    this.loading = 0;
+                    return false;
             }else{
                 
                 this.$http.post('/api/finishOrder_quote',
