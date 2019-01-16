@@ -19,6 +19,9 @@
             <el-step title="Step 4"></el-step>
         </el-steps>
         <div>
+            <div class="col-sm12 alert alert-success">
+                Payment Success, please print the receipt for your own reference.
+            </div>
             <div class="col-sm-6">
                 <h1><i>GOLDEN LEAF AUTOMOTIVE</i></h1>
                 <h4>
