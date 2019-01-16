@@ -30,7 +30,7 @@ class LeaveMessege extends Mailable
      */
     public function build()
     {
-        return $this->subject("Email messege from retals website.")->from('info@goldenleafautomotive.com')
+        return $this->subject("Email messege from retals website.")
         ->bcc('ayeh@goldenleafautomotive.com')
         ->bcc('fkang@velements.com')
         ->view('emails.messege');

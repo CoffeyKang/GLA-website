@@ -101,7 +101,7 @@ class AdminController extends Controller
 
     public function pendingQuotes(){
 
-        $pendingQuotes = SOMAST::orderBy('order_num','desc')->whereNotIn('sales_status',[3,5,9])->get();
+        $pendingQuotes = SOMAST::orderBy('order_num','desc')->whereNotIn('sales_status',[3,5,9,6])->get();
 
         return view('admin.pendingQuotes',compact('pendingQuotes'));
     }

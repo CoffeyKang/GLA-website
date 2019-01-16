@@ -197,6 +197,7 @@ class InventoryController extends Controller
         $items = Inventory::where('year_from',$it->year_from)->where('year_end',$it->year_end)->inRandomOrder();
         
         if (count($items->get())>=4) {
+            
         }else{
             
             $from = substr($it->year_from,0,-1);
@@ -205,7 +206,7 @@ class InventoryController extends Controller
             
             $items = Inventory::where('year_from', 'like',$from."%")->where('year_end', 'like',$end."%")->inRandomOrder();
             
-        }
+        }   
         $item_from_make_table = Item_make::where('make',$make)->get();
 
         $from_make_table_item = [];
@@ -216,6 +217,8 @@ class InventoryController extends Controller
         }
 
         $related = $items->whereIn('item',$from_make_table_item)->take(4)->get();
+
+        
         
         foreach ($related as $r) {
             $r->itemFullInfo();

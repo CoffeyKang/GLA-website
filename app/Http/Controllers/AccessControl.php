@@ -389,7 +389,7 @@ class AccessControl extends Controller
                 $emailAddress = $customer->email?:'info@goldenleafautomotive.com';
             }
 
-            Mail::to('info@goldenleafautomotive.com')->cc("$emailAddress")->send(new LeaveMessege($email));
+            Mail::to('info@goldenleafautomotive.com')->cc("$emailAddress")->from($emailAddress)->send(new LeaveMessege($email));
             # code...
         }else{
             $custno = $request->custno;
@@ -417,7 +417,7 @@ class AccessControl extends Controller
         $email['subject'] = $request->subject;
         $email['messege'] = $request->messege;
 
-        Mail::to('info@goldenleafautomotive.com')->send(new InquiryOnline($email));
+        Mail::to('info@goldenleafautomotive.com')->from('info@goldenleafautomotive.com')->send(new InquiryOnline($email));
     
 
 
