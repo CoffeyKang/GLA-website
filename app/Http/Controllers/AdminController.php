@@ -733,15 +733,17 @@ class AdminController extends Controller
     public function updateDealerPass(Request $request){
         
         $this->validate($request,[
-            'password'=>'required|alpha_num'
+            'password'=>'required|alpha_num',
+            'email' => 'required|email',
         ]);
 
         $dealer = Dealer::find($request->id);
 
         if ($dealer) {
             $dealer->pass = $request->password;
+            $dealer->email = $request->email;
             $dealer->save();
-            return redirect()->back()->with('status','Password changed.');
+            return redirect()->back()->with('status','Dealer information changed.');
         }else{
             return redirect()->back()->with('status','Dealer not found.');
         }
