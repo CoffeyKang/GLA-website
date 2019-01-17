@@ -315,18 +315,19 @@ export default {
 
            /**  set my items */
            this.myItems = [
-                {
-                    "name": "Tax",
-                    "description": "Tax.",
-                    "quantity": "1",
-                    "price": this.$route.params.hst,
-                    "currency": "CAD"
-                },
+                
                 {
                     "name": "Shipping",
                     "description": "Shipping Fee.",
                     "quantity": "1",
                     "price": this.$route.params.shipping,
+                    "currency": "CAD"
+                },
+                {
+                    "name": "Tax",
+                    "description": "Tax.",
+                    "quantity": "1",
+                    "price": this.$route.params.hst,
                     "currency": "CAD"
                 }
                

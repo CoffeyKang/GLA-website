@@ -234,14 +234,48 @@ use App\Mail\forgetPassword;
 
         $pass = $xml->createTextNode("vs6Dp5Iw");
         $userID = $xml->createTextNode("LSHIPM34538@GLACANADA.COM");
-        $delivery_address = $xml->createTextNode("170 Zenway Blvd. Unit 2");
-        $delivery_city_text = $xml->createTextNode("Woodbridge");
-        $delivery_country_text = $xml->createTextNode("CA");
-        $delivery_name_text = $xml->createTextNode("Golden Leaf Automotive.");
-        $delivery_postal_code_text = $xml->createTextNode("L4H2Y7");
-        $delivery_province_text = $xml->createTextNode("ON");
+
+        
+
+        $pickup_address_line1_label = $xml->createTextNode("170 Zenway Blvd. Unit 2");
+        $pickup_city_label = $xml->createTextNode("Woodbridge");
+        $pickup_country_label = $xml->createTextNode("CA");
+        $pickup_name_label = $xml->createTextNode("Golden Leaf Automotive.");
+        $pickup_postal_code_label = $xml->createTextNode("L4H2Y7");
+        $pickup_province_label = $xml->createTextNode("ON");
         $dimension_unit_text = $xml->createTextNode("I");
 
+        // $delivery_address = $xml->createTextNode("170 Zenway Blvd. Unit 2");
+        // $delivery_city_text = $xml->createTextNode("Woodbridge");
+        // $delivery_country_text = $xml->createTextNode("CA");
+        // $delivery_name_text = $xml->createTextNode("Golden Leaf Automotive.");
+        // $delivery_postal_code_text = $xml->createTextNode("L4H2Y7");
+        // $delivery_province_text = $xml->createTextNode("ON");
+        // $dimension_unit_text = $xml->createTextNode("I");
+
+        $delivery_address = $xml->createTextNode($shippingArray['address_line1']);
+        $delivery_city_text = $xml->createTextNode($shippingArray['city']);
+        $delivery_country_text = $xml->createTextNode($shippingArray['country']);
+        $delivery_name_text = $xml->createTextNode($shippingArray['name']);
+        $delivery_postal_code_text = $xml->createTextNode(str_replace(' ','',$shippingArray['postal_code']));
+        $delivery_province_text = $xml->createTextNode($shippingArray['province']);
+        $dimension_unit_text = $xml->createTextNode("I");
+        
+        $reported_weight_unit_label = $xml->createTextNode("L");// l pound, K kilogram
+        $service_type_label = $xml->createTextNode("DD"); // api pdf document page80 DD loomis ground
+
+
+
+        // $pickup_address_line1_label = $xml->createTextNode($shippingArray['address_line1']);
+        // $pickup_city_label = $xml->createTextNode($shippingArray['city']);
+        // $pickup_country_label = $xml->createTextNode($shippingArray['country']);
+        // $pickup_name_label = $xml->createTextNode($shippingArray['name']);
+        // $pickup_postal_code_label = $xml->createTextNode(str_replace(' ','',$shippingArray['postal_code']));
+        // $pickup_province_label = $xml->createTextNode($shippingArray['province']);
+
+        
+        // $reported_weight_unit_label = $xml->createTextNode("L");// l pound, K kilogram
+        // $service_type_label = $xml->createTextNode("DD"); // api pdf document page80 DD loomis ground
 
 
         /** xml node */
@@ -257,21 +291,27 @@ use App\Mail\forgetPassword;
         $user_id = $getRequest->appendChild($user_id);
         $shipment = $xml->createElement('xsd:shipment');
         $delivery_address_line_1 = $xml->createElement('xsd1:delivery_address_line_1');
+        /** address 1 */
         $delivery_address = $delivery_address_line_1->appendChild($delivery_address);
         $delivery_address_line_1 = $shipment->appendChild($delivery_address_line_1);
         $delivery_city = $xml->createElement('xsd1:delivery_city');
+        /** cisty */
         $delivery_city_text = $delivery_city->appendChild($delivery_city_text);
         $delivery_city = $shipment->appendChild($delivery_city);
         $delivery_country = $xml->createElement('xsd1:delivery_country');
+        /** country */
         $delivery_country_text = $delivery_country->appendChild($delivery_country_text);
         $delivery_country = $shipment->appendChild($delivery_country);
         $delivery_name = $xml->createElement('xsd1:delivery_name');
+        /** name */
         $delivery_name_text = $delivery_name->appendChild($delivery_name_text);
         $delivery_name = $shipment->appendChild($delivery_name);
         $delivery_postal_code = $xml->createElement('xsd1:delivery_postal_code');
+        /** postcode */
         $delivery_postal_code_text = $delivery_postal_code->appendChild($delivery_postal_code_text);
         $delivery_postal_code = $shipment->appendChild($delivery_postal_code);
         $delivery_province = $xml->createElement('xsd1:delivery_province');
+        /** province */
         $delivery_province_text = $delivery_province->appendChild($delivery_province_text);
         $delivery_province = $shipment->appendChild($delivery_province);
         $dimension_unit = $xml->createElement('xsd1:dimension_unit');
@@ -343,13 +383,8 @@ use App\Mail\forgetPassword;
         }
 
 
-        $pickup_address_line1_label = $xml->createTextNode($shippingArray['address_line1']);
-        $pickup_city_label = $xml->createTextNode($shippingArray['city']);
-        $pickup_name_label = $xml->createTextNode($shippingArray['name']);
-        $pickup_postal_code_label = $xml->createTextNode(str_replace(' ','',$shippingArray['postal_code']));
-        $pickup_province_label = $xml->createTextNode($shippingArray['province']);
-        $reported_weight_unit_label = $xml->createTextNode("L");// l pound, K kilogram
-        $service_type_label = $xml->createTextNode("DD"); // api pdf document page80 DD loomis ground
+        
+        
 
         $pickup_address_line_1 = $xml->createElement('xsd1:pickup_address_line_1');
         $pickup_city = $xml->createElement('xsd1:pickup_city');
@@ -359,10 +394,15 @@ use App\Mail\forgetPassword;
         $reported_weight_unit = $xml->createElement('xsd1:reported_weight_unit');
         $service_type = $xml->createElement('xsd1:service_type');
 
+        /** address */
         $pickup_address_line_1->appendChild($pickup_address_line1_label);
+        /**city  */
         $pickup_city->appendChild($pickup_city_label);
+        /** name */
         $pickup_name->appendChild($pickup_name_label);
+        /**postalcode */
         $pickup_postal_code->appendChild($pickup_postal_code_label);
+        /**provice */
         $pickup_province->appendChild($pickup_province_label);
         $reported_weight_unit->appendChild($reported_weight_unit_label);
         $service_type->appendChild($service_type_label);
