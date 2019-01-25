@@ -3,6 +3,22 @@
 		<div class="title">
 			<span>Classic Body</span>
 		</div>
+		<div class='col-xs-12 cat'>
+			<div class="banner col-xs-12 col-sm-6">
+				<img src="/images/ccbd_header.jpg"  style=' width:100%' alt="">
+			</div>
+
+			<div class="banner col-xs-12 col-sm-6">
+				<p>In the restoration car parts industry, Dynacorn International, Incorporated constantly strives to be the best at 
+					what we do. As we streamline the purchasing process and continue to strengthen our customer service, 
+					we make it easier and easier to get your parts from dii. 
+					With facilities on the East and West coasts and Canada, we are now prepared to meet your needs better than ever.</p>
+			</div>
+		</div>
+		
+
+
+
 
 		<div class=" col-xs-12 col-sm-3 cat" v-for="i in 16" :key="i">
 			<div class="cat_img" 
@@ -41,7 +57,6 @@
 				if (i<10) {
 					i = '0'+i;
 				}
-				console.log(i);
 				this.imgSrc = '/images/catalog/CLASSIC BODY/CLASSIC BODY_Page_' + i + '.jpg';
 			}
 		}
@@ -62,6 +77,7 @@
 	}
 	.cat{
 		padding: 20px 0;
+		
 	}
 	.cat_img{
 		
@@ -74,4 +90,13 @@
 		cursor: pointer;
 		border: 10px solid white;
 	}
+
+	.banner
+{
+	height: 180px;
+}
+.banner p{
+	padding-top: 25px;
+
+}
 </style>

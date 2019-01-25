@@ -3,6 +3,9 @@
 		<div class="title">
 			<span>Catalog</span>
 		</div>
+		<div>
+
+		
 		<div class=" col-xs-12 col-sm-3 cat" v-for="catalog in catalogs" :key="catalog.id">
 			<div class="cat_img" 
 			:style="{ backgroundImage: 'url(/images/catalog/' + catalog.path + ')' }">
@@ -16,6 +19,7 @@
 					Download PDF
 				</button>
 			</div>
+		</div>
 		</div>
 	</div>
 </template>
