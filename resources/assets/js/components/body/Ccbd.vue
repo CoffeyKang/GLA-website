@@ -20,9 +20,9 @@
 
 
 
-		<div class=" col-xs-12 col-sm-3 cat" v-for="i in 16" :key="i">
+		<div class=" col-xs-12 col-sm-3 cat" v-for="i in 17" :key="i">
 			<div class="cat_img" 
-			:style="{ backgroundImage: 'url(/images/ccbd/classicBody-' + i + '.jpg)' }" @click="bigger(i)">
+			:style="{ backgroundImage: 'url(/images/ccbd/classicBody-' + (i-1) + '.jpg)' }" @click="bigger(i)">
 			</div>
 		</div>
 
@@ -53,7 +53,7 @@
 		methods:{
 			bigger(i){
 				this.dialogVisible = true;
-				i = i + 1;
+				// i = i + 1;
 				if (i<10) {
 					i = '0'+i;
 				}
