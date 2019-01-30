@@ -157,7 +157,7 @@
                         <div class="inRow">
                             <div class="col-xs-12">
                                 <el-form-item label="Tel" prop='tel'>
-                                    <el-input type='number' v-model="details.b_tel" placeholder="Tel"></el-input>
+                                    <el-input type='text' v-model="details.b_tel" placeholder="Please enter digits only, eg. 1234567890"  @change="b_telFormat(details.b_tel)"></el-input>
                                 </el-form-item>
                             </div>
                         </div>
@@ -250,13 +250,13 @@
                         <div class="inRow">
                             <div class="col-xs-6">
                                 <el-form-item label="Tel" prop='tel'>
-                                    <el-input type='number' v-model="details.tel" placeholder="Tel"></el-input>
+                                    <el-input type='text' v-model="details.tel" placeholder="Please enter digits only, eg. 1234567890" @change="telFormat(details.tel)"></el-input>
                                 </el-form-item>
                             </div>
                             
                             <div class="col-xs-6">
                                 <el-form-item label="Mobile" prop='mobile'>
-                                    <el-input type='number' v-model="details.mobile" placeholder="Mobile"  ></el-input>
+                                    <el-input type='text' v-model="details.mobile" placeholder="Mobile"  ></el-input>
                                 </el-form-item>
                             </div>
                             
@@ -392,10 +392,10 @@ export default {
                     { required: true, message: 'Country is required.', trigger: 'blur', max:99 },
                 ],
                 tel:[
-                    {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
+                    {required: true, message: 'Invalid telephone number.', trigger: 'blur',  max:30, min:10}
                 ],
                 mobile:[
-                    {message: 'Invalid telephone number.', trigger: 'blur',  max:10, min:10}
+                    {message: 'Invalid telephone number.', trigger: 'blur',  max:30, min:10}
                 ],
             },
 
@@ -462,7 +462,51 @@ export default {
             this.details.year = a;
             
         },
-        
+        telFormat(a){
+                
+                
+                var b= a.replace(/[^0-9]/ig,"");
+                console.log(b);
+                var c =b.toString();
+                console.log(c);
+                if (c.length>10) {
+                    var country = c.length - 10;
+                    var countryNum = c.substr(0,country);
+                    var telNum = c.replace(countryNum,'');
+                    var d = telNum.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3");
+                    this.details.tel = countryNum + d;
+                }else{
+                    var d = c.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3");
+                    this.details.tel = d;
+                }
+                
+
+                
+               
+            },
+
+            b_telFormat(a){
+                
+                
+                var b= a.replace(/[^0-9]/ig,"");
+                console.log(b);
+                var c =b.toString();
+                console.log(c);
+                if (c.length>10) {
+                    var country = c.length - 10;
+                    var countryNum = c.substr(0,country);
+                    var telNum = c.replace(countryNum,'');
+                    var d = telNum.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3");
+                    this.details.b_tel = countryNum + d;
+                }else{
+                    var d = c.replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3");
+                    this.details.b_tel = d;
+                }
+                
+
+                
+               
+            },
         submitForm(details){
             this.$refs["details"].validate((valid)=>{
                 if (valid){

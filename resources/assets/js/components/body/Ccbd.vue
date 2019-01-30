@@ -15,10 +15,6 @@
 					With facilities on the East and West coasts and Canada, we are now prepared to meet your needs better than ever.</p>
 			</div>
 		</div>
-		
-
-
-
 
 		<div class=" col-xs-12 col-sm-3 cat" v-for="i in 17" :key="i">
 			<div class="cat_img" 
