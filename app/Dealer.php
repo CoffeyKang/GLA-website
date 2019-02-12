@@ -58,7 +58,12 @@ class Dealer extends Model
         $billing = $this->dealerInfo;
 
         if ($billing) {
-            $province = $billing->state;
+            $province = $billing->terr;
+            if ($province) {
+            	# code...
+            }else{
+            	$province = $billing->state;
+            }
         }else{
             $province = "OT";
         }
