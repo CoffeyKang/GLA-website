@@ -8,7 +8,7 @@ use App\User;
 use App\UserInfo;
 use Validator;
 use Illuminate\Support\Facades\Log;
-use App\DealerHistory;
+
 use App\Inventory_img;
 use App\Item_make;
 use App\FeatureProduct;
@@ -20,9 +20,6 @@ use App\SOTRAN;
 use App\Catalog;
 use App\Inventory;
 use App\Billing;
-use App\Dealer;
-use App\DealerEmail;
-
 use DB;
 use Excel;
 use Mail;
@@ -31,8 +28,10 @@ use App\Mail\SalesOrder;
 use App\Mail\LeaveMessege;
 use App\Mail\DealerMessege;
 use App\Mail\InquiryOnline;
-
-
+use App\Mail\DealerSO;
+use App\Dealer;
+use App\DealerHistory;
+use App\NewProducts;
 
 
 
@@ -152,8 +151,6 @@ class AccessControl extends Controller
             resetPass($user);
             return response()->json(['status'=>"good"],200);
         }
-
-        
         
     }
 
@@ -171,7 +168,7 @@ class AccessControl extends Controller
          $check = UserInfo::where('m_id',$userID)->first();
         
          if ($check) {
-            
+            $userInfo = $check;
          }else{
              $userInfo = new UserInfo;
              $userInfo->m_id = $userID;
@@ -246,7 +243,7 @@ class AccessControl extends Controller
                 $billing->province = strtoupper($data["b_state"]);
                 $billing->postalcode = strtoupper($data["b_zipcode"]);
                 $billing->country = $data["b_country"];
-                $billing->phone = $data["b_tel"];
+                $billing->phone = $data["b_tel"]?:'';
              }
 
              $billing->save();
@@ -373,6 +370,25 @@ class AccessControl extends Controller
 
     /** sending email to inquiry */
 
+    // public function inquiry(Request $request){
+    //     $email['user'] = $request->user;
+    //     $email['subject'] = $request->subject;
+    //     $email['messege'] = $request->messege;
+
+    //     if ($request->type=='customer') {
+
+    //         Mail::to('info@goldenleafautomotive.com')->send(new LeaveMessege($email));
+    //         # code...
+    //     }else{
+    //         Mail::to('info@goldenleafautomotive.com')->send(new DealerMessege($email));
+    //     }
+
+
+
+
+
+    //     return response()->json(['status'=>true],200);
+    // }
     public function inquiry(Request $request){
         $email['user'] = $request->user;
         $email['subject'] = $request->subject;
@@ -383,13 +399,14 @@ class AccessControl extends Controller
             $custno = $request->custno;
             $dealer = User::where('id',$custno)->first();
 
-            if ($customer===null) {
+            if ($dealer===null) {
                 $emailAddress = 'info@goldenleafautomotive.com';
             }else{
                 $emailAddress = $customer->email?:'info@goldenleafautomotive.com';
             }
-
-            Mail::to('info@goldenleafautomotive.com')->cc("$emailAddress")->from($emailAddress)->send(new LeaveMessege($email));
+            config(['mail.from' => ['address'=>$emailAddress,'name'=>$emailAddress]]);
+            Mail::to('info@goldenleafautomotive.com')->cc("$emailAddress")->send(new LeaveMessege($email));
+            config(['mail.from' => ['address'=>'GLA@goldenleafautomotive.com','name'=>'GLA Website']]);
             # code...
         }else{
             $custno = $request->custno;
@@ -400,8 +417,10 @@ class AccessControl extends Controller
             }else{
                 $emailAddress = $dealer->email?:'info@goldenleafautomotive.com';
             }
+            config(['mail.from' => ['address'=>$emailAddress,'name'=>$emailAddress]]);
             Mail::to('info@goldenleafautomotive.com')
             ->cc("$emailAddress")->send(new DealerMessege($email));
+            config(['mail.from' => ['address'=>'GLA@goldenleafautomotive.com','name'=>'GLA Website']]);
         }
 
 
@@ -416,8 +435,11 @@ class AccessControl extends Controller
         $email['email'] = $request->email;
         $email['subject'] = $request->subject;
         $email['messege'] = $request->messege;
+        config(['mail.from' => ['address'=>$request->email,'name'=>'Customer']]);
 
-        Mail::to('info@goldenleafautomotive.com')->from('info@goldenleafautomotive.com')->send(new InquiryOnline($email));
+        Mail::to('info@goldenleafautomotive.com')->send(new InquiryOnline($email));
+
+        config(['mail.from' => ['address'=>'GLA@goldenleafautomotive.com','name'=>'GLA Website']]);
     
 
 
@@ -428,19 +450,47 @@ class AccessControl extends Controller
     }
     /** test page */
     public function kang(){
+        /** payment api config */
+        // $somast = SOMAST::where('order_num',1000549)->first();
 
-        echo str_random(40);
-        // $D = Dealer::all();
+        //  soSendemail($somast);
+
+    	// $n = NewProducts::all();
+        // $somast = SOMAST::where('order_num',1000549)->first();
+        // customerCancelledOrder($somast);
+
+    	// foreach ($n as $a) {
+    	// 	$a->item = strtoupper($a->item);
+
+    	// 	$a->save();
+    	// }
         
-        // foreach ($D as $a) {
-        //     $e = DealerEmail::where('account',$a->account)->first();
-        //     if ($e===null) {
-        //         echo $a->account,"<br>";
-        //     }else{
-        //         $a->email = $e->email_address;
-        //         $a->save();
-        //     }
-        // }
+
+        
+    	// $users = User::where('email','')->get();
+    	// foreach ($users as $user) {
+    	// 	$user->userDetails->first()->delete();
+    	// 	$user->delete();
+    	// }
+    	
+    	
+       // $arr = scandir('./images/products/large');
+       //  $len = count($arr);
+       //  $name = [];
+       //  foreach ($arr as $i){ 
+       //      array_push($name,basename($i,'.jpg')) ;
+       //  }
+        
+       //  $inventory = Inventory::whereNotIn('item',$name)->get();
+
+       //  $notIn = [];
+
+       //  foreach ($inventory as $i) {
+       //      array_push($notIn,$i->item);
+       //  }
+
+       //  dd($notIn);
+        
             
         // $user = User::find(3)
     //     $arr = scandir('./images/products/large');
