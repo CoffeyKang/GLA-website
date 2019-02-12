@@ -57,13 +57,13 @@ class Dealer extends Model
         
         $billing = $this->dealerInfo;
 
-        if ($billing===null) {
-            $province = "OT";
-        }else{
+        if ($billing) {
             $province = $billing->state;
+        }else{
+            $province = "OT";
         }
 
-        $taxRate = TaxRate::where('province',$province)->first()?TaxRate::where('province',$province)->first()->tax/100:0;
+        $taxRate = TaxRate::where('province',$province)->first()->tax/100;
 
         return $taxRate;
     }
