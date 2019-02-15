@@ -88,7 +88,7 @@
             <td colspan=2 style='padding-top:30px'>
                 From:  {{$email['user']}}, (Retail Customer)<br>
                 Subject: {{$email['subject']}}<br>
-            <p>Messege: {{$email['messege']}}</p>
+            <p>Message: {{$email['messege']}}</p>
             </td>
         </tr>
 

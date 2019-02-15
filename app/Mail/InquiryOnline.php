@@ -30,7 +30,7 @@ class InquiryOnline extends Mailable
      */
     public function build()
     {
-        return $this->subject("Email messege from retals website.")
+        return $this->subject("Email messege from retail website.")
         ->bcc('ayeh@goldenleafautomotive.com')
         ->bcc('fkang@velements.com')
         ->view('emails.inquiryOnline');
