@@ -93,10 +93,9 @@ export default {
             return this.$store.state.loginStatus;
         },
         yesterDay(){
-            var d = new Date();
-            var day = d.getDate() -1;
-            var str =  d.getFullYear() + '-'+d.getMonth()+1 +'-'+day;
-            return str;
+           var date = new Date();
+            date.setDate(date.getDate()-1);
+            return  date.getFullYear() + '-'  + (date.getMonth()+1) + '-' + date.getDate() ;
         }
     },
     methods:{
