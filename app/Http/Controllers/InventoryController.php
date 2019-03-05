@@ -170,6 +170,8 @@ class InventoryController extends Controller
 
         $singleItem = Inventory::where('item',$item)->first();
 
+        $singleItem->aloc = $singleItem->aloc>0?$singleItem->aloc:0;
+
         $singleItem->onhand = ($singleItem->onhand - $singleItem->aloc)>0?($singleItem->onhand - $singleItem->aloc):0;
 
         $singleItem->itemFullInfo();
